@@ -113,8 +113,9 @@ function RedLightPage() {
           />
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
             <Reveal>
-              <div className="h-full rounded-sm border border-border bg-card p-8">
-                <h3 className="font-display text-3xl font-medium">Residential</h3>
+              <div className="h-full border-t-2 border-foreground pt-6">
+                <p className="overline text-bronze-strong">At Home</p>
+                <h3 className="mt-3 font-display text-3xl font-medium">Residential</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   Panels and compact systems that integrate into bedrooms, home gyms and personal
                   wellness spaces — used on your schedule, in your space.
@@ -122,8 +123,9 @@ function RedLightPage() {
               </div>
             </Reveal>
             <Reveal delayMs={100}>
-              <div className="h-full rounded-sm border border-border bg-card p-8">
-                <h3 className="font-display text-3xl font-medium">Professional</h3>
+              <div className="h-full border-t-2 border-foreground pt-6">
+                <p className="overline text-bronze-strong">In Practice</p>
+                <h3 className="mt-3 font-display text-3xl font-medium">Professional</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   Larger systems for gyms, studios, spas and recovery centres — planned around your
                   members and the wider wellness experience you offer.

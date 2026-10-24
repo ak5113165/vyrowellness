@@ -86,7 +86,7 @@ function CommercialPage() {
               },
             ].map((c, i) => (
               <Reveal key={c.title} delayMs={i * 60}>
-                <div className="h-full rounded-sm border border-border bg-card p-7">
+                <div className="h-full border-t border-border bg-card p-7">
                   <c.icon className="h-6 w-6 text-bronze-strong" aria-hidden />
                   <h3 className="mt-4 font-display text-2xl font-medium">{c.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>

@@ -133,7 +133,10 @@ function SaunasPage() {
             ].map((c, i) => (
               <Reveal key={c.title} delayMs={i * 80}>
                 <div className="h-full rounded-sm border border-border bg-card p-7">
-                  <h3 className="font-display text-2xl font-medium">{c.title}</h3>
+                  <p className="text-xs font-medium tracking-[0.2em] text-bronze-strong">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-3 font-display text-2xl font-medium">{c.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
                 </div>
               </Reveal>
