@@ -8,11 +8,12 @@
 - [x] Art directions confirmed: homepage = architectural luxury; product pages = wellness-tech precision; recovery sessions (future) = warm retreat
 
 ## In progress
-- [ ] Verify build green + visual review (desktop & mobile) via Playwright
+(none)
 
 ## Next
-- [ ] Refine product pages toward "wellness technology" precision (light, product-forward, hairline details) while keeping brand identity
-- [ ] Art-direction pass: varied section rhythms, mobile recomposition, spacing/typography polish across all pages
+- [x] Refine product pages toward "wellness technology" precision (numbered details, hairline dividers) while keeping brand identity
+- [x] Art-direction pass: varied section rhythms, mobile recomposition, spacing/typography polish across all pages
+- [x] End-to-end enquiry verification: form -> /api/public/enquiries -> enquiries table (test row submitted, verified, deleted)
 - [ ] Create brand favicon (currently default template icon)
 
 ## Waiting on user
