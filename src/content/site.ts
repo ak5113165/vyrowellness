@@ -1,0 +1,77 @@
+// ==========================================================================
+// VYRO — single content & configuration file.
+//
+// Every value marked PLACEHOLDER below is clearly labelled and easy to find:
+// search for "PLACEHOLDER" to see everything to replace before launch.
+//
+// PHOTOGRAPHY: the imagery in src/assets is AI-generated stand-in
+// photography. Replace each file with real product photography when
+// available (same file names keep everything working).
+// ==========================================================================
+
+export const site = {
+  name: "VYRO",
+  tagline: "Wellness, Reimagined.",
+  // Used sparingly (e.g. footer / brand story).
+  secondaryLine: "Sehat bhi. Shakti bhi. Sukoon bhi.",
+  announcement: "Discover a new approach to everyday wellness.",
+
+  // PLACEHOLDER — WhatsApp business number, international format, digits only
+  // (e.g. "919876543210"). Leave "" to hide all WhatsApp buttons.
+  whatsappNumber: "",
+
+  // PLACEHOLDER — public contact details.
+  email: "hello@vyro.in",
+  phoneDisplay: "+91 XXXXX XXXXX",
+
+  // PLACEHOLDER — social profile URLs. Leave "" to hide the link.
+  instagramUrl: "",
+};
+
+export const navLinks = [
+  { label: "Home", to: "/" },
+  { label: "Saunas", to: "/saunas" },
+  { label: "Cold Plunge", to: "/cold-plunge" },
+  { label: "Red Light Therapy", to: "/red-light-therapy" },
+  { label: "Commercial Wellness", to: "/commercial-wellness" },
+  { label: "Our Philosophy", to: "/philosophy" },
+] as const;
+
+export const productInterests = [
+  "Sauna",
+  "Cold Plunge",
+  "Red Light Therapy",
+  "Complete Home Wellness",
+  "Commercial Wellness",
+  "Other",
+] as const;
+
+// Indian city names are clearly labelled examples for the enquiry form only —
+// they are not a delivery-coverage or installation-availability claim.
+export const exampleCities = ["Mumbai", "Delhi NCR", "Bengaluru", "Hyderabad"];
+
+export const businessTypes = [
+  "Gym / Fitness Centre",
+  "Hotel / Hospitality",
+  "Spa / Wellness Centre",
+  "Fitness Studio",
+  "Residential Developer",
+  "Architect / Interior Designer",
+  "Corporate Wellness",
+  "Other",
+] as const;
+
+// PLACEHOLDER — indicative budget buckets for the optional budget field.
+// Adjust or remove to match how your team qualifies enquiries.
+export const budgetOptions = [
+  "Under ₹1 lakh",
+  "₹1–3 lakh",
+  "₹3–10 lakh",
+  "Above ₹10 lakh",
+  "Not sure yet",
+] as const;
+
+export function whatsappLink(message: string): string | null {
+  if (!site.whatsappNumber) return null;
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
