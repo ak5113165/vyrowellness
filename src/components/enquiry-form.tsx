@@ -5,8 +5,6 @@ import { Check } from "lucide-react";
 import {
   businessEnquirySchema,
   consumerEnquirySchema,
-  type BusinessEnquiry,
-  type ConsumerEnquiry,
 } from "@/lib/enquiry-schema";
 import { budgetOptions, businessTypes, productInterests, whatsappLink } from "@/content/site";
 import { cn } from "@/lib/utils";
@@ -24,7 +22,7 @@ function Label({ children, htmlFor }: { children: string; htmlFor: string }) {
   );
 }
 
-function FieldError({ message }: { message?: string }) {
+function FieldError({ message }: { message?: string | undefined }) {
   if (!message) return null;
   return (
     <p role="alert" className={errorClass}>
@@ -33,29 +31,11 @@ function FieldError({ message }: { message?: string }) {
   );
 }
 
-type ConsumerForm = {
-  fullName: string;
-  phone: string;
-  email: string;
-  city: string;
-  productInterest: (typeof productInterests)[number];
-  homeOrBusiness: "Home" | "Business";
-  budget: string;
-  message: string;
-};
+type Status = "idle" | "submitting" | "success" | "error";
 
-type BusinessForm = {
-  businessName: string;
-  contactPerson: string;
-  phone: string;
-  email: string;
-  city: string;
-  businessType: (typeof businessTypes)[number];
-  productsOfInterest: (typeof productInterests)[number];
-  projectDescription: string;
-};
-
-const EMPTY = "";
+function firstProductInterest(value: string | undefined): (typeof productInterests)[number] {
+  return productInterests.find((p) => p === value) ?? "Sauna";
+}
 
 export function EnquiryForm({
   variant,
@@ -63,40 +43,67 @@ export function EnquiryForm({
   className,
 }: {
   variant: "consumer" | "business";
-  defaultProductInterest?: string;
-  className?: string;
+  defaultProductInterest?: string | undefined;
+  className?: string | undefined;
 }) {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<Status>("idle");
   const [serverError, setServerError] = useState<string | null>(null);
   const [successName, setSuccessName] = useState("");
 
-  const consumerForm = useForm<ConsumerForm, unknown, ConsumerEnquiry>({
+  const consumerForm = useForm({
     resolver: zodResolver(consumerEnquirySchema),
     defaultValues: {
-      fullName: EMPTY,
-      phone: EMPTY,
-      email: EMPTY,
-      city: EMPTY,
-      productInterest: (defaultProductInterest as ConsumerForm["productInterest"]) ?? "Sauna",
-      homeOrBusiness: "Home",
-      budget: EMPTY,
-      message: EMPTY,
+      fullName: "",
+      phone: "",
+      email: "",
+      city: "",
+      productInterest: firstProductInterest(defaultProductInterest),
+      homeOrBusiness: "Home" as const,
+      budget: "",
+      message: "",
     },
   });
 
-  const businessForm = useForm<BusinessForm, unknown, BusinessEnquiry>({
+  const businessForm = useForm({
     resolver: zodResolver(businessEnquirySchema),
     defaultValues: {
-      businessName: EMPTY,
-      contactPerson: EMPTY,
-      phone: EMPTY,
-      email: EMPTY,
-      city: EMPTY,
-      businessType: "Gym / Fitness Centre",
-      productsOfInterest: (defaultProductInterest as BusinessForm["productsOfInterest"]) ?? "Sauna",
-      projectDescription: EMPTY,
+      businessName: "",
+      contactPerson: "",
+      phone: "",
+      email: "",
+      city: "",
+      businessType: "Gym / Fitness Centre" as const,
+      productsOfInterest: firstProductInterest(defaultProductInterest),
+      projectDescription: "",
     },
   });
+
+  const submit = async (payload: unknown, firstName: string) => {
+    setStatus("submitting");
+    setServerError(null);
+    try {
+      const res = await fetch("/api/public/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const json = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+      if (res.ok && json?.ok) {
+        setSuccessName(firstName);
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setServerError(json?.error ?? "Something went wrong. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setServerError("We couldn't reach the server. Please check your connection and try again.");
+    }
+  };
+
+  if (status === "success") {
+    return <SuccessPanel name={successName} className={className} />;
+  }
 
   if (variant === "business") {
     const {
@@ -105,35 +112,14 @@ export function EnquiryForm({
       formState: { errors },
     } = businessForm;
 
-    const onSubmit = handleSubmit(async (values) => {
-      setStatus("submitting");
-      setServerError(null);
-      try {
-        const res = await fetch("/api/public/enquiries", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(values),
-        });
-        const json = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
-        if (res.ok && json?.ok) {
-          setSuccessName(values.contactPerson.trim().split(" ")[0] ?? "");
-          setStatus("success");
-        } else {
-          setStatus("error");
-          setServerError(json?.error ?? "Something went wrong. Please try again.");
-        }
-      } catch {
-        setStatus("error");
-        setServerError("We couldn't reach the server. Please check your connection and try again.");
-      }
-    });
-
-    if (status === "success") {
-      return <SuccessPanel name={successName} className={className} />;
-    }
-
     return (
-      <form onSubmit={onSubmit} className={cn("space-y-5", className)} noValidate>
+      <form
+        onSubmit={handleSubmit((values) =>
+          submit(values, values.contactPerson.trim().split(" ")[0] ?? ""),
+        )}
+        className={cn("space-y-5", className)}
+        noValidate
+      >
         <div className="grid gap-5 sm:grid-cols-2">
           <div>
             <Label htmlFor="b-name">Business Name</Label>
@@ -211,35 +197,12 @@ export function EnquiryForm({
     formState: { errors },
   } = consumerForm;
 
-  const onSubmit = handleSubmit(async (values) => {
-    setStatus("submitting");
-    setServerError(null);
-    try {
-      const res = await fetch("/api/public/enquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const json = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
-      if (res.ok && json?.ok) {
-        setSuccessName(values.fullName.trim().split(" ")[0] ?? "");
-        setStatus("success");
-      } else {
-        setStatus("error");
-        setServerError(json?.error ?? "Something went wrong. Please try again.");
-      }
-    } catch {
-      setStatus("error");
-      setServerError("We couldn't reach the server. Please check your connection and try again.");
-    }
-  });
-
-  if (status === "success") {
-    return <SuccessPanel name={successName} className={className} />;
-  }
-
   return (
-    <form onSubmit={onSubmit} className={cn("space-y-5", className)} noValidate>
+    <form
+      onSubmit={handleSubmit((values) => submit(values, values.fullName.trim().split(" ")[0] ?? ""))}
+      className={cn("space-y-5", className)}
+      noValidate
+    >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <Label htmlFor="c-name">Full Name</Label>
@@ -335,7 +298,13 @@ function SubmitButton({ status, label }: { status: string; label: string }) {
   );
 }
 
-function SuccessPanel({ name, className }: { name: string; className?: string }) {
+function SuccessPanel({
+  name,
+  className,
+}: {
+  name: string;
+  className?: string | undefined;
+}) {
   const wa = whatsappLink("Hello VYRO, I've just submitted an enquiry on your website.");
   return (
     <div className={cn("rounded-sm border border-border bg-card p-8 text-center", className)} role="status">
