@@ -53,6 +53,7 @@ export function EnquiryForm({
   const consumerForm = useForm({
     resolver: zodResolver(consumerEnquirySchema),
     defaultValues: {
+      kind: "consumer" as const,
       fullName: "",
       phone: "",
       email: "",
@@ -67,6 +68,7 @@ export function EnquiryForm({
   const businessForm = useForm({
     resolver: zodResolver(businessEnquirySchema),
     defaultValues: {
+      kind: "business" as const,
       businessName: "",
       contactPerson: "",
       phone: "",
