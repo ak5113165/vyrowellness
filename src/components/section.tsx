@@ -17,7 +17,7 @@ export function SectionHeading({
 }) {
   return (
     <Reveal className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
-      {overline && <p className={`overline ${dark ? "text-bronze" : "text-bronze-strong"}`}>{overline}</p>}
+      {overline && <p className={`eyebrow ${dark ? "text-bronze" : "text-bronze-strong"}`}>{overline}</p>}
       <h2
         className={`mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl ${
           dark ? "text-ink-foreground" : "text-foreground"

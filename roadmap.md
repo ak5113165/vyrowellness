@@ -1,13 +1,25 @@
 # Roadmap — VYRO Phase 1
 
+## Done
+- [x] Lovable Cloud connected; `enquiries` table with RLS (server-only write path) + /api/public/enquiries route
+- [x] Design system (ivory/charcoal/bronze, Cormorant Garamond + Jost), header/footer/enquiry form
+- [x] Pages: home, saunas, cold plunge, red light therapy, commercial wellness, philosophy, contact, privacy, terms
+- [x] 10 stand-in photography assets generated (replace with real photography later)
+- [x] Art directions confirmed: homepage = architectural luxury; product pages = wellness-tech precision; recovery sessions (future) = warm retreat
+
 ## In progress
-- [ ] Fix enquiry-form type errors (exactOptionalPropertyTypes) — FieldError fixed, verify rest of build log
-- [ ] Verify build is green; run vitest if applicable
+(none)
 
-## New task (from user's design requirement file)
-- [ ] Present 3 art-direction homepage concepts (A: Architectural luxury, B: Modern wellness technology, C: Contemporary wellness retreat) and get the user's choice
-- [ ] After direction is confirmed: art-direction pass over existing pages — varied section rhythms, mobile-first recomposition, typography/spacing refinement
-- [ ] Replace `hello@vyro.in` / phone / Instagram placeholders once the user supplies real contact details; add WhatsApp number to src/content/site.ts
+## Next
+- [x] Refine product pages toward "wellness technology" precision (numbered details, hairline dividers) while keeping brand identity
+- [x] Art-direction pass: varied section rhythms, mobile recomposition, spacing/typography polish across all pages
+- [x] End-to-end enquiry verification: form -> /api/public/enquiries -> enquiries table (test row submitted, verified, deleted)
+- [ ] Create brand favicon (currently default template icon)
 
-## Phase 2 (later, behind feature flag — user sets up payments themselves)
-- [ ] Shop, cart, Razorpay checkout; recovery sessions; accounts; admin panel with RLS
+## Waiting on user
+- [ ] Real contact details (phone, WhatsApp number, Instagram URL, confirm email) — placeholders live in src/content/site.ts
+- [ ] Real product photography to replace src/assets stand-ins
+- [ ] Final Privacy Policy & Terms copy (pages contain clearly labelled placeholders)
+
+## Phase 2 (behind feature flag; user sets up Razorpay themselves)
+- [ ] Shop, cart, Razorpay checkout; recovery sessions at partner wellness centre (hidden until user enables; partner name/logo configurable); accounts (email+password, Google; admins sales@/support@vyro.in); admin panel; RLS everywhere

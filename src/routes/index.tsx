@@ -60,7 +60,7 @@ function Index() {
           />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/25" />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-32 sm:pb-24 lg:px-8">
-            <p className="overline text-bronze">Heat. Cold. Light. Recovery.</p>
+            <p className="eyebrow text-bronze">Heat. Cold. Light. Recovery.</p>
             <h1 className="mt-4 max-w-3xl font-display text-5xl font-medium leading-[1.05] text-ink-foreground sm:text-7xl lg:text-8xl">
               Wellness, Reimagined.
             </h1>
@@ -96,7 +96,7 @@ function Index() {
               />
             </Reveal>
             <Reveal delayMs={120}>
-              <p className="overline text-bronze-strong">The VYRO Approach</p>
+              <p className="eyebrow text-bronze-strong">The VYRO Approach</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Designed for a Better Way of Living.
               </h2>
@@ -306,7 +306,7 @@ function Index() {
         {/* J. A New Perspective on Wellbeing */}
         <section className="mx-auto max-w-4xl px-5 py-20 text-center lg:py-28">
           <Reveal>
-            <p className="overline text-bronze-strong">Our Philosophy</p>
+            <p className="eyebrow text-bronze-strong">Our Philosophy</p>
             <h2 className="mt-4 font-display text-4xl font-medium leading-tight sm:text-5xl">
               A New Perspective on Wellbeing.
             </h2>
@@ -327,7 +327,7 @@ function Index() {
         <section className="border-t border-border bg-secondary/60">
           <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[1fr_1.2fr] lg:gap-20 lg:px-8 lg:py-24">
             <Reveal>
-              <p className="overline text-bronze-strong">Enquire</p>
+              <p className="eyebrow text-bronze-strong">Enquire</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Let's Create Your Wellness Space.
               </h2>
@@ -403,7 +403,7 @@ function CategoryBlock({
           </Link>
         </div>
         <div className={reverse ? "lg:order-1" : undefined}>
-          <p className="overline text-bronze-strong">{overline}</p>
+          <p className="eyebrow text-bronze-strong">{overline}</p>
           <h3 className="mt-3 font-display text-4xl font-medium leading-[1.12] sm:text-5xl">{title}</h3>
           <p className="mt-4 max-w-lg text-base leading-relaxed text-muted-foreground">{copy}</p>
           <div className="mt-7">

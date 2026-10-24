@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- The small uppercase section label style is a custom utility named `eyebrow` in src/styles.css. Never use Tailwind's built-in `overline` class name for it — it also applies a text-overline decoration.

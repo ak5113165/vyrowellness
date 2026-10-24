@@ -31,7 +31,7 @@ export function PageHero({
         className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/20"
       />
       <div className="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-40 sm:pb-20 lg:px-8">
-        {overline && <p className="overline text-bronze">{overline}</p>}
+        {overline && <p className="eyebrow text-bronze">{overline}</p>}
         <h1 className="mt-3 max-w-3xl font-display text-5xl font-medium leading-[1.08] text-ink-foreground sm:text-6xl">
           {title}
         </h1>

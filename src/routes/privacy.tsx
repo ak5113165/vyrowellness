@@ -27,7 +27,7 @@ function PrivacyPage() {
       <SiteHeader />
       <main className="mx-auto max-w-3xl px-5 py-20 lg:py-28">
         <Reveal>
-          <p className="overline text-bronze-strong">Legal</p>
+          <p className="eyebrow text-bronze-strong">Legal</p>
           <h1 className="mt-3 font-display text-5xl font-medium">Privacy Policy</h1>
           <div className="mt-4 rounded-sm border border-border bg-secondary/60 p-4 text-xs text-muted-foreground">
             Placeholder content — replace with your final Privacy Policy before launch.

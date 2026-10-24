@@ -49,7 +49,7 @@ function SaunasPage() {
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal>
-              <p className="overline text-bronze-strong">Traditional Saunas</p>
+              <p className="eyebrow text-bronze-strong">Traditional Saunas</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Warmth, the Classic Way.
               </h2>
@@ -81,7 +81,7 @@ function SaunasPage() {
         <section className="bg-ink">
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 text-ink-foreground lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
             <Reveal className="lg:order-2">
-              <p className="overline text-bronze">Infrared Saunas</p>
+              <p className="eyebrow text-bronze">Infrared Saunas</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Gentle, Modern Heat.
               </h2>
@@ -133,7 +133,10 @@ function SaunasPage() {
             ].map((c, i) => (
               <Reveal key={c.title} delayMs={i * 80}>
                 <div className="h-full rounded-sm border border-border bg-card p-7">
-                  <h3 className="font-display text-2xl font-medium">{c.title}</h3>
+                  <p className="text-xs font-medium tracking-[0.2em] text-bronze-strong">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-3 font-display text-2xl font-medium">{c.title}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
                 </div>
               </Reveal>
@@ -188,7 +191,7 @@ function SaunasPage() {
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <Reveal>
-              <p className="overline text-bronze-strong">Enquire</p>
+              <p className="eyebrow text-bronze-strong">Enquire</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Begin with a Conversation.
               </h2>
