@@ -52,7 +52,7 @@ function Index() {
         <section className="relative flex min-h-[92svh] items-end overflow-hidden bg-ink">
           <img
             src={heroImage}
-            alt="A premium wellness terrace at dusk with a glowing timber sauna cabin and a stone cold plunge basin surrounded by rising steam"
+            alt="An architectural travertine wellness hall at dusk with a timber sauna cabin, a monolithic stone cold plunge and a glowing red light therapy panel"
             width={1920}
             height={1088}
             className="absolute inset-0 h-full w-full object-cover"
@@ -79,6 +79,25 @@ function Index() {
                 Discover VYRO
               </CtaLink>
             </div>
+            <nav aria-label="Our products" className="mt-14 grid grid-cols-1 border-t border-ink-foreground/20 sm:grid-cols-3">
+              {[
+                { n: "01", label: "Saunas", to: "/saunas" as const },
+                { n: "02", label: "Cold Plunge", to: "/cold-plunge" as const },
+                { n: "03", label: "Red Light Therapy", to: "/red-light-therapy" as const },
+              ].map((p) => (
+                <Link
+                  key={p.to}
+                  to={p.to}
+                  className="group flex items-center justify-between border-b border-ink-foreground/20 py-4 text-ink-foreground sm:border-b-0 sm:border-r sm:px-5 sm:first:pl-0 sm:last:border-r-0"
+                >
+                  <span className="flex items-baseline gap-3">
+                    <span className="text-xs text-bronze">{p.n}</span>
+                    <span className="font-display text-xl sm:text-2xl">{p.label}</span>
+                  </span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              ))}
+            </nav>
           </div>
         </section>
 
