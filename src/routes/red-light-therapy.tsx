@@ -49,7 +49,7 @@ function RedLightPage() {
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal>
-              <p className="overline text-bronze-strong">Panels</p>
+              <p className="eyebrow text-bronze-strong">Panels</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Everyday Light, Beautifully Made.
               </h2>
@@ -81,7 +81,7 @@ function RedLightPage() {
         <section className="bg-ink">
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 text-ink-foreground lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
             <Reveal className="lg:order-2">
-              <p className="overline text-bronze">Larger-Format Systems</p>
+              <p className="eyebrow text-bronze">Larger-Format Systems</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 For Dedicated Spaces.
               </h2>
@@ -114,7 +114,7 @@ function RedLightPage() {
           <div className="mt-14 grid gap-6 lg:grid-cols-2">
             <Reveal>
               <div className="h-full border-t-2 border-foreground pt-6">
-                <p className="overline text-bronze-strong">At Home</p>
+                <p className="eyebrow text-bronze-strong">At Home</p>
                 <h3 className="mt-3 font-display text-3xl font-medium">Residential</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   Panels and compact systems that integrate into bedrooms, home gyms and personal
@@ -124,7 +124,7 @@ function RedLightPage() {
             </Reveal>
             <Reveal delayMs={100}>
               <div className="h-full border-t-2 border-foreground pt-6">
-                <p className="overline text-bronze-strong">In Practice</p>
+                <p className="eyebrow text-bronze-strong">In Practice</p>
                 <h3 className="mt-3 font-display text-3xl font-medium">Professional</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   Larger systems for gyms, studios, spas and recovery centres — planned around your
@@ -187,7 +187,7 @@ function RedLightPage() {
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <Reveal>
-              <p className="overline text-bronze-strong">Enquire</p>
+              <p className="eyebrow text-bronze-strong">Enquire</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Find Your Light.
               </h2>

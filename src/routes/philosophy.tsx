@@ -96,7 +96,7 @@ function PhilosophyPage() {
         <section className="border-y border-border bg-secondary/60">
           <div className="mx-auto max-w-3xl px-5 py-20 text-center lg:py-24">
             <Reveal>
-              <p className="overline text-bronze-strong">Our Promise</p>
+              <p className="eyebrow text-bronze-strong">Our Promise</p>
               <p className="mt-5 font-display text-3xl font-medium leading-snug text-foreground sm:text-4xl">
                 Bringing advanced wellness technology into everyday life.
               </p>

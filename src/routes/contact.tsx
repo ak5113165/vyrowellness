@@ -38,7 +38,7 @@ function ContactPage() {
           <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             {/* Contact options */}
             <Reveal>
-              <p className="overline text-bronze-strong">Contact</p>
+              <p className="eyebrow text-bronze-strong">Contact</p>
               <h1 className="mt-3 font-display text-5xl font-medium leading-[1.1] sm:text-6xl">
                 Let's Start a Conversation.
               </h1>
@@ -49,14 +49,14 @@ function ContactPage() {
 
               <div className="mt-10 space-y-8">
                 <div>
-                  <h2 className="overline text-bronze-strong">Product Consultation</h2>
+                  <h2 className="eyebrow text-bronze-strong">Product Consultation</h2>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
                     For saunas, cold plunge and red light therapy — use the form and our team will
                     help you find the right direction.
                   </p>
                 </div>
                 <div>
-                  <h2 className="overline text-bronze-strong">Business Enquiry</h2>
+                  <h2 className="eyebrow text-bronze-strong">Business Enquiry</h2>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
                     For gyms, hotels, spas, studios and projects, our commercial team is ready to
                     help.
@@ -69,7 +69,7 @@ function ContactPage() {
                   </Link>
                 </div>
                 <div>
-                  <h2 className="overline text-bronze-strong">Reach Us Directly</h2>
+                  <h2 className="eyebrow text-bronze-strong">Reach Us Directly</h2>
                   <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-center gap-2">
                       <Mail className="h-4 w-4 text-bronze-strong" aria-hidden />

@@ -49,7 +49,7 @@ function ColdPlungePage() {
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal>
-              <p className="overline text-bronze-strong">Home Solutions</p>
+              <p className="eyebrow text-bronze-strong">Home Solutions</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Recovery, Steps from Your Door.
               </h2>
@@ -77,7 +77,7 @@ function ColdPlungePage() {
         <section className="bg-ink">
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 text-ink-foreground lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
             <Reveal className="lg:order-2">
-              <p className="overline text-bronze">Premium Installations</p>
+              <p className="eyebrow text-bronze">Premium Installations</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Designed as Architecture.
               </h2>
@@ -114,7 +114,7 @@ function ColdPlungePage() {
               />
             </Reveal>
             <Reveal delayMs={120}>
-              <p className="overline text-bronze-strong">Commercial Recovery</p>
+              <p className="eyebrow text-bronze-strong">Commercial Recovery</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Built for Daily Demand.
               </h2>
@@ -177,7 +177,7 @@ function ColdPlungePage() {
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <Reveal>
-              <p className="overline text-bronze-strong">Enquire</p>
+              <p className="eyebrow text-bronze-strong">Enquire</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Talk Cold with Our Team.
               </h2>

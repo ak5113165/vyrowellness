@@ -19,7 +19,7 @@ export function SiteFooter() {
 
           {/* Collections */}
           <nav aria-label="Collections">
-            <h3 className="overline text-bronze">Collections</h3>
+            <h3 className="eyebrow text-bronze">Collections</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               {navLinks
                 .filter((l) => l.to !== "/" && l.to !== "/philosophy")
@@ -40,7 +40,7 @@ export function SiteFooter() {
 
           {/* Company */}
           <nav aria-label="Company">
-            <h3 className="overline text-bronze">Company</h3>
+            <h3 className="eyebrow text-bronze">Company</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <Link to="/philosophy" className="text-ink-foreground/80 transition-colors hover:text-ink-foreground">
@@ -67,7 +67,7 @@ export function SiteFooter() {
 
           {/* Contact */}
           <div>
-            <h3 className="overline text-bronze">Contact</h3>
+            <h3 className="eyebrow text-bronze">Contact</h3>
             <ul className="mt-4 space-y-2.5 text-sm text-ink-foreground/80">
               <li>
                 <a href={`mailto:${site.email}`} className="transition-colors hover:text-ink-foreground">

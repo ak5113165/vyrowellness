@@ -100,7 +100,7 @@ function CommercialPage() {
         <section className="bg-ink">
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 text-ink-foreground lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
             <Reveal className="lg:order-2">
-              <p className="overline text-bronze">How VYRO Helps</p>
+              <p className="eyebrow text-bronze">How VYRO Helps</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 From First Sketch to First Session.
               </h2>
@@ -142,7 +142,7 @@ function CommercialPage() {
         <section className="border-t border-border bg-secondary/60">
           <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 lg:grid-cols-[1fr_1.2fr] lg:gap-20 lg:px-8 lg:py-24">
             <Reveal>
-              <p className="overline text-bronze-strong">Project Enquiry</p>
+              <p className="eyebrow text-bronze-strong">Project Enquiry</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
                 Let's Talk About Your Project.
               </h2>

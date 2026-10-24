@@ -152,7 +152,7 @@
 }
 
 /* Small overline label used above headings */
-@utility overline {
+@utility eyebrow {
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.28em;
