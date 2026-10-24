@@ -1,3 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router'
 import { Compass, Cpu, HeartHandshake } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { CtaBand } from "@/components/section";

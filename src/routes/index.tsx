@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Compass, Cpu, ShieldCheck, Users } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { CtaBand, CtaLink, SectionHeading } from "@/components/section";

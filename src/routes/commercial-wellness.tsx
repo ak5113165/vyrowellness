@@ -1,3 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router'
 import { Building2, Dumbbell, PenTool, Briefcase, Sparkles, Trees } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";

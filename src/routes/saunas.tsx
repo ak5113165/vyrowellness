@@ -1,3 +1,4 @@
+import { createFileRoute } from '@tanstack/react-router'
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";

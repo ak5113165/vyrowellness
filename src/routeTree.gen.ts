@@ -10,11 +10,59 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ColdPlungeRouteImport } from './routes/cold-plunge'
+import { Route as CommercialWellnessRouteImport } from './routes/commercial-wellness'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PhilosophyRouteImport } from './routes/philosophy'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as RedLightTherapyRouteImport } from './routes/red-light-therapy'
+import { Route as SaunasRouteImport } from './routes/saunas'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ApiPublicEnquiriesRouteImport } from './routes/api/public/enquiries'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ColdPlungeRoute = ColdPlungeRouteImport.update({
+  id: '/cold-plunge',
+  path: '/cold-plunge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommercialWellnessRoute = CommercialWellnessRouteImport.update({
+  id: '/commercial-wellness',
+  path: '/commercial-wellness',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhilosophyRoute = PhilosophyRouteImport.update({
+  id: '/philosophy',
+  path: '/philosophy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RedLightTherapyRoute = RedLightTherapyRouteImport.update({
+  id: '/red-light-therapy',
+  path: '/red-light-therapy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SaunasRoute = SaunasRouteImport.update({
+  id: '/saunas',
+  path: '/saunas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicEnquiriesRoute = ApiPublicEnquiriesRouteImport.update({
@@ -25,27 +73,90 @@ const ApiPublicEnquiriesRoute = ApiPublicEnquiriesRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cold-plunge': typeof ColdPlungeRoute
+  '/commercial-wellness': typeof CommercialWellnessRoute
+  '/contact': typeof ContactRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/privacy': typeof PrivacyRoute
+  '/red-light-therapy': typeof RedLightTherapyRoute
+  '/saunas': typeof SaunasRoute
+  '/terms': typeof TermsRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cold-plunge': typeof ColdPlungeRoute
+  '/commercial-wellness': typeof CommercialWellnessRoute
+  '/contact': typeof ContactRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/privacy': typeof PrivacyRoute
+  '/red-light-therapy': typeof RedLightTherapyRoute
+  '/saunas': typeof SaunasRoute
+  '/terms': typeof TermsRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cold-plunge': typeof ColdPlungeRoute
+  '/commercial-wellness': typeof CommercialWellnessRoute
+  '/contact': typeof ContactRoute
+  '/philosophy': typeof PhilosophyRoute
+  '/privacy': typeof PrivacyRoute
+  '/red-light-therapy': typeof RedLightTherapyRoute
+  '/saunas': typeof SaunasRoute
+  '/terms': typeof TermsRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/enquiries'
+  fullPaths:
+    | '/'
+    | '/cold-plunge'
+    | '/commercial-wellness'
+    | '/contact'
+    | '/philosophy'
+    | '/privacy'
+    | '/red-light-therapy'
+    | '/saunas'
+    | '/terms'
+    | '/api/public/enquiries'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/enquiries'
-  id: '__root__' | '/' | '/api/public/enquiries'
+  to:
+    | '/'
+    | '/cold-plunge'
+    | '/commercial-wellness'
+    | '/contact'
+    | '/philosophy'
+    | '/privacy'
+    | '/red-light-therapy'
+    | '/saunas'
+    | '/terms'
+    | '/api/public/enquiries'
+  id:
+    | '__root__'
+    | '/'
+    | '/cold-plunge'
+    | '/commercial-wellness'
+    | '/contact'
+    | '/philosophy'
+    | '/privacy'
+    | '/red-light-therapy'
+    | '/saunas'
+    | '/terms'
+    | '/api/public/enquiries'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ColdPlungeRoute: typeof ColdPlungeRoute
+  CommercialWellnessRoute: typeof CommercialWellnessRoute
+  ContactRoute: typeof ContactRoute
+  PhilosophyRoute: typeof PhilosophyRoute
+  PrivacyRoute: typeof PrivacyRoute
+  RedLightTherapyRoute: typeof RedLightTherapyRoute
+  SaunasRoute: typeof SaunasRoute
+  TermsRoute: typeof TermsRoute
   ApiPublicEnquiriesRoute: typeof ApiPublicEnquiriesRoute
 }
 
@@ -56,6 +167,62 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cold-plunge': {
+      id: '/cold-plunge'
+      path: '/cold-plunge'
+      fullPath: '/cold-plunge'
+      preLoaderRoute: typeof ColdPlungeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commercial-wellness': {
+      id: '/commercial-wellness'
+      path: '/commercial-wellness'
+      fullPath: '/commercial-wellness'
+      preLoaderRoute: typeof CommercialWellnessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/philosophy': {
+      id: '/philosophy'
+      path: '/philosophy'
+      fullPath: '/philosophy'
+      preLoaderRoute: typeof PhilosophyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/red-light-therapy': {
+      id: '/red-light-therapy'
+      path: '/red-light-therapy'
+      fullPath: '/red-light-therapy'
+      preLoaderRoute: typeof RedLightTherapyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saunas': {
+      id: '/saunas'
+      path: '/saunas'
+      fullPath: '/saunas'
+      preLoaderRoute: typeof SaunasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/enquiries': {
@@ -70,6 +237,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ColdPlungeRoute: ColdPlungeRoute,
+  CommercialWellnessRoute: CommercialWellnessRoute,
+  ContactRoute: ContactRoute,
+  PhilosophyRoute: PhilosophyRoute,
+  PrivacyRoute: PrivacyRoute,
+  RedLightTherapyRoute: RedLightTherapyRoute,
+  SaunasRoute: SaunasRoute,
+  TermsRoute: TermsRoute,
   ApiPublicEnquiriesRoute: ApiPublicEnquiriesRoute,
 }
 export const routeTree = rootRouteImport
