@@ -34,11 +34,7 @@ function FieldError({ message }: { message?: string | undefined }) {
 type Status = "idle" | "submitting" | "success" | "error";
 
 function firstProductInterest(value: string | undefined): (typeof productInterests)[number] {
-  return (productInterests as readonly string[]).includes(value ?? "") &&
-    value !== undefined &&
-    productInterests.includes(value as (typeof productInterests)[number])
-    ? (value as (typeof productInterests)[number])
-    : "Sauna";
+  return productInterests.find((p) => p === value) ?? "Sauna";
 }
 
 export function EnquiryForm({
