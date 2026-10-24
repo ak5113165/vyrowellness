@@ -24,7 +24,7 @@ function Label({ children, htmlFor }: { children: string; htmlFor: string }) {
   );
 }
 
-function FieldError({ message }: { message?: string }) {
+function FieldError({ message }: { message?: string | undefined }) {
   if (!message) return null;
   return (
     <p role="alert" className={errorClass}>
