@@ -81,9 +81,11 @@ export function SiteFooter() {
                   {site.supportEmail}
                 </a>
               </li>
-              {/* PLACEHOLDER — replace phoneDisplay in src/content/site.ts */}
               <li>
-                <span aria-label="Phone number — placeholder, to be configured">{site.phoneDisplay}</span>
+                <span className="text-ink-muted">Phone: </span>
+                <a href={site.phoneHref} className="transition-colors hover:text-ink-foreground">
+                  {site.phoneDisplay}
+                </a>
               </li>
               {wa && (
                 <li>
