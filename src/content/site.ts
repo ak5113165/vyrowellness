@@ -16,17 +16,17 @@ export const site = {
   secondaryLine: "Sehat bhi. Shakti bhi. Sukoon bhi.",
   announcement: "Discover a new approach to everyday wellness.",
 
-  // PLACEHOLDER — WhatsApp business number, international format, digits only
-  // (e.g. "919876543210"). Leave "" to hide all WhatsApp buttons.
-  whatsappNumber: "",
+  // WhatsApp business number, international format, digits only.
+  // Leave "" to hide all WhatsApp buttons.
+  whatsappNumber: "919540149445",
 
   domain: "vyrowellness.in",
   salesEmail: "sales@vyrowellness.in",
   supportEmail: "support@vyrowellness.in",
   // Primary public email (sales enquiries).
   email: "sales@vyrowellness.in",
-  // PLACEHOLDER — phone number.
-  phoneDisplay: "+91 XXXXX XXXXX",
+  phoneDisplay: "+91 95401 49445",
+  phoneHref: "tel:+919540149445",
 
   instagramHandle: "vyrowellness.in",
   instagramUrl: "https://www.instagram.com/vyrowellness.in/",

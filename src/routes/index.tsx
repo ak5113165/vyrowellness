@@ -276,7 +276,12 @@ function Index() {
                     {site.supportEmail}
                   </a>
                 </p>
-                <p>Phone: {site.phoneDisplay}</p>
+                <p>
+                  Phone:{" "}
+                  <a href={site.phoneHref} className="text-foreground underline underline-offset-4">
+                    {site.phoneDisplay}
+                  </a>
+                </p>
               </div>
               {wa && (
                 <a

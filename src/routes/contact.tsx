@@ -91,8 +91,12 @@ function ContactPage() {
                         @{site.instagramHandle}
                       </a>
                     </li>
-                    {/* PLACEHOLDER — replace phoneDisplay in src/content/site.ts */}
-                    <li aria-label="Phone number — placeholder, to be configured">{site.phoneDisplay}</li>
+                    <li>
+                      Phone:{" "}
+                      <a href={site.phoneHref} className="text-foreground underline underline-offset-4">
+                        {site.phoneDisplay}
+                      </a>
+                    </li>
                   </ul>
                   {wa && (
                     <a
