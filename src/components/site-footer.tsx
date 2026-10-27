@@ -70,8 +70,15 @@ export function SiteFooter() {
             <h3 className="eyebrow text-bronze">Contact</h3>
             <ul className="mt-4 space-y-2.5 text-sm text-ink-foreground/80">
               <li>
-                <a href={`mailto:${site.email}`} className="transition-colors hover:text-ink-foreground">
-                  {site.email}
+                <span className="text-ink-muted">Sales: </span>
+                <a href={`mailto:${site.salesEmail}`} className="transition-colors hover:text-ink-foreground">
+                  {site.salesEmail}
+                </a>
+              </li>
+              <li>
+                <span className="text-ink-muted">Support: </span>
+                <a href={`mailto:${site.supportEmail}`} className="transition-colors hover:text-ink-foreground">
+                  {site.supportEmail}
                 </a>
               </li>
               {/* PLACEHOLDER — replace phoneDisplay in src/content/site.ts */}
