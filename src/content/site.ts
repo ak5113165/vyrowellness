@@ -20,12 +20,16 @@ export const site = {
   // (e.g. "919876543210"). Leave "" to hide all WhatsApp buttons.
   whatsappNumber: "",
 
-  // PLACEHOLDER — public contact details.
-  email: "hello@vyro.in",
+  domain: "vyrowellness.in",
+  salesEmail: "sales@vyrowellness.in",
+  supportEmail: "support@vyrowellness.in",
+  // Primary public email (sales enquiries).
+  email: "sales@vyrowellness.in",
+  // PLACEHOLDER — phone number.
   phoneDisplay: "+91 XXXXX XXXXX",
 
-  // PLACEHOLDER — social profile URLs. Leave "" to hide the link.
-  instagramUrl: "",
+  instagramHandle: "vyrowellness.in",
+  instagramUrl: "https://www.instagram.com/vyrowellness.in/",
 };
 
 export const navLinks = [

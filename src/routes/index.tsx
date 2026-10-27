@@ -265,9 +265,15 @@ function Index() {
               </p>
               <div className="mt-8 space-y-3 text-sm text-muted-foreground">
                 <p>
-                  Email:{" "}
-                  <a href={`mailto:${site.email}`} className="text-foreground underline underline-offset-4">
-                    {site.email}
+                  Sales:{" "}
+                  <a href={`mailto:${site.salesEmail}`} className="text-foreground underline underline-offset-4">
+                    {site.salesEmail}
+                  </a>
+                </p>
+                <p>
+                  Support:{" "}
+                  <a href={`mailto:${site.supportEmail}`} className="text-foreground underline underline-offset-4">
+                    {site.supportEmail}
                   </a>
                 </p>
                 <p>Phone: {site.phoneDisplay}</p>

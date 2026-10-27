@@ -73,11 +73,22 @@ function ContactPage() {
                   <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-center gap-2">
                       <Mail className="h-4 w-4 text-bronze-strong" aria-hidden />
-                      <a
-                        href={`mailto:${site.email}`}
-                        className="text-foreground underline underline-offset-4"
-                      >
-                        {site.email}
+                      Sales:{" "}
+                      <a href={`mailto:${site.salesEmail}`} className="text-foreground underline underline-offset-4">
+                        {site.salesEmail}
+                      </a>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-bronze-strong" aria-hidden />
+                      Support:{" "}
+                      <a href={`mailto:${site.supportEmail}`} className="text-foreground underline underline-offset-4">
+                        {site.supportEmail}
+                      </a>
+                    </li>
+                    <li>
+                      Instagram:{" "}
+                      <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-4">
+                        @{site.instagramHandle}
                       </a>
                     </li>
                     {/* PLACEHOLDER — replace phoneDisplay in src/content/site.ts */}
