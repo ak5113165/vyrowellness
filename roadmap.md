@@ -17,7 +17,10 @@
 - [ ] Create brand favicon (currently default template icon)
 
 ## Waiting on user
-- [ ] Real contact details (phone, WhatsApp number, Instagram URL, confirm email) — placeholders live in src/content/site.ts
+- [ ] Real product photography to replace src/assets stand-ins
+- [ ] Final Privacy Policy & Terms copy (pages contain clearly labelled placeholders)
+- [ ] Confirm sales@/support@vyrowellness.in receive mail; confirm Instagram account is live at @vyrowellness.in
+- [ ] Connect custom domain vyrowellness.in
 - [ ] Real product photography to replace src/assets stand-ins
 - [ ] Final Privacy Policy & Terms copy (pages contain clearly labelled placeholders)
 
