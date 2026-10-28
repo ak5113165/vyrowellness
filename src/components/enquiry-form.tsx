@@ -40,10 +40,12 @@ function firstProductInterest(value: string | undefined): (typeof productInteres
 export function EnquiryForm({
   variant,
   defaultProductInterest,
+  defaultMessage,
   className,
 }: {
   variant: "consumer" | "business";
   defaultProductInterest?: string | undefined;
+  defaultMessage?: string | undefined;
   className?: string | undefined;
 }) {
   const [status, setStatus] = useState<Status>("idle");
@@ -61,7 +63,7 @@ export function EnquiryForm({
       productInterest: firstProductInterest(defaultProductInterest),
       homeOrBusiness: "Home" as const,
       budget: "",
-      message: "",
+      message: defaultMessage ?? "",
     },
   });
 
