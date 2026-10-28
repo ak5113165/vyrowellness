@@ -15,6 +15,7 @@
 - [x] Art-direction pass: varied section rhythms, mobile recomposition, spacing/typography polish across all pages
 - [x] End-to-end enquiry verification: form -> /api/public/enquiries -> enquiries table (test row submitted, verified, deleted)
 - [ ] Create brand favicon (currently default template icon)
+- [ ] Saunas page: model catalogue layout inspired by sawo.com/sauna-rooms (needs user's real model list/specs/photos)
 
 ## Waiting on user
 - [ ] Real product photography to replace src/assets stand-ins
