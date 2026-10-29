@@ -45,6 +45,17 @@ function ColdPlungePage() {
           copy="Contemporary cold plunge systems designed for personal wellness spaces, fitness environments, and professional recovery facilities."
         />
 
+        {/* Coming soon notice */}
+        <section className="border-b border-bronze/40 bg-secondary/60">
+          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:px-8">
+            <p className="eyebrow shrink-0 text-bronze-strong">Coming Soon · Made in India</p>
+            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
+              VYRO cold plunge systems are being manufactured in India and will launch soon.
+              Enquire below and we'll let you know the moment they're available.
+            </p>
+          </div>
+        </section>
+
         {/* Home solutions */}
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -143,6 +154,10 @@ function ColdPlungePage() {
               <Accordion type="single" collapsible className="border-t border-border">
                 {[
                   {
+                    q: "When will VYRO cold plunges be available?",
+                    a: "Our cold plunge range is being manufactured in India and is coming soon. Send an enquiry below and we'll notify you as soon as it launches.",
+                  },
+                  {
                     q: "How much space does a cold plunge need?",
                     a: "It depends on the system. Compact plunges can suit smaller rooms, while premium installations need more room and planning. Share your floor plan in a consultation and we'll help you explore what fits.",
                   },
@@ -182,8 +197,8 @@ function ColdPlungePage() {
                 Talk Cold with Our Team.
               </h2>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
-                Tell us about your space and your recovery routine. We'll help you explore cold
-                plunge options and the next steps.
+                Tell us about your space and your recovery routine. We'll keep you updated as our
+                Made-in-India cold plunge range launches and help you plan your space in advance.
               </p>
             </Reveal>
             <Reveal delayMs={120}>
