@@ -45,6 +45,7 @@ const pillars = [
     tag: "Traditional Finnish & Infrared",
     copy: "Custom timber cabins for villas, penthouses and wellness suites.",
     to: "/saunas" as const,
+    soon: false,
   },
   {
     n: "02",
@@ -54,6 +55,7 @@ const pillars = [
     tag: "Temperature-Controlled Recovery Baths",
     copy: "Chilled, filtered plunge systems — freestanding or built into your space.",
     to: "/cold-plunge" as const,
+    soon: true,
   },
   {
     n: "03",
@@ -63,6 +65,7 @@ const pillars = [
     tag: "Red & Near-Infrared Light Panels",
     copy: "Full-body and targeted panels for an everyday wellness routine.",
     to: "/red-light-therapy" as const,
+    soon: true,
   },
 ];
 
@@ -136,6 +139,11 @@ function Index() {
                   <span className="flex items-baseline gap-3">
                     <span className="text-xs text-bronze">{p.n}</span>
                     <span className="font-display text-xl sm:text-2xl">{p.name}</span>
+                    {p.soon && (
+                      <span className="hidden text-[10px] uppercase tracking-[0.2em] text-bronze lg:inline">
+                        Coming Soon
+                      </span>
+                    )}
                   </span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -160,7 +168,7 @@ function Index() {
                     className="group flex h-full flex-col border-b border-bronze/40 py-8 md:border-b-0 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0 md:last:pr-0"
                   >
                     <span className="text-xs tracking-[0.2em] text-bronze-strong">{p.n}</span>
-                    <div className="mt-5 overflow-hidden">
+                    <div className="relative mt-5 overflow-hidden">
                       <img
                         src={p.image}
                         alt={p.alt}
@@ -169,12 +177,18 @@ function Index() {
                         loading="lazy"
                         className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
+                      {p.soon && (
+                        <span className="absolute left-4 top-4 bg-ink-foreground px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-ink">
+                          Coming Soon · Made in India
+                        </span>
+                      )}
                     </div>
                     <p className="eyebrow mt-6 text-bronze-strong">{p.tag}</p>
                     <h3 className="mt-2 font-display text-3xl font-medium text-foreground">{p.name}</h3>
                     <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p.copy}</p>
                     <span className="mt-6 inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.16em] text-foreground transition-colors group-hover:text-bronze-strong">
-                      View Products <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
+                      {p.soon ? "Learn More" : "View Products"}{" "}
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
                     </span>
                   </Link>
                 </Reveal>
