@@ -125,7 +125,7 @@ function SaunasPage() {
               ))}
             </div>
             <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
-              <img src={activeType.image} alt={activeType.name} width={1600} height={1200} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+              <img src={activeType.image} alt={activeType.name} width={1600} height={1200} loading="lazy" className="aspect-[4/3] w-full bg-background object-contain p-4" />
               <div>
                 <p className="eyebrow text-bronze-strong">VYRO {activeType.series}</p>
                 <h2 className="mt-3 font-display text-4xl font-medium">{activeType.name}</h2>
