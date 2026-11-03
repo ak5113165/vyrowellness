@@ -182,6 +182,11 @@ function SaunasPage() {
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{w.note}</p>
                 </div>
               ))}
+              <a href="#sauna-enquiry" className="group flex flex-col justify-end bg-ink p-6 text-ink-foreground">
+                <p className="eyebrow text-bronze">Not sure?</p>
+                <p className="mt-3 font-display text-2xl font-medium">Ask us which wood suits your space.</p>
+                <span className="mt-4 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] group-hover:text-bronze">Enquire <ArrowRight className="h-4 w-4" aria-hidden /></span>
+              </a>
             </div>
           </div>
         </section>
