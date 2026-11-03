@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { navLinks, site, whatsappLink } from "@/content/site";
+import logoLight from "@/assets/brand/vyro-logo-light.png.asset.json";
 
 export function SiteFooter() {
   const wa = whatsappLink("Hello VYRO, I'd like to know more about your wellness solutions.");
@@ -12,7 +13,7 @@ export function SiteFooter() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <p className="wordmark text-lg text-ink-foreground">VYRO</p>
+            <img src={logoLight.url} alt="VYRO Wellness" width={88} height={88} className="h-[88px] w-[88px]" />
             <p className="mt-4 font-display text-2xl italic text-ink-muted">{site.tagline}</p>
             <p className="mt-3 text-sm text-ink-muted">{site.secondaryLine}</p>
           </div>
@@ -120,7 +121,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-ink-border pt-7 text-xs text-ink-muted sm:flex-row sm:items-center">
-          <p>© {year} VYRO. All rights reserved.</p>
+          <p>© {year} VYRO Wellness. All rights reserved.</p>
           <p className="uppercase tracking-[0.18em]">Heat. Cold. Light. Recovery.</p>
         </div>
       </div>
