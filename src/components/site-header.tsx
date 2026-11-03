@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { navLinks, site } from "@/content/site";
 import { cn } from "@/lib/utils";
+import logoDark from "@/assets/brand/vyro-logo-dark.png.asset.json";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -30,10 +31,10 @@ export function SiteHeader() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
           <Link
             to="/"
-            className="wordmark text-lg text-foreground transition-opacity hover:opacity-70"
-            aria-label="VYRO — home"
+            className="transition-opacity hover:opacity-70"
+            aria-label="VYRO Wellness — home"
           >
-            VYRO
+            <img src={logoDark.url} alt="VYRO Wellness" width={52} height={52} className="h-[52px] w-[52px]" />
           </Link>
 
           <div className="hidden items-center gap-7 lg:flex">
