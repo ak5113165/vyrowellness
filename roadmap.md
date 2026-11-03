@@ -15,7 +15,8 @@
 - [x] Art-direction pass: varied section rhythms, mobile recomposition, spacing/typography polish across all pages
 - [x] End-to-end enquiry verification: form -> /api/public/enquiries -> enquiries table (test row submitted, verified, deleted)
 - [ ] Create brand favicon (currently default template icon)
-- [x] Saunas page: SAWO model catalogue + room/heater/accessories builder
+- [x] Saunas page: VYRO Haven/Ember/Pulse/Ritual catalogue, spruce standard + 6 wood upgrades, 5-step builder
+- [x] Logo in header/footer + favicon
 
 ## Waiting on user
 - [ ] Real product photography to replace src/assets stand-ins
