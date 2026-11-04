@@ -11,6 +11,8 @@ import proImg from "@/assets/plunge/glacier-pro.jpg";
 import barrelImg from "@/assets/plunge/glacier-barrel.jpg";
 import classicImg from "@/assets/plunge/glacier-classic.jpg";
 import signatureImg from "@/assets/plunge/glacier-xtreme.jpg";
+import inflatableImg from "@/assets/plunge/glacier-inflatable.jpg";
+import portableImg from "@/assets/plunge/glacier-portable.jpg";
 import chiller1Img from "@/assets/plunge/chiller-1hp.jpg";
 import chiller2Img from "@/assets/plunge/chiller-2hp.jpg";
 
@@ -38,6 +40,26 @@ export const Route = createFileRoute("/cold-plunge")({
 type Feature = { icon: typeof Snowflake; title: string; note: string };
 
 const plunges: { name: string; tag: string; image: string; copy: string; features: Feature[] }[] = [
+  {
+    name: "GLACIER | inflatable",
+    tag: "Inflatable Series",
+    image: inflatableImg,
+    copy: "An upright inflatable barrel with an insulated lid and strap closures. Pairs with a VYRO chiller and step.",
+    features: [
+      { icon: Move, title: "inflatable", note: "set up anywhere" },
+      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
+    ],
+  },
+  {
+    name: "GLACIER | portable",
+    tag: "Portable Series",
+    image: portableImg,
+    copy: "A full-length inflatable tub with an insulated lid — lie back and immerse, then pack it away.",
+    features: [
+      { icon: Layers, title: "full-length", note: "lie-back immersion" },
+      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
+    ],
+  },
   {
     name: "GLACIER | pro",
     tag: "Flagship",
@@ -114,7 +136,7 @@ function ColdPlungePage() {
             <p className="eyebrow text-bronze">VYRO Glacier Series · Made in India</p>
             <h1 className="mt-3 font-display text-5xl font-medium sm:text-7xl">Cold Plunges</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">
-              Four plunge tubs and two chilling systems, being manufactured in India. Launching soon —
+              Six plunge tubs and two chilling systems, being manufactured in India. Launching soon —
               register your interest to be first in line.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
@@ -131,7 +153,7 @@ function ColdPlungePage() {
             <h2 className="font-display text-3xl font-medium">Plunge Tubs</h2>
             <p className="text-sm text-muted-foreground">{plunges.length} products</p>
           </div>
-          <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {plunges.map((p) => (
               <article key={p.name} className="flex flex-col">
                 <div className="relative bg-card">
