@@ -1,186 +1,224 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowRight, Snowflake, Move, Gauge, Home, Layers, Zap } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 
-import coldImage from "@/assets/cold-plunge.jpg";
-import heroImage from "@/assets/hero.jpg";
-import fitnessImage from "@/assets/fitness.jpg";
+import proImg from "@/assets/plunge/glacier-pro.jpg";
+import barrelImg from "@/assets/plunge/glacier-barrel.jpg";
+import classicImg from "@/assets/plunge/glacier-classic.jpg";
+import signatureImg from "@/assets/plunge/glacier-xtreme.jpg";
+import chiller1Img from "@/assets/plunge/chiller-1hp.jpg";
+import chiller2Img from "@/assets/plunge/chiller-2hp.jpg";
 
 export const Route = createFileRoute("/cold-plunge")({
   head: () => ({
     meta: [
-      { title: "Cold Plunge — Embrace the Cold | VYRO" },
+      { title: "VYRO Glacier Cold Plunges & Chillers — Made in India | VYRO Wellness" },
       {
         name: "description",
         content:
-          "Contemporary cold plunge tubs and ice bath systems for personal wellness spaces, fitness environments and professional recovery facilities in India. Explore cold plunge solutions with VYRO.",
+          "The VYRO Glacier cold plunge range — Pro, Barrel, Classic and Signature tubs with 1HP and 2HP chilling systems. Made in India, coming soon.",
       },
-      { property: "og:title", content: "Cold Plunge — Embrace the Cold | VYRO" },
+      { property: "og:title", content: "VYRO Glacier Cold Plunges — Made in India" },
       {
         property: "og:description",
-        content:
-          "Contemporary cold plunge systems designed for personal wellness spaces, fitness environments and professional recovery facilities.",
+        content: "Four Glacier cold plunge tubs and 1HP / 2HP chilling systems. Coming soon — register your interest.",
       },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ColdPlungePage,
 });
+
+type Feature = { icon: typeof Snowflake; title: string; note: string };
+
+const plunges: { name: string; tag: string; image: string; copy: string; features: Feature[] }[] = [
+  {
+    name: "GLACIER | pro",
+    tag: "Flagship",
+    image: proImg,
+    copy: "A sturdy one-piece shell in matte black, built for a daily cold ritual at home or in the gym.",
+    features: [
+      { icon: Layers, title: "one-piece shell", note: "strong & seamless" },
+      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
+    ],
+  },
+  {
+    name: "GLACIER | barrel",
+    tag: "Compact",
+    image: barrelImg,
+    copy: "A round, upright plunge with an insulated lid — ideal for smaller rooms, balconies and terraces.",
+    features: [
+      { icon: Home, title: "small footprint", note: "fits tight spaces" },
+      { icon: Move, title: "easy to place", note: "simple to move" },
+    ],
+  },
+  {
+    name: "GLACIER | classic",
+    tag: "Full-length",
+    image: classicImg,
+    copy: "A bathtub-style plunge that lets you lie back and fully immerse, with a clean low profile.",
+    features: [
+      { icon: Layers, title: "full-length", note: "lie-back immersion" },
+      { icon: Move, title: "portable", note: "simple to move" },
+    ],
+  },
+  {
+    name: "GLACIER | signature",
+    tag: "Premium",
+    image: signatureImg,
+    copy: "Timber-clad with a steel rim — a statement piece for villas, wellness suites and hospitality.",
+    features: [
+      { icon: Home, title: "inside or outside", note: "placement" },
+      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
+    ],
+  },
+];
+
+const chillers = [
+  {
+    name: "GLACIER | chiller 1HP",
+    image: chiller1Img,
+    copy: "Our compact chilling system for home plunges and personal use.",
+    best: "Best for: home & personal use",
+  },
+  {
+    name: "GLACIER | chiller 2HP",
+    image: chiller2Img,
+    copy: "Our more powerful chilling system for larger tubs and busier spaces like gyms and spas.",
+    best: "Best for: larger tubs & commercial use",
+  },
+];
+
+function SoonBadge({ bottom = false }: { bottom?: boolean }) {
+  return (
+    <span className={`absolute left-3 ${bottom ? "bottom-3" : "top-3"} bg-ink px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-ink-foreground`}>
+      Coming Soon
+    </span>
+  );
+}
 
 function ColdPlungePage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main>
-        <PageHero
-          image={coldImage}
-          imageAlt="A sculptural stone cold plunge tub with still water in a minimalist wellness room"
-          overline="Cold Plunge"
-          title="Embrace the Cold."
-          copy="Contemporary cold plunge systems designed for personal wellness spaces, fitness environments, and professional recovery facilities."
-        />
-
-        {/* Coming soon notice */}
-        <section className="border-b border-bronze/40 bg-secondary/60">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:px-8">
-            <p className="eyebrow shrink-0 text-bronze-strong">Coming Soon · Made in India</p>
-            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              VYRO cold plunge systems are being manufactured in India and will launch soon.
-              Enquire below and we'll let you know the moment they're available.
+        {/* Collection header */}
+        <section className="bg-ink pt-28 text-ink-foreground">
+          <div className="mx-auto max-w-7xl px-5 pb-14 lg:px-8">
+            <p className="eyebrow text-bronze">VYRO Glacier Series · Made in India</p>
+            <h1 className="mt-3 font-display text-5xl font-medium sm:text-7xl">Cold Plunges</h1>
+            <p className="mt-4 max-w-xl text-ink-foreground/80">
+              Four plunge tubs and two chilling systems, being manufactured in India. Launching soon —
+              register your interest to be first in line.
             </p>
+            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
+              <a href="#plunges" className="text-ink-foreground/85 hover:text-ink-foreground">Plunge Tubs</a>
+              <a href="#chillers" className="text-ink-foreground/85 hover:text-ink-foreground">Chilling Systems</a>
+              <a href="#enquire" className="text-ink-foreground/85 hover:text-ink-foreground">Register Interest</a>
+            </div>
           </div>
         </section>
 
-        {/* Home solutions */}
-        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <Reveal>
-              <p className="eyebrow text-bronze-strong">Home Solutions</p>
-              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
-                Recovery, Steps from Your Door.
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
-                A cold plunge at home turns recovery into a daily ritual rather than an occasional
-                treat. From compact tubs that suit a corner of a room to sculptural basins that
-                anchor a wellness suite, we help you find a system that fits your space and your
-                routine.
-              </p>
-            </Reveal>
-            <Reveal delayMs={120}>
-              <img
-                src={coldImage}
-                alt="A stone cold plunge tub in a private wellness room with timber floors and soft daylight"
-                width={1920}
-                height={1280}
-                loading="lazy"
-                className="aspect-[4/3] w-full object-cover"
-              />
-            </Reveal>
+        {/* Product grid */}
+        <section id="plunges" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+          <div className="flex items-end justify-between gap-4 border-b border-border pb-4">
+            <h2 className="font-display text-3xl font-medium">Plunge Tubs</h2>
+            <p className="text-sm text-muted-foreground">{plunges.length} products</p>
           </div>
-        </section>
-
-        {/* Premium installations */}
-        <section className="bg-ink">
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 text-ink-foreground lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
-            <Reveal className="lg:order-2">
-              <p className="eyebrow text-bronze">Premium Installations</p>
-              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
-                Designed as Architecture.
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted">
-                For villas, farmhouses and considered new builds, a plunge can be planned as part of
-                the architecture itself — integrated with saunas, terraces and landscape. We work
-                alongside your architect or designer from concept to completion.
-              </p>
-            </Reveal>
-            <Reveal delayMs={120} className="lg:order-1">
-              <img
-                src={heroImage}
-                alt="An outdoor wellness terrace at dusk with a stone plunge basin beside a timber sauna cabin"
-                width={1920}
-                height={1280}
-                loading="lazy"
-                className="aspect-[4/3] w-full object-cover"
-              />
-            </Reveal>
-          </div>
-        </section>
-
-        {/* Commercial recovery solutions */}
-        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <Reveal>
-              <img
-                src={fitnessImage}
-                alt="A premium gym recovery zone with a dark cold plunge tub and a glass sauna cabin"
-                width={1920}
-                height={1280}
-                loading="lazy"
-                className="aspect-[4/3] w-full object-cover"
-              />
-            </Reveal>
-            <Reveal delayMs={120}>
-              <p className="eyebrow text-bronze-strong">Commercial Recovery</p>
-              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
-                Built for Daily Demand.
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
-                Gyms, performance centres, spas and sports facilities need cold therapy that holds
-                up to daily use. We help commercial teams plan plunge and ice bath setups around
-                member flow, maintenance and the wider recovery offer.
-              </p>
-              <div className="mt-7">
-                <a
-                  href="/commercial-wellness"
-                  className="inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.16em] text-foreground underline decoration-bronze decoration-2 underline-offset-8 transition-colors hover:text-bronze-strong"
-                >
-                  Explore Commercial Wellness
+          <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+            {plunges.map((p) => (
+              <article key={p.name} className="flex flex-col">
+                <div className="relative bg-card">
+                  <SoonBadge />
+                  <img src={p.image} alt={`VYRO ${p.name.replace(" | ", " ")} cold plunge tub`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
+                </div>
+                <p className="mt-4 eyebrow text-bronze-strong">{p.tag}</p>
+                <h3 className="mt-1 font-display text-2xl font-medium">{p.name}</h3>
+                <p className="mt-1 text-sm uppercase tracking-[0.14em] text-muted-foreground">Coming Soon</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.copy}</p>
+                <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-4">
+                  {p.features.map((f) => (
+                    <div key={f.title} className="flex items-start gap-2">
+                      <f.icon className="mt-0.5 h-4 w-4 shrink-0 text-bronze-strong" aria-hidden />
+                      <div>
+                        <p className="text-sm font-medium">{f.title}</p>
+                        <p className="text-xs text-muted-foreground">{f.note}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <a href="#enquire" className="mt-5 inline-flex items-center justify-center gap-2 border border-foreground px-4 py-3 text-[12px] uppercase tracking-[0.16em] transition-colors hover:bg-foreground hover:text-background">
+                  Notify Me <ArrowRight className="h-4 w-4" aria-hidden />
                 </a>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Chillers */}
+        <section id="chillers" className="scroll-mt-24 border-t border-border bg-card">
+          <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
+            <SectionHeading overline="Chilling Systems" title="Choose Your Power: 1HP or 2HP." copy="Every Glacier tub pairs with a VYRO chilling system. Pick the power that suits your tub size and how often it's used." />
+            <div className="mt-10 grid gap-6 md:grid-cols-2">
+              {chillers.map((c) => (
+                <article key={c.name} className="grid items-center gap-6 border border-border bg-background p-6 sm:grid-cols-[1fr_1.1fr]">
+                  <div className="relative">
+                    <SoonBadge bottom />
+                    <img src={c.image} alt={`VYRO ${c.name.replace(" | ", " ")} water chilling system`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
+                  </div>
+                  <div>
+                    <p className="eyebrow text-bronze-strong flex items-center gap-2"><Zap className="h-3.5 w-3.5" aria-hidden /> {c.name.includes("1HP") ? "1HP" : "2HP"}</p>
+                    <h3 className="mt-2 font-display text-2xl font-medium">{c.name}</h3>
+                    <p className="mt-1 text-sm uppercase tracking-[0.14em] text-muted-foreground">Coming Soon</p>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
+                    <p className="mt-3 flex items-center gap-2 text-sm"><Gauge className="h-4 w-4 text-bronze-strong" aria-hidden /> {c.best}</p>
+                    <a href="#enquire" className="mt-5 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] underline decoration-bronze underline-offset-8 hover:text-bronze-strong">
+                      Notify Me <ArrowRight className="h-4 w-4" aria-hidden />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Made in India strip */}
+        <section className="bg-ink text-ink-foreground">
+          <div className="mx-auto grid max-w-7xl gap-px px-5 py-14 sm:grid-cols-3 lg:px-8">
+            {[
+              ["Made in India", "Designed and manufactured here, for Indian homes and climates."],
+              ["Tub + Chiller", "Every tub pairs with a 1HP or 2HP VYRO chilling system."],
+              ["Guided Setup", "Our team helps you plan placement, power and plumbing."],
+            ].map(([t, d]) => (
+              <div key={t} className="py-4 sm:px-6 sm:first:pl-0">
+                <p className="font-display text-2xl font-medium">{t}</p>
+                <p className="mt-2 text-sm text-ink-muted">{d}</p>
               </div>
-            </Reveal>
+            ))}
           </div>
         </section>
 
         {/* FAQs */}
-        <section className="border-y border-border bg-secondary/60">
-          <div className="mx-auto max-w-3xl px-5 py-20 lg:py-24">
+        <section className="border-b border-border bg-secondary/60">
+          <div className="mx-auto max-w-3xl px-5 py-20">
             <SectionHeading align="center" overline="FAQs" title="Questions, Answered Simply." />
             <Reveal className="mt-10">
               <Accordion type="single" collapsible className="border-t border-border">
                 {[
-                  {
-                    q: "When will VYRO cold plunges be available?",
-                    a: "Our cold plunge range is being manufactured in India and is coming soon. Send an enquiry below and we'll notify you as soon as it launches.",
-                  },
-                  {
-                    q: "How much space does a cold plunge need?",
-                    a: "It depends on the system. Compact plunges can suit smaller rooms, while premium installations need more room and planning. Share your floor plan in a consultation and we'll help you explore what fits.",
-                  },
-                  {
-                    q: "Do you help with installation?",
-                    a: "We guide you through the considerations for your space — plumbing, positioning and surroundings — during your consultation. Ask us about installation when you enquire.",
-                  },
-                  {
-                    q: "Can a cold plunge be placed outdoors?",
-                    a: "Some systems are suited to outdoor settings and others belong indoors. The right choice depends on the system and your space — our team can advise during your consultation.",
-                  },
-                  {
-                    q: "How do I choose the right system?",
-                    a: "Start with how and where you plan to use it. Our consultation covers your space, your routine and your preferences so you can choose with confidence.",
-                  },
+                  { q: "When will VYRO Glacier cold plunges be available?", a: "The range is being manufactured in India and launches soon. Register your interest below and we'll tell you the moment it's available." },
+                  { q: "Should I choose the 1HP or 2HP chiller?", a: "The 1HP suits most home plunges and personal use. The 2HP is for larger tubs and busier spaces like gyms and spas. We'll help you choose during your consultation." },
+                  { q: "How much space does a cold plunge need?", a: "The Barrel suits smaller spaces; the Classic and Signature need more room. Share your space with us and we'll suggest what fits." },
+                  { q: "Can a cold plunge be placed outdoors?", a: "Some setups suit covered outdoor spaces. Our team will advise based on your space." },
                 ].map((f) => (
                   <AccordionItem key={f.q} value={f.q} className="border-b border-border">
-                    <AccordionTrigger className="text-left font-display text-xl font-medium text-foreground hover:no-underline">
-                      {f.q}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
-                      {f.a}
-                    </AccordionContent>
+                    <AccordionTrigger className="text-left font-display text-xl font-medium text-foreground hover:no-underline">{f.q}</AccordionTrigger>
+                    <AccordionContent className="text-sm leading-relaxed text-muted-foreground">{f.a}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
@@ -188,17 +226,15 @@ function ColdPlungePage() {
           </div>
         </section>
 
-        {/* Consultation form */}
-        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
+        {/* Enquiry */}
+        <section id="enquire" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-20 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <Reveal>
-              <p className="eyebrow text-bronze-strong">Enquire</p>
-              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
-                Talk Cold with Our Team.
-              </h2>
+              <p className="eyebrow text-bronze-strong">Register Interest</p>
+              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">Be First to Take the Plunge.</h2>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
-                Tell us about your space and your recovery routine. We'll keep you updated as our
-                Made-in-India cold plunge range launches and help you plan your space in advance.
+                Tell us which Glacier tub and chiller you're interested in. We'll keep you updated as the
+                Made-in-India range launches and help you plan your space in advance.
               </p>
             </Reveal>
             <Reveal delayMs={120}>
