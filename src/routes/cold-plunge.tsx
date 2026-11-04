@@ -95,9 +95,9 @@ const chillers = [
   },
 ];
 
-function SoonBadge() {
+function SoonBadge({ bottom = false }: { bottom?: boolean }) {
   return (
-    <span className="absolute left-3 top-3 bg-ink px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-ink-foreground">
+    <span className={`absolute left-3 ${bottom ? "bottom-3" : "top-3"} bg-ink px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-ink-foreground`}>
       Coming Soon
     </span>
   );
@@ -169,7 +169,7 @@ function ColdPlungePage() {
               {chillers.map((c) => (
                 <article key={c.name} className="grid items-center gap-6 border border-border bg-background p-6 sm:grid-cols-[1fr_1.1fr]">
                   <div className="relative">
-                    <SoonBadge />
+                    <SoonBadge bottom />
                     <img src={c.image} alt={`VYRO ${c.name.replace(" | ", " ")} water chilling system`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
                   </div>
                   <div>
