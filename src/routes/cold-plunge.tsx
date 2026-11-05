@@ -147,7 +147,7 @@ function ColdPlungePage() {
           />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-40 lg:px-8">
             <p className="eyebrow text-bronze">VYRO Glacier Series · Made in India</p>
-            <h1 className="mt-3 font-display text-5xl font-medium sm:text-7xl">Cold Plunges</h1>
+            <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Cold Plunges</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">
               Six plunge tubs and two chilling systems, being manufactured in India. Launching soon —
               register your interest to be first in line.
