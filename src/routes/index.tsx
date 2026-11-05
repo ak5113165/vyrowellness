@@ -8,8 +8,8 @@ import { EnquiryForm } from "@/components/enquiry-form";
 import { site, whatsappLink } from "@/content/site";
 
 import heroImage from "@/assets/hero.jpg";
-import saunaImage from "@/assets/sauna.jpg";
-import coldImage from "@/assets/cold-plunge.jpg";
+import saunaImage from "@/assets/products/sauna-hero-spruce.jpg";
+import coldImage from "@/assets/plunge/glacier-hero.jpg";
 import lightImage from "@/assets/red-light.jpg";
 import homeWellnessImage from "@/assets/home-wellness.jpg";
 import hospitalityImage from "@/assets/hospitality.jpg";
