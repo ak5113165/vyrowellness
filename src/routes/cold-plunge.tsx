@@ -8,8 +8,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 
 import proImg from "@/assets/plunge/glacier-pro.jpg";
-import barrelImg from "@/assets/plunge/glacier-barrel.jpg";
-import classicImg from "@/assets/plunge/glacier-classic.jpg";
+import acrylicImg from "@/assets/plunge/glacier-acrylic.jpg";
+import steelImg from "@/assets/plunge/glacier-steel.jpg";
 import signatureImg from "@/assets/plunge/glacier-xtreme.jpg";
 import inflatableImg from "@/assets/plunge/glacier-inflatable.jpg";
 import portableImg from "@/assets/plunge/glacier-portable.jpg";
@@ -23,12 +23,12 @@ export const Route = createFileRoute("/cold-plunge")({
       {
         name: "description",
         content:
-          "The VYRO Glacier cold plunge range — Pro, Barrel, Classic and Signature tubs with 1HP and 2HP chilling systems. Made in India, coming soon.",
+          "The VYRO Glacier cold plunge range — Inflatable, Portable, Pro, Acrylic, Steel and Signature tubs with 1HP and 2HP chilling systems. Made in India, coming soon.",
       },
       { property: "og:title", content: "VYRO Glacier Cold Plunges — Made in India" },
       {
         property: "og:description",
-        content: "Four Glacier cold plunge tubs and 1HP / 2HP chilling systems. Coming soon — register your interest.",
+        content: "Six Glacier cold plunge tubs and 1HP / 2HP chilling systems. Coming soon — register your interest.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -71,23 +71,23 @@ const plunges: { name: string; tag: string; image: string; copy: string; feature
     ],
   },
   {
-    name: "GLACIER | barrel",
-    tag: "Compact",
-    image: barrelImg,
-    copy: "A round, upright plunge with an insulated lid — ideal for smaller rooms, balconies and terraces.",
+    name: "GLACIER | acrylic",
+    tag: "Acrylic Series",
+    image: acrylicImg,
+    copy: "A seamless gloss-white acrylic tub measuring 5 × 2.5 ft — clean, bright and easy to keep spotless.",
     features: [
-      { icon: Home, title: "small footprint", note: "fits tight spaces" },
-      { icon: Move, title: "easy to place", note: "simple to move" },
+      { icon: Layers, title: "5 × 2.5 ft", note: "white acrylic" },
+      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
     ],
   },
   {
-    name: "GLACIER | classic",
-    tag: "Full-length",
-    image: classicImg,
-    copy: "A bathtub-style plunge that lets you lie back and fully immerse, with a clean low profile.",
+    name: "GLACIER | steel",
+    tag: "Stainless Steel",
+    image: steelImg,
+    copy: "An all-stainless-steel plunge with no timber cladding — a pure, minimal metal finish.",
     features: [
-      { icon: Layers, title: "full-length", note: "lie-back immersion" },
-      { icon: Move, title: "portable", note: "simple to move" },
+      { icon: Layers, title: "stainless steel", note: "no timber clad" },
+      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
     ],
   },
   {
@@ -235,7 +235,7 @@ function ColdPlungePage() {
                 {[
                   { q: "When will VYRO Glacier cold plunges be available?", a: "The range is being manufactured in India and launches soon. Register your interest below and we'll tell you the moment it's available." },
                   { q: "Should I choose the 1HP or 2HP chiller?", a: "The 1HP suits most home plunges and personal use. The 2HP is for larger tubs and busier spaces like gyms and spas. We'll help you choose during your consultation." },
-                  { q: "How much space does a cold plunge need?", a: "The Barrel suits smaller spaces; the Classic and Signature need more room. Share your space with us and we'll suggest what fits." },
+                  { q: "How much space does a cold plunge need?", a: "The Inflatable suits smaller spaces; the Acrylic, Steel and Signature need more room. Share your space with us and we'll suggest what fits." },
                   { q: "Can a cold plunge be placed outdoors?", a: "Some setups suit covered outdoor spaces. Our team will advise based on your space." },
                 ].map((f) => (
                   <AccordionItem key={f.q} value={f.q} className="border-b border-border">
