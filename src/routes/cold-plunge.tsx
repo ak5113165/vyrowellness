@@ -15,6 +15,7 @@ import inflatableImg from "@/assets/plunge/glacier-inflatable.jpg";
 import portableImg from "@/assets/plunge/glacier-portable.jpg";
 import chiller1Img from "@/assets/plunge/chiller-1hp.jpg";
 import chiller2Img from "@/assets/plunge/chiller-2hp.jpg";
+import heroImg from "@/assets/plunge/glacier-hero.jpg";
 
 export const Route = createFileRoute("/cold-plunge")({
   head: () => ({
@@ -131,8 +132,20 @@ function ColdPlungePage() {
       <SiteHeader />
       <main>
         {/* Collection header */}
-        <section className="bg-ink pt-28 text-ink-foreground">
-          <div className="mx-auto max-w-7xl px-5 pb-14 lg:px-8">
+        <section className="relative flex min-h-[60svh] items-end overflow-hidden bg-ink">
+          <img
+            src={heroImg}
+            alt="A VYRO Glacier cold plunge tub beside a chilling system in a dark, moody wellness space"
+            width={1920}
+            height={1088}
+            className="absolute inset-0 h-full w-full object-cover"
+            fetchPriority="high"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25"
+          />
+          <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-40 lg:px-8">
             <p className="eyebrow text-bronze">VYRO Glacier Series · Made in India</p>
             <h1 className="mt-3 font-display text-5xl font-medium sm:text-7xl">Cold Plunges</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">
