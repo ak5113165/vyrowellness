@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { responsive, SIZES } from "@/lib/responsive-image";
-import { pageHead, breadcrumbJsonLd } from "@/lib/seo";
+import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
@@ -8,7 +8,9 @@ import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
-import { whatsappLink } from "@/content/site";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { site, whatsappLink } from "@/content/site";
+import { consultationSteps } from "@/content/process";
 import {
   accessorySets,
   controlPanels,
@@ -34,10 +36,51 @@ export const Route = createFileRoute("/saunas")({
       ogDescription:
         "Every Haven cabin, wood option, heater, control panel and accessory set — build your sauna and enquire.",
       image: "/og/saunas.jpg",
-      jsonLd: [breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Saunas", path: "/saunas" }])],
+      jsonLd: [
+        breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Saunas", path: "/saunas" }]),
+        faqJsonLd(faqs),
+      ],
     }),
   component: SaunasPage,
 });
+
+// Built only from facts already on this page (catalogue sizes, woods, heaters,
+// panels and the consultation process). Shown on the page and published as
+// FAQ structured data — keep them in one place.
+const sizeItems = roomSizes.map((r) => `${r.name} (${r.spec.replace("Approx. ", "approx. ")}, ${r.people})`);
+const sizeSummary = `${sizeItems.slice(0, -1).join(", ")} and ${sizeItems.at(-1)}`;
+const upgradeWoods = woods.filter((w) => !w.standard).map((w) => w.name);
+
+const faqs = [
+  {
+    q: "Which Haven cabin suits my space?",
+    a: `Haven cabins come in three sizes: ${sizeSummary}. Haven Compact is made for apartments and smaller rooms. Sizes are indicative — we confirm final dimensions for your project.`,
+  },
+  {
+    q: "What's the difference between a traditional and an infrared sauna?",
+    a: "Haven Infrared uses infrared panels that warm the body with gentle radiant heat at lower air temperatures — a calm, simple option for everyday sessions. Our other Haven cabins are heated by an Ember sauna heater and stones, in floor-standing, tower or wall-mounted designs.",
+  },
+  {
+    q: "Which wood should I choose?",
+    a: `Every Haven cabin is crafted in ${standardWood.toLowerCase()} as standard. The wood upgrades — ${upgradeWoods.slice(0, -1).join(", ")} and ${upgradeWoods.at(-1)} — change the colour, grain and character of your sauna. We'll help you choose for your space.`,
+  },
+  {
+    q: "Which heater and control panel do I need?",
+    a: `There are ${heaters.length} Ember heaters in floor-standing, tower and wall-mounted designs, and ${controlPanels.length} Pulse control panels: a simple button panel or a black-glass touch panel. The right pairing depends on your cabin and room — we'll recommend one during your consultation.`,
+  },
+  {
+    q: "What do you need from me to plan a sauna?",
+    a: "Your floor plan, plus details of the room's electrical layout and ventilation. We review these in a space assessment, then specify dimensions, timber and finishes for your architecture.",
+  },
+  {
+    q: "Do you install the sauna?",
+    a: "Yes. Our team handles delivery, installation and commissioning, with ongoing support afterwards.",
+  },
+  {
+    q: "How much does a VYRO sauna cost?",
+    a: `It depends on the cabin, wood, heater, control panel and accessories you choose. Build your setup on this page and send it to us — our team replies ${site.enquiryResponseTime}.`,
+  },
+];
 
 const tabBtn = (active: boolean) =>
   `whitespace-nowrap border-b-2 px-1 pb-3 text-[13px] uppercase tracking-[0.16em] transition-colors ${
@@ -66,6 +109,7 @@ function SaunasPage() {
     `Accessories: ${acc.length ? acc.join(", ") : "Not selected"}`,
   ].join("\n");
   const wa = whatsappLink(`Hello VYRO, I'd like to enquire about this sauna setup:\n${summary}`);
+  const heroWa = whatsappLink("Hello VYRO, I'm interested in a VYRO sauna.");
 
   // Phones: move between steps from the sticky bar and bring the options back into view.
   const goStep = (n: number) => {
@@ -92,7 +136,17 @@ function SaunasPage() {
             <p className="eyebrow text-bronze">VYRO Haven Series</p>
             <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Sauna Cabins</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">Every Haven cabin is crafted in spruce as standard, with six premium wood upgrades available.</p>
-            <nav aria-label="Room types" className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+            <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <a href="#builder" className="inline-flex items-center gap-2 rounded-sm bg-ink-foreground px-6 py-3 text-[12px] uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink-foreground/90">
+                Build Your Sauna <ArrowRight className="h-4 w-4" aria-hidden />
+              </a>
+              {heroWa && (
+                <a href={heroWa} target="_blank" rel="noopener noreferrer" className="text-[12px] uppercase tracking-[0.16em] text-ink-foreground/85 underline decoration-bronze underline-offset-8 hover:text-ink-foreground">
+                  Talk on WhatsApp
+                </a>
+              )}
+            </div>
+            <nav aria-label="Room types" className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-ink-foreground/15 pt-6">
               {roomTypes.map((t) => (
                 <a key={t.id} href="#room-types" onClick={() => setTab(t.id)} className="text-[13px] uppercase tracking-[0.16em] text-ink-foreground/85 hover:text-ink-foreground">
                   {t.name}
@@ -120,13 +174,14 @@ function SaunasPage() {
         {/* Tabs: about + models */}
         <section id="room-types" className="scroll-mt-24 border-t border-border bg-card">
           <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <div role="tablist" className="flex gap-8 overflow-x-auto border-b border-border">
+            <div role="tablist" aria-label="Haven cabins" className="flex gap-8 overflow-x-auto border-b border-border">
               {roomTypes.map((t) => (
-                <button key={t.id} role="tab" aria-selected={tab === t.id} onClick={() => setTab(t.id)} className={tabBtn(tab === t.id)}>
+                <button key={t.id} id={`tab-${t.id}`} type="button" role="tab" aria-selected={tab === t.id} aria-controls="room-panel" onClick={() => setTab(t.id)} className={tabBtn(tab === t.id)}>
                   {t.name.replace("Haven ", "")}
                 </button>
               ))}
             </div>
+            <div id="room-panel" role="tabpanel" aria-labelledby={`tab-${tab}`}>
             <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
               <img src={activeType.image} {...responsive(activeType.image, SIZES.half)} alt={activeType.name} width={1600} height={1200} loading="lazy" className="aspect-[4/3] w-full bg-background object-contain p-4" />
               <div>
@@ -156,6 +211,7 @@ function SaunasPage() {
                 More sizes for this cabin are available on request — ask us in the enquiry form below.
               </p>
             )}
+            </div>
           </div>
         </section>
 
@@ -274,6 +330,37 @@ function SaunasPage() {
                 </button>
               )}
             </div>
+          </div>
+        </section>
+
+        {/* Process */}
+        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+          <SectionHeading overline="How It Comes Together" title="From Floor Plan to First Session" />
+          <ol className="mt-12 grid gap-10 md:grid-cols-3">
+            {consultationSteps.map((st) => (
+              <li key={st.n} className="border-t border-foreground pt-6">
+                <span className="text-xs tracking-[0.2em] text-bronze-strong">{st.n}</span>
+                <h3 className="mt-3 font-display text-2xl font-medium">{st.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{st.copy}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* FAQs */}
+        <section className="border-y border-border bg-secondary/60">
+          <div className="mx-auto max-w-3xl px-5 py-20">
+            <SectionHeading align="center" overline="FAQs" title="Sauna Questions, Answered" />
+            <Reveal className="mt-10">
+              <Accordion type="single" collapsible className="border-t border-border">
+                {faqs.map((f) => (
+                  <AccordionItem key={f.q} value={f.q} className="border-b border-border">
+                    <AccordionTrigger className="text-left font-display text-xl font-medium text-foreground hover:no-underline">{f.q}</AccordionTrigger>
+                    <AccordionContent className="text-sm leading-relaxed text-muted-foreground">{f.a}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </Reveal>
           </div>
         </section>
 

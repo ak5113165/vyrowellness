@@ -36,11 +36,12 @@ export const site = {
   instagramUrl: "https://www.instagram.com/vyrowellness.in/",
 };
 
+// The logo links home, so "Home" is not repeated in the navigation.
 export const navLinks = [
-  { label: "Home", to: "/" },
   { label: "Saunas", to: "/saunas" },
   { label: "Cold Plunge", to: "/cold-plunge" },
   { label: "Red Light Therapy", to: "/red-light-therapy" },
+  { label: "Wellness Spaces", to: "/wellness-spaces" },
   { label: "Commercial Wellness", to: "/commercial-wellness" },
   { label: "Our Philosophy", to: "/philosophy" },
 ] as const;

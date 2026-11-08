@@ -46,8 +46,7 @@ export function SiteHeader() {
 
           <div className="hidden items-center gap-7 lg:flex">
             {navLinks.map((link) => {
-              const active =
-                link.to === "/" ? location.pathname === "/" : location.pathname.startsWith(link.to);
+              const active = location.pathname.startsWith(link.to);
               return (
                 <Link
                   key={link.to}

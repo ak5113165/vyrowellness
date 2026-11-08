@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { coldPlungeLaunch, site, whatsappLink } from "@/content/site";
 import { fromPrice as glacierFromPrice } from "@/content/glacier-catalogue";
+import { consultationSteps } from "@/content/process";
 
 import heroImage from "@/assets/hero.jpg";
 import saunaImage from "@/assets/products/sauna-hero-spruce.jpg";
@@ -66,23 +67,7 @@ const pillars = [
   },
 ];
 
-const steps = [
-  {
-    n: "01",
-    title: "Space Assessment",
-    copy: "We review your floor plan, electrical layout and ventilation requirements.",
-  },
-  {
-    n: "02",
-    title: "Bespoke Specification",
-    copy: "Dimensions, timber and finishes tailored to your architecture.",
-  },
-  {
-    n: "03",
-    title: "White-Glove Installation",
-    copy: "Delivery, installation, commissioning and ongoing support in India.",
-  },
-];
+const steps = consultationSteps;
 
 function Index() {
   const wa = whatsappLink("Hello VYRO, I'd like to book a wellness consultation.");
@@ -205,9 +190,8 @@ function Index() {
                 image: homeWellnessImage,
                 alt: "A private home wellness suite with a glass-fronted sauna and stone plunge bath",
                 title: "Private Residences",
-                copy: "Villas, apartments and penthouses — from a single sauna to a complete home recovery suite.",
-                to: "/saunas" as const,
-                hash: "consultation",
+                copy: "Villas, apartments and penthouses — from a single sauna to a complete home wellness space.",
+                to: "/wellness-spaces" as const,
               },
               {
                 image: hospitalityImage,
@@ -219,7 +203,7 @@ function Index() {
             ].map((c, i) => (
               <Reveal key={c.title} delayMs={i * 80}>
                 <Link
-                  to={c.title === "Private Residences" ? "/contact" : c.to}
+                  to={c.to}
                   className="group block overflow-hidden rounded-sm border border-border bg-card"
                 >
                   <div className="overflow-hidden">
@@ -237,7 +221,7 @@ function Index() {
                     <h3 className="font-display text-3xl font-medium text-foreground">{c.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
                     <span className="mt-5 inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.16em] text-foreground group-hover:text-bronze-strong">
-                      {c.title === "Private Residences" ? "Book a Consultation" : "Request Specifications"}
+                      {c.title === "Private Residences" ? "Plan Your Space" : "Request Specifications"}
                       <ArrowRight className="h-4 w-4" aria-hidden />
                     </span>
                   </div>
