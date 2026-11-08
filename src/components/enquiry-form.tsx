@@ -37,14 +37,20 @@ function firstProductInterest(value: string | undefined): (typeof productInteres
   return productInterests.find((p) => p === value) ?? "Sauna";
 }
 
+function firstBusinessType(value: string | undefined): (typeof businessTypes)[number] {
+  return businessTypes.find((t) => t === value) ?? "Gym / Fitness Centre";
+}
+
 export function EnquiryForm({
   variant,
   defaultProductInterest,
+  defaultBusinessType,
   defaultMessage,
   className,
 }: {
   variant: "consumer" | "business";
   defaultProductInterest?: string | undefined;
+  defaultBusinessType?: string | undefined;
   defaultMessage?: string | undefined;
   className?: string | undefined;
 }) {
@@ -77,9 +83,9 @@ export function EnquiryForm({
       phone: "",
       email: "",
       city: "",
-      businessType: "Gym / Fitness Centre" as const,
+      businessType: firstBusinessType(defaultBusinessType),
       productsOfInterest: firstProductInterest(defaultProductInterest),
-      projectDescription: "",
+      projectDescription: defaultMessage ?? "",
     },
   });
 
