@@ -12,3 +12,10 @@ describe("Enquiry journey facts", () => {
     );
   });
 });
+
+describe("Installation coverage", () => {
+  it("installs saunas across India", async () => {
+    const { saunaInstallation } = await import("@/content/site");
+    expect(saunaInstallation).toEqual({ panIndia: true, label: "across India" });
+  });
+});

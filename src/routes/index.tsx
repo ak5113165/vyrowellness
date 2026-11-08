@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
-import { coldPlungeLaunch, site, whatsappLink } from "@/content/site";
+import { coldPlungeLaunch, saunaInstallation, site, whatsappLink } from "@/content/site";
 import { fromPrice as glacierFromPrice } from "@/content/glacier-catalogue";
 import { consultationSteps } from "@/content/process";
 
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
       path: "/",
       title: "VYRO Wellness — Premium Saunas, Cold Plunge & Red Light Therapy in India",
       description:
-        "VYRO designs and installs premium saunas, cold plunge baths and red light therapy for homes and businesses in India. Book a consultation.",
+        `VYRO designs and installs premium saunas ${saunaInstallation.label}, with Glacier cold plunges launching ${coldPlungeLaunch.label} and red light therapy coming soon. Book a consultation.`,
       ogTitle: "VYRO — Wellness, Reimagined.",
       ogDescription:
         "Saunas, cold plunge and red light therapy — specified for your space and installed by our team in India.",
@@ -39,7 +39,7 @@ const pillars = [
     alt: "A warm natural-wood sauna interior with soft amber lighting and wooden benches",
     name: "Saunas",
     tag: "Traditional Finnish & Infrared",
-    copy: "Custom timber cabins for villas, penthouses and wellness suites.",
+    copy: `Custom timber cabins for villas, penthouses and wellness suites — installed ${saunaInstallation.label}.`,
     to: "/saunas" as const,
     soon: false,
   },

@@ -70,6 +70,10 @@ export const coldPlungeLaunch = {
   serviceLocations: ["Delhi NCR", "Bangalore", "Mumbai", "Goa"],
 } as const;
 
+// Installation coverage confirmed by the founder (8 Nov 2026): saunas are
+// installed anywhere in India; cold plunges only in coldPlungeLaunch.serviceLocations.
+export const saunaInstallation = { panIndia: true, label: "across India" } as const;
+
 // Glacier line-up confirmed by the founder (8 Nov 2026): only these three
 // hero models launch on the coldPlungeLaunch date. Every other Glacier design
 // stays "coming soon" and is offered for custom and premium projects.

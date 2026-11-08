@@ -9,7 +9,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { site, whatsappLink } from "@/content/site";
+import { saunaInstallation, site, whatsappLink } from "@/content/site";
 import { consultationSteps } from "@/content/process";
 import {
   accessorySets,
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/saunas")({
       path: "/saunas",
       title: "Premium Saunas in India — VYRO Haven Cabins | VYRO Wellness",
       description:
-        "Explore the VYRO Haven sauna range in India: Classic, Glass, Infrared and Compact cabins in spruce, with wood upgrades, Ember heaters, Pulse control panels and Ritual accessories.",
+        "Explore the VYRO Haven sauna range: Classic, Glass, Infrared and Compact cabins in spruce, with wood upgrades, Ember heaters, Pulse control panels and Ritual accessories — installed by our team across India.",
       ogTitle: "VYRO Haven Sauna Cabins",
       ogDescription:
         "Every Haven cabin, wood option, heater, control panel and accessory set — build your sauna and enquire.",
@@ -73,8 +73,8 @@ const faqs = [
     a: "Your floor plan, plus details of the room's electrical layout and ventilation. We review these in a space assessment, then specify dimensions, timber and finishes for your architecture.",
   },
   {
-    q: "Do you install the sauna?",
-    a: "Yes. Our team handles delivery, installation and commissioning, with ongoing support afterwards.",
+    q: "Do you install saunas everywhere in India?",
+    a: `Yes. We install VYRO saunas ${saunaInstallation.label} — our team handles delivery, installation and commissioning, with ongoing support afterwards.`,
   },
   {
     q: "How much does a VYRO sauna cost?",
@@ -135,7 +135,7 @@ function SaunasPage() {
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-32 lg:px-8">
             <p className="eyebrow text-bronze">VYRO Haven Series</p>
             <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Sauna Cabins</h1>
-            <p className="mt-4 max-w-xl text-ink-foreground/80">Every Haven cabin is crafted in spruce as standard, with six premium wood upgrades available.</p>
+            <p className="mt-4 max-w-xl text-ink-foreground/80">Every Haven cabin is crafted in spruce as standard, with six premium wood upgrades — and installed by our team {saunaInstallation.label}.</p>
             <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
               <a href="#builder" className="inline-flex items-center gap-2 rounded-sm bg-ink-foreground px-6 py-3 text-[12px] uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink-foreground/90">
                 Build Your Sauna <ArrowRight className="h-4 w-4" aria-hidden />

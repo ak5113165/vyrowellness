@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { responsive, SIZES } from "@/lib/responsive-image";
 import { pageHead, breadcrumbJsonLd } from "@/lib/seo";
-import { site, whatsappLink } from "@/content/site";
+import { coldPlungeLaunch, saunaInstallation, site, whatsappLink } from "@/content/site";
 import { consultationSteps } from "@/content/process";
 import { fromPrice as glacierFromPrice, launchLabel } from "@/content/glacier-catalogue";
 import { saunaHero } from "@/content/sauna-catalogue";
@@ -41,7 +41,7 @@ const elements = [
   {
     name: "Sauna",
     series: "VYRO Haven",
-    copy: "Traditional, glass-front, infrared and compact cabins in spruce, with six wood upgrades, Ember heaters and Pulse controls.",
+    copy: `Traditional, glass-front, infrared and compact cabins in spruce, with six wood upgrades — installed ${saunaInstallation.label}.`,
     to: "/saunas" as const,
     cta: "Explore Saunas",
     image: saunaHero,
@@ -52,7 +52,7 @@ const elements = [
     series: "VYRO Glacier",
     copy: `Glacier Barrel, Portable and Acrylic launch on ${launchLabel}${
       glacierFromPrice ? `, from ${glacierFromPrice} MRP including the 1HP chiller and installation` : ""
-    }.`,
+    } — available first in ${coldPlungeLaunch.serviceLocations.join(", ")}.`,
     to: "/cold-plunge" as const,
     cta: "View the Launch Range",
     image: plungeImage,
