@@ -9,6 +9,7 @@
 - [x] Cold plunge: acrylic with matching 1HP chiller and no dimensions; oval steel reference; built-in chilling model
 - [x] Glacier launch line-up: Barrel, Portable, Acrylic launch 1 January 2027 (hero products, comparison, chiller requirements); Pro, Steel, Signature, Integrated = coming soon for custom & premium projects
 - [x] Complete Wellness Spaces page (/wellness-spaces); Saunas FAQ + process; shared consultation steps
+- [x] Buyer tools: before-you-buy FAQs, call-back block, which-cabin-fits helper, PDF spec sheets (rebuild: scripts/spec-sheets)
 
 ## In progress
 - [ ] Cold Plunge: reference-inspired cold therapy section, India/Delhi manufacturing, 1 January launch and initial Tier 1 city coverage
@@ -24,6 +25,8 @@
 - [x] Logo in header/footer + favicon
 
 ## Waiting on user
+- [ ] Lead alerts: which email (and WhatsApp?) should receive new enquiries; an email-sending service key
+- [ ] Warranty, cancellation/refund terms; EMI/financing; specialist names, photos and hours
 - [ ] Real product photography to replace src/assets stand-ins
 - [ ] Final Privacy Policy & Terms copy (pages contain clearly labelled placeholders)
 - [ ] Confirm sales@/support@vyrowellness.in receive mail; confirm Instagram account is live at @vyrowellness.in

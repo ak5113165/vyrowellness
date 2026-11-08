@@ -10,6 +10,7 @@ import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
+import { DownloadLink } from "@/components/download-link";
 import {
   coldPlungeLaunch,
   externalChillerSpecs,
@@ -302,6 +303,10 @@ function CommercialPage() {
                   </div>
                 ))}
               </dl>
+              <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4">
+                <DownloadLink sheet="haven" />
+                <DownloadLink sheet="glacier" />
+              </div>
               <button
                 type="button"
                 onClick={() =>

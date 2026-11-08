@@ -7,6 +7,8 @@ import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
+import { SpecialistCallout } from "@/components/specialist-callout";
+import { DownloadLink } from "@/components/download-link";
 import { responsive, SIZES } from "@/lib/responsive-image";
 import { absoluteUrl, pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import {
@@ -311,8 +313,15 @@ function ColdPlungePage() {
             <p className="mt-5 text-sm text-muted-foreground">
               Water capacity across the launch range: {waterCapacity}. All prices are MRP and include installation.
             </p>
+            <DownloadLink sheet="glacier" className="mt-6" />
           </div>
         </section>
+
+        <SpecialistCallout
+          interest="Cold Plunge"
+          page="cold plunge"
+          whatsappMessage={`Hello VYRO, I'd like to talk to a specialist about the Glacier cold plunges launching on ${launchLabel}.`}
+        />
 
         {/* Chillers + requirements */}
         <section id="chillers" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-20 lg:px-8">
