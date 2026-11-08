@@ -15,6 +15,10 @@ import {
   site,
 } from "@/content/site";
 import { formatInr, fromPrice, launchLabel } from "@/content/glacier-catalogue";
+import { metresToFeet, roomSizes } from "@/content/sauna-catalogue";
+
+const saunaMinM = Math.min(...roomSizes.map((r) => r.minWidthM));
+const saunaMaxM = Math.max(...roomSizes.map((r) => r.maxWidthM));
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const wiring = `${externalChillerSpecs.wiringOptionsMm2.join(" mm² or ")} mm²`;
@@ -38,7 +42,7 @@ export const beforeYouBuyFaqs = [
   },
   {
     q: "How much space does each product take?",
-    a: `Haven sauna cabins are approx. 1.2m to 2.2m wide depending on size. Glacier Barrel is ${glacierDimensions["Glacier Barrel"].replace(" · ", ", ")}; Glacier Portable and Acrylic are ${glacierDimensions["Glacier Acrylic"].replace(" · ", ", ")}, holding ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres across the range.`,
+    a: `Haven sauna cabins are approx. ${metresToFeet(saunaMinM)} to ${metresToFeet(saunaMaxM)} ft wide (${saunaMinM}–${saunaMaxM} m) depending on size. Glacier Barrel is ${glacierDimensions["Glacier Barrel"].replace(" · ", ", ")}; Glacier Portable and Acrylic are ${glacierDimensions["Glacier Acrylic"].replace(" · ", ", ")}, holding ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres across the range.`,
   },
   {
     q: "Can I upgrade the chiller?",

@@ -21,7 +21,7 @@ import {
 } from "@/content/site";
 import { consultationSteps } from "@/content/process";
 import { launchLabel } from "@/content/glacier-catalogue";
-import { roomSizes } from "@/content/sauna-catalogue";
+import { metresToFeet, roomSizes } from "@/content/sauna-catalogue";
 
 import hospitalityImage from "@/assets/hospitality.jpg";
 import fitnessImage from "@/assets/fitness.jpg";
@@ -48,7 +48,8 @@ export const Route = createFileRoute("/commercial-wellness")({
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const wiring = `${externalChillerSpecs.wiringOptionsMm2.join(" or ")} mm²`;
-const largestSauna = roomSizes.find((r) => r.name === "Large");
+const saunaMinM = Math.min(...roomSizes.map((r) => r.minWidthM));
+const saunaMaxM = Math.max(...roomSizes.map((r) => r.maxWidthM));
 
 // What VYRO can specify for a commercial project — only products and facts
 // already confirmed elsewhere on the site.
@@ -87,7 +88,7 @@ const offer = [
 const planningFacts = [
   {
     label: "Haven sauna cabins",
-    value: `Indicative widths from approx. 1.2m to ${largestSauna ? largestSauna.spec.split("–").at(-1)?.replace(" wide", "") : "2.2m"}; final dimensions confirmed per project.`,
+    value: `Indicative widths from approx. ${metresToFeet(saunaMinM)} to ${metresToFeet(saunaMaxM)} ft (${saunaMinM}–${saunaMaxM} m); final dimensions confirmed per project.`,
   },
   {
     label: "Glacier cold plunge tubs",

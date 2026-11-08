@@ -89,6 +89,8 @@ export type SaunaModel = {
   code: string;
   name: string;
   size: "Small" | "Medium" | "Large";
+  /** Only when a model's capacity differs from its size group (taken from its own description). */
+  people?: string;
   type: RoomType["id"];
   copy: string;
   image: string;
@@ -101,7 +103,7 @@ export const saunaModels: SaunaModel[] = [
   { code: "G-01", name: "Haven Glass", size: "Small", type: "glass-front", image: g01, copy: "A 1–3 person cabin with a full glass front that brings in light." },
   { code: "G-02", name: "Haven Glass", size: "Medium", type: "glass-front", image: g02, copy: "For 4–6 people — spacious comfort behind a clean glass façade." },
   { code: "G-03", name: "Haven Glass", size: "Large", type: "glass-front", image: g03, copy: "A 6+ person statement sauna with a wide, striking glass front." },
-  { code: "IR-01", name: "Haven Infrared", size: "Small", type: "infrared", image: ir01, copy: "A compact infrared cabin for 1–2 people with gentle radiant warmth." },
+  { code: "IR-01", name: "Haven Infrared", size: "Small", type: "infrared", image: ir01, people: "1–2 people", copy: "A compact infrared cabin for 1–2 people with gentle radiant warmth." },
   { code: "C-01", name: "Haven Compact", size: "Small", type: "compact", image: c01, copy: "A slim, space-saving cabin made for apartments and smaller rooms." },
 ];
 
@@ -137,3 +139,39 @@ export const accessorySets = [
   { name: "Ritual Signature", finish: "Black & Spruce", image: rSignature, copy: "Matte black pieces with spruce handles, for a refined ritual." },
   { name: "Ritual Noir", finish: "Black", image: rNoir, copy: "A bold all-black geometric set with waffle towel and headrest." },
 ];
+
+// ---------------------------------------------------------------- sizes ----
+// Sizes are shown in feet first (how most Indian buyers measure rooms), with
+// metres in brackets. Per-cabin dimensions aren't confirmed yet, so each cabin
+// shows its size group's indicative width range.
+
+const M_TO_FT = 3.28084;
+
+export type RoomSize = (typeof roomSizes)[number];
+
+/** Metres to feet, one decimal place (1.2 → 3.9). */
+export function metresToFeet(m: number): number {
+  return Math.round(m * M_TO_FT * 10) / 10;
+}
+
+/** "approx. 3.9–4.9 ft wide" */
+export function widthFeet(size: RoomSize): string {
+  return `approx. ${metresToFeet(size.minWidthM)}–${metresToFeet(size.maxWidthM)} ft wide`;
+}
+
+/** "Approx. 3.9–4.9 ft wide (1.2–1.5 m)" */
+export function widthLabel(size: RoomSize): string {
+  const ft = widthFeet(size);
+  return `${ft.charAt(0).toUpperCase()}${ft.slice(1)} (${size.minWidthM}–${size.maxWidthM} m)`;
+}
+
+/** Size line for one cabin: width range of its group + its capacity. */
+export function modelSize(model: SaunaModel): { width: string; widthShort: string; people: string } {
+  const group = roomSizes.find((r) => r.name === model.size) ?? roomSizes[0];
+  return {
+    width: widthLabel(group),
+    widthShort: widthFeet(group),
+    people: model.people ?? group.people,
+  };
+}
+

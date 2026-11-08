@@ -26,10 +26,12 @@ import {
   accessorySets,
   controlPanels,
   heaters,
+  modelSize,
   roomSizes,
   roomTypes,
   saunaModels,
   standardWood,
+  widthLabel,
   woods,
 } from "@/content/sauna-catalogue";
 import { consultationSteps } from "@/content/process";
@@ -61,8 +63,8 @@ const data = {
     installation: saunaInstallation.label,
     standardWood,
     roomTypes,
-    roomSizes,
-    models: saunaModels,
+    roomSizes: roomSizes.map((s) => ({ ...s, width: widthLabel(s) })),
+    models: saunaModels.map((m) => ({ ...m, ...modelSize(m) })),
     woods,
     heaters,
     controlPanels,
