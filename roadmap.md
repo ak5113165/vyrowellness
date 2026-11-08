@@ -6,6 +6,7 @@
 - [x] Pages: home, saunas, cold plunge, red light therapy, commercial wellness, philosophy, contact, privacy, terms
 - [x] 10 stand-in photography assets generated (replace with real photography later)
 - [x] Art directions confirmed: homepage = architectural luxury; product pages = wellness-tech precision; recovery sessions (future) = warm retreat
+- [x] Cold plunge: acrylic with matching 1HP chiller and no dimensions; oval steel reference; built-in chilling model
 
 ## In progress
 (none)
