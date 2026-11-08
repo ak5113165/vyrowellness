@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { absoluteUrl, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import logoDark from "@/assets/brand/vyro-logo-dark.png.asset.json";
 
 function NotFoundComponent() {
   return (
@@ -81,11 +83,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "VYRO — Wellness, Reimagined." },
       { name: "description", content: "Premium saunas, cold plunge and red light therapy for Indian homes and businesses. Heat. Cold. Light. Recovery." },
-      { name: "author", content: "VYRO" },
+      { name: "author", content: "VYRO Wellness" },
+      { name: "theme-color", content: "#1b1d1f" },
+      { property: "og:site_name", content: "VYRO Wellness" },
+      { property: "og:locale", content: "en_IN" },
       { property: "og:title", content: "VYRO — Wellness, Reimagined." },
       { property: "og:description", content: "Premium heat, cold and light therapy, thoughtfully designed for everyday life in India." },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: absoluteUrl("/og/default.jpg") },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: absoluteUrl("/og/default.jpg") },
+      { "script:ld+json": organizationJsonLd(logoDark.url) },
+      { "script:ld+json": websiteJsonLd() },
     ],
     links: [
       {
@@ -97,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap",
       },
     ],
   }),
@@ -109,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <head>
         <HeadContent />
       </head>

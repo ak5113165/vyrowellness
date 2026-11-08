@@ -1,4 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { responsive, SIZES } from "@/lib/responsive-image";
+import { pageHead, breadcrumbJsonLd } from "@/lib/seo";
 import { Building2, Dumbbell, PenTool, Briefcase, Sparkles, Trees } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -12,23 +14,20 @@ import fitnessImage from "@/assets/fitness.jpg";
 import studioImage from "@/assets/wellness-studio.jpg";
 
 export const Route = createFileRoute("/commercial-wellness")({
-  head: () => ({
-    meta: [
-      { title: "Commercial Wellness — Wellness Designed for Business | VYRO" },
-      {
-        name: "description",
-        content:
-          "Commercial wellness solutions for gyms, luxury hotels, spas, fitness studios, architects and workplaces in India. Sauna, cold plunge and red light therapy equipment and wellness-space planning with VYRO.",
-      },
-      { property: "og:title", content: "Commercial Wellness — Wellness Designed for Business | VYRO" },
-      {
-        property: "og:description",
-        content:
-          "Thoughtfully planned wellness solutions for gyms, hotels, spas, studios, architects and commercial spaces.",
-      },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/commercial-wellness",
+      title: "Commercial Wellness for Gyms, Hotels & Spas | VYRO Wellness",
+      description:
+        "Commercial wellness solutions for gyms, luxury hotels, spas, fitness studios, architects and workplaces in India. Sauna, cold plunge and red light therapy equipment and wellness-space planning with VYRO.",
+      ogTitle: "Commercial Wellness — Wellness Designed for Business | VYRO",
+      ogDescription:
+        "Thoughtfully planned wellness solutions for gyms, hotels, spas, studios, architects and commercial spaces.",
+      image: "/og/commercial-wellness.jpg",
+      jsonLd: [
+        breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Commercial Wellness", path: "/commercial-wellness" }]),
+      ],
+    }),
   component: CommercialPage,
 });
 
@@ -114,6 +113,7 @@ function CommercialPage() {
             <Reveal delayMs={120} className="lg:order-1">
               <img
                 src={fitnessImage}
+                {...responsive(fitnessImage, SIZES.half)}
                 alt="A premium gym recovery zone with a cold plunge tub and sauna cabin under warm lighting"
                 width={1920}
                 height={1280}
@@ -129,6 +129,7 @@ function CommercialPage() {
           <Reveal>
             <img
               src={studioImage}
+              {...responsive(studioImage, SIZES.contained)}
               alt="A boutique wellness studio interior with timber, stone, linen textures and a sauna cabin"
               width={1920}
               height={1280}

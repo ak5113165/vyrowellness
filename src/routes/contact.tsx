@@ -1,4 +1,5 @@
 import { ArrowRight, Mail } from "lucide-react";
+import { pageHead } from "@/lib/seo";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { Reveal } from "@/components/reveal";
 import { SiteHeader } from "@/components/site-header";
@@ -7,23 +8,15 @@ import { EnquiryForm } from "@/components/enquiry-form";
 import { site, whatsappLink } from "@/content/site";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact VYRO — Book a Consultation" },
-      {
-        name: "description",
-        content:
-          "Contact VYRO for product consultations, business enquiries and wellness-space planning. Premium saunas, cold plunge and red light therapy for homes and businesses in India.",
-      },
-      { property: "og:title", content: "Contact VYRO — Book a Consultation" },
-      {
-        property: "og:description",
-        content:
-          "Talk to the VYRO team about saunas, cold plunge, red light therapy and wellness spaces for your home or business.",
-      },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/contact",
+      title: "Contact VYRO — Book a Consultation | VYRO Wellness",
+      description:
+        "Contact VYRO for product consultations, business enquiries and wellness-space planning. Premium saunas, cold plunge and red light therapy for homes and businesses in India.",
+      ogDescription:
+        "Talk to the VYRO team about saunas, cold plunge, red light therapy and wellness spaces for your home or business.",
+    }),
   component: ContactPage,
 });
 

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { responsive, SIZES } from "@/lib/responsive-image";
+import { pageHead, breadcrumbJsonLd } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
@@ -22,23 +24,18 @@ import {
 
 
 export const Route = createFileRoute("/saunas")({
-  head: () => ({
-    meta: [
-      { title: "VYRO Haven Sauna Cabins — Classic, Glass, Infrared & Compact | VYRO Wellness" },
-      {
-        name: "description",
-        content:
-          "Explore the VYRO Haven sauna range in India: Classic, Glass, Infrared and Compact cabins in spruce, with wood upgrades, Ember heaters, Pulse control panels and Ritual accessories.",
-      },
-      { property: "og:title", content: "VYRO Haven Sauna Cabins" },
-      {
-        property: "og:description",
-        content: "Every Haven cabin, wood option, heater, control panel and accessory set — build your sauna and enquire.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/saunas",
+      title: "Premium Saunas in India — VYRO Haven Cabins | VYRO Wellness",
+      description:
+        "Explore the VYRO Haven sauna range in India: Classic, Glass, Infrared and Compact cabins in spruce, with wood upgrades, Ember heaters, Pulse control panels and Ritual accessories.",
+      ogTitle: "VYRO Haven Sauna Cabins",
+      ogDescription:
+        "Every Haven cabin, wood option, heater, control panel and accessory set — build your sauna and enquire.",
+      image: "/og/saunas.jpg",
+      jsonLd: [breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Saunas", path: "/saunas" }])],
+    }),
   component: SaunasPage,
 });
 
@@ -83,7 +80,7 @@ function SaunasPage() {
       <main>
         {/* Hero */}
         <section className="relative flex min-h-[60svh] items-end overflow-hidden bg-ink">
-          <img src={saunaHero} alt="A VYRO spruce sauna interior with glowing benches, a stone tower heater and the VYRO Wellness plaque" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover object-[center_top]" fetchPriority="high" />
+          <img src={saunaHero} {...responsive(saunaHero, SIZES.fullBleed)} alt="A VYRO spruce sauna interior with glowing benches, a stone tower heater and the VYRO Wellness plaque" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover object-[center_top]" fetchPriority="high" />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10" />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-32 lg:px-8">
             <p className="eyebrow text-bronze">VYRO Haven Series</p>
@@ -125,7 +122,7 @@ function SaunasPage() {
               ))}
             </div>
             <div className="mt-12 grid items-center gap-10 lg:grid-cols-2">
-              <img src={activeType.image} alt={activeType.name} width={1600} height={1200} loading="lazy" className="aspect-[4/3] w-full bg-background object-contain p-4" />
+              <img src={activeType.image} {...responsive(activeType.image, SIZES.half)} alt={activeType.name} width={1600} height={1200} loading="lazy" className="aspect-[4/3] w-full bg-background object-contain p-4" />
               <div>
                 <p className="eyebrow text-bronze-strong">VYRO {activeType.series}</p>
                 <h2 className="mt-3 font-display text-4xl font-medium">{activeType.name}</h2>
@@ -136,7 +133,7 @@ function SaunasPage() {
               <div className="mt-14 grid gap-6 md:grid-cols-3">
                 {typeModels.map((m) => (
                   <article key={m.code} className="flex flex-col border border-border bg-background">
-                    <img src={m.image} alt={`VYRO ${m.name} ${m.code} sauna cabin in spruce`} width={800} height={800} loading="lazy" className="aspect-square w-full object-contain p-4" />
+                    <img src={m.image} {...responsive(m.image, SIZES.third)} alt={`VYRO ${m.name} ${m.code} sauna cabin in spruce`} width={800} height={800} loading="lazy" className="aspect-square w-full object-contain p-4" />
                     <div className="flex flex-1 flex-col border-t border-border p-6">
                       <p className="eyebrow text-bronze-strong">{m.size} · Spruce</p>
                       <h3 className="mt-2 font-display text-2xl font-medium">{m.name} {m.code}</h3>
@@ -269,7 +266,7 @@ function Choice({ selected, onClick, image, label, title, copy }: { selected: bo
   return (
     <button type="button" aria-pressed={selected} onClick={onClick} className={`relative flex flex-col border bg-card text-left transition-colors ${selected ? "border-bronze" : "border-border hover:border-foreground/40"}`}>
       {selected && <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" aria-hidden /></span>}
-      <img src={image} alt={title} width={600} height={600} loading="lazy" className="aspect-square w-full object-contain p-4" />
+      <img src={image} {...responsive(image, SIZES.third)} alt={title} width={600} height={600} loading="lazy" className="aspect-square w-full object-contain p-4" />
       <div className="border-t border-border p-5">
         <p className="eyebrow text-bronze-strong">{label}</p>
         <h4 className="mt-1 font-display text-xl font-medium">{title}</h4>

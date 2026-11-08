@@ -70,7 +70,7 @@ export const roomTypes: RoomType[] = [
     id: "compact",
     name: "Haven Compact",
     series: "C-Series",
-    short: "A slim, plug-and-play cabin for apartments and smaller rooms.",
+    short: "A slim cabin made for apartments and smaller rooms.",
     about:
       "Designed for urban homes — a compact spruce cabin with a clean front and the heater tucked out of sight.",
     image: c01,
@@ -100,7 +100,7 @@ export const saunaModels: SaunaModel[] = [
   { code: "G-02", name: "Haven Glass", size: "Medium", type: "glass-front", image: g02, copy: "For 4–6 people — spacious comfort behind a clean glass façade." },
   { code: "G-03", name: "Haven Glass", size: "Large", type: "glass-front", image: g03, copy: "A 6+ person statement sauna with a wide, striking glass front." },
   { code: "IR-01", name: "Haven Infrared", size: "Small", type: "infrared", image: ir01, copy: "A compact infrared cabin for 1–2 people with gentle radiant warmth." },
-  { code: "C-01", name: "Haven Compact", size: "Small", type: "compact", image: c01, copy: "A slim plug-and-play cabin made for apartments and smaller rooms." },
+  { code: "C-01", name: "Haven Compact", size: "Small", type: "compact", image: c01, copy: "A slim, space-saving cabin made for apartments and smaller rooms." },
 ];
 
 export type Wood = { name: string; note: string; standard?: boolean };

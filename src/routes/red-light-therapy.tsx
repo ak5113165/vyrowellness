@@ -1,4 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { responsive, SIZES } from "@/lib/responsive-image";
+import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
@@ -12,25 +14,47 @@ import homeWellnessImage from "@/assets/home-wellness.jpg";
 import fitnessImage from "@/assets/fitness.jpg";
 
 export const Route = createFileRoute("/red-light-therapy")({
-  head: () => ({
-    meta: [
-      { title: "Red Light Therapy — Light, Reconsidered | VYRO" },
-      {
-        name: "description",
-        content:
-          "Modern red light therapy panels and larger-format systems for homes, gyms, studios and professional wellness spaces in India. Explore red light therapy equipment with VYRO.",
-      },
-      { property: "og:title", content: "Red Light Therapy — Light, Reconsidered | VYRO" },
-      {
-        property: "og:description",
-        content:
-          "Modern red light therapy equipment designed to integrate into personal routines and professional spaces.",
-      },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/red-light-therapy",
+      title: "Red Light Therapy Panels for Home & Studio | VYRO Wellness",
+      description:
+        "Modern red light therapy panels and larger-format systems for homes, gyms, studios and professional wellness spaces in India. Explore red light therapy equipment with VYRO.",
+      ogTitle: "Red Light Therapy — Light, Reconsidered | VYRO",
+      ogDescription:
+        "Modern red light therapy equipment designed to integrate into personal routines and professional spaces.",
+      image: "/og/red-light-therapy.jpg",
+      jsonLd: [
+        breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Red Light Therapy", path: "/red-light-therapy" }]),
+        faqJsonLd(faqs),
+      ],
+    }),
   component: RedLightPage,
 });
+
+// Shown on the page and published as FAQ structured data — keep them in one place.
+const faqs = [
+  {
+    q: "When will VYRO red light therapy be available?",
+    a: "Our red light therapy range is coming soon. Send an enquiry below and we'll notify you as soon as it launches.",
+  },
+  {
+    q: "What is red light therapy used for?",
+    a: "Red light therapy panels are used in everyday wellness routines at homes, gyms and studios. We don't make medical claims — if you have a health condition, please consult your doctor.",
+  },
+  {
+    q: "What's the difference between a panel and a larger system?",
+    a: "Panels suit personal routines and smaller spaces; larger-format systems are designed for dedicated rooms, studios and professional settings. The right choice depends on your space and how you plan to use it.",
+  },
+  {
+    q: "Where can a panel be placed?",
+    a: "Most panels are designed to integrate into bedrooms, home gyms and wellness rooms. We can help you think through placement and surroundings during a consultation.",
+  },
+  {
+    q: "Will you help us understand how to use it?",
+    a: "Yes — we're happy to walk you through setup and everyday use. Ask us during your consultation.",
+  },
+];
 
 function RedLightPage() {
   return (
@@ -48,9 +72,9 @@ function RedLightPage() {
         {/* Coming soon notice */}
         <section className="border-b border-bronze/40 bg-secondary/60">
           <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:px-8">
-            <p className="eyebrow shrink-0 text-bronze-strong">Coming Soon · Made in India</p>
+            <p className="eyebrow shrink-0 text-bronze-strong">Coming Soon</p>
             <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              VYRO red light therapy systems are being manufactured in India and will launch soon.
+              VYRO red light therapy systems will launch soon.
               Enquire below and we'll let you know the moment they're available.
             </p>
           </div>
@@ -78,6 +102,7 @@ function RedLightPage() {
             <Reveal delayMs={120}>
               <img
                 src={lightImage}
+                {...responsive(lightImage, SIZES.half)}
                 alt="A tall black red light therapy panel leaning against an ivory wall, glowing deep red"
                 width={1920}
                 height={1280}
@@ -105,6 +130,7 @@ function RedLightPage() {
             <Reveal delayMs={120} className="lg:order-1">
               <img
                 src={homeWellnessImage}
+                {...responsive(homeWellnessImage, SIZES.half)}
                 alt="A red light panel mounted within a private wellness suite alongside a sauna and plunge bath"
                 width={1920}
                 height={1280}
@@ -147,6 +173,7 @@ function RedLightPage() {
           <Reveal className="mt-10">
             <img
               src={fitnessImage}
+              {...responsive(fitnessImage, SIZES.contained)}
               alt="A premium gym recovery zone with dark walls, warm lighting and a sauna cabin"
               width={1920}
               height={1280}
@@ -162,28 +189,7 @@ function RedLightPage() {
             <SectionHeading align="center" overline="FAQs" title="Good Questions, Straight Answers." />
             <Reveal className="mt-10">
               <Accordion type="single" collapsible className="border-t border-border">
-                {[
-                  {
-                    q: "When will VYRO red light therapy be available?",
-                    a: "Our red light therapy range is being manufactured in India and is coming soon. Send an enquiry below and we'll notify you as soon as it launches.",
-                  },
-                  {
-                    q: "What is red light therapy used for?",
-                    a: "Red light therapy panels are used in everyday wellness routines at homes, gyms and studios. We don't make medical claims — if you have a health condition, please consult your doctor.",
-                  },
-                  {
-                    q: "What's the difference between a panel and a larger system?",
-                    a: "Panels suit personal routines and smaller spaces; larger-format systems are designed for dedicated rooms, studios and professional settings. The right choice depends on your space and how you plan to use it.",
-                  },
-                  {
-                    q: "Where can a panel be placed?",
-                    a: "Most panels are designed to integrate into bedrooms, home gyms and wellness rooms. We can help you think through placement and surroundings during a consultation.",
-                  },
-                  {
-                    q: "Will you help us understand how to use it?",
-                    a: "Yes — we're happy to walk you through setup and everyday use. Ask us during your consultation.",
-                  },
-                ].map((f) => (
+                {faqs.map((f) => (
                   <AccordionItem key={f.q} value={f.q} className="border-b border-border">
                     <AccordionTrigger className="text-left font-display text-xl font-medium text-foreground hover:no-underline">
                       {f.q}
@@ -207,8 +213,8 @@ function RedLightPage() {
                 Find Your Light.
               </h2>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
-                Tell us about your space and routine. We'll keep you updated as our Made-in-India
-                red light therapy range launches and help you plan your space in advance.
+                Tell us about your space and routine. We'll keep you updated as our red light therapy
+                range launches and help you plan your space in advance.
               </p>
             </Reveal>
             <Reveal delayMs={120}>

@@ -32,7 +32,7 @@ export function SiteFooter() {
                   </li>
                 ))}
               <li>
-                <Link to="/" className="text-ink-foreground/80 transition-colors hover:text-ink-foreground">
+                <Link to="/contact" className="text-ink-foreground/80 transition-colors hover:text-ink-foreground">
                   Complete Home Wellness
                 </Link>
               </li>
