@@ -8,7 +8,7 @@
 - [x] Art directions confirmed: homepage = architectural luxury; product pages = wellness-tech precision; recovery sessions (future) = warm retreat
 
 ## In progress
-(none)
+- [ ] Cold plunge: acrylic with matching 1HP chiller and no dimensions; oval steel reference; built-in chilling model
 
 ## Next
 - [x] Refine product pages toward "wellness technology" precision (numbered details, hairline dividers) while keeping brand identity
