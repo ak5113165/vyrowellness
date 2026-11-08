@@ -39,7 +39,8 @@ export const Route = createFileRoute("/api/public/enquiries")({
             kind: d.kind,
             full_name: isConsumer ? d.fullName : d.contactPerson,
             phone: d.phone,
-            email: d.email,
+            // Consumer email is optional; the column is NOT NULL, so blank = "".
+            email: d.email ?? "",
             city: d.city ?? null,
             product_interest: isConsumer ? d.productInterest : null,
             home_or_business: isConsumer ? d.homeOrBusiness : null,

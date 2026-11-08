@@ -11,8 +11,9 @@ import { coldPlungeLaunch, saunaInstallation, site, whatsappLink } from "@/conte
 import { fromPrice as glacierFromPrice } from "@/content/glacier-catalogue";
 import { consultationSteps } from "@/content/process";
 
-import heroImage from "@/assets/hero.jpg";
-import saunaImage from "@/assets/products/sauna-hero-spruce.jpg";
+// Hero: a VYRO-branded spruce sauna (the previous hero showed a stone plunge VYRO does not sell).
+import heroImage from "@/assets/products/sauna-hero-spruce.jpg";
+import saunaImage from "@/assets/sauna.jpg";
 import coldImage from "@/assets/plunge/glacier-hero.jpg";
 import lightImage from "@/assets/red-light.jpg";
 import homeWellnessImage from "@/assets/home-wellness.jpg";
@@ -82,7 +83,7 @@ function Index() {
           <img
             src={heroImage}
             {...responsive(heroImage, SIZES.fullBleed)}
-            alt="An architectural travertine wellness hall at dusk with a timber sauna cabin, a monolithic stone cold plunge and a glowing red light therapy panel"
+            alt="A VYRO spruce sauna at night with glowing tiered benches, a stone tower heater and the VYRO Wellness plaque"
             width={1920}
             height={1088}
             className="absolute inset-0 h-full w-full object-cover"

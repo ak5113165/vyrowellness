@@ -26,6 +26,14 @@ const optionalText = (max: number) =>
     z.string().max(max).optional(),
   );
 
+// Consumer email is optional: many buyers prefer to share only a WhatsApp
+// number. A blank email is stored as an empty string by the API, because the
+// enquiries.email column is NOT NULL — no database change is needed.
+const optionalEmail = z.preprocess(
+  (v) => (typeof v === "string" ? emptyToUndefined(v) : v),
+  z.string().toLowerCase().email("Enter a valid email address").max(255).optional(),
+);
+
 export const productInterestValues = [
   "Sauna",
   "Cold Plunge",
@@ -50,7 +58,7 @@ export const consumerEnquirySchema = z.object({
   kind: z.literal("consumer"),
   fullName: z.string().trim().min(2, "Please enter your full name").max(100),
   phone: phoneSchema,
-  email: z.string().trim().toLowerCase().email("Enter a valid email address").max(255),
+  email: optionalEmail,
   city: optionalText(80),
   productInterest: z.enum(productInterestValues),
   homeOrBusiness: z.enum(["Home", "Business"]),
