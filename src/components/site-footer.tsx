@@ -25,7 +25,7 @@ export function SiteFooter() {
             <h3 className="eyebrow text-bronze">Collections</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               {navLinks
-                .filter((l) => l.to !== "/" && l.to !== "/philosophy")
+                .filter((l) => l.to !== "/philosophy")
                 .map((l) => (
                   <li key={l.to}>
                     <Link to={l.to} className="text-ink-foreground/80 transition-colors hover:text-ink-foreground">
@@ -33,11 +33,6 @@ export function SiteFooter() {
                     </Link>
                   </li>
                 ))}
-              <li>
-                <Link to="/contact" className="text-ink-foreground/80 transition-colors hover:text-ink-foreground">
-                  Complete Home Wellness
-                </Link>
-              </li>
             </ul>
           </nav>
 

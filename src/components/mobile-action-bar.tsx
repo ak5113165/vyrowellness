@@ -12,6 +12,7 @@ const whatsappMessages: Record<string, string> = {
   "/cold-plunge": `Hello VYRO, I'm interested in the Glacier cold plunges launching on ${coldPlungeLaunch.label}.`,
   "/red-light-therapy": "Hello VYRO, I'd like to hear about your red light therapy range.",
   "/commercial-wellness": "Hello VYRO, I'd like to discuss a commercial wellness project.",
+  "/wellness-spaces": "Hello VYRO, I'd like to plan a complete wellness space.",
 };
 const defaultMessage = "Hello VYRO, I'd like to book a consultation.";
 

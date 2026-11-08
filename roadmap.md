@@ -8,6 +8,7 @@
 - [x] Art directions confirmed: homepage = architectural luxury; product pages = wellness-tech precision; recovery sessions (future) = warm retreat
 - [x] Cold plunge: acrylic with matching 1HP chiller and no dimensions; oval steel reference; built-in chilling model
 - [x] Glacier launch line-up: Barrel, Portable, Acrylic launch 1 January 2027 (hero products, comparison, chiller requirements); Pro, Steel, Signature, Integrated = coming soon for custom & premium projects
+- [x] Complete Wellness Spaces page (/wellness-spaces); Saunas FAQ + process; shared consultation steps
 
 ## In progress
 - [ ] Cold Plunge: reference-inspired cold therapy section, India/Delhi manufacturing, 1 January launch and initial Tier 1 city coverage

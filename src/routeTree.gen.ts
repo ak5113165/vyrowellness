@@ -18,6 +18,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RedLightTherapyRouteImport } from './routes/red-light-therapy'
 import { Route as SaunasRouteImport } from './routes/saunas'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as WellnessSpacesRouteImport } from './routes/wellness-spaces'
 import { Route as ApiPublicEnquiriesRouteImport } from './routes/api/public/enquiries'
 
 const IndexRoute = IndexRouteImport.update({
@@ -65,6 +66,11 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WellnessSpacesRoute = WellnessSpacesRouteImport.update({
+  id: '/wellness-spaces',
+  path: '/wellness-spaces',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicEnquiriesRoute = ApiPublicEnquiriesRouteImport.update({
   id: '/api/public/enquiries',
   path: '/api/public/enquiries',
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
+  '/wellness-spaces': typeof WellnessSpacesRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
+  '/wellness-spaces': typeof WellnessSpacesRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
+  '/wellness-spaces': typeof WellnessSpacesRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
+    | '/wellness-spaces'
     | '/api/public/enquiries'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
+    | '/wellness-spaces'
     | '/api/public/enquiries'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
+    | '/wellness-spaces'
     | '/api/public/enquiries'
   fileRoutesById: FileRoutesById
 }
@@ -157,6 +169,7 @@ export interface RootRouteChildren {
   RedLightTherapyRoute: typeof RedLightTherapyRoute
   SaunasRoute: typeof SaunasRoute
   TermsRoute: typeof TermsRoute
+  WellnessSpacesRoute: typeof WellnessSpacesRoute
   ApiPublicEnquiriesRoute: typeof ApiPublicEnquiriesRoute
 }
 
@@ -225,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wellness-spaces': {
+      id: '/wellness-spaces'
+      path: '/wellness-spaces'
+      fullPath: '/wellness-spaces'
+      preLoaderRoute: typeof WellnessSpacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/enquiries': {
       id: '/api/public/enquiries'
       path: '/api/public/enquiries'
@@ -245,6 +265,7 @@ const rootRouteChildren: RootRouteChildren = {
   RedLightTherapyRoute: RedLightTherapyRoute,
   SaunasRoute: SaunasRoute,
   TermsRoute: TermsRoute,
+  WellnessSpacesRoute: WellnessSpacesRoute,
   ApiPublicEnquiriesRoute: ApiPublicEnquiriesRoute,
 }
 export const routeTree = rootRouteImport
