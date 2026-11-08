@@ -214,7 +214,7 @@ def glacier(data, out: Path) -> None:
         lows.append(min(yy, top - img))
     y = min(lows) - 24
 
-    eyebrow(c, "Installation requirements · external chillers", M, y)
+    eyebrow(c, "Installation requirements", M, y)
     rows = [[r["label"], r["value"]] for r in g["requirements"]]
     rows += [["Water capacity (launch range)", g["waterCapacity"]], ["Installation", f"Included in MRP · first in {cities}"]]
     y = table(c, rows, M, y - 8, [170, W - 2 * M - 170], header=False, size=8.5) - 24

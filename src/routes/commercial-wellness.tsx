@@ -95,8 +95,8 @@ const planningFacts = [
     value: `From ${glacierDimensions["Glacier Barrel"].split(" · ")[0]} (Barrel) to ${glacierDimensions["Glacier Acrylic"].split(" · ")[0]} (Portable, Acrylic); 30 in deep.`,
   },
   {
-    label: "Glacier chiller services",
-    value: `${externalChillerSpecs.electricalPhase} supply, ${wiring} wiring and ${externalChillerSpecs.drainPoints} drain point for discharge when needed.`,
+    label: "Glacier cold plunge services",
+    value: `${externalChillerSpecs.electricalPhase} supply, ${wiring} wiring, ${externalChillerSpecs.waterInletPoints} water inlet point and ${externalChillerSpecs.drainPoints} drain point for discharge when needed.`,
   },
   {
     label: "Installation coverage",
@@ -120,7 +120,7 @@ const faqs = [
   },
   {
     q: "What services does a cold plunge need?",
-    a: `A Glacier external chiller needs a ${externalChillerSpecs.electricalPhase.toLowerCase()} supply, ${wiring} wiring and ${externalChillerSpecs.drainPoints} drain point for discharge when needed.`,
+    a: `A Glacier cold plunge with an external chiller needs a ${externalChillerSpecs.electricalPhase.toLowerCase()} supply, ${wiring} wiring, ${externalChillerSpecs.waterInletPoints} water inlet point and ${externalChillerSpecs.drainPoints} drain point for discharge when needed.`,
   },
   {
     q: "How quickly will you respond?",

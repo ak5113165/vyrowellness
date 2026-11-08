@@ -33,8 +33,8 @@ export const beforeYouBuyFaqs = [
     a: `For the Glacier launch range, yes — the MRP${fromPrice ? ` (from ${fromPrice})` : ""} includes the 1HP chiller and installation. Sauna pricing depends on the cabin and options you choose; our team handles delivery, installation and commissioning, and your quote sets out exactly what's included.`,
   },
   {
-    q: "What electrical work does a cold plunge need?",
-    a: `A Glacier chiller needs a ${externalChillerSpecs.electricalPhase.toLowerCase()} supply with ${wiring} wiring, plus ${externalChillerSpecs.drainPoints} drain point for discharge when needed. We confirm the details for your space before installation.`,
+    q: "What does a cold plunge need at my home?",
+    a: `A Glacier chiller needs a ${externalChillerSpecs.electricalPhase.toLowerCase()} supply with ${wiring} wiring. You'll also need ${externalChillerSpecs.waterInletPoints} water inlet point and ${externalChillerSpecs.drainPoints} drain point for discharge when needed. We confirm the details for your space before installation.`,
   },
   {
     q: "What do you need to plan a sauna?",

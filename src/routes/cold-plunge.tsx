@@ -100,7 +100,7 @@ const faqs = [
   },
   {
     q: "What does installation need?",
-    a: `External chiller setups need a ${externalChillerSpecs.electricalPhase.toLowerCase()} power supply, ${externalChillerSpecs.wiringOptionsMm2.join(" mm² or ")} mm² wiring and ${externalChillerSpecs.drainPoints} drain point for discharge when needed. Our team confirms the details for your space.`,
+    a: `External chiller setups need a ${externalChillerSpecs.electricalPhase.toLowerCase()} power supply, ${externalChillerSpecs.wiringOptionsMm2.join(" mm² or ")} mm² wiring, ${externalChillerSpecs.waterInletPoints} water inlet point and ${externalChillerSpecs.drainPoints} drain point for discharge when needed. Our team confirms the details for your space.`,
   },
   {
     q: "How much space does a cold plunge need?",
@@ -361,8 +361,8 @@ function ColdPlungePage() {
             ))}
           </div>
           <div className="mt-10 border-t border-foreground pt-6">
-            <h3 className="eyebrow text-bronze-strong">Installation requirements · external chillers</h3>
-            <dl className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <h3 className="eyebrow text-bronze-strong">Installation requirements</h3>
+            <dl className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
               {chillerRequirements.map((r) => (
                 <div key={r.label}>
                   <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{r.label}</dt>

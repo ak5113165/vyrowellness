@@ -180,11 +180,15 @@ export const chillers = [
   },
 ];
 
-/** External chiller requirements, straight from the confirmed ratings. */
+/** Installation requirements for external-chiller plunges, straight from the confirmed ratings. */
 export const chillerRequirements = [
   { label: "Lowest water temperature", value: `${externalChillerSpecs.minimumTemperatureC}°C` },
   { label: "Power supply", value: externalChillerSpecs.electricalPhase },
   { label: "Wiring", value: `${externalChillerSpecs.wiringOptionsMm2.join(" mm² or ")} mm²` },
+  {
+    label: "Water supply",
+    value: `${externalChillerSpecs.waterInletPoints} water inlet point`,
+  },
   {
     label: "Drainage",
     value: `${externalChillerSpecs.drainPoints} drain point, for discharge when needed`,

@@ -130,6 +130,8 @@ export const externalChillerSpecs = {
   electricalPhase: "Single phase",
   wiringOptionsMm2: [2.5, 4],
   drainPoints: 1,
+  // Site requirement confirmed by the founder (8 Nov 2026): one water inlet point.
+  waterInletPoints: 1,
 } as const;
 
 // PLACEHOLDER — capacity, voltage, current draw, filtration, warranty and
