@@ -237,7 +237,7 @@ export function EnquiryForm({
           <FieldError message={errors.phone?.message} />
         </div>
         <div>
-          <Label htmlFor="c-email">Email</Label>
+          <Label htmlFor="c-email">Email (optional)</Label>
           <input id="c-email" type="email" autoComplete="email" className={inputClass} {...register("email")} />
           <FieldError message={errors.email?.message} />
         </div>

@@ -191,7 +191,7 @@ function ColdPlungePage() {
               return (
                 <Reveal key={m.name} delayMs={i * 80} className="h-full">
                   <article className="flex h-full flex-col">
-                    <div className="relative bg-white">
+                    <div className="relative bg-card">
                       <StatusBadge>{`Launching ${coldPlungeLaunch.shortLabel}`}</StatusBadge>
                       <img
                         src={m.image}
@@ -324,7 +324,7 @@ function ColdPlungePage() {
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {chillers.map((c) => (
               <article key={c.name} className="grid items-center gap-6 border border-border bg-card p-6 sm:grid-cols-[1fr_1.1fr]">
-                <div className="relative bg-white">
+                <div className="relative bg-card">
                   <StatusBadge>{`Launching ${coldPlungeLaunch.shortLabel}`}</StatusBadge>
                   <img
                     src={c.image}
@@ -375,7 +375,7 @@ function ColdPlungePage() {
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {projectModels.map((p) => (
                 <article key={p.name} className="flex flex-col border border-border bg-background">
-                  <div className="relative bg-white">
+                  <div className="relative bg-card">
                     <StatusBadge tone="light">Coming Soon</StatusBadge>
                     <img
                       src={p.image}

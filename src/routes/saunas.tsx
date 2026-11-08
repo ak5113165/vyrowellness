@@ -11,13 +11,14 @@ import { EnquiryForm } from "@/components/enquiry-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { saunaInstallation, site, whatsappLink } from "@/content/site";
 import { consultationSteps } from "@/content/process";
+// Page hero differs from the homepage hero (the VYRO spruce sauna) so the two pages don't open identically.
+import saunaInteriorImage from "@/assets/sauna.jpg";
 import {
   accessorySets,
   controlPanels,
   heaters,
   roomSizes,
   roomTypes,
-  saunaHero,
   saunaModels,
   standardWood,
   woods,
@@ -130,7 +131,7 @@ function SaunasPage() {
       <main>
         {/* Hero */}
         <section className="relative flex min-h-[60svh] items-end overflow-hidden bg-ink">
-          <img src={saunaHero} {...responsive(saunaHero, SIZES.fullBleed)} alt="A VYRO spruce sauna interior with glowing benches, a stone tower heater and the VYRO Wellness plaque" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover object-[center_top]" fetchPriority="high" />
+          <img src={saunaInteriorImage} {...responsive(saunaInteriorImage, SIZES.fullBleed)} alt="A warm timber sauna interior with tiered benches, a wooden bucket and a stone heater under soft amber light" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover" fetchPriority="high" />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10" />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-32 lg:px-8">
             <p className="eyebrow text-bronze">VYRO Haven Series</p>
