@@ -54,6 +54,27 @@ export const productInterests = [
 // they are not a delivery-coverage or installation-availability claim.
 export const exampleCities = ["Mumbai", "Delhi NCR", "Bengaluru", "Hyderabad"];
 
+// Cold Plunge launch facts confirmed by the founder. Year remains unconfirmed.
+export const coldPlungeLaunch = {
+  day: 1,
+  month: 1,
+  label: "1 January",
+  manufacturingLocation: "Delhi",
+  serviceLocations: ["Delhi NCR", "Bangalore", "Mumbai", "Goa"],
+} as const;
+
+// External chilling systems only; do not extend these ratings to built-in cooling.
+export const externalChillerSpecs = {
+  horsepowerOptions: [1, 2],
+  minimumTemperatureC: 5,
+  electricalPhase: "Single phase",
+  wiringOptionsMm2: [2.5, 4],
+  drainPoints: 1,
+} as const;
+
+// PLACEHOLDER — capacity, voltage, current draw, filtration, warranty and
+// Integrated cooling specifications await manufacturer confirmation.
+
 export const businessTypes = [
   "Gym / Fitness Centre",
   "Hotel / Hospitality",
