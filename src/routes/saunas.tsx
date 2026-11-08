@@ -11,6 +11,9 @@ import { EnquiryForm } from "@/components/enquiry-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { saunaInstallation, site, whatsappLink } from "@/content/site";
 import { consultationSteps } from "@/content/process";
+import { SpecialistCallout } from "@/components/specialist-callout";
+import { CabinFitFinder } from "@/components/cabin-fit-finder";
+import { DownloadLink } from "@/components/download-link";
 // Page hero differs from the homepage hero (the VYRO spruce sauna) so the two pages don't open identically.
 import saunaInteriorImage from "@/assets/sauna.jpg";
 import {
@@ -228,6 +231,8 @@ function SaunasPage() {
               </div>
             ))}
           </div>
+          <CabinFitFinder onChoose={(code) => { setRoom(code); goStep(2); }} />
+          <DownloadLink sheet="haven" className="mt-8" />
         </section>
 
         {/* Woods */}
@@ -347,6 +352,12 @@ function SaunasPage() {
             ))}
           </ol>
         </section>
+
+        <SpecialistCallout
+          interest="Sauna"
+          page="saunas"
+          whatsappMessage="Hello VYRO, I'd like to talk to a specialist about a sauna."
+        />
 
         {/* FAQs */}
         <section className="border-y border-border bg-secondary/60">

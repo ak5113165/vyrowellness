@@ -94,6 +94,7 @@ export type GlacierLaunchModel = (typeof glacierLaunchModels)[number];
 // model is sold with the 1HP chiller (mandatory) and installation is included
 // in the MRP. Customers can upgrade to the 2HP chiller for faster cooling (see
 // externalChillerLaunch.upgradePriceInr). A null priceInr shows "Price on request".
+// After changing prices or specs, rebuild the PDF spec sheets (scripts/spec-sheets).
 export const glacierLaunchPricing: Record<GlacierLaunchModel, { priceInr: number | null; note: string | null }> = {
   "Glacier Barrel": { priceInr: 218000, note: "Includes 1HP chiller and installation" },
   "Glacier Portable": { priceInr: 325000, note: "Includes 1HP chiller and installation" },

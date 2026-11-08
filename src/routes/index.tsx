@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { responsive, SIZES } from "@/lib/responsive-image";
-import { pageHead } from "@/lib/seo";
+import { faqJsonLd, pageHead } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
@@ -10,6 +10,9 @@ import { EnquiryForm } from "@/components/enquiry-form";
 import { coldPlungeLaunch, saunaInstallation, site, whatsappLink } from "@/content/site";
 import { fromPrice as glacierFromPrice } from "@/content/glacier-catalogue";
 import { consultationSteps } from "@/content/process";
+import { beforeYouBuyFaqs } from "@/content/buyer-faqs";
+import { FaqSection } from "@/components/faq-section";
+import { SpecialistCallout } from "@/components/specialist-callout";
 
 // Hero: a VYRO-branded spruce sauna (the previous hero showed a stone plunge VYRO does not sell).
 import heroImage from "@/assets/products/sauna-hero-spruce.jpg";
@@ -29,6 +32,7 @@ export const Route = createFileRoute("/")({
       ogTitle: "VYRO — Wellness, Reimagined.",
       ogDescription:
         "Saunas, cold plunge and red light therapy — specified for your space and installed by our team in India.",
+      jsonLd: [faqJsonLd(beforeYouBuyFaqs)],
     }),
   component: Index,
 });
@@ -202,6 +206,12 @@ function Index() {
           </div>
         </section>
 
+        <SpecialistCallout
+          interest="Other"
+          page="home"
+          whatsappMessage="Hello VYRO, I'd like to talk to a specialist about my space."
+        />
+
         {/* 3. Residential vs Commercial */}
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
           <SectionHeading overline="Who It's For" title="For Your Home, or Your Business" />
@@ -269,6 +279,14 @@ function Index() {
             </ol>
           </div>
         </section>
+
+        {/* Before you buy */}
+        <FaqSection
+          overline="Before You Buy"
+          title="Practical Questions, Answered"
+          copy="Delivery, installation, power and space — what to know before you plan."
+          faqs={beforeYouBuyFaqs}
+        />
 
         {/* 5. Consultation form */}
         <section id="consultation" className="scroll-mt-28 bg-secondary/60">

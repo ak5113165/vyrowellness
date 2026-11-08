@@ -77,11 +77,13 @@ export const roomTypes: RoomType[] = [
   },
 ];
 
+// minWidthM / maxWidthM are the same indicative ranges as `spec`, as numbers
+// for the "which cabin fits" helper (a test keeps them in step).
 export const roomSizes = [
-  { name: "Small", spec: "Approx. 1.2m–1.5m wide", people: "1–3 people" },
-  { name: "Medium", spec: "Approx. 1.4m–1.9m wide", people: "4–6 people" },
-  { name: "Large", spec: "Approx. 1.9m–2.2m wide", people: "6+ people" },
-];
+  { name: "Small", spec: "Approx. 1.2m–1.5m wide", people: "1–3 people", minWidthM: 1.2, maxWidthM: 1.5 },
+  { name: "Medium", spec: "Approx. 1.4m–1.9m wide", people: "4–6 people", minWidthM: 1.4, maxWidthM: 1.9 },
+  { name: "Large", spec: "Approx. 1.9m–2.2m wide", people: "6+ people", minWidthM: 1.9, maxWidthM: 2.2 },
+] as const;
 
 export type SaunaModel = {
   code: string;
