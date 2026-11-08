@@ -2,11 +2,13 @@ import { describe, expect, it } from "vitest";
 import {
   coldPlungeLaunch,
   externalChillerSpecs,
+  externalChillerLaunch,
+  glacierDimensions,
   glacierLaunchModels,
   glacierLaunchPricing,
   glacierProjectModels,
 } from "@/content/site";
-import { launchModels, projectModels } from "@/content/glacier-catalogue";
+import { chillers, fromPrice, launchModels, launchPrice, projectModels } from "@/content/glacier-catalogue";
 
 describe("Confirmed Cold Plunge launch and installation facts", () => {
   it("launches on 1 January 2027", () => {
@@ -60,5 +62,32 @@ describe("Glacier launch line-up", () => {
   });
   it("has a pricing slot for each launch model", () => {
     expect(Object.keys(glacierLaunchPricing).sort()).toEqual([...glacierLaunchModels].sort());
+  });
+});
+
+describe("Confirmed Glacier pricing and sizes", () => {
+  it("uses the confirmed MRPs, each with the 1HP chiller", () => {
+    expect(glacierLaunchPricing["Glacier Barrel"].priceInr).toBe(218000);
+    expect(glacierLaunchPricing["Glacier Portable"].priceInr).toBe(325000);
+    expect(glacierLaunchPricing["Glacier Acrylic"].priceInr).toBe(378000);
+    expect(externalChillerLaunch.includedWithLaunchModels).toBe(1);
+    expect(externalChillerLaunch.upgradeOption).toBe(2);
+  });
+  it("formats prices in Indian notation", () => {
+    expect(launchPrice("Glacier Barrel").display).toBe("₹2,18,000");
+    expect(fromPrice).toBe("₹2,18,000");
+  });
+  it("uses the confirmed chiller-only MRPs and launches chillers with the tubs", () => {
+    expect(externalChillerLaunch.standaloneMrpInr).toEqual({ 1: 178000, 2: 298000 });
+    expect(chillers.map((c) => c.mrpInr)).toEqual([178000, 298000]);
+    expect(externalChillerLaunch.launchesWithTubs).toBe(true);
+  });
+  it("uses the confirmed sizes", () => {
+    expect(glacierDimensions["Glacier Barrel"]).toBe("2.5 ft diameter · 30 in deep");
+    expect(glacierDimensions["Glacier Portable"]).toBe("5 × 2.5 ft · 30 in deep");
+    expect(glacierDimensions["Glacier Acrylic"]).toBe("5 × 2.5 ft");
+    for (const m of launchModels) {
+      expect(m.specs.find((s) => s.label === "Size")?.value).toBe(glacierDimensions[m.name]);
+    }
   });
 });

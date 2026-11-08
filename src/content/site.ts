@@ -80,14 +80,31 @@ export const glacierProjectModels = [
 
 export type GlacierLaunchModel = (typeof glacierLaunchModels)[number];
 
-// PLACEHOLDER — launch prices in INR await confirmation. While priceInr is
-// null the page shows "Price on request". `note` says what the price covers
-// (e.g. "Includes 1HP chiller · GST extra"); leave null until confirmed.
+// Glacier MRPs confirmed by the founder (8 Nov 2026), in INR. Every launch
+// model is sold with the 1HP chiller (mandatory); customers can upgrade to the
+// 2HP chiller for faster cooling. Upgrade price not yet confirmed — don't
+// derive it from the chiller-only MRPs. A null priceInr shows "Price on request".
 export const glacierLaunchPricing: Record<GlacierLaunchModel, { priceInr: number | null; note: string | null }> = {
-  "Glacier Barrel": { priceInr: null, note: null },
-  "Glacier Portable": { priceInr: null, note: null },
-  "Glacier Acrylic": { priceInr: null, note: null },
+  "Glacier Barrel": { priceInr: 218000, note: "MRP · with 1HP chiller" },
+  "Glacier Portable": { priceInr: 325000, note: "MRP · with 1HP chiller" },
+  "Glacier Acrylic": { priceInr: 378000, note: "MRP · with 1HP chiller" },
 };
+
+// Glacier sizes confirmed by the founder (8 Nov 2026). Acrylic depth not yet confirmed.
+export const glacierDimensions: Record<GlacierLaunchModel, string> = {
+  "Glacier Barrel": "2.5 ft diameter · 30 in deep",
+  "Glacier Portable": "5 × 2.5 ft · 30 in deep",
+  "Glacier Acrylic": "5 × 2.5 ft",
+};
+
+// External chillers: launch with the tubs on coldPlungeLaunch date. MRPs for
+// the chiller on its own (INR), confirmed by the founder (8 Nov 2026).
+export const externalChillerLaunch = {
+  launchesWithTubs: true,
+  includedWithLaunchModels: 1,
+  upgradeOption: 2,
+  standaloneMrpInr: { 1: 178000, 2: 298000 },
+} as const;
 
 // External chilling systems only; do not extend these ratings to built-in cooling.
 // Minimum temperature confirmed by the founder as 3°C (8 Nov 2026; previously 5°C).
