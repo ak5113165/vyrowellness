@@ -7,8 +7,17 @@ import {
   glacierLaunchModels,
   glacierLaunchPricing,
   glacierProjectModels,
+  glacierWaterCapacityLitres,
 } from "@/content/site";
-import { chillers, fromPrice, launchModels, launchPrice, projectModels } from "@/content/glacier-catalogue";
+import {
+  chillers,
+  fromPrice,
+  launchModels,
+  launchPrice,
+  projectModels,
+  upgradePrice,
+  waterCapacity,
+} from "@/content/glacier-catalogue";
 
 describe("Confirmed Cold Plunge launch and installation facts", () => {
   it("launches on 1 January 2027", () => {
@@ -73,6 +82,19 @@ describe("Confirmed Glacier pricing and sizes", () => {
     expect(externalChillerLaunch.includedWithLaunchModels).toBe(1);
     expect(externalChillerLaunch.upgradeOption).toBe(2);
   });
+  it("includes the 1HP chiller and installation in every MRP", () => {
+    for (const name of glacierLaunchModels) {
+      expect(glacierLaunchPricing[name].note).toBe("Includes 1HP chiller and installation");
+    }
+  });
+  it("prices the 2HP upgrade at ₹1,20,000", () => {
+    expect(externalChillerLaunch.upgradePriceInr).toBe(120000);
+    expect(upgradePrice).toBe("+₹1,20,000");
+  });
+  it("states water capacity as a 250–350 L range", () => {
+    expect(glacierWaterCapacityLitres).toEqual({ min: 250, max: 350 });
+    expect(waterCapacity).toBe("250–350 L");
+  });
   it("formats prices in Indian notation", () => {
     expect(launchPrice("Glacier Barrel").display).toBe("₹2,18,000");
     expect(fromPrice).toBe("₹2,18,000");
@@ -85,7 +107,7 @@ describe("Confirmed Glacier pricing and sizes", () => {
   it("uses the confirmed sizes", () => {
     expect(glacierDimensions["Glacier Barrel"]).toBe("2.5 ft diameter · 30 in deep");
     expect(glacierDimensions["Glacier Portable"]).toBe("5 × 2.5 ft · 30 in deep");
-    expect(glacierDimensions["Glacier Acrylic"]).toBe("5 × 2.5 ft");
+    expect(glacierDimensions["Glacier Acrylic"]).toBe("5 × 2.5 ft · 30 in deep");
     for (const m of launchModels) {
       expect(m.specs.find((s) => s.label === "Size")?.value).toBe(glacierDimensions[m.name]);
     }

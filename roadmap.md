@@ -23,7 +23,6 @@
 - [x] Logo in header/footer + favicon
 
 ## Waiting on user
-- [ ] Glacier: 2HP upgrade price, Acrylic depth, water capacity, and whether MRP includes installation
 - [ ] Real product photography to replace src/assets stand-ins
 - [ ] Final Privacy Policy & Terms copy (pages contain clearly labelled placeholders)
 - [ ] Confirm sales@/support@vyrowellness.in receive mail; confirm Instagram account is live at @vyrowellness.in

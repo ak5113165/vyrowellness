@@ -22,6 +22,8 @@ import {
   formatInr,
   fromPrice,
   launchLabel,
+  upgradePrice,
+  waterCapacity,
   launchModels,
   launchPrice,
   projectModels,
@@ -39,7 +41,7 @@ function productJsonLd() {
       "@context": "https://schema.org",
       "@type": "Product",
       name: `VYRO ${m.name}`,
-      description: `${m.positioning} ${m.size}. Sold with the 1HP chiller; 2HP upgrade available.`,
+      description: `${m.positioning} ${m.size}. MRP includes the 1HP chiller and installation; 2HP chiller upgrade available.`,
       image: absoluteUrl(m.image),
       brand: { "@type": "Brand", name: "VYRO" },
       ...(price === null
@@ -63,7 +65,7 @@ export const Route = createFileRoute("/cold-plunge")({
     pageHead({
       path: "/cold-plunge",
       title: `Glacier Cold Plunges, Made in India — Launching ${launchLabel} | VYRO Wellness`,
-      description: `VYRO Glacier cold plunges, made in ${coldPlungeLaunch.manufacturingLocation}. Glacier Barrel, Portable and Acrylic launch on ${launchLabel}${fromPrice ? `, from ${fromPrice} MRP` : ""} with the 1HP chiller (2HP upgrade), cooling down to ${externalChillerSpecs.minimumTemperatureC}°C. Register for launch.`,
+      description: `VYRO Glacier cold plunges, made in ${coldPlungeLaunch.manufacturingLocation}. Glacier Barrel, Portable and Acrylic launch on ${launchLabel}${fromPrice ? `, from ${fromPrice} MRP` : ""} including the 1HP chiller and installation, cooling down to ${externalChillerSpecs.minimumTemperatureC}°C. Register for launch.`,
       ogTitle: `VYRO Glacier Cold Plunges — Launching ${launchLabel}`,
       ogDescription: `Glacier Barrel, Glacier Portable and Glacier Acrylic. Made in India, available first in ${cities}.`,
       image: "/og/cold-plunge.jpg",
@@ -88,7 +90,11 @@ const faqs = [
   },
   {
     q: "Is a chiller included, and should I upgrade to 2HP?",
-    a: "Every Glacier launch model comes with the 1HP chiller, which suits most home plunges and personal use. You can upgrade to the 2HP for faster cooling; it's also our choice for larger tubs and busier spaces like gyms and spas. We'll help you decide during your consultation.",
+    a: `Every Glacier launch model comes with the 1HP chiller, which suits most home plunges and personal use. You can upgrade to the 2HP for faster cooling for ${upgradePrice.slice(1)} more; it's also our choice for larger tubs and busier spaces like gyms and spas. We'll help you decide during your consultation.`,
+  },
+  {
+    q: "Is installation included in the price?",
+    a: "Yes. The MRP of every Glacier launch model includes the 1HP chiller and installation by our team.",
   },
   {
     q: "What does installation need?",
@@ -96,7 +102,7 @@ const faqs = [
   },
   {
     q: "How much space does a cold plunge need?",
-    a: `Glacier Barrel is ${glacierDimensions["Glacier Barrel"].split(" · ")[0]}, so it suits smaller spaces. Glacier Portable and Glacier Acrylic are both ${glacierDimensions["Glacier Acrylic"]}. Allow room for the chiller beside the tub — share your space with us and we'll suggest what fits.`,
+    a: `Glacier Barrel is ${glacierDimensions["Glacier Barrel"].split(" · ")[0]}, so it suits smaller spaces. Glacier Portable and Glacier Acrylic are both ${glacierDimensions["Glacier Acrylic"]}. The launch range holds ${waterCapacity.replace("–", " to ").replace(" L", " litres")} of water. Allow room for the chiller beside the tub — share your space with us and we'll suggest what fits.`,
   },
   {
     q: "Can a cold plunge be placed outdoors?",
@@ -149,7 +155,7 @@ function ColdPlungePage() {
             <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Cold Plunges</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">
               Three Glacier plunges launch on {launchLabel}: Barrel, Portable and Acrylic
-              {fromPrice ? `, from ${fromPrice} MRP with the 1HP chiller` : ""}. Available first in {cities}.
+              {fromPrice ? `, from ${fromPrice} MRP including the 1HP chiller and installation` : ""}. Available first in {cities}.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
               <a href="#launch" className="text-ink-foreground/85 hover:text-ink-foreground">Launch Range</a>
@@ -206,6 +212,7 @@ function ColdPlungePage() {
                       <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">MRP</p>
                       <p className="mt-1 font-display text-2xl font-medium">{price.display}</p>
                       {price.note && <p className="mt-1 text-xs text-muted-foreground">{price.note}</p>}
+                      <p className="mt-1 text-xs text-muted-foreground">2HP chiller upgrade: {upgradePrice}</p>
                     </div>
 
                     <ul className="mt-5 flex-1 space-y-2.5 text-sm">
@@ -284,15 +291,26 @@ function ColdPlungePage() {
                   </tr>
                   <tr className="border-b border-border">
                     <th scope="row" className="py-4 pr-4 text-xs font-normal uppercase tracking-[0.14em] text-muted-foreground">
-                      MRP · with 1HP chiller
+                      MRP · incl. 1HP chiller &amp; installation
                     </th>
                     {launchModels.map((m) => (
-                      <td key={m.name} className="py-4 pr-4">{launchPrice(m.name).display}</td>
+                      <td key={m.name} className="py-4 pr-4 font-display text-lg font-medium">{launchPrice(m.name).display}</td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-border">
+                    <th scope="row" className="py-4 pr-4 text-xs font-normal uppercase tracking-[0.14em] text-muted-foreground">
+                      2HP chiller upgrade
+                    </th>
+                    {launchModels.map((m) => (
+                      <td key={m.name} className="py-4 pr-4">{upgradePrice}</td>
                     ))}
                   </tr>
                 </tbody>
               </table>
             </div>
+            <p className="mt-5 text-sm text-muted-foreground">
+              Water capacity across the launch range: {waterCapacity}. All prices are MRP and include installation.
+            </p>
           </div>
         </section>
 
@@ -301,7 +319,7 @@ function ColdPlungePage() {
           <SectionHeading
             overline="Chilling Systems"
             title="1HP or 2HP."
-            copy={`Every Glacier launch model comes with the 1HP chiller. Upgrade to the 2HP for faster cooling. Both chillers launch on ${launchLabel}.`}
+            copy={`Every Glacier launch model comes with the 1HP chiller. Upgrade to the 2HP for faster cooling (${upgradePrice}). Both chillers launch on ${launchLabel}.`}
           />
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {chillers.map((c) => (

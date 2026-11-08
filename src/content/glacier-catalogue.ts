@@ -23,6 +23,7 @@ import {
   externalChillerSpecs,
   glacierDimensions,
   glacierLaunchPricing,
+  glacierWaterCapacityLitres,
   type GlacierLaunchModel,
 } from "@/content/site";
 
@@ -60,7 +61,7 @@ export const launchModels: LaunchModel[] = [
     bestFor: "Smaller homes and first-time plungers",
     image: barrelImg,
     alt: "VYRO Glacier Barrel: an upright black inflatable cold plunge barrel with insulated lid, beside a VYRO chiller and step",
-    keyFacts: ["Upright immersion", "Insulated lid with strap closures", "1HP chiller included · 2HP upgrade available"],
+    keyFacts: ["Upright immersion", "Insulated lid with strap closures", "1HP chiller and installation included"],
     specs: [
       { label: "Format", value: "Upright inflatable barrel" },
       { label: "Size", value: glacierDimensions["Glacier Barrel"] },
@@ -78,7 +79,7 @@ export const launchModels: LaunchModel[] = [
     bestFor: "Full-body plunging in flexible spaces",
     image: portableImg,
     alt: "VYRO Glacier Portable: a full-length black inflatable cold plunge tub with insulated lid, beside a VYRO chiller",
-    keyFacts: ["Full-length, lie-back immersion", "Insulated lid · packs away when not in use", "1HP chiller included · 2HP upgrade available"],
+    keyFacts: ["Full-length, lie-back immersion", "Insulated lid · packs away when not in use", "1HP chiller and installation included"],
     specs: [
       { label: "Format", value: "Full-length inflatable tub" },
       { label: "Size", value: glacierDimensions["Glacier Portable"] },
@@ -96,7 +97,7 @@ export const launchModels: LaunchModel[] = [
     bestFor: "A dedicated spot in a home wellness room",
     image: acrylicImg,
     alt: "VYRO Glacier Acrylic: a gloss-white rectangular acrylic cold plunge tub connected to a VYRO 1HP chiller",
-    keyFacts: ["Gloss-white acrylic finish", "Rigid tub for a dedicated spot", "1HP chiller included · 2HP upgrade available"],
+    keyFacts: ["Gloss-white acrylic finish", "Rigid tub for a dedicated spot", "1HP chiller and installation included"],
     specs: [
       { label: "Format", value: "Rigid tub, gloss-white acrylic" },
       { label: "Size", value: glacierDimensions["Glacier Acrylic"] },
@@ -115,6 +116,12 @@ export function launchPrice(name: GlacierLaunchModel): { display: string; note: 
 }
 
 export const launchLabel = coldPlungeLaunch.label;
+
+/** "+₹1,20,000" — price to upgrade from the included 1HP to the 2HP chiller. */
+export const upgradePrice = `+${formatInr(externalChillerLaunch.upgradePriceInr)}`;
+
+/** "250–350 L" — water capacity across the launch range. */
+export const waterCapacity = `${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} L`;
 
 /** Lowest confirmed launch MRP, formatted ("₹2,18,000"), or null if none is set. */
 export const fromPrice: string | null = (() => {
@@ -165,7 +172,7 @@ export const chillers = [
     name: "Glacier Chiller 2HP",
     hp: 2,
     image: chiller2Img,
-    copy: "The upgrade for faster cooling — and our more powerful system for larger tubs and busier spaces like gyms and spas.",
+    copy: `The upgrade for faster cooling (${formatInr(externalChillerLaunch.upgradePriceInr)} over the included 1HP) — and our more powerful system for larger tubs and busier spaces like gyms and spas.`,
     best: "Faster cooling, larger tubs & commercial use",
     mrpInr: externalChillerLaunch.standaloneMrpInr[2],
   },
