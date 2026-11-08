@@ -8,8 +8,9 @@ import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 
 import proImg from "@/assets/plunge/glacier-pro.jpg";
-import acrylicImg from "@/assets/plunge/glacier-acrylic.jpg";
-import steelImg from "@/assets/plunge/glacier-steel.jpg";
+import acrylicImg from "@/assets/plunge/glacier-acrylic-1hp.jpg";
+import steelImg from "@/assets/plunge/glacier-steel-oval.jpg";
+import integratedImg from "@/assets/plunge/glacier-integrated.jpg";
 import signatureImg from "@/assets/plunge/glacier-xtreme.jpg";
 import inflatableImg from "@/assets/plunge/glacier-inflatable.jpg";
 import portableImg from "@/assets/plunge/glacier-portable.jpg";
@@ -24,12 +25,12 @@ export const Route = createFileRoute("/cold-plunge")({
       {
         name: "description",
         content:
-          "The VYRO Glacier cold plunge range — Inflatable, Portable, Pro, Acrylic, Steel and Signature tubs with 1HP and 2HP chilling systems. Made in India, coming soon.",
+          "The VYRO Glacier cold plunge range — Inflatable, Portable, Pro, Acrylic, Steel, Signature and Integrated tubs. External 1HP and 2HP chillers or built-in cooling. Made in India, coming soon.",
       },
       { property: "og:title", content: "VYRO Glacier Cold Plunges — Made in India" },
       {
         property: "og:description",
-        content: "Six Glacier cold plunge tubs and 1HP / 2HP chilling systems. Coming soon — register your interest.",
+        content: "Discover Glacier cold plunge tubs, including built-in cooling and external 1HP / 2HP chilling systems. Coming soon — register your interest.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -75,17 +76,17 @@ const plunges: { name: string; tag: string; image: string; copy: string; feature
     name: "GLACIER | acrylic",
     tag: "Acrylic Series",
     image: acrylicImg,
-    copy: "A seamless gloss-white acrylic tub measuring 5 × 2.5 ft — clean, bright and easy to keep spotless.",
+    copy: "A gloss-white acrylic plunge paired with the VYRO 1HP external chilling system.",
     features: [
-      { icon: Layers, title: "5 × 2.5 ft", note: "white acrylic" },
-      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
+      { icon: Layers, title: "white acrylic", note: "smooth gloss finish" },
+      { icon: Snowflake, title: "1HP chiller", note: "external system" },
     ],
   },
   {
     name: "GLACIER | steel",
     tag: "Stainless Steel",
     image: steelImg,
-    copy: "An all-stainless-steel plunge with no timber cladding — a pure, minimal metal finish.",
+    copy: "An oval stainless steel plunge with rounded ends and a brushed-metal finish, with no timber cladding.",
     features: [
       { icon: Layers, title: "stainless steel", note: "no timber clad" },
       { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
@@ -99,6 +100,16 @@ const plunges: { name: string; tag: string; image: string; copy: string; feature
     features: [
       { icon: Home, title: "inside or outside", note: "placement" },
       { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
+    ],
+  },
+  {
+    name: "GLACIER | integrated",
+    tag: "Built-in Chilling Series",
+    image: integratedImg,
+    copy: "A white all-in-one plunge with the chilling system housed inside the tub body, without a separate external unit.",
+    features: [
+      { icon: Layers, title: "all-in-one", note: "white finish" },
+      { icon: Snowflake, title: "built-in cooling", note: "integrated system" },
     ],
   },
 ];
@@ -149,7 +160,7 @@ function ColdPlungePage() {
             <p className="eyebrow text-bronze">VYRO Glacier Series · Made in India</p>
             <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Cold Plunges</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">
-              Six plunge tubs and two chilling systems, being manufactured in India. Launching soon —
+              Plunge tubs with external or built-in chilling systems, being manufactured in India. Launching soon —
               register your interest to be first in line.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
@@ -199,7 +210,7 @@ function ColdPlungePage() {
         {/* Chillers */}
         <section id="chillers" className="scroll-mt-24 border-t border-border bg-card">
           <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-            <SectionHeading overline="Chilling Systems" title="Choose Your Power: 1HP or 2HP." copy="Every Glacier tub pairs with a VYRO chilling system. Pick the power that suits your tub size and how often it's used." />
+            <SectionHeading overline="Chilling Systems" title="Choose Your Power: 1HP or 2HP." copy="For external-chiller setups, explore our 1HP and 2HP systems. The Glacier Integrated model houses its cooling system inside the tub." />
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               {chillers.map((c) => (
                 <article key={c.name} className="grid items-center gap-6 border border-border bg-background p-6 sm:grid-cols-[1fr_1.1fr]">
@@ -228,7 +239,7 @@ function ColdPlungePage() {
           <div className="mx-auto grid max-w-7xl gap-px px-5 py-14 sm:grid-cols-3 lg:px-8">
             {[
               ["Made in India", "Designed and manufactured here, for Indian homes and climates."],
-              ["Tub + Chiller", "Every tub pairs with a 1HP or 2HP VYRO chilling system."],
+              ["Cooling Options", "External 1HP or 2HP chilling systems, or the all-in-one Integrated model."],
               ["Guided Setup", "Our team helps you plan placement, power and plumbing."],
             ].map(([t, d]) => (
               <div key={t} className="py-4 sm:px-6 sm:first:pl-0">
