@@ -1,6 +1,7 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { responsive, SIZES } from "@/lib/responsive-image";
 import { faqJsonLd, pageHead } from "@/lib/seo";
+import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
@@ -16,8 +17,11 @@ import { SpecialistCallout } from "@/components/specialist-callout";
 
 // Hero: a VYRO-branded spruce sauna (the previous hero showed a stone plunge VYRO does not sell).
 import heroImage from "@/assets/products/sauna-hero-spruce.jpg";
-import saunaImage from "@/assets/sauna.jpg";
-import coldImage from "@/assets/plunge/glacier-hero.jpg";
+// Collection cards use the product renders from the product pages (cream
+// background, shown whole). Red light has no product render yet, so it keeps
+// its lifestyle photo until one exists.
+import saunaImage from "@/assets/products/haven-s02.jpg";
+import coldImage from "@/assets/plunge/glacier-inflatable.jpg";
 import lightImage from "@/assets/red-light.jpg";
 import homeWellnessImage from "@/assets/home-wellness.jpg";
 import hospitalityImage from "@/assets/hospitality.jpg";
@@ -41,7 +45,8 @@ const pillars = [
   {
     n: "01",
     image: saunaImage,
-    alt: "A warm natural-wood sauna interior with soft amber lighting and wooden benches",
+    alt: "VYRO Haven Classic S-02 sauna cabin in spruce with a timber door and glass panel",
+    product: true,
     name: "Saunas",
     tag: "Traditional Finnish & Infrared",
     copy: `Custom timber cabins for villas, penthouses and wellness suites — installed ${saunaInstallation.label}.`,
@@ -51,7 +56,8 @@ const pillars = [
   {
     n: "02",
     image: coldImage,
-    alt: "A sculptural stone cold plunge tub with still water in a minimalist room",
+    alt: "VYRO Glacier Barrel cold plunge with its 1HP chiller and step",
+    product: true,
     name: "Cold Plunge",
     tag: "VYRO Glacier · Made in India",
     copy: `Glacier Barrel, Portable and Acrylic — launching ${coldPlungeLaunch.label}${glacierFromPrice ? `, from ${glacierFromPrice} MRP including chiller and installation` : ""}.`,
@@ -177,17 +183,22 @@ function Index() {
                   >
                     <span className="text-xs tracking-[0.2em] text-bronze-strong">{p.n}</span>
                     <div className="relative mt-5 overflow-hidden">
+                      {/* Square frames: the square product renders fill them exactly; the
+                          red light lifestyle photo is cropped to match. */}
                       <img
                         src={p.image}
                         {...responsive(p.image, SIZES.third)}
                         alt={p.alt}
-                        width={1200}
-                        height={1500}
+                        width={p.product ? 1024 : 1200}
+                        height={p.product ? 1024 : 1200}
                         loading="lazy"
-                        className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        className={cn(
+                          "aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]",
+                          !p.product && "object-[center_60%]",
+                        )}
                       />
                       {p.soon && (
-                        <span className="absolute left-4 top-4 bg-ink-foreground px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-ink">
+                        <span className="absolute left-4 top-4 bg-ink px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-ink-foreground">
                           {p.soonLabel ?? "Coming Soon"}
                         </span>
                       )}
