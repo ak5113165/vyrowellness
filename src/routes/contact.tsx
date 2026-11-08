@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
-import { site, whatsappLink } from "@/content/site";
+import { coldPlungeLaunch, saunaInstallation, site, whatsappLink } from "@/content/site";
 
 export const Route = createFileRoute("/contact")({
   head: () =>
@@ -44,8 +44,8 @@ function ContactPage() {
                 <div>
                   <h2 className="eyebrow text-bronze-strong">Product Consultation</h2>
                   <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-                    For saunas, cold plunge and red light therapy — use the form and our team will
-                    help you find the right direction.
+                    For saunas, cold plunge, red light therapy and complete wellness spaces — use the
+                    form and our team will reply {site.enquiryResponseTime}.
                   </p>
                 </div>
                 <div>
@@ -60,6 +60,14 @@ function ContactPage() {
                   >
                     Commercial Wellness Enquiry <ArrowRight className="h-4 w-4" aria-hidden />
                   </Link>
+                </div>
+                <div>
+                  <h2 className="eyebrow text-bronze-strong">Where We Install</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    Saunas {saunaInstallation.label}. Glacier cold plunges first in{" "}
+                    {coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1")}, launching{" "}
+                    {coldPlungeLaunch.label}.
+                  </p>
                 </div>
                 <div>
                   <h2 className="eyebrow text-bronze-strong">Reach Us Directly</h2>

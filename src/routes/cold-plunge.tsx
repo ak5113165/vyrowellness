@@ -65,7 +65,7 @@ export const Route = createFileRoute("/cold-plunge")({
     pageHead({
       path: "/cold-plunge",
       title: `Glacier Cold Plunges, Made in India — Launching ${launchLabel} | VYRO Wellness`,
-      description: `VYRO Glacier cold plunges, made in ${coldPlungeLaunch.manufacturingLocation}. Glacier Barrel, Portable and Acrylic launch on ${launchLabel}${fromPrice ? `, from ${fromPrice} MRP` : ""} including the 1HP chiller and installation, cooling down to ${externalChillerSpecs.minimumTemperatureC}°C. Register for launch.`,
+      description: `VYRO Glacier cold plunges, made in ${coldPlungeLaunch.madeIn}. Glacier Barrel, Portable and Acrylic launch on ${launchLabel}${fromPrice ? `, from ${fromPrice} MRP` : ""} including the 1HP chiller and installation, cooling down to ${externalChillerSpecs.minimumTemperatureC}°C. Register for launch.`,
       ogTitle: `VYRO Glacier Cold Plunges — Launching ${launchLabel}`,
       ogDescription: `Glacier Barrel, Glacier Portable and Glacier Acrylic. Made in India, available first in ${cities}.`,
       image: "/og/cold-plunge.jpg",
@@ -150,7 +150,7 @@ function ColdPlungePage() {
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-40 lg:px-8">
             <p className="eyebrow text-bronze">
-              VYRO Glacier · Made in {coldPlungeLaunch.manufacturingLocation}, India
+              VYRO Glacier · Made in {coldPlungeLaunch.madeIn}
             </p>
             <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Cold Plunges</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">
@@ -409,7 +409,7 @@ function ColdPlungePage() {
         <section className="bg-ink text-ink-foreground">
           <div className="mx-auto grid max-w-7xl gap-px px-5 py-14 sm:grid-cols-3 lg:px-8">
             {[
-              [`Made in ${coldPlungeLaunch.manufacturingLocation}`, "Designed and manufactured in India, for Indian homes and climates."],
+              [`Made in ${coldPlungeLaunch.madeIn}`, "Designed and manufactured in India, for Indian homes and climates."],
               ["Launch Cities", `Available first in ${cities}.`],
               ["Guided Setup", "Our team helps you plan placement, power and plumbing."],
             ].map(([t, d]) => (
