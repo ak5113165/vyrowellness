@@ -7,6 +7,7 @@
 - [x] 10 stand-in photography assets generated (replace with real photography later)
 - [x] Art directions confirmed: homepage = architectural luxury; product pages = wellness-tech precision; recovery sessions (future) = warm retreat
 - [x] Cold plunge: acrylic with matching 1HP chiller and no dimensions; oval steel reference; built-in chilling model
+- [x] Glacier launch line-up: Barrel, Portable, Acrylic launch 1 January 2027 (hero products, comparison, chiller requirements); Pro, Steel, Signature, Integrated = coming soon for custom & premium projects
 
 ## In progress
 - [ ] Cold Plunge: reference-inspired cold therapy section, India/Delhi manufacturing, 1 January launch and initial Tier 1 city coverage
@@ -22,6 +23,9 @@
 - [x] Logo in header/footer + favicon
 
 ## Waiting on user
+- [ ] Glacier launch prices (INR) and what each price includes — slots in src/content/site.ts `glacierLaunchPricing`
+- [ ] Glacier per-model dimensions / capacity, and whether chillers launch 1 January 2027 too
+- [ ] Replace Glacier renders: chiller display reads 3°C but confirmed minimum is 5°C
 - [ ] Real product photography to replace src/assets stand-ins
 - [ ] Final Privacy Policy & Terms copy (pages contain clearly labelled placeholders)
 - [ ] Confirm sales@/support@vyrowellness.in receive mail; confirm Instagram account is live at @vyrowellness.in
