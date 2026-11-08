@@ -1,35 +1,36 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { responsive, SIZES } from "@/lib/responsive-image";
-import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
-import { ArrowRight, Snowflake, Move, Gauge, Home, Layers, Zap } from "lucide-react";
+import { ArrowRight, Check, Zap } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
+import { responsive, SIZES } from "@/lib/responsive-image";
+import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import { coldPlungeLaunch, externalChillerSpecs, whatsappLink } from "@/content/site";
+import {
+  chillerRequirements,
+  chillers,
+  launchLabel,
+  launchModels,
+  launchPrice,
+  projectModels,
+} from "@/content/glacier-catalogue";
 
-import proImg from "@/assets/plunge/glacier-pro.jpg";
-import acrylicImg from "@/assets/plunge/glacier-acrylic-1hp.jpg";
-import steelImg from "@/assets/plunge/glacier-steel-oval.jpg";
-import integratedImg from "@/assets/plunge/glacier-integrated.jpg";
-import signatureImg from "@/assets/plunge/glacier-xtreme.jpg";
-import inflatableImg from "@/assets/plunge/glacier-inflatable.jpg";
-import portableImg from "@/assets/plunge/glacier-portable.jpg";
-import chiller1Img from "@/assets/plunge/chiller-1hp.jpg";
-import chiller2Img from "@/assets/plunge/chiller-2hp.jpg";
 import heroImg from "@/assets/plunge/glacier-hero.jpg";
+
+const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 
 export const Route = createFileRoute("/cold-plunge")({
   head: () =>
     pageHead({
       path: "/cold-plunge",
-      title: "Cold Plunge Tubs & Chillers, Made in India — VYRO Glacier | VYRO Wellness",
-      description:
-        "The VYRO Glacier cold plunge range — Inflatable, Portable, Pro, Acrylic, Steel, Signature and Integrated tubs. External 1HP and 2HP chillers or built-in cooling. Made in India, coming soon.",
-      ogTitle: "VYRO Glacier Cold Plunges — Made in India",
-      ogDescription:
-        "Discover Glacier cold plunge tubs, including built-in cooling and external 1HP / 2HP chilling systems. Coming soon — register your interest.",
+      title: `Glacier Cold Plunges, Made in India — Launching ${launchLabel} | VYRO Wellness`,
+      description: `VYRO Glacier cold plunges, made in ${coldPlungeLaunch.manufacturingLocation}. Glacier Barrel, Portable and Acrylic launch on ${launchLabel} with external 1HP or 2HP chillers cooling down to ${externalChillerSpecs.minimumTemperatureC}°C. Register for launch.`,
+      ogTitle: `VYRO Glacier Cold Plunges — Launching ${launchLabel}`,
+      ogDescription: `Glacier Barrel, Glacier Portable and Glacier Acrylic. Made in India, available first in ${cities}.`,
       image: "/og/cold-plunge.jpg",
       jsonLd: [
         breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Cold Plunge", path: "/cold-plunge" }]),
@@ -39,113 +40,56 @@ export const Route = createFileRoute("/cold-plunge")({
   component: ColdPlungePage,
 });
 
-type Feature = { icon: typeof Snowflake; title: string; note: string };
-
-const plunges: { name: string; tag: string; image: string; copy: string; features: Feature[] }[] = [
+// Shown on the page and published as FAQ structured data — keep them in one place.
+const faqs = [
   {
-    name: "GLACIER | inflatable",
-    tag: "Inflatable Series",
-    image: inflatableImg,
-    copy: "An upright inflatable barrel with an insulated lid and strap closures. Pairs with a VYRO chiller and step.",
-    features: [
-      { icon: Move, title: "inflatable", note: "set up anywhere" },
-      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
-    ],
+    q: "When do VYRO Glacier cold plunges launch?",
+    a: `Glacier Barrel, Glacier Portable and Glacier Acrylic launch on ${launchLabel}, available first in ${cities}. Glacier Pro, Steel, Signature and Integrated are coming soon for custom and premium projects.`,
   },
   {
-    name: "GLACIER | portable",
-    tag: "Portable Series",
-    image: portableImg,
-    copy: "A full-length inflatable tub with an insulated lid — lie back and immerse, then pack it away.",
-    features: [
-      { icon: Layers, title: "full-length", note: "lie-back immersion" },
-      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
-    ],
+    q: "How cold does the water get?",
+    a: `With an external VYRO chiller, Glacier plunges can be cooled down to ${externalChillerSpecs.minimumTemperatureC}°C.`,
   },
   {
-    name: "GLACIER | pro",
-    tag: "Flagship",
-    image: proImg,
-    copy: "A sturdy one-piece shell in matte black, built for a daily cold ritual at home or in the gym.",
-    features: [
-      { icon: Layers, title: "one-piece shell", note: "strong & seamless" },
-      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
-    ],
+    q: "Should I choose the 1HP or 2HP chiller?",
+    a: "The 1HP suits most home plunges and personal use, and is the chiller paired with Glacier Acrylic. The 2HP is for larger tubs and busier spaces like gyms and spas. We'll help you choose during your consultation.",
   },
   {
-    name: "GLACIER | acrylic",
-    tag: "Acrylic Series",
-    image: acrylicImg,
-    copy: "A gloss-white acrylic plunge paired with the VYRO 1HP external chilling system.",
-    features: [
-      { icon: Layers, title: "white acrylic", note: "smooth gloss finish" },
-      { icon: Snowflake, title: "1HP chiller", note: "external system" },
-    ],
+    q: "What does installation need?",
+    a: `External chiller setups need a ${externalChillerSpecs.electricalPhase.toLowerCase()} power supply, ${externalChillerSpecs.wiringOptionsMm2.join(" mm² or ")} mm² wiring and ${externalChillerSpecs.drainPoints} drain point for discharge when needed. Our team confirms the details for your space.`,
   },
   {
-    name: "GLACIER | steel",
-    tag: "Stainless Steel",
-    image: steelImg,
-    copy: "An oval stainless steel plunge with rounded ends and a brushed-metal finish, with no timber cladding.",
-    features: [
-      { icon: Layers, title: "stainless steel", note: "no timber clad" },
-      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
-    ],
+    q: "How much space does a cold plunge need?",
+    a: "Glacier Barrel suits smaller spaces; Glacier Portable and Glacier Acrylic need room to lie back. Share your space with us and we'll suggest what fits.",
   },
   {
-    name: "GLACIER | signature",
-    tag: "Premium",
-    image: signatureImg,
-    copy: "Timber-clad with a steel rim — a statement piece for villas, wellness suites and hospitality.",
-    features: [
-      { icon: Home, title: "inside or outside", note: "placement" },
-      { icon: Snowflake, title: "chiller ready", note: "1HP or 2HP" },
-    ],
-  },
-  {
-    name: "GLACIER | integrated",
-    tag: "Built-in Chilling Series",
-    image: integratedImg,
-    copy: "A white all-in-one plunge with the chilling system housed inside the tub body, without a separate external unit.",
-    features: [
-      { icon: Layers, title: "all-in-one", note: "white finish" },
-      { icon: Snowflake, title: "built-in cooling", note: "integrated system" },
-    ],
+    q: "Can a cold plunge be placed outdoors?",
+    a: "Some setups suit covered outdoor spaces. Our team will advise based on your space.",
   },
 ];
 
-const chillers = [
-  {
-    name: "GLACIER | chiller 1HP",
-    image: chiller1Img,
-    copy: "Our compact chilling system for home plunges and personal use.",
-    best: "Best for: home & personal use",
-  },
-  {
-    name: "GLACIER | chiller 2HP",
-    image: chiller2Img,
-    copy: "Our more powerful chilling system for larger tubs and busier spaces like gyms and spas.",
-    best: "Best for: larger tubs & commercial use",
-  },
-];
-
-function SoonBadge({ bottom = false }: { bottom?: boolean }) {
+function StatusBadge({ children, tone = "dark" }: { children: string; tone?: "dark" | "light" }) {
   return (
-    <span className={`absolute left-3 ${bottom ? "bottom-3" : "top-3"} bg-ink px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-ink-foreground`}>
-      Coming Soon
+    <span
+      className={`absolute left-3 top-3 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] ${
+        tone === "dark" ? "bg-ink text-ink-foreground" : "border border-border bg-background text-muted-foreground"
+      }`}
+    >
+      {children}
     </span>
   );
 }
 
-// Shown on the page and published as FAQ structured data — keep them in one place.
-const faqs = [
-  { q: "When will VYRO Glacier cold plunges be available?", a: "The range is being manufactured in India and launches soon. Register your interest below and we'll tell you the moment it's available." },
-  { q: "Should I choose the 1HP or 2HP chiller?", a: "The 1HP suits most home plunges and personal use. The 2HP is for larger tubs and busier spaces like gyms and spas. We'll help you choose during your consultation." },
-  { q: "How much space does a cold plunge need?", a: "The Inflatable suits smaller spaces; the Acrylic, Steel and Signature need more room. Share your space with us and we'll suggest what fits." },
-  { q: "Can a cold plunge be placed outdoors?", a: "Some setups suit covered outdoor spaces. Our team will advise based on your space." },
-];
-
 function ColdPlungePage() {
+  const [message, setMessage] = useState<string | undefined>(undefined);
+
+  const enquire = (text: string) => {
+    setMessage(text);
+    requestAnimationFrame(() => document.getElementById("enquire")?.scrollIntoView({ behavior: "smooth" }));
+  };
+
+  const specLabels = launchModels[0]?.specs.map((s) => s.label) ?? [];
+
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
@@ -161,81 +105,239 @@ function ColdPlungePage() {
             className="absolute inset-0 h-full w-full object-cover"
             fetchPriority="high"
           />
-          <div
-            aria-hidden
-            className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25"
-          />
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-40 lg:px-8">
-            <p className="eyebrow text-bronze">VYRO Glacier Series · Made in India</p>
+            <p className="eyebrow text-bronze">
+              VYRO Glacier · Made in {coldPlungeLaunch.manufacturingLocation}, India
+            </p>
             <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Cold Plunges</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">
-              Plunge tubs with external or built-in chilling systems, being manufactured in India. Launching soon —
-              register your interest to be first in line.
+              Three Glacier plunges launch on {launchLabel}: Barrel, Portable and Acrylic. Available first in{" "}
+              {cities}.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
-              <a href="#plunges" className="text-ink-foreground/85 hover:text-ink-foreground">Plunge Tubs</a>
-              <a href="#chillers" className="text-ink-foreground/85 hover:text-ink-foreground">Chilling Systems</a>
-              <a href="#enquire" className="text-ink-foreground/85 hover:text-ink-foreground">Register Interest</a>
+              <a href="#launch" className="text-ink-foreground/85 hover:text-ink-foreground">Launch Range</a>
+              <a href="#compare" className="text-ink-foreground/85 hover:text-ink-foreground">Compare</a>
+              <a href="#chillers" className="text-ink-foreground/85 hover:text-ink-foreground">Chillers</a>
+              <a href="#projects" className="text-ink-foreground/85 hover:text-ink-foreground">Project Collection</a>
+              <a href="#enquire" className="text-ink-foreground/85 hover:text-ink-foreground">Register</a>
             </div>
           </div>
         </section>
 
-        {/* Product grid */}
-        <section id="plunges" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-          <div className="flex items-end justify-between gap-4 border-b border-border pb-4">
-            <h2 className="font-display text-3xl font-medium">Plunge Tubs</h2>
-            <p className="text-sm text-muted-foreground">{plunges.length} products</p>
-          </div>
-          <div className="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {plunges.map((p) => (
-              <article key={p.name} className="flex flex-col">
-                <div className="relative bg-card">
-                  <SoonBadge />
-                  <img src={p.image} {...responsive(p.image, SIZES.third)} alt={`VYRO ${p.name.replace(" | ", " ")} cold plunge tub`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
-                </div>
-                <p className="mt-4 eyebrow text-bronze-strong">{p.tag}</p>
-                <h3 className="mt-1 font-display text-2xl font-medium">{p.name}</h3>
-                <p className="mt-1 text-sm uppercase tracking-[0.14em] text-muted-foreground">Coming Soon</p>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.copy}</p>
-                <div className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-4">
-                  {p.features.map((f) => (
-                    <div key={f.title} className="flex items-start gap-2">
-                      <f.icon className="mt-0.5 h-4 w-4 shrink-0 text-bronze-strong" aria-hidden />
-                      <div>
-                        <p className="text-sm font-medium">{f.title}</p>
-                        <p className="text-xs text-muted-foreground">{f.note}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <a href="#enquire" className="mt-5 inline-flex items-center justify-center gap-2 border border-foreground px-4 py-3 text-[12px] uppercase tracking-[0.16em] transition-colors hover:bg-foreground hover:text-background">
-                  Notify Me <ArrowRight className="h-4 w-4" aria-hidden />
-                </a>
-              </article>
-            ))}
+        {/* Launch strip */}
+        <section className="border-b border-bronze/40 bg-secondary/60">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:px-8">
+            <p className="eyebrow shrink-0 text-bronze-strong">Launching {launchLabel}</p>
+            <p className="text-sm text-muted-foreground">
+              {launchModels.map((m) => m.name).join(" · ")} — {cities}
+            </p>
           </div>
         </section>
 
-        {/* Chillers */}
-        <section id="chillers" className="scroll-mt-24 border-t border-border bg-card">
-          <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
-            <SectionHeading overline="Chilling Systems" title="Choose Your Power: 1HP or 2HP." copy="For external-chiller setups, explore our 1HP and 2HP systems. The Glacier Integrated model houses its cooling system inside the tub." />
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
-              {chillers.map((c) => (
-                <article key={c.name} className="grid items-center gap-6 border border-border bg-background p-6 sm:grid-cols-[1fr_1.1fr]">
-                  <div className="relative">
-                    <SoonBadge bottom />
-                    <img src={c.image} {...responsive(c.image, SIZES.third)} alt={`VYRO ${c.name.replace(" | ", " ")} water chilling system`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
+        {/* Launch range: three hero products */}
+        <section id="launch" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
+          <SectionHeading
+            overline="The Launch Range"
+            title="Three Plunges for Launch Day."
+            copy="Choose by how you want to plunge and how much space you have. Each works with a VYRO external chiller."
+          />
+          <div className="mt-14 grid gap-x-8 gap-y-16 lg:grid-cols-3">
+            {launchModels.map((m, i) => {
+              const price = launchPrice(m.name);
+              const wa = whatsappLink(`Hello VYRO, I'd like to know more about the ${m.name} launching on ${launchLabel}.`);
+              return (
+                <Reveal key={m.name} delayMs={i * 80} className="h-full">
+                  <article className="flex h-full flex-col">
+                    <div className="relative bg-white">
+                      <StatusBadge>{`Launching ${coldPlungeLaunch.shortLabel}`}</StatusBadge>
+                      <img
+                        src={m.image}
+                        {...responsive(m.image, SIZES.third)}
+                        alt={m.alt}
+                        width={1024}
+                        height={1024}
+                        loading="lazy"
+                        className="aspect-square w-full object-contain"
+                      />
+                    </div>
+                    <p className="eyebrow mt-6 text-bronze-strong">{m.tag}</p>
+                    <h3 className="mt-2 font-display text-3xl font-medium">{m.name}</h3>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{m.positioning}</p>
+
+                    <div className="mt-6 border-y border-border py-4">
+                      <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Launch price</p>
+                      <p className="mt-1 font-display text-2xl font-medium">{price.display}</p>
+                      {price.note && <p className="mt-1 text-xs text-muted-foreground">{price.note}</p>}
+                    </div>
+
+                    <ul className="mt-5 flex-1 space-y-2.5 text-sm">
+                      {m.keyFacts.map((f) => (
+                        <li key={f} className="flex items-start gap-2.5">
+                          <Check className="mt-0.5 h-4 w-4 shrink-0 text-bronze-strong" aria-hidden />
+                          {f}
+                        </li>
+                      ))}
+                      <li className="pt-1 text-xs text-muted-foreground">Best for: {m.bestFor}</li>
+                    </ul>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        enquire(`I'd like to register for the ${m.name} launch on ${launchLabel}.`)
+                      }
+                      className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-primary px-5 py-3.5 text-[12px] uppercase tracking-[0.16em] text-primary-foreground transition-colors hover:bg-primary/90"
+                    >
+                      Register for Launch <ArrowRight className="h-4 w-4" aria-hidden />
+                    </button>
+                    {wa && (
+                      <a
+                        href={wa}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-3 text-center text-[12px] uppercase tracking-[0.16em] underline decoration-bronze underline-offset-8 hover:text-bronze-strong"
+                      >
+                        Ask on WhatsApp
+                      </a>
+                    )}
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Comparison */}
+        <section id="compare" className="scroll-mt-24 border-t border-border bg-card">
+          <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <SectionHeading overline="Compare" title="At a Glance." />
+            <div className="mt-10 overflow-x-auto">
+              <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+                <caption className="sr-only">Comparison of the Glacier launch range</caption>
+                <thead>
+                  <tr className="border-b border-foreground">
+                    <th scope="col" className="w-1/4 py-4 pr-4 font-normal text-muted-foreground" />
+                    {launchModels.map((m) => (
+                      <th key={m.name} scope="col" className="py-4 pr-4 font-display text-xl font-medium">
+                        {m.name}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {specLabels.map((label) => (
+                    <tr key={label} className="border-b border-border">
+                      <th scope="row" className="py-4 pr-4 text-xs font-normal uppercase tracking-[0.14em] text-muted-foreground">
+                        {label}
+                      </th>
+                      {launchModels.map((m) => (
+                        <td key={m.name} className="py-4 pr-4">
+                          {m.specs.find((s) => s.label === label)?.value ?? "—"}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                  <tr className="border-b border-border">
+                    <th scope="row" className="py-4 pr-4 text-xs font-normal uppercase tracking-[0.14em] text-muted-foreground">
+                      Launch
+                    </th>
+                    {launchModels.map((m) => (
+                      <td key={m.name} className="py-4 pr-4">{launchLabel}</td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-border">
+                    <th scope="row" className="py-4 pr-4 text-xs font-normal uppercase tracking-[0.14em] text-muted-foreground">
+                      Launch price
+                    </th>
+                    {launchModels.map((m) => (
+                      <td key={m.name} className="py-4 pr-4">{launchPrice(m.name).display}</td>
+                    ))}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* Chillers + requirements */}
+        <section id="chillers" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-20 lg:px-8">
+          <SectionHeading
+            overline="Chilling Systems"
+            title="1HP or 2HP."
+            copy="Every launch model works with a VYRO external chiller. Glacier Acrylic is paired with the 1HP; Glacier Barrel and Portable work with either."
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {chillers.map((c) => (
+              <article key={c.name} className="grid items-center gap-6 border border-border bg-card p-6 sm:grid-cols-[1fr_1.1fr]">
+                <div className="bg-white">
+                  <img
+                    src={c.image}
+                    {...responsive(c.image, SIZES.third)}
+                    alt={`VYRO ${c.name} water chilling system`}
+                    width={1024}
+                    height={1024}
+                    loading="lazy"
+                    className="aspect-square w-full object-contain"
+                  />
+                </div>
+                <div>
+                  <p className="eyebrow flex items-center gap-2 text-bronze-strong">
+                    <Zap className="h-3.5 w-3.5" aria-hidden /> {c.hp}HP
+                  </p>
+                  <h3 className="mt-2 font-display text-2xl font-medium">{c.name}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
+                  <p className="mt-3 text-sm">Best for: {c.best}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-10 border-t border-foreground pt-6">
+            <h3 className="eyebrow text-bronze-strong">Installation requirements · external chillers</h3>
+            <dl className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {chillerRequirements.map((r) => (
+                <div key={r.label}>
+                  <dt className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{r.label}</dt>
+                  <dd className="mt-1.5 font-display text-xl font-medium">{r.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+
+        {/* Project collection: coming soon */}
+        <section id="projects" className="scroll-mt-24 border-t border-border bg-card">
+          <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <SectionHeading
+              overline="Coming Soon · Custom & Premium Projects"
+              title="The Project Collection."
+              copy="Four further Glacier designs for villas, wellness suites, gyms and hospitality — specified project by project."
+            />
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {projectModels.map((p) => (
+                <article key={p.name} className="flex flex-col border border-border bg-background">
+                  <div className="relative bg-white">
+                    <StatusBadge tone="light">Coming Soon</StatusBadge>
+                    <img
+                      src={p.image}
+                      {...responsive(p.image, SIZES.third)}
+                      alt={`VYRO ${p.name} cold plunge`}
+                      width={1024}
+                      height={1024}
+                      loading="lazy"
+                      className="aspect-square w-full object-contain"
+                    />
                   </div>
-                  <div>
-                    <p className="eyebrow text-bronze-strong flex items-center gap-2"><Zap className="h-3.5 w-3.5" aria-hidden /> {c.name.includes("1HP") ? "1HP" : "2HP"}</p>
-                    <h3 className="mt-2 font-display text-2xl font-medium">{c.name}</h3>
-                    <p className="mt-1 text-sm uppercase tracking-[0.14em] text-muted-foreground">Coming Soon</p>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
-                    <p className="mt-3 flex items-center gap-2 text-sm"><Gauge className="h-4 w-4 text-bronze-strong" aria-hidden /> {c.best}</p>
-                    <a href="#enquire" className="mt-5 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] underline decoration-bronze underline-offset-8 hover:text-bronze-strong">
-                      Notify Me <ArrowRight className="h-4 w-4" aria-hidden />
-                    </a>
+                  <div className="flex flex-1 flex-col border-t border-border p-5">
+                    <p className="eyebrow text-bronze-strong">{p.tag}</p>
+                    <h3 className="mt-1.5 font-display text-xl font-medium">{p.name}</h3>
+                    <p className="mt-2 flex-1 text-xs leading-relaxed text-muted-foreground">{p.copy}</p>
+                    <button
+                      type="button"
+                      onClick={() => enquire(`I'd like to discuss a custom or premium project with the ${p.name}.`)}
+                      className="mt-4 inline-flex items-center gap-2 self-start text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong"
+                    >
+                      Discuss a Project <ArrowRight className="h-4 w-4" aria-hidden />
+                    </button>
                   </div>
                 </article>
               ))}
@@ -247,8 +349,8 @@ function ColdPlungePage() {
         <section className="bg-ink text-ink-foreground">
           <div className="mx-auto grid max-w-7xl gap-px px-5 py-14 sm:grid-cols-3 lg:px-8">
             {[
-              ["Made in India", "Designed and manufactured here, for Indian homes and climates."],
-              ["Cooling Options", "External 1HP or 2HP chilling systems, or the all-in-one Integrated model."],
+              [`Made in ${coldPlungeLaunch.manufacturingLocation}`, "Designed and manufactured in India, for Indian homes and climates."],
+              ["Launch Cities", `Available first in ${cities}.`],
               ["Guided Setup", "Our team helps you plan placement, power and plumbing."],
             ].map(([t, d]) => (
               <div key={t} className="py-4 sm:px-6 sm:first:pl-0">
@@ -280,15 +382,15 @@ function ColdPlungePage() {
         <section id="enquire" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-20 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <Reveal>
-              <p className="eyebrow text-bronze-strong">Register Interest</p>
+              <p className="eyebrow text-bronze-strong">Register for Launch</p>
               <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">Be First to Take the Plunge.</h2>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
-                Tell us which Glacier tub and chiller you're interested in. We'll keep you updated as the
-                Made-in-India range launches and help you plan your space in advance.
+                Tell us which Glacier plunge you're considering. We'll keep you updated ahead of the{" "}
+                {launchLabel} launch and help you plan your space, power and drainage in advance.
               </p>
             </Reveal>
             <Reveal delayMs={120}>
-              <EnquiryForm variant="consumer" defaultProductInterest="Cold Plunge" />
+              <EnquiryForm key={message ?? "blank"} variant="consumer" defaultProductInterest="Cold Plunge" defaultMessage={message} />
             </Reveal>
           </div>
         </section>

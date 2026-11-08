@@ -18,9 +18,16 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50">
       {/* Announcement bar */}
       <div className="bg-ink px-4 py-2 text-center">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-ink-foreground/90">
-          {site.announcement}
-        </p>
+        {site.announcementLink ? (
+          <Link
+            to={site.announcementLink}
+            className="text-[11px] uppercase tracking-[0.22em] text-ink-foreground/90 transition-colors hover:text-ink-foreground"
+          >
+            {site.announcement} <span aria-hidden>→</span>
+          </Link>
+        ) : (
+          <p className="text-[11px] uppercase tracking-[0.22em] text-ink-foreground/90">{site.announcement}</p>
+        )}
       </div>
 
       {/* Sticky navigation */}

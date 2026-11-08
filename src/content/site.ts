@@ -14,7 +14,9 @@ export const site = {
   tagline: "Wellness, Reimagined.",
   // Used sparingly (e.g. footer / brand story).
   secondaryLine: "Sehat bhi. Shakti bhi. Sukoon bhi.",
-  announcement: "Discover a new approach to everyday wellness.",
+  announcement: "VYRO Glacier cold plunges launch 1 January 2027",
+  // Where the announcement bar links to. Leave "" for plain text.
+  announcementLink: "/cold-plunge" as const,
 
   // WhatsApp business number, international format, digits only.
   // Leave "" to hide all WhatsApp buttons.
@@ -54,14 +56,38 @@ export const productInterests = [
 // they are not a delivery-coverage or installation-availability claim.
 export const exampleCities = ["Mumbai", "Delhi NCR", "Bengaluru", "Hyderabad"];
 
-// Cold Plunge launch facts confirmed by the founder. Year remains unconfirmed.
+// Cold Plunge launch facts confirmed by the founder (year confirmed 8 Nov 2026).
 export const coldPlungeLaunch = {
   day: 1,
   month: 1,
-  label: "1 January",
+  year: 2027,
+  label: "1 January 2027",
+  shortLabel: "1 Jan 2027",
   manufacturingLocation: "Delhi",
   serviceLocations: ["Delhi NCR", "Bangalore", "Mumbai", "Goa"],
 } as const;
+
+// Glacier line-up confirmed by the founder (8 Nov 2026): only these three
+// hero models launch on the coldPlungeLaunch date. Every other Glacier design
+// stays "coming soon" and is offered for custom and premium projects.
+export const glacierLaunchModels = ["Glacier Barrel", "Glacier Portable", "Glacier Acrylic"] as const;
+export const glacierProjectModels = [
+  "Glacier Pro",
+  "Glacier Steel",
+  "Glacier Signature",
+  "Glacier Integrated",
+] as const;
+
+export type GlacierLaunchModel = (typeof glacierLaunchModels)[number];
+
+// PLACEHOLDER — launch prices in INR await confirmation. While priceInr is
+// null the page shows "Price on request". `note` says what the price covers
+// (e.g. "Includes 1HP chiller · GST extra"); leave null until confirmed.
+export const glacierLaunchPricing: Record<GlacierLaunchModel, { priceInr: number | null; note: string | null }> = {
+  "Glacier Barrel": { priceInr: null, note: null },
+  "Glacier Portable": { priceInr: null, note: null },
+  "Glacier Acrylic": { priceInr: null, note: null },
+};
 
 // External chilling systems only; do not extend these ratings to built-in cooling.
 export const externalChillerSpecs = {

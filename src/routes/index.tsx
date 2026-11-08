@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
-import { site, whatsappLink } from "@/content/site";
+import { coldPlungeLaunch, site, whatsappLink } from "@/content/site";
 
 import heroImage from "@/assets/hero.jpg";
 import saunaImage from "@/assets/products/sauna-hero-spruce.jpg";
@@ -46,11 +46,12 @@ const pillars = [
     image: coldImage,
     alt: "A sculptural stone cold plunge tub with still water in a minimalist room",
     name: "Cold Plunge",
-    tag: "Temperature-Controlled Recovery Baths",
-    copy: "Plunge tubs with external 1HP or 2HP chillers, or cooling built into the tub.",
+    tag: "VYRO Glacier · Made in India",
+    copy: `Glacier Barrel, Portable and Acrylic — launching ${coldPlungeLaunch.label} with VYRO external chillers.`,
     to: "/cold-plunge" as const,
     soon: true,
-    soonLabel: "Coming Soon · Made in India",
+    soonLabel: `Launching ${coldPlungeLaunch.shortLabel}`,
+    navLabel: `Launching ${coldPlungeLaunch.shortLabel}`,
   },
   {
     n: "03",
@@ -137,7 +138,7 @@ function Index() {
                     <span className="font-display text-xl sm:text-2xl">{p.name}</span>
                     {p.soon && (
                       <span className="hidden text-[10px] uppercase tracking-[0.2em] text-bronze lg:inline">
-                        Coming Soon
+                        {p.navLabel ?? "Coming Soon"}
                       </span>
                     )}
                   </span>
@@ -184,7 +185,7 @@ function Index() {
                     <h3 className="mt-2 font-display text-3xl font-medium text-foreground">{p.name}</h3>
                     <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{p.copy}</p>
                     <span className="mt-6 inline-flex items-center gap-2 text-[13px] uppercase tracking-[0.16em] text-foreground transition-colors group-hover:text-bronze-strong">
-                      {p.soon ? "Learn More" : "View Products"}{" "}
+                      {p.to === "/cold-plunge" ? "View the Launch Range" : p.soon ? "Learn More" : "View Products"}{" "}
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden />
                     </span>
                   </Link>
