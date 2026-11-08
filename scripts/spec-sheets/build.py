@@ -128,6 +128,12 @@ def table(c, rows, x, y_top, col_widths, header=True, size=8) -> float:
     return y_top - h
 
 
+def two_line_width(label: str) -> str:
+    """'Approx. 3.9–4.9 ft wide (1.2–1.5 m)' -> feet on one line, metres below."""
+    feet, _, metric = label.replace("Approx. ", "approx. ").partition(" (")
+    return f"{feet}<br/><font color='#5F5A54'>({metric}</font>" if metric else feet
+
+
 # -------------------------------------------------------------- glacier ----
 def glacier(data, out: Path) -> None:
     g = data["glacier"]
@@ -208,7 +214,7 @@ def glacier(data, out: Path) -> None:
         lows.append(min(yy, top - img))
     y = min(lows) - 24
 
-    eyebrow(c, "Installation requirements · external chillers", M, y)
+    eyebrow(c, "Installation requirements", M, y)
     rows = [[r["label"], r["value"]] for r in g["requirements"]]
     rows += [["Water capacity (launch range)", g["waterCapacity"]], ["Installation", f"Included in MRP · first in {cities}"]]
     y = table(c, rows, M, y - 8, [170, W - 2 * M - 170], header=False, size=8.5) - 24
@@ -283,15 +289,16 @@ def haven(data, out: Path) -> None:
 
     eyebrow(c, "Sizes", M, y)
     rows = [["Size", "Indicative width", "Capacity"]] + [
-        [s["name"], s["spec"].replace("Approx. ", "approx. "), s["people"]] for s in hv["roomSizes"]
+        [s["name"], s["width"].replace("Approx. ", "approx. "), s["people"]] for s in hv["roomSizes"]
     ]
-    y = table(c, rows, M, y - 8, [90, 160, W - 2 * M - 250]) - 20
+    y = table(c, rows, M, y - 8, [90, 220, W - 2 * M - 310]) - 20
 
     eyebrow(c, "Models", M, y)
-    rows = [["Model", "Size", "Description"]] + [
-        [f"{m['name']} {m['code']}", m["size"], m["copy"]] for m in hv["models"]
+    rows = [["Model", "Indicative width", "Seats", "Description"]] + [
+        [f"{m['name']} {m['code']}", two_line_width(m["width"]), m["people"], m["copy"]]
+        for m in hv["models"]
     ]
-    table(c, rows, M, y - 8, [120, 60, W - 2 * M - 180])
+    table(c, rows, M, y - 8, [92, 128, 58, W - 2 * M - 278], size=7.5)
     footer(c, data, 1, 2, note)
     c.showPage()
 

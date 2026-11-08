@@ -21,7 +21,7 @@ import {
 } from "@/content/site";
 import { consultationSteps } from "@/content/process";
 import { launchLabel } from "@/content/glacier-catalogue";
-import { roomSizes } from "@/content/sauna-catalogue";
+import { metresToFeet, roomSizes } from "@/content/sauna-catalogue";
 
 import hospitalityImage from "@/assets/hospitality.jpg";
 import fitnessImage from "@/assets/fitness.jpg";
@@ -48,7 +48,8 @@ export const Route = createFileRoute("/commercial-wellness")({
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const wiring = `${externalChillerSpecs.wiringOptionsMm2.join(" or ")} mm²`;
-const largestSauna = roomSizes.find((r) => r.name === "Large");
+const saunaMinM = Math.min(...roomSizes.map((r) => r.minWidthM));
+const saunaMaxM = Math.max(...roomSizes.map((r) => r.maxWidthM));
 
 // What VYRO can specify for a commercial project — only products and facts
 // already confirmed elsewhere on the site.
@@ -87,15 +88,15 @@ const offer = [
 const planningFacts = [
   {
     label: "Haven sauna cabins",
-    value: `Indicative widths from approx. 1.2m to ${largestSauna ? largestSauna.spec.split("–").at(-1)?.replace(" wide", "") : "2.2m"}; final dimensions confirmed per project.`,
+    value: `Indicative widths from approx. ${metresToFeet(saunaMinM)} to ${metresToFeet(saunaMaxM)} ft (${saunaMinM}–${saunaMaxM} m); final dimensions confirmed per project.`,
   },
   {
     label: "Glacier cold plunge tubs",
     value: `From ${glacierDimensions["Glacier Barrel"].split(" · ")[0]} (Barrel) to ${glacierDimensions["Glacier Acrylic"].split(" · ")[0]} (Portable, Acrylic); 30 in deep.`,
   },
   {
-    label: "Glacier chiller services",
-    value: `${externalChillerSpecs.electricalPhase} supply, ${wiring} wiring and ${externalChillerSpecs.drainPoints} drain point for discharge when needed.`,
+    label: "Glacier cold plunge services",
+    value: `${externalChillerSpecs.electricalPhase} supply, ${wiring} wiring, ${externalChillerSpecs.waterInletPoints} water inlet point and ${externalChillerSpecs.drainPoints} drain point for discharge when needed.`,
   },
   {
     label: "Installation coverage",
@@ -119,7 +120,7 @@ const faqs = [
   },
   {
     q: "What services does a cold plunge need?",
-    a: `A Glacier external chiller needs a ${externalChillerSpecs.electricalPhase.toLowerCase()} supply, ${wiring} wiring and ${externalChillerSpecs.drainPoints} drain point for discharge when needed.`,
+    a: `A Glacier cold plunge with an external chiller needs a ${externalChillerSpecs.electricalPhase.toLowerCase()} supply, ${wiring} wiring, ${externalChillerSpecs.waterInletPoints} water inlet point and ${externalChillerSpecs.drainPoints} drain point for discharge when needed.`,
   },
   {
     q: "How quickly will you respond?",

@@ -12,6 +12,7 @@ import {
   glacierWaterCapacityLitres,
 } from "@/content/site";
 import {
+  chillerRequirements,
   chillers,
   fromPrice,
   launchModels,
@@ -37,6 +38,9 @@ describe("Confirmed Cold Plunge launch and installation facts", () => {
   });
   it("specifies cooling down to 3 degrees Celsius", () => {
     expect(externalChillerSpecs.minimumTemperatureC).toBe(3);
+  });
+  it("requires one water inlet point", () => {
+    expect(externalChillerSpecs.waterInletPoints).toBe(1);
   });
   it("requires a single-phase supply", () => {
     expect(externalChillerSpecs.electricalPhase).toBe("Single phase");
@@ -129,3 +133,17 @@ describe("Origin wording", () => {
     }
   });
 });
+
+describe("Cold plunge installation requirements", () => {
+  it("lists power, wiring, water inlet and drainage", () => {
+    expect(chillerRequirements.map((r) => r.label)).toEqual([
+      "Lowest water temperature",
+      "Power supply",
+      "Wiring",
+      "Water supply",
+      "Drainage",
+    ]);
+    expect(chillerRequirements.find((r) => r.label === "Water supply")?.value).toBe("1 water inlet point");
+  });
+});
+

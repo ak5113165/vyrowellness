@@ -15,6 +15,10 @@ import {
   site,
 } from "@/content/site";
 import { formatInr, fromPrice, launchLabel } from "@/content/glacier-catalogue";
+import { metresToFeet, roomSizes } from "@/content/sauna-catalogue";
+
+const saunaMinM = Math.min(...roomSizes.map((r) => r.minWidthM));
+const saunaMaxM = Math.max(...roomSizes.map((r) => r.maxWidthM));
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const wiring = `${externalChillerSpecs.wiringOptionsMm2.join(" mm² or ")} mm²`;
@@ -29,8 +33,8 @@ export const beforeYouBuyFaqs = [
     a: `For the Glacier launch range, yes — the MRP${fromPrice ? ` (from ${fromPrice})` : ""} includes the 1HP chiller and installation. Sauna pricing depends on the cabin and options you choose; our team handles delivery, installation and commissioning, and your quote sets out exactly what's included.`,
   },
   {
-    q: "What electrical work does a cold plunge need?",
-    a: `A Glacier chiller needs a ${externalChillerSpecs.electricalPhase.toLowerCase()} supply with ${wiring} wiring, plus ${externalChillerSpecs.drainPoints} drain point for discharge when needed. We confirm the details for your space before installation.`,
+    q: "What does a cold plunge need at my home?",
+    a: `A Glacier chiller needs a ${externalChillerSpecs.electricalPhase.toLowerCase()} supply with ${wiring} wiring. You'll also need ${externalChillerSpecs.waterInletPoints} water inlet point and ${externalChillerSpecs.drainPoints} drain point for discharge when needed. We confirm the details for your space before installation.`,
   },
   {
     q: "What do you need to plan a sauna?",
@@ -38,7 +42,7 @@ export const beforeYouBuyFaqs = [
   },
   {
     q: "How much space does each product take?",
-    a: `Haven sauna cabins are approx. 1.2m to 2.2m wide depending on size. Glacier Barrel is ${glacierDimensions["Glacier Barrel"].replace(" · ", ", ")}; Glacier Portable and Acrylic are ${glacierDimensions["Glacier Acrylic"].replace(" · ", ", ")}, holding ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres across the range.`,
+    a: `Haven sauna cabins are approx. ${metresToFeet(saunaMinM)} to ${metresToFeet(saunaMaxM)} ft wide (${saunaMinM}–${saunaMaxM} m) depending on size. Glacier Barrel is ${glacierDimensions["Glacier Barrel"].replace(" · ", ", ")}; Glacier Portable and Acrylic are ${glacierDimensions["Glacier Acrylic"].replace(" · ", ", ")}, holding ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres across the range.`,
   },
   {
     q: "Can I upgrade the chiller?",

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { roomSizes, saunaModels } from "@/content/sauna-catalogue";
+import { metresToFeet, modelSize, roomSizes, saunaModels, widthLabel } from "@/content/sauna-catalogue";
 import { cn } from "@/lib/utils";
 
 const FT_TO_M = 0.3048;
@@ -13,7 +13,8 @@ type Fit = "fits" | "maybe";
  * widths. Final dimensions are always confirmed in the space assessment.
  */
 export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void }) {
-  const [unit, setUnit] = useState<"m" | "ft">("m");
+  // Feet first: most buyers in India measure rooms in feet.
+  const [unit, setUnit] = useState<"m" | "ft">("ft");
   const [value, setValue] = useState("");
 
   const width = Number.parseFloat(value.replace(",", "."));
@@ -53,11 +54,11 @@ export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void 
           className="h-11 w-36 rounded-sm border border-input bg-transparent px-3.5 text-sm focus-visible:border-bronze focus-visible:outline-none"
         />
         <div role="group" aria-label="Unit" className="flex border border-border">
-          <button type="button" aria-pressed={unit === "m"} onClick={() => setUnit("m")} className={toggle("m")}>
-            Metres
-          </button>
           <button type="button" aria-pressed={unit === "ft"} onClick={() => setUnit("ft")} className={toggle("ft")}>
             Feet
+          </button>
+          <button type="button" aria-pressed={unit === "m"} onClick={() => setUnit("m")} className={toggle("m")}>
+            Metres
           </button>
         </div>
       </div>
@@ -65,7 +66,8 @@ export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void 
       <div aria-live="polite" className="mt-6">
         {widthM === null ? null : results.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            That's narrower than our smallest indicative cabin (approx. {roomSizes[0].minWidthM}m). Ask us in the
+            That's narrower than our smallest indicative cabin (approx. {metresToFeet(roomSizes[0].minWidthM)} ft /{" "}
+            {roomSizes[0].minWidthM} m). Ask us in the
             enquiry form — we'll look at what's possible for your space.
           </p>
         ) : (
@@ -77,7 +79,7 @@ export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void 
                 </p>
                 <p className="mt-1 font-display text-2xl font-medium">{size.name}</p>
                 <p className="text-xs text-muted-foreground">
-                  {size.spec} · {size.people}
+                  {widthLabel(size)} · {size.people}
                 </p>
                 <div className="mt-4 flex flex-1 flex-col gap-2">
                   {models.map((m) => (
@@ -87,7 +89,10 @@ export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void 
                       onClick={() => onChoose(m.code)}
                       className="inline-flex items-center justify-between gap-2 border-t border-border pt-2 text-left text-sm hover:text-bronze-strong"
                     >
-                      {m.name} {m.code}
+                      <span>
+                        {m.name} {m.code}
+                        <span className="block text-xs text-muted-foreground">{modelSize(m).people}</span>
+                      </span>
                       <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
                     </button>
                   ))}
