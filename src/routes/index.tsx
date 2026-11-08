@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { coldPlungeLaunch, site, whatsappLink } from "@/content/site";
+import { fromPrice as glacierFromPrice } from "@/content/glacier-catalogue";
 
 import heroImage from "@/assets/hero.jpg";
 import saunaImage from "@/assets/products/sauna-hero-spruce.jpg";
@@ -47,7 +48,7 @@ const pillars = [
     alt: "A sculptural stone cold plunge tub with still water in a minimalist room",
     name: "Cold Plunge",
     tag: "VYRO Glacier · Made in India",
-    copy: `Glacier Barrel, Portable and Acrylic — launching ${coldPlungeLaunch.label} with VYRO external chillers.`,
+    copy: `Glacier Barrel, Portable and Acrylic — launching ${coldPlungeLaunch.label}${glacierFromPrice ? `, from ${glacierFromPrice} MRP including chiller and installation` : ""}.`,
     to: "/cold-plunge" as const,
     soon: true,
     soonLabel: `Launching ${coldPlungeLaunch.shortLabel}`,

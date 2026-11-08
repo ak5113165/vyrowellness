@@ -2,11 +2,22 @@ import { describe, expect, it } from "vitest";
 import {
   coldPlungeLaunch,
   externalChillerSpecs,
+  externalChillerLaunch,
+  glacierDimensions,
   glacierLaunchModels,
   glacierLaunchPricing,
   glacierProjectModels,
+  glacierWaterCapacityLitres,
 } from "@/content/site";
-import { launchModels, projectModels } from "@/content/glacier-catalogue";
+import {
+  chillers,
+  fromPrice,
+  launchModels,
+  launchPrice,
+  projectModels,
+  upgradePrice,
+  waterCapacity,
+} from "@/content/glacier-catalogue";
 
 describe("Confirmed Cold Plunge launch and installation facts", () => {
   it("launches on 1 January 2027", () => {
@@ -22,8 +33,8 @@ describe("Confirmed Cold Plunge launch and installation facts", () => {
   it("offers 1HP and 2HP external systems", () => {
     expect(externalChillerSpecs.horsepowerOptions).toEqual([1, 2]);
   });
-  it("specifies cooling down to 5 degrees Celsius", () => {
-    expect(externalChillerSpecs.minimumTemperatureC).toBe(5);
+  it("specifies cooling down to 3 degrees Celsius", () => {
+    expect(externalChillerSpecs.minimumTemperatureC).toBe(3);
   });
   it("requires a single-phase supply", () => {
     expect(externalChillerSpecs.electricalPhase).toBe("Single phase");
@@ -60,5 +71,45 @@ describe("Glacier launch line-up", () => {
   });
   it("has a pricing slot for each launch model", () => {
     expect(Object.keys(glacierLaunchPricing).sort()).toEqual([...glacierLaunchModels].sort());
+  });
+});
+
+describe("Confirmed Glacier pricing and sizes", () => {
+  it("uses the confirmed MRPs, each with the 1HP chiller", () => {
+    expect(glacierLaunchPricing["Glacier Barrel"].priceInr).toBe(218000);
+    expect(glacierLaunchPricing["Glacier Portable"].priceInr).toBe(325000);
+    expect(glacierLaunchPricing["Glacier Acrylic"].priceInr).toBe(378000);
+    expect(externalChillerLaunch.includedWithLaunchModels).toBe(1);
+    expect(externalChillerLaunch.upgradeOption).toBe(2);
+  });
+  it("includes the 1HP chiller and installation in every MRP", () => {
+    for (const name of glacierLaunchModels) {
+      expect(glacierLaunchPricing[name].note).toBe("Includes 1HP chiller and installation");
+    }
+  });
+  it("prices the 2HP upgrade at ₹1,20,000", () => {
+    expect(externalChillerLaunch.upgradePriceInr).toBe(120000);
+    expect(upgradePrice).toBe("+₹1,20,000");
+  });
+  it("states water capacity as a 250–350 L range", () => {
+    expect(glacierWaterCapacityLitres).toEqual({ min: 250, max: 350 });
+    expect(waterCapacity).toBe("250–350 L");
+  });
+  it("formats prices in Indian notation", () => {
+    expect(launchPrice("Glacier Barrel").display).toBe("₹2,18,000");
+    expect(fromPrice).toBe("₹2,18,000");
+  });
+  it("uses the confirmed chiller-only MRPs and launches chillers with the tubs", () => {
+    expect(externalChillerLaunch.standaloneMrpInr).toEqual({ 1: 178000, 2: 298000 });
+    expect(chillers.map((c) => c.mrpInr)).toEqual([178000, 298000]);
+    expect(externalChillerLaunch.launchesWithTubs).toBe(true);
+  });
+  it("uses the confirmed sizes", () => {
+    expect(glacierDimensions["Glacier Barrel"]).toBe("2.5 ft diameter · 30 in deep");
+    expect(glacierDimensions["Glacier Portable"]).toBe("5 × 2.5 ft · 30 in deep");
+    expect(glacierDimensions["Glacier Acrylic"]).toBe("5 × 2.5 ft · 30 in deep");
+    for (const m of launchModels) {
+      expect(m.specs.find((s) => s.label === "Size")?.value).toBe(glacierDimensions[m.name]);
+    }
   });
 });

@@ -8,12 +8,22 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { responsive, SIZES } from "@/lib/responsive-image";
-import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
-import { coldPlungeLaunch, externalChillerSpecs, whatsappLink } from "@/content/site";
+import { absoluteUrl, pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
+import {
+  coldPlungeLaunch,
+  externalChillerSpecs,
+  glacierDimensions,
+  glacierLaunchPricing,
+  whatsappLink,
+} from "@/content/site";
 import {
   chillerRequirements,
   chillers,
+  formatInr,
+  fromPrice,
   launchLabel,
+  upgradePrice,
+  waterCapacity,
   launchModels,
   launchPrice,
   projectModels,
@@ -22,19 +32,47 @@ import {
 import heroImg from "@/assets/plunge/glacier-hero.jpg";
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
+const launchIso = `${coldPlungeLaunch.year}-${String(coldPlungeLaunch.month).padStart(2, "0")}-${String(coldPlungeLaunch.day).padStart(2, "0")}`;
+
+function productJsonLd() {
+  return launchModels.map((m) => {
+    const price = glacierLaunchPricing[m.name].priceInr;
+    return {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: `VYRO ${m.name}`,
+      description: `${m.positioning} ${m.size}. MRP includes the 1HP chiller and installation; 2HP chiller upgrade available.`,
+      image: absoluteUrl(m.image),
+      brand: { "@type": "Brand", name: "VYRO" },
+      ...(price === null
+        ? {}
+        : {
+            offers: {
+              "@type": "Offer",
+              price: String(price),
+              priceCurrency: "INR",
+              availability: "https://schema.org/PreOrder",
+              availabilityStarts: launchIso,
+              url: absoluteUrl("/cold-plunge"),
+            },
+          }),
+    };
+  });
+}
 
 export const Route = createFileRoute("/cold-plunge")({
   head: () =>
     pageHead({
       path: "/cold-plunge",
       title: `Glacier Cold Plunges, Made in India — Launching ${launchLabel} | VYRO Wellness`,
-      description: `VYRO Glacier cold plunges, made in ${coldPlungeLaunch.manufacturingLocation}. Glacier Barrel, Portable and Acrylic launch on ${launchLabel} with external 1HP or 2HP chillers cooling down to ${externalChillerSpecs.minimumTemperatureC}°C. Register for launch.`,
+      description: `VYRO Glacier cold plunges, made in ${coldPlungeLaunch.manufacturingLocation}. Glacier Barrel, Portable and Acrylic launch on ${launchLabel}${fromPrice ? `, from ${fromPrice} MRP` : ""} including the 1HP chiller and installation, cooling down to ${externalChillerSpecs.minimumTemperatureC}°C. Register for launch.`,
       ogTitle: `VYRO Glacier Cold Plunges — Launching ${launchLabel}`,
       ogDescription: `Glacier Barrel, Glacier Portable and Glacier Acrylic. Made in India, available first in ${cities}.`,
       image: "/og/cold-plunge.jpg",
       jsonLd: [
         breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Cold Plunge", path: "/cold-plunge" }]),
         faqJsonLd(faqs),
+        ...productJsonLd(),
       ],
     }),
   component: ColdPlungePage,
@@ -44,15 +82,19 @@ export const Route = createFileRoute("/cold-plunge")({
 const faqs = [
   {
     q: "When do VYRO Glacier cold plunges launch?",
-    a: `Glacier Barrel, Glacier Portable and Glacier Acrylic launch on ${launchLabel}, available first in ${cities}. Glacier Pro, Steel, Signature and Integrated are coming soon for custom and premium projects.`,
+    a: `Glacier Barrel, Glacier Portable and Glacier Acrylic launch on ${launchLabel}, together with the 1HP and 2HP chillers, available first in ${cities}. Glacier Pro, Steel, Signature and Integrated are coming soon for custom and premium projects.`,
   },
   {
     q: "How cold does the water get?",
     a: `With an external VYRO chiller, Glacier plunges can be cooled down to ${externalChillerSpecs.minimumTemperatureC}°C.`,
   },
   {
-    q: "Should I choose the 1HP or 2HP chiller?",
-    a: "The 1HP suits most home plunges and personal use, and is the chiller paired with Glacier Acrylic. The 2HP is for larger tubs and busier spaces like gyms and spas. We'll help you choose during your consultation.",
+    q: "Is a chiller included, and should I upgrade to 2HP?",
+    a: `Every Glacier launch model comes with the 1HP chiller, which suits most home plunges and personal use. You can upgrade to the 2HP for faster cooling for ${upgradePrice.slice(1)} more; it's also our choice for larger tubs and busier spaces like gyms and spas. We'll help you decide during your consultation.`,
+  },
+  {
+    q: "Is installation included in the price?",
+    a: "Yes. The MRP of every Glacier launch model includes the 1HP chiller and installation by our team.",
   },
   {
     q: "What does installation need?",
@@ -60,7 +102,7 @@ const faqs = [
   },
   {
     q: "How much space does a cold plunge need?",
-    a: "Glacier Barrel suits smaller spaces; Glacier Portable and Glacier Acrylic need room to lie back. Share your space with us and we'll suggest what fits.",
+    a: `Glacier Barrel is ${glacierDimensions["Glacier Barrel"].split(" · ")[0]}, so it suits smaller spaces. Glacier Portable and Glacier Acrylic are both ${glacierDimensions["Glacier Acrylic"]}. The launch range holds ${waterCapacity.replace("–", " to ").replace(" L", " litres")} of water. Allow room for the chiller beside the tub — share your space with us and we'll suggest what fits.`,
   },
   {
     q: "Can a cold plunge be placed outdoors?",
@@ -112,8 +154,8 @@ function ColdPlungePage() {
             </p>
             <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Cold Plunges</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">
-              Three Glacier plunges launch on {launchLabel}: Barrel, Portable and Acrylic. Available first in{" "}
-              {cities}.
+              Three Glacier plunges launch on {launchLabel}: Barrel, Portable and Acrylic
+              {fromPrice ? `, from ${fromPrice} MRP including the 1HP chiller and installation` : ""}. Available first in {cities}.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
               <a href="#launch" className="text-ink-foreground/85 hover:text-ink-foreground">Launch Range</a>
@@ -130,7 +172,7 @@ function ColdPlungePage() {
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:px-8">
             <p className="eyebrow shrink-0 text-bronze-strong">Launching {launchLabel}</p>
             <p className="text-sm text-muted-foreground">
-              {launchModels.map((m) => m.name).join(" · ")} — {cities}
+              {launchModels.map((m) => m.name).join(" · ")} · 1HP &amp; 2HP chillers — {cities}
             </p>
           </div>
         </section>
@@ -163,12 +205,14 @@ function ColdPlungePage() {
                     </div>
                     <p className="eyebrow mt-6 text-bronze-strong">{m.tag}</p>
                     <h3 className="mt-2 font-display text-3xl font-medium">{m.name}</h3>
+                    <p className="mt-1 text-sm text-foreground/80">{m.size}</p>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{m.positioning}</p>
 
                     <div className="mt-6 border-y border-border py-4">
-                      <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Launch price</p>
+                      <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">MRP</p>
                       <p className="mt-1 font-display text-2xl font-medium">{price.display}</p>
                       {price.note && <p className="mt-1 text-xs text-muted-foreground">{price.note}</p>}
+                      <p className="mt-1 text-xs text-muted-foreground">2HP chiller upgrade: {upgradePrice}</p>
                     </div>
 
                     <ul className="mt-5 flex-1 space-y-2.5 text-sm">
@@ -247,15 +291,26 @@ function ColdPlungePage() {
                   </tr>
                   <tr className="border-b border-border">
                     <th scope="row" className="py-4 pr-4 text-xs font-normal uppercase tracking-[0.14em] text-muted-foreground">
-                      Launch price
+                      MRP · incl. 1HP chiller &amp; installation
                     </th>
                     {launchModels.map((m) => (
-                      <td key={m.name} className="py-4 pr-4">{launchPrice(m.name).display}</td>
+                      <td key={m.name} className="py-4 pr-4 font-display text-lg font-medium">{launchPrice(m.name).display}</td>
+                    ))}
+                  </tr>
+                  <tr className="border-b border-border">
+                    <th scope="row" className="py-4 pr-4 text-xs font-normal uppercase tracking-[0.14em] text-muted-foreground">
+                      2HP chiller upgrade
+                    </th>
+                    {launchModels.map((m) => (
+                      <td key={m.name} className="py-4 pr-4">{upgradePrice}</td>
                     ))}
                   </tr>
                 </tbody>
               </table>
             </div>
+            <p className="mt-5 text-sm text-muted-foreground">
+              Water capacity across the launch range: {waterCapacity}. All prices are MRP and include installation.
+            </p>
           </div>
         </section>
 
@@ -264,12 +319,13 @@ function ColdPlungePage() {
           <SectionHeading
             overline="Chilling Systems"
             title="1HP or 2HP."
-            copy="Every launch model works with a VYRO external chiller. Glacier Acrylic is paired with the 1HP; Glacier Barrel and Portable work with either."
+            copy={`Every Glacier launch model comes with the 1HP chiller. Upgrade to the 2HP for faster cooling (${upgradePrice}). Both chillers launch on ${launchLabel}.`}
           />
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {chillers.map((c) => (
               <article key={c.name} className="grid items-center gap-6 border border-border bg-card p-6 sm:grid-cols-[1fr_1.1fr]">
-                <div className="bg-white">
+                <div className="relative bg-white">
+                  <StatusBadge>{`Launching ${coldPlungeLaunch.shortLabel}`}</StatusBadge>
                   <img
                     src={c.image}
                     {...responsive(c.image, SIZES.third)}
@@ -287,6 +343,10 @@ function ColdPlungePage() {
                   <h3 className="mt-2 font-display text-2xl font-medium">{c.name}</h3>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
                   <p className="mt-3 text-sm">Best for: {c.best}</p>
+                  <p className="mt-4 border-t border-border pt-3 text-sm">
+                    <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Chiller only · MRP</span>
+                    <span className="mt-0.5 block font-display text-xl font-medium">{formatInr(c.mrpInr)}</span>
+                  </p>
                 </div>
               </article>
             ))}

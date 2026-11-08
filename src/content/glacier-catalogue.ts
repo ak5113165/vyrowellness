@@ -4,9 +4,8 @@
 // src/content/site.ts; this file only describes the products and reads those
 // values, so the page, tests and structured data never disagree.
 //
-// Photography: AI-generated stand-in renders. Note the chiller display in
-// these renders reads 3°C, while the confirmed minimum is 5°C — replace with
-// real photography (or corrected renders) before launch.
+// Photography: AI-generated stand-in renders (chiller display reads 3°C,
+// matching the confirmed minimum). Replace with real photography before launch.
 
 import barrelImg from "@/assets/plunge/glacier-inflatable.jpg";
 import portableImg from "@/assets/plunge/glacier-portable.jpg";
@@ -20,17 +19,29 @@ import chiller2Img from "@/assets/plunge/chiller-2hp.jpg";
 
 import {
   coldPlungeLaunch,
+  externalChillerLaunch,
   externalChillerSpecs,
+  glacierDimensions,
   glacierLaunchPricing,
+  glacierWaterCapacityLitres,
   type GlacierLaunchModel,
 } from "@/content/site";
 
 const minTemp = `Down to ${externalChillerSpecs.minimumTemperatureC}°C`;
 const power = `${externalChillerSpecs.electricalPhase} supply`;
-const chillerChoice = externalChillerSpecs.horsepowerOptions.map((hp) => `${hp}HP`).join(" or ");
+const cooling = `${externalChillerLaunch.includedWithLaunchModels}HP chiller included · ${externalChillerLaunch.upgradeOption}HP upgrade`;
+
+export function formatInr(amount: number): string {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
 
 export type LaunchModel = {
   name: GlacierLaunchModel;
+  size: string;
   tag: string;
   positioning: string;
   bestFor: string;
@@ -44,48 +55,54 @@ export type LaunchModel = {
 export const launchModels: LaunchModel[] = [
   {
     name: "Glacier Barrel",
+    size: glacierDimensions["Glacier Barrel"],
     tag: "Upright · Compact",
     positioning: "The most compact way into a daily cold plunge — upright immersion in the smallest footprint of the range.",
     bestFor: "Smaller homes and first-time plungers",
     image: barrelImg,
     alt: "VYRO Glacier Barrel: an upright black inflatable cold plunge barrel with insulated lid, beside a VYRO chiller and step",
-    keyFacts: ["Upright immersion", "Insulated lid with strap closures", "Pairs with a VYRO chiller and step"],
+    keyFacts: ["Upright immersion", "Insulated lid with strap closures", "1HP chiller and installation included"],
     specs: [
       { label: "Format", value: "Upright inflatable barrel" },
+      { label: "Size", value: glacierDimensions["Glacier Barrel"] },
       { label: "Set-up", value: "Inflatable — set up anywhere" },
-      { label: "Cooling", value: `External chiller, ${chillerChoice}` },
+      { label: "Cooling", value: cooling },
       { label: "Lowest water temperature", value: minTemp },
       { label: "Power", value: power },
     ],
   },
   {
     name: "Glacier Portable",
+    size: glacierDimensions["Glacier Portable"],
     tag: "Full-length · Packs away",
     positioning: "Full-body, lie-back immersion that packs away when you need the space back.",
     bestFor: "Full-body plunging in flexible spaces",
     image: portableImg,
     alt: "VYRO Glacier Portable: a full-length black inflatable cold plunge tub with insulated lid, beside a VYRO chiller",
-    keyFacts: ["Full-length, lie-back immersion", "Insulated lid", "Packs away when not in use"],
+    keyFacts: ["Full-length, lie-back immersion", "Insulated lid · packs away when not in use", "1HP chiller and installation included"],
     specs: [
       { label: "Format", value: "Full-length inflatable tub" },
+      { label: "Size", value: glacierDimensions["Glacier Portable"] },
       { label: "Set-up", value: "Inflatable — packs away" },
-      { label: "Cooling", value: `External chiller, ${chillerChoice}` },
+      { label: "Cooling", value: cooling },
       { label: "Lowest water temperature", value: minTemp },
       { label: "Power", value: power },
     ],
   },
   {
     name: "Glacier Acrylic",
-    tag: "Rigid acrylic · 1HP chiller",
-    positioning: "A rigid, gloss-white tub paired with the VYRO 1HP chiller — a dedicated cold plunge for your home.",
+    size: glacierDimensions["Glacier Acrylic"],
+    tag: "Rigid acrylic · Gloss white",
+    positioning: "A rigid, gloss-white acrylic tub — a dedicated cold plunge for your home.",
     bestFor: "A dedicated spot in a home wellness room",
     image: acrylicImg,
     alt: "VYRO Glacier Acrylic: a gloss-white rectangular acrylic cold plunge tub connected to a VYRO 1HP chiller",
-    keyFacts: ["Gloss-white acrylic finish", "Paired with the VYRO 1HP chiller", "Rigid tub for a dedicated spot"],
+    keyFacts: ["Gloss-white acrylic finish", "Rigid tub for a dedicated spot", "1HP chiller and installation included"],
     specs: [
       { label: "Format", value: "Rigid tub, gloss-white acrylic" },
+      { label: "Size", value: glacierDimensions["Glacier Acrylic"] },
       { label: "Set-up", value: "Rigid tub — dedicated placement" },
-      { label: "Cooling", value: "VYRO 1HP external chiller" },
+      { label: "Cooling", value: cooling },
       { label: "Lowest water temperature", value: minTemp },
       { label: "Power", value: power },
     ],
@@ -95,15 +112,22 @@ export const launchModels: LaunchModel[] = [
 export function launchPrice(name: GlacierLaunchModel): { display: string; note: string | null } {
   const { priceInr, note } = glacierLaunchPricing[name];
   if (priceInr === null) return { display: "Price on request", note };
-  const display = new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  }).format(priceInr);
-  return { display, note };
+  return { display: formatInr(priceInr), note };
 }
 
 export const launchLabel = coldPlungeLaunch.label;
+
+/** "+₹1,20,000" — price to upgrade from the included 1HP to the 2HP chiller. */
+export const upgradePrice = `+${formatInr(externalChillerLaunch.upgradePriceInr)}`;
+
+/** "250–350 L" — water capacity across the launch range. */
+export const waterCapacity = `${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} L`;
+
+/** Lowest confirmed launch MRP, formatted ("₹2,18,000"), or null if none is set. */
+export const fromPrice: string | null = (() => {
+  const prices = Object.values(glacierLaunchPricing).flatMap((p) => (p.priceInr === null ? [] : [p.priceInr]));
+  return prices.length ? formatInr(Math.min(...prices)) : null;
+})();
 
 export type ProjectModel = { name: string; tag: string; image: string; copy: string };
 
@@ -140,15 +164,17 @@ export const chillers = [
     name: "Glacier Chiller 1HP",
     hp: 1,
     image: chiller1Img,
-    copy: "Our compact chilling system for home plunges and personal use. Paired with Glacier Acrylic; also suits Glacier Barrel and Portable.",
+    copy: "Included with every Glacier launch model. Our compact chilling system for home plunges and personal use.",
     best: "Home & personal use",
+    mrpInr: externalChillerLaunch.standaloneMrpInr[1],
   },
   {
     name: "Glacier Chiller 2HP",
     hp: 2,
     image: chiller2Img,
-    copy: "Our more powerful chilling system for larger tubs and busier spaces like gyms and spas.",
-    best: "Larger tubs & commercial use",
+    copy: `The upgrade for faster cooling (${formatInr(externalChillerLaunch.upgradePriceInr)} over the included 1HP) — and our more powerful system for larger tubs and busier spaces like gyms and spas.`,
+    best: "Faster cooling, larger tubs & commercial use",
+    mrpInr: externalChillerLaunch.standaloneMrpInr[2],
   },
 ];
 

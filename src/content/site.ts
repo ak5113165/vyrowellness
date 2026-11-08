@@ -80,19 +80,42 @@ export const glacierProjectModels = [
 
 export type GlacierLaunchModel = (typeof glacierLaunchModels)[number];
 
-// PLACEHOLDER — launch prices in INR await confirmation. While priceInr is
-// null the page shows "Price on request". `note` says what the price covers
-// (e.g. "Includes 1HP chiller · GST extra"); leave null until confirmed.
+// Glacier MRPs confirmed by the founder (8 Nov 2026), in INR. Every launch
+// model is sold with the 1HP chiller (mandatory) and installation is included
+// in the MRP. Customers can upgrade to the 2HP chiller for faster cooling (see
+// externalChillerLaunch.upgradePriceInr). A null priceInr shows "Price on request".
 export const glacierLaunchPricing: Record<GlacierLaunchModel, { priceInr: number | null; note: string | null }> = {
-  "Glacier Barrel": { priceInr: null, note: null },
-  "Glacier Portable": { priceInr: null, note: null },
-  "Glacier Acrylic": { priceInr: null, note: null },
+  "Glacier Barrel": { priceInr: 218000, note: "Includes 1HP chiller and installation" },
+  "Glacier Portable": { priceInr: 325000, note: "Includes 1HP chiller and installation" },
+  "Glacier Acrylic": { priceInr: 378000, note: "Includes 1HP chiller and installation" },
 };
 
+// Glacier sizes confirmed by the founder (8 Nov 2026).
+export const glacierDimensions: Record<GlacierLaunchModel, string> = {
+  "Glacier Barrel": "2.5 ft diameter · 30 in deep",
+  "Glacier Portable": "5 × 2.5 ft · 30 in deep",
+  "Glacier Acrylic": "5 × 2.5 ft · 30 in deep",
+};
+
+// Water capacity confirmed as a range across the launch models (not per model).
+export const glacierWaterCapacityLitres = { min: 250, max: 350 } as const;
+
+// External chillers: launch with the tubs on coldPlungeLaunch date. MRPs for
+// the chiller on its own (INR), confirmed by the founder (8 Nov 2026).
+export const externalChillerLaunch = {
+  launchesWithTubs: true,
+  includedWithLaunchModels: 1,
+  upgradeOption: 2,
+  // Price to upgrade a launch model from the included 1HP to the 2HP chiller.
+  upgradePriceInr: 120000,
+  standaloneMrpInr: { 1: 178000, 2: 298000 },
+} as const;
+
 // External chilling systems only; do not extend these ratings to built-in cooling.
+// Minimum temperature confirmed by the founder as 3°C (8 Nov 2026; previously 5°C).
 export const externalChillerSpecs = {
   horsepowerOptions: [1, 2],
-  minimumTemperatureC: 5,
+  minimumTemperatureC: 3,
   electricalPhase: "Single phase",
   wiringOptionsMm2: [2.5, 4],
   drainPoints: 1,

@@ -23,9 +23,6 @@
 - [x] Logo in header/footer + favicon
 
 ## Waiting on user
-- [ ] Glacier launch prices (INR) and what each price includes — slots in src/content/site.ts `glacierLaunchPricing`
-- [ ] Glacier per-model dimensions / capacity, and whether chillers launch 1 January 2027 too
-- [ ] Replace Glacier renders: chiller display reads 3°C but confirmed minimum is 5°C
 - [ ] Real product photography to replace src/assets stand-ins
 - [ ] Final Privacy Policy & Terms copy (pages contain clearly labelled placeholders)
 - [ ] Confirm sales@/support@vyrowellness.in receive mail; confirm Instagram account is live at @vyrowellness.in
