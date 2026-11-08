@@ -90,9 +90,10 @@ export const glacierLaunchPricing: Record<GlacierLaunchModel, { priceInr: number
 };
 
 // External chilling systems only; do not extend these ratings to built-in cooling.
+// Minimum temperature confirmed by the founder as 3°C (8 Nov 2026; previously 5°C).
 export const externalChillerSpecs = {
   horsepowerOptions: [1, 2],
-  minimumTemperatureC: 5,
+  minimumTemperatureC: 3,
   electricalPhase: "Single phase",
   wiringOptionsMm2: [2.5, 4],
   drainPoints: 1,

@@ -22,8 +22,8 @@ describe("Confirmed Cold Plunge launch and installation facts", () => {
   it("offers 1HP and 2HP external systems", () => {
     expect(externalChillerSpecs.horsepowerOptions).toEqual([1, 2]);
   });
-  it("specifies cooling down to 5 degrees Celsius", () => {
-    expect(externalChillerSpecs.minimumTemperatureC).toBe(5);
+  it("specifies cooling down to 3 degrees Celsius", () => {
+    expect(externalChillerSpecs.minimumTemperatureC).toBe(3);
   });
   it("requires a single-phase supply", () => {
     expect(externalChillerSpecs.electricalPhase).toBe("Single phase");

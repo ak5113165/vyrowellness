@@ -4,9 +4,8 @@
 // src/content/site.ts; this file only describes the products and reads those
 // values, so the page, tests and structured data never disagree.
 //
-// Photography: AI-generated stand-in renders. Note the chiller display in
-// these renders reads 3°C, while the confirmed minimum is 5°C — replace with
-// real photography (or corrected renders) before launch.
+// Photography: AI-generated stand-in renders (chiller display reads 3°C,
+// matching the confirmed minimum). Replace with real photography before launch.
 
 import barrelImg from "@/assets/plunge/glacier-inflatable.jpg";
 import portableImg from "@/assets/plunge/glacier-portable.jpg";
