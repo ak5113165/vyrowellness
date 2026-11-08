@@ -6,7 +6,7 @@ import { Reveal } from "@/components/reveal";
 import { CtaBand } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { site } from "@/content/site";
+import { coldPlungeLaunch, saunaInstallation, site } from "@/content/site";
 
 import stillLifeImage from "@/assets/still-life.jpg";
 
@@ -85,6 +85,29 @@ function PhilosophyPage() {
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.copy}</p>
               </Reveal>
             ))}
+          </div>
+        </section>
+
+        {/* Indian brand, made and supported here */}
+        <section className="border-y border-border bg-card">
+          <div className="mx-auto grid max-w-7xl gap-10 px-5 py-20 lg:grid-cols-[1fr_1.4fr] lg:gap-16 lg:px-8">
+            <Reveal>
+              <p className="eyebrow text-bronze-strong">An Indian Wellness Brand</p>
+              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
+                Built Here, Looked After Here
+              </h2>
+            </Reveal>
+            <Reveal delayMs={120} className="space-y-5 text-base leading-relaxed text-muted-foreground">
+              <p>
+                VYRO is an Indian brand with an international design language. Our Glacier cold plunges are
+                manufactured in {coldPlungeLaunch.manufacturingLocation}, and our own team installs VYRO saunas{" "}
+                {saunaInstallation.label}.
+              </p>
+              <p>
+                The people who plan your space are the people who install it and support it afterwards — and every
+                enquiry gets a reply {site.enquiryResponseTime}.
+              </p>
+            </Reveal>
           </div>
         </section>
 

@@ -90,13 +90,14 @@ function Index() {
           />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-ink/25" />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-20 pt-32 sm:pb-24 lg:px-8">
-            <p className="eyebrow text-bronze">Saunas · Cold Plunge · Red Light Therapy</p>
-            <h1 className="mt-4 max-w-3xl font-display text-5xl font-medium leading-[1.05] text-ink-foreground sm:text-7xl lg:text-8xl">
-              Wellness, Reimagined.
+            <p className="eyebrow text-bronze">{site.tagline.replace(/\.$/, "")}</p>
+            <h1 className="mt-4 max-w-4xl font-display text-5xl font-medium leading-[1.05] text-ink-foreground sm:text-7xl">
+              Saunas and Cold Plunges for Indian Homes and Businesses
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-foreground/85 sm:text-lg">
-              Premium heat, cold and light therapy — specified for your space and installed by our
-              team, for homes and businesses in India.
+              Haven sauna cabins, installed by our team {saunaInstallation.label}. Glacier cold plunges,
+              made in {coldPlungeLaunch.manufacturingLocation} and launching {coldPlungeLaunch.label}. Red
+              light therapy to follow.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <a
@@ -135,12 +136,29 @@ function Index() {
           </div>
         </section>
 
+        {/* Confirmed facts strip */}
+        <section aria-label="Why VYRO" className="border-b border-border bg-card">
+          <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-px bg-border px-0 lg:grid-cols-4">
+            {[
+              { label: "Saunas", value: `Installed ${saunaInstallation.label}` },
+              { label: "Glacier Cold Plunge", value: `Launching ${coldPlungeLaunch.shortLabel}` },
+              { label: "Made in India", value: `Glacier plunges built in ${coldPlungeLaunch.manufacturingLocation}` },
+              { label: "Every Enquiry", value: `Answered ${site.enquiryResponseTime}` },
+            ].map(({ label, value }) => (
+              <div key={label} className="bg-card px-5 py-6 lg:px-8">
+                <dt className="eyebrow text-bronze-strong">{label}</dt>
+                <dd className="mt-2 font-display text-lg font-medium leading-snug sm:text-xl">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
         {/* 2. Three pillars triptych */}
         <section id="products" className="scroll-mt-28 border-t border-border bg-card">
           <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
             <SectionHeading
               overline="The Collection"
-              title="Three Products. One Standard."
+              title="Heat, Cold and Light"
               copy="Each one specified for your space and supported long after installation."
             />
             <div className="mt-14 grid border-t border-bronze/40 md:grid-cols-3">
@@ -183,7 +201,7 @@ function Index() {
 
         {/* 3. Residential vs Commercial */}
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
-          <SectionHeading overline="Who It's For" title="Two Ways to Work With Us." />
+          <SectionHeading overline="Who It's For" title="For Your Home, or Your Business" />
           <div className="mt-14 grid gap-6 md:grid-cols-2">
             {[
               {
