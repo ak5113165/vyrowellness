@@ -25,7 +25,7 @@
 - [x] Logo in header/footer + favicon
 
 ## Waiting on user
-- [ ] Lead alerts: which email (and WhatsApp?) should receive new enquiries; an email-sending service key
+- [ ] Lead alerts: code done (email to sales@vyrowellness.in via Resend) — add RESEND_API_KEY secret + verify vyrowellness.in in Resend. WhatsApp alerts deferred.
 - [ ] Warranty, cancellation/refund terms; EMI/financing; specialist names, photos and hours
 - [ ] Real product photography to replace src/assets stand-ins
 - [ ] Final Privacy Policy & Terms copy (pages contain clearly labelled placeholders)

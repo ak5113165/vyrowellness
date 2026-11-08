@@ -65,6 +65,40 @@ export const Route = createFileRoute("/api/public/enquiries")({
           );
         }
 
+        // Email the sales team. Never fails the request: the lead is already saved.
+        try {
+          const { sendLeadAlert } = await import("@/lib/lead-alert");
+          await sendLeadAlert(
+            isConsumer
+              ? {
+                  id: data.id,
+                  kind: "consumer",
+                  name: d.fullName,
+                  phone: d.phone,
+                  email: d.email,
+                  city: d.city,
+                  productInterest: d.productInterest,
+                  homeOrBusiness: d.homeOrBusiness,
+                  budget: d.budget,
+                  message: d.message,
+                }
+              : {
+                  id: data.id,
+                  kind: "business",
+                  name: d.contactPerson,
+                  phone: d.phone,
+                  email: d.email,
+                  city: d.city,
+                  productInterest: d.productsOfInterest,
+                  businessName: d.businessName,
+                  businessType: d.businessType,
+                  projectDescription: d.projectDescription,
+                },
+          );
+        } catch (err) {
+          console.error("Lead alert error:", err instanceof Error ? err.message : err);
+        }
+
         // Never return PII — only the record id for confirmation.
         return Response.json({ ok: true, id: data.id }, { status: 201 });
       },
