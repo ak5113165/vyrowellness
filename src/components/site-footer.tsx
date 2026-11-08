@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { navLinks, site, whatsappLink } from "@/content/site";
+import { MobileActionBar } from "@/components/mobile-action-bar";
 import logoLight from "@/assets/brand/vyro-logo-light.png.asset.json";
 
 export function SiteFooter() {
@@ -8,7 +9,8 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink text-ink-foreground">
+    // Bottom padding on phones keeps the footer clear of the fixed MobileActionBar.
+    <footer className="bg-ink pb-16 text-ink-foreground lg:pb-0">
       <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -125,6 +127,7 @@ export function SiteFooter() {
           <p className="uppercase tracking-[0.18em]">Heat. Cold. Light. Recovery.</p>
         </div>
       </div>
+      <MobileActionBar />
     </footer>
   );
 }
