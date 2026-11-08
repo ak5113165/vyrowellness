@@ -1,3 +1,5 @@
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
   coldPlungeLaunch,
@@ -110,6 +112,20 @@ describe("Confirmed Glacier pricing and sizes", () => {
     expect(glacierDimensions["Glacier Acrylic"]).toBe("5 × 2.5 ft · 30 in deep");
     for (const m of launchModels) {
       expect(m.specs.find((s) => s.label === "Size")?.value).toBe(glacierDimensions[m.name]);
+    }
+  });
+});
+
+describe("Origin wording", () => {
+  it('says "Made in India" on the site, never the manufacturing city', () => {
+    expect(coldPlungeLaunch.madeIn).toBe("India");
+    const dirs = ["src/routes", "src/components", "src/content"];
+    for (const dir of dirs) {
+      for (const file of readdirSync(dir).filter((f) => /\.tsx?$/.test(f))) {
+        const text = readFileSync(join(dir, file), "utf8");
+        if (file !== "site.ts") expect(text, file).not.toContain("manufacturingLocation");
+        expect(text, file).not.toMatch(/made in delhi/i);
+      }
     }
   });
 });

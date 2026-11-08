@@ -66,7 +66,10 @@ export const coldPlungeLaunch = {
   year: 2027,
   label: "1 January 2027",
   shortLabel: "1 Jan 2027",
+  // Internal record only — the founder wants the site to say "Made in India"
+  // and never name the city. Pages use `madeIn`; a test enforces this.
   manufacturingLocation: "Delhi",
+  madeIn: "India",
   serviceLocations: ["Delhi NCR", "Bangalore", "Mumbai", "Goa"],
 } as const;
 

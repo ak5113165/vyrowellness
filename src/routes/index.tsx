@@ -96,7 +96,7 @@ function Index() {
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-foreground/85 sm:text-lg">
               Haven sauna cabins, installed by our team {saunaInstallation.label}. Glacier cold plunges,
-              made in {coldPlungeLaunch.manufacturingLocation} and launching {coldPlungeLaunch.label}. Red
+              made in {coldPlungeLaunch.madeIn} and launching {coldPlungeLaunch.label}. Red
               light therapy to follow.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
@@ -138,11 +138,13 @@ function Index() {
 
         {/* Confirmed facts strip */}
         <section aria-label="Why VYRO" className="border-b border-border bg-card">
-          <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-px bg-border px-0 lg:grid-cols-4">
+          <dl className="mx-auto grid max-w-7xl grid-cols-1 gap-px bg-border sm:grid-cols-3">
             {[
               { label: "Saunas", value: `Installed ${saunaInstallation.label}` },
-              { label: "Glacier Cold Plunge", value: `Launching ${coldPlungeLaunch.shortLabel}` },
-              { label: "Made in India", value: `Glacier plunges built in ${coldPlungeLaunch.manufacturingLocation}` },
+              {
+                label: "Glacier Cold Plunge",
+                value: `Made in ${coldPlungeLaunch.madeIn} · launching ${coldPlungeLaunch.shortLabel}`,
+              },
               { label: "Every Enquiry", value: `Answered ${site.enquiryResponseTime}` },
             ].map(({ label, value }) => (
               <div key={label} className="bg-card px-5 py-6 lg:px-8">

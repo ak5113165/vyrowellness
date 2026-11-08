@@ -100,7 +100,7 @@ function PhilosophyPage() {
             <Reveal delayMs={120} className="space-y-5 text-base leading-relaxed text-muted-foreground">
               <p>
                 VYRO is an Indian brand with an international design language. Our Glacier cold plunges are
-                manufactured in {coldPlungeLaunch.manufacturingLocation}, and our own team installs VYRO saunas{" "}
+                manufactured in {coldPlungeLaunch.madeIn}, and our own team installs VYRO saunas{" "}
                 {saunaInstallation.label}.
               </p>
               <p>
