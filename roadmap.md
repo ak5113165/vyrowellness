@@ -9,7 +9,9 @@
 - [x] Cold plunge: acrylic with matching 1HP chiller and no dimensions; oval steel reference; built-in chilling model
 
 ## In progress
-(none)
+- [ ] Cold Plunge: reference-inspired cold therapy section, India/Delhi manufacturing, 1 January launch and initial Tier 1 city coverage
+- [ ] Founder story based on confirmed personal journey
+- [ ] Per-product technical specifications based on supplied manufacturer details
 
 ## Next
 - [x] Refine product pages toward "wellness technology" precision (numbered details, hairline dividers) while keeping brand identity
