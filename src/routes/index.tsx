@@ -274,8 +274,8 @@ function Index() {
                 Book a Consultation.
               </h2>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
-                Tell us about your space and what you're considering. Our team will get back to you
-                with next steps — no obligation.
+                Tell us about your space and what you're considering. Our team replies{" "}
+                {site.enquiryResponseTime} with next steps — no obligation.
               </p>
               <div className="mt-8 space-y-3 text-sm text-muted-foreground">
                 <p>

@@ -67,6 +67,12 @@ function SaunasPage() {
   ].join("\n");
   const wa = whatsappLink(`Hello VYRO, I'd like to enquire about this sauna setup:\n${summary}`);
 
+  // Phones: move between steps from the sticky bar and bring the options back into view.
+  const goStep = (n: number) => {
+    setStep(n);
+    requestAnimationFrame(() => document.getElementById("builder")?.scrollIntoView({ behavior: "smooth" }));
+  };
+
   const enquire = () => {
     setMessage(`I'd like to enquire about this sauna setup:\n${summary}`);
     requestAnimationFrame(() =>
@@ -189,7 +195,7 @@ function SaunasPage() {
         </section>
 
         {/* Builder */}
-        <section id="builder" className="scroll-mt-24 bg-secondary/60">
+        <section id="builder" className="scroll-mt-24 bg-secondary/60" data-hide-mobile-bar>
           <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
             <SectionHeading overline="Build Your Sauna" title="Cabin, Wood, Heater, Control, Accessories." />
             <ol className="mt-10 flex gap-8 overflow-x-auto border-b border-border">
@@ -243,6 +249,30 @@ function SaunasPage() {
                   <a href={wa} target="_blank" rel="noopener noreferrer" className="mt-3 block text-center text-[12px] uppercase tracking-[0.16em] underline underline-offset-4 hover:text-bronze-strong">Send on WhatsApp</a>
                 )}
               </aside>
+            </div>
+
+            {/* Phones: step controls stay within reach while scrolling through the options. */}
+            <div className="sticky bottom-0 z-30 -mx-5 mt-8 flex items-center gap-3 border-t border-border bg-card/95 px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur lg:hidden">
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  Step {step} of {STEPS.length} · {STEPS[step - 1]}
+                </p>
+                <p className="truncate text-sm">{roomModel ? `${roomModel.name} ${roomModel.code}` : "Choose a cabin"}</p>
+              </div>
+              {step > 1 && (
+                <button type="button" onClick={() => goStep(step - 1)} aria-label="Previous step" className="rounded-sm border border-border px-3 py-2.5 text-[11px] uppercase tracking-[0.16em]">
+                  ←
+                </button>
+              )}
+              {step < STEPS.length ? (
+                <button type="button" onClick={() => goStep(step + 1)} className="rounded-sm bg-primary px-4 py-2.5 text-[11px] uppercase tracking-[0.16em] text-primary-foreground">
+                  Next
+                </button>
+              ) : (
+                <button type="button" disabled={!room} onClick={enquire} className="rounded-sm bg-primary px-4 py-2.5 text-[11px] uppercase tracking-[0.16em] text-primary-foreground disabled:opacity-40">
+                  Enquire
+                </button>
+              )}
             </div>
           </div>
         </section>

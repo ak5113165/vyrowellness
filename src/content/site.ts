@@ -29,6 +29,8 @@ export const site = {
   email: "sales@vyrowellness.in",
   phoneDisplay: "+91 95401 49445",
   phoneHref: "tel:+919540149445",
+  // Confirmed by the founder (8 Nov 2026): the team replies to every enquiry within 24 hours.
+  enquiryResponseTime: "within 24 hours",
 
   instagramHandle: "vyrowellness.in",
   instagramUrl: "https://www.instagram.com/vyrowellness.in/",

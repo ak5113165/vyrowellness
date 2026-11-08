@@ -110,7 +110,7 @@ function ContactPage() {
               <div className="rounded-sm border border-border bg-card p-6 sm:p-10">
                 <h2 className="font-display text-3xl font-medium">Send an Enquiry</h2>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Share a few details and we'll be in touch.
+                  Share a few details and our team will reply {site.enquiryResponseTime}.
                 </p>
                 <EnquiryForm variant="consumer" className="mt-8" />
               </div>
