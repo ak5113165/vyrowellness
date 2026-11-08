@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - The small uppercase section label style is a custom utility named `eyebrow` in src/styles.css. Never use Tailwind's built-in `overline` class name for it — it also applies a text-overline decoration.
+- Keep confirmed Cold Plunge launch facts and external-chiller ratings in src/content/site.ts; product specification views and tests consume those values to avoid conflicting claims across models.
