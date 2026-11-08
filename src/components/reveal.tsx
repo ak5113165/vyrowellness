@@ -1,8 +1,16 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+
+// useLayoutEffect on the client (runs before paint, so in-view content never
+// flickers), plain useEffect on the server where layout effects don't run.
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 // Single restrained scroll-reveal motion. Disabled automatically under
 // prefers-reduced-motion via CSS in styles.css.
+//
+// Server-rendered content is always visible. After hydration, elements that
+// are already on screen stay visible; elements below the fold are "armed"
+// (hidden) and fade in when scrolled into view.
 export function Reveal({
   children,
   className,
@@ -13,15 +21,20 @@ export function Reveal({
   delayMs?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [armed, setArmed] = useState(false);
   const [visible, setVisible] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const rect = el.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!inView) setArmed(true);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
-      return;
-    }
+    if (!el || !armed) return;
     const io = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
@@ -33,12 +46,12 @@ export function Reveal({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [armed]);
 
   return (
     <div
       ref={ref}
-      className={cn("reveal", visible && "is-visible", className)}
+      className={cn("reveal", armed && "reveal-armed", visible && "is-visible", className)}
       style={delayMs ? { transitionDelay: `${delayMs}ms` } : undefined}
     >
       {children}

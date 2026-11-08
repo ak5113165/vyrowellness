@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { responsive, SIZES } from "@/lib/responsive-image";
+import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { ArrowRight, Snowflake, Move, Gauge, Home, Layers, Zap } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Reveal } from "@/components/reveal";
@@ -19,23 +21,21 @@ import chiller2Img from "@/assets/plunge/chiller-2hp.jpg";
 import heroImg from "@/assets/plunge/glacier-hero.jpg";
 
 export const Route = createFileRoute("/cold-plunge")({
-  head: () => ({
-    meta: [
-      { title: "VYRO Glacier Cold Plunges & Chillers — Made in India | VYRO Wellness" },
-      {
-        name: "description",
-        content:
-          "The VYRO Glacier cold plunge range — Inflatable, Portable, Pro, Acrylic, Steel, Signature and Integrated tubs. External 1HP and 2HP chillers or built-in cooling. Made in India, coming soon.",
-      },
-      { property: "og:title", content: "VYRO Glacier Cold Plunges — Made in India" },
-      {
-        property: "og:description",
-        content: "Discover Glacier cold plunge tubs, including built-in cooling and external 1HP / 2HP chilling systems. Coming soon — register your interest.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/cold-plunge",
+      title: "Cold Plunge Tubs & Chillers, Made in India — VYRO Glacier | VYRO Wellness",
+      description:
+        "The VYRO Glacier cold plunge range — Inflatable, Portable, Pro, Acrylic, Steel, Signature and Integrated tubs. External 1HP and 2HP chillers or built-in cooling. Made in India, coming soon.",
+      ogTitle: "VYRO Glacier Cold Plunges — Made in India",
+      ogDescription:
+        "Discover Glacier cold plunge tubs, including built-in cooling and external 1HP / 2HP chilling systems. Coming soon — register your interest.",
+      image: "/og/cold-plunge.jpg",
+      jsonLd: [
+        breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Cold Plunge", path: "/cold-plunge" }]),
+        faqJsonLd(faqs),
+      ],
+    }),
   component: ColdPlungePage,
 });
 
@@ -137,6 +137,14 @@ function SoonBadge({ bottom = false }: { bottom?: boolean }) {
   );
 }
 
+// Shown on the page and published as FAQ structured data — keep them in one place.
+const faqs = [
+  { q: "When will VYRO Glacier cold plunges be available?", a: "The range is being manufactured in India and launches soon. Register your interest below and we'll tell you the moment it's available." },
+  { q: "Should I choose the 1HP or 2HP chiller?", a: "The 1HP suits most home plunges and personal use. The 2HP is for larger tubs and busier spaces like gyms and spas. We'll help you choose during your consultation." },
+  { q: "How much space does a cold plunge need?", a: "The Inflatable suits smaller spaces; the Acrylic, Steel and Signature need more room. Share your space with us and we'll suggest what fits." },
+  { q: "Can a cold plunge be placed outdoors?", a: "Some setups suit covered outdoor spaces. Our team will advise based on your space." },
+];
+
 function ColdPlungePage() {
   return (
     <div className="min-h-screen bg-background">
@@ -146,6 +154,7 @@ function ColdPlungePage() {
         <section className="relative flex min-h-[60svh] items-end overflow-hidden bg-ink">
           <img
             src={heroImg}
+            {...responsive(heroImg, SIZES.fullBleed)}
             alt="A VYRO Glacier cold plunge tub beside a chilling system in a dark, moody wellness space"
             width={1920}
             height={1088}
@@ -182,7 +191,7 @@ function ColdPlungePage() {
               <article key={p.name} className="flex flex-col">
                 <div className="relative bg-card">
                   <SoonBadge />
-                  <img src={p.image} alt={`VYRO ${p.name.replace(" | ", " ")} cold plunge tub`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
+                  <img src={p.image} {...responsive(p.image, SIZES.third)} alt={`VYRO ${p.name.replace(" | ", " ")} cold plunge tub`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
                 </div>
                 <p className="mt-4 eyebrow text-bronze-strong">{p.tag}</p>
                 <h3 className="mt-1 font-display text-2xl font-medium">{p.name}</h3>
@@ -216,7 +225,7 @@ function ColdPlungePage() {
                 <article key={c.name} className="grid items-center gap-6 border border-border bg-background p-6 sm:grid-cols-[1fr_1.1fr]">
                   <div className="relative">
                     <SoonBadge bottom />
-                    <img src={c.image} alt={`VYRO ${c.name.replace(" | ", " ")} water chilling system`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
+                    <img src={c.image} {...responsive(c.image, SIZES.third)} alt={`VYRO ${c.name.replace(" | ", " ")} water chilling system`} width={1024} height={1024} loading="lazy" className="aspect-square w-full object-contain" />
                   </div>
                   <div>
                     <p className="eyebrow text-bronze-strong flex items-center gap-2"><Zap className="h-3.5 w-3.5" aria-hidden /> {c.name.includes("1HP") ? "1HP" : "2HP"}</p>
@@ -256,12 +265,7 @@ function ColdPlungePage() {
             <SectionHeading align="center" overline="FAQs" title="Questions, Answered Simply." />
             <Reveal className="mt-10">
               <Accordion type="single" collapsible className="border-t border-border">
-                {[
-                  { q: "When will VYRO Glacier cold plunges be available?", a: "The range is being manufactured in India and launches soon. Register your interest below and we'll tell you the moment it's available." },
-                  { q: "Should I choose the 1HP or 2HP chiller?", a: "The 1HP suits most home plunges and personal use. The 2HP is for larger tubs and busier spaces like gyms and spas. We'll help you choose during your consultation." },
-                  { q: "How much space does a cold plunge need?", a: "The Inflatable suits smaller spaces; the Acrylic, Steel and Signature need more room. Share your space with us and we'll suggest what fits." },
-                  { q: "Can a cold plunge be placed outdoors?", a: "Some setups suit covered outdoor spaces. Our team will advise based on your space." },
-                ].map((f) => (
+                {faqs.map((f) => (
                   <AccordionItem key={f.q} value={f.q} className="border-b border-border">
                     <AccordionTrigger className="text-left font-display text-xl font-medium text-foreground hover:no-underline">{f.q}</AccordionTrigger>
                     <AccordionContent className="text-sm leading-relaxed text-muted-foreground">{f.a}</AccordionContent>

@@ -1,4 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { responsive, SIZES } from "@/lib/responsive-image";
+import { pageHead } from "@/lib/seo";
 import { Compass, Cpu, HeartHandshake } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { CtaBand } from "@/components/section";
@@ -9,23 +11,16 @@ import { site } from "@/content/site";
 import stillLifeImage from "@/assets/still-life.jpg";
 
 export const Route = createFileRoute("/philosophy")({
-  head: () => ({
-    meta: [
-      { title: "Our Philosophy — Wellness Should Feel Personal | VYRO" },
-      {
-        name: "description",
-        content:
-          "VYRO's philosophy: wellness should feel personal. Thoughtful living, considered technology and personal wellbeing — premium wellness technology designed around real life.",
-      },
-      { property: "og:title", content: "Our Philosophy — Wellness Should Feel Personal | VYRO" },
-      {
-        property: "og:description",
-        content:
-          "Thoughtful living, considered technology and personal wellbeing — how VYRO thinks about everyday wellness.",
-      },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/philosophy",
+      title: "Our Philosophy — Wellness Should Feel Personal | VYRO Wellness",
+      description:
+        "VYRO's philosophy: wellness should feel personal. Thoughtful living, considered technology and personal wellbeing — premium wellness technology designed around real life.",
+      ogDescription:
+        "Thoughtful living, considered technology and personal wellbeing — how VYRO thinks about everyday wellness.",
+      image: "/og/philosophy.jpg",
+    }),
   component: PhilosophyPage,
 });
 
@@ -54,6 +49,7 @@ function PhilosophyPage() {
           <Reveal>
             <img
               src={stillLifeImage}
+              {...responsive(stillLifeImage, SIZES.contained)}
               alt="Balanced stacked stones on warm timber with soft steam rising against a dark backdrop"
               width={1920}
               height={1280}

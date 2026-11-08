@@ -1,21 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { pageHead } from "@/lib/seo";
 import { Reveal } from "@/components/reveal";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/terms")({
-  head: () => ({
-    meta: [
-      { title: "Terms & Conditions | VYRO" },
-      {
-        name: "description",
-        content: "VYRO terms and conditions.",
-      },
-      { property: "og:title", content: "Terms & Conditions | VYRO" },
-      { property: "og:description", content: "Terms governing the use of the VYRO website." },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/terms",
+      title: "Terms & Conditions | VYRO Wellness",
+      description: "Terms governing the use of the VYRO Wellness website.",
+      // Placeholder terms: keep out of search results until the final copy is in place.
+      noindex: true,
+    }),
   component: TermsPage,
 });
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Privacy and Terms are left out until their final copy replaces the placeholders. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://vyrowellness.in/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://vyrowellness.in/saunas</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vyrowellness.in/cold-plunge</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vyrowellness.in/red-light-therapy</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vyrowellness.in/commercial-wellness</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vyrowellness.in/philosophy</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vyrowellness.in/contact</loc>
+    <lastmod>2026-11-08</lastmod>
+    <priority>0.6</priority>
+  </url>
+</urlset>

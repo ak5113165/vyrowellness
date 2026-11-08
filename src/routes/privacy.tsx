@@ -1,21 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { pageHead } from "@/lib/seo";
 import { Reveal } from "@/components/reveal";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy Policy | VYRO" },
-      {
-        name: "description",
-        content: "VYRO privacy policy.",
-      },
-      { property: "og:title", content: "Privacy Policy | VYRO" },
-      { property: "og:description", content: "How VYRO handles your personal information." },
-      { property: "og:type", content: "website" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/privacy",
+      title: "Privacy Policy | VYRO Wellness",
+      description: "How VYRO Wellness handles your personal information.",
+      // Placeholder policy: keep out of search results until the final copy is in place.
+      noindex: true,
+    }),
   component: PrivacyPage,
 });
 

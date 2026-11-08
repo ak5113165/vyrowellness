@@ -159,22 +159,27 @@
   text-transform: uppercase;
 }
 
-/* Scroll-reveal (single restrained motion; disabled under reduced motion) */
+/*
+ * Scroll-reveal (single restrained motion; disabled under reduced motion).
+ * Content is visible in the server-rendered page. Only once the Reveal
+ * component has hydrated and found an element below the fold does it add
+ * .reveal-armed, which hides it until it scrolls into view. If JavaScript is
+ * slow or fails, nothing stays hidden.
+ */
 .reveal {
-  opacity: 0;
-  transform: translateY(14px);
   transition:
     opacity 0.8s ease,
     transform 0.8s ease;
 }
 
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
+.reveal.reveal-armed:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(14px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .reveal.reveal-armed:not(.is-visible) {
     opacity: 1;
     transform: none;
     transition: none;

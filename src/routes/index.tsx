@@ -1,4 +1,6 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
+import { responsive, SIZES } from "@/lib/responsive-image";
+import { pageHead } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
@@ -15,24 +17,16 @@ import homeWellnessImage from "@/assets/home-wellness.jpg";
 import hospitalityImage from "@/assets/hospitality.jpg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "VYRO — Premium Saunas, Cold Plunge & Red Light Therapy in India" },
-      {
-        name: "description",
-        content:
-          "VYRO designs and installs premium saunas, cold plunge baths and red light therapy for homes and businesses across India. Book a consultation.",
-      },
-      { property: "og:title", content: "VYRO — Wellness, Reimagined." },
-      {
-        property: "og:description",
-        content:
-          "Saunas, cold plunge and red light therapy — specified for your space and installed by our team across India.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/",
+      title: "VYRO Wellness — Premium Saunas, Cold Plunge & Red Light Therapy in India",
+      description:
+        "VYRO designs and installs premium saunas, cold plunge baths and red light therapy for homes and businesses in India. Book a consultation.",
+      ogTitle: "VYRO — Wellness, Reimagined.",
+      ogDescription:
+        "Saunas, cold plunge and red light therapy — specified for your space and installed by our team in India.",
+    }),
   component: Index,
 });
 
@@ -53,9 +47,10 @@ const pillars = [
     alt: "A sculptural stone cold plunge tub with still water in a minimalist room",
     name: "Cold Plunge",
     tag: "Temperature-Controlled Recovery Baths",
-    copy: "Chilled, filtered plunge systems — freestanding or built into your space.",
+    copy: "Plunge tubs with external 1HP or 2HP chillers, or cooling built into the tub.",
     to: "/cold-plunge" as const,
     soon: true,
+    soonLabel: "Coming Soon · Made in India",
   },
   {
     n: "03",
@@ -99,6 +94,7 @@ function Index() {
         <section className="relative flex min-h-[92svh] items-end overflow-hidden bg-ink">
           <img
             src={heroImage}
+            {...responsive(heroImage, SIZES.fullBleed)}
             alt="An architectural travertine wellness hall at dusk with a timber sauna cabin, a monolithic stone cold plunge and a glowing red light therapy panel"
             width={1920}
             height={1088}
@@ -113,7 +109,7 @@ function Index() {
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-foreground/85 sm:text-lg">
               Premium heat, cold and light therapy — specified for your space and installed by our
-              team, for homes and businesses across India.
+              team, for homes and businesses in India.
             </p>
             <div className="mt-9 flex flex-wrap gap-4">
               <a
@@ -171,6 +167,7 @@ function Index() {
                     <div className="relative mt-5 overflow-hidden">
                       <img
                         src={p.image}
+                        {...responsive(p.image, SIZES.third)}
                         alt={p.alt}
                         width={1200}
                         height={1500}
@@ -179,7 +176,7 @@ function Index() {
                       />
                       {p.soon && (
                         <span className="absolute left-4 top-4 bg-ink-foreground px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-ink">
-                          Coming Soon · Made in India
+                          {p.soonLabel ?? "Coming Soon"}
                         </span>
                       )}
                     </div>
@@ -226,6 +223,7 @@ function Index() {
                   <div className="overflow-hidden">
                     <img
                       src={c.image}
+                      {...responsive(c.image, SIZES.half)}
                       alt={c.alt}
                       width={1920}
                       height={1280}

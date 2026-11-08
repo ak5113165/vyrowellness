@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { responsive, SIZES } from "@/lib/responsive-image";
 
 // Immersive page hero used by the collection pages.
 export function PageHero({
@@ -20,11 +21,12 @@ export function PageHero({
     <section className="relative flex min-h-[70svh] items-end overflow-hidden bg-ink">
       <img
         src={image}
+        {...responsive(image, SIZES.fullBleed)}
         alt={imageAlt}
         width={1920}
         height={1280}
         className="absolute inset-0 h-full w-full object-cover"
-        loading="lazy"
+        fetchPriority="high"
       />
       <div
         aria-hidden
