@@ -2,7 +2,7 @@ import { useState } from "react";
 import { responsive, SIZES } from "@/lib/responsive-image";
 import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Box, Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
 import { VyroDifference } from "@/components/vyro-difference";
@@ -15,6 +15,8 @@ import { saunaAvailability, saunaInstallation, site, whatsappLink } from "@/cont
 import { consultationSteps } from "@/content/process";
 import { SpecialistCallout } from "@/components/specialist-callout";
 import { CabinFitFinder } from "@/components/cabin-fit-finder";
+import { Sauna3DDialog } from "@/components/sauna-3d-viewer";
+import { saunaConfigFromSelection } from "@/lib/sauna-3d-config";
 import { DownloadLink } from "@/components/download-link";
 // Page hero differs from the homepage hero (the VYRO spruce sauna) so the two pages don't open identically.
 import saunaInteriorImage from "@/assets/sauna.jpg";
@@ -112,6 +114,7 @@ function SaunasPage() {
   const [panel, setPanel] = useState<string | null>(null);
   const [acc, setAcc] = useState<string[]>([]);
   const [message, setMessage] = useState<string | undefined>(undefined);
+  const [show3d, setShow3d] = useState(false);
 
   const activeType = roomTypes.find((t) => t.id === tab)!;
   const typeModels = saunaModels.filter((m) => m.type === tab);
@@ -132,6 +135,14 @@ function SaunasPage() {
     setStep(n);
     requestAnimationFrame(() => document.getElementById("builder")?.scrollIntoView({ behavior: "smooth" }));
   };
+
+  const config3d = saunaConfigFromSelection({ room, wood, heater, panel, accessories: acc });
+  const selectionRows = [
+    { label: "Wood", value: `${wood}${wood === standardWood ? " (standard)" : " (upgrade)"}` },
+    { label: "Heater", value: heater ?? "Not selected" },
+    { label: "Control Panel", value: panel ?? "Not selected" },
+    { label: "Accessories", value: acc.length ? acc.join(", ") : "Not selected" },
+  ];
 
   const enquire = () => {
     setMessage(`I'd like to enquire about this sauna setup:\n${summary}`);
@@ -325,7 +336,15 @@ function SaunasPage() {
                   {step > 1 && <button type="button" onClick={() => setStep(step - 1)} className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground">← Back</button>}
                   {step < STEPS.length && <button type="button" onClick={() => setStep(step + 1)} className="ml-auto text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong">Next →</button>}
                 </div>
-                <button type="button" disabled={!room} onClick={enquire} className="mt-6 w-full rounded-sm bg-primary px-6 py-3 text-[13px] uppercase tracking-[0.16em] text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40">
+                <button
+                  type="button"
+                  disabled={!room}
+                  onClick={() => setShow3d(true)}
+                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-sm border border-foreground px-6 py-3 text-[13px] uppercase tracking-[0.16em] transition-colors hover:bg-foreground hover:text-background disabled:pointer-events-none disabled:opacity-40"
+                >
+                  <Box className="h-4 w-4" aria-hidden /> View in 3D
+                </button>
+                <button type="button" disabled={!room} onClick={enquire} className="mt-3 w-full rounded-sm bg-primary px-6 py-3 text-[13px] uppercase tracking-[0.16em] text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40">
                   Enquire About This Setup
                 </button>
                 {!room && <p className="mt-2 text-xs text-muted-foreground">Select at least a cabin to continue.</p>}
@@ -343,6 +362,11 @@ function SaunasPage() {
                 </p>
                 <p className="truncate text-sm">{roomModel ? `${roomModel.name} ${roomModel.code}` : "Choose a cabin"}</p>
               </div>
+              {room && (
+                <button type="button" onClick={() => setShow3d(true)} aria-label="View in 3D" className="inline-flex items-center gap-1 rounded-sm border border-border px-3 py-2.5 text-xs uppercase tracking-[0.16em]">
+                  <Box className="h-4 w-4" aria-hidden /> 3D
+                </button>
+              )}
               {step > 1 && (
                 <button type="button" onClick={() => goStep(step - 1)} aria-label="Previous step" className="rounded-sm border border-border px-3 py-2.5 text-xs uppercase tracking-[0.16em]">
                   ←
@@ -360,6 +384,19 @@ function SaunasPage() {
             </div>
           </div>
         </section>
+
+        <Sauna3DDialog
+          open={show3d && Boolean(config3d)}
+          onOpenChange={setShow3d}
+          config={config3d}
+          title={roomModel ? `${roomModel.name} ${roomModel.code}` : "Your Sauna"}
+          rows={selectionRows}
+          onEnquire={() => {
+            setShow3d(false);
+            enquire();
+          }}
+          whatsappHref={wa}
+        />
 
         {/* Process */}
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">

@@ -119,13 +119,14 @@ export const woods: Wood[] = [
   { name: "Eucalyptus", note: "Warm reddish tones with a fine, dense grain." },
 ];
 
+// finish: the heater body as shown in its product render (used by the 3D preview).
 export const heaters = [
-  { name: "Ember E-01", kind: "Floor Heater", image: e01, copy: "A stainless floor-standing heater with an open stone basket for rich, even heat." },
-  { name: "Ember E-02", kind: "Tower Heater", image: e02, copy: "A tall cylindrical tower holding a large stone mass for a soft, steamy atmosphere." },
-  { name: "Ember E-03", kind: "Floor Heater", image: e03, copy: "A matte black heater with a deep separate stone compartment." },
-  { name: "Ember E-04", kind: "Wall-Mounted Heater", image: e04, copy: "A space-saving stainless wall heater with a wide stone tray." },
-  { name: "Ember E-05", kind: "Tower Heater", image: e05, copy: "A slim black tower that suits modern interiors and corner placement." },
-  { name: "Ember E-06", kind: "Wall-Mounted Heater", image: e06, copy: "A classic wall heater with simple built-in knobs — traditional and easy to use." },
+  { name: "Ember E-01", finish: "stainless" as const, kind: "Floor Heater", image: e01, copy: "A stainless floor-standing heater with an open stone basket for rich, even heat." },
+  { name: "Ember E-02", finish: "stainless" as const, kind: "Tower Heater", image: e02, copy: "A tall cylindrical tower holding a large stone mass for a soft, steamy atmosphere." },
+  { name: "Ember E-03", finish: "black" as const, kind: "Floor Heater", image: e03, copy: "A matte black heater with a deep separate stone compartment." },
+  { name: "Ember E-04", finish: "stainless" as const, kind: "Wall-Mounted Heater", image: e04, copy: "A space-saving stainless wall heater with a wide stone tray." },
+  { name: "Ember E-05", finish: "black" as const, kind: "Tower Heater", image: e05, copy: "A slim black tower that suits modern interiors and corner placement." },
+  { name: "Ember E-06", finish: "stainless" as const, kind: "Wall-Mounted Heater", image: e06, copy: "A classic wall heater with simple built-in knobs — traditional and easy to use." },
 ];
 
 export const controlPanels = [
