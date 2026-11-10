@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { responsive, SIZES } from "@/lib/responsive-image";
 import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
@@ -25,6 +25,8 @@ import {
   roomTypes,
   widthLabel,
   saunaModels,
+  seriesOfModel,
+  seriesSlug,
   standardWood,
   woods,
   type RoomType,
@@ -32,6 +34,9 @@ import {
 
 
 export const Route = createFileRoute("/saunas")({
+  // ?cabin=S-02 opens the builder with that cabin chosen (used by the series pages).
+  validateSearch: (search: Record<string, unknown>): { cabin?: string } =>
+    typeof search["cabin"] === "string" ? { cabin: search["cabin"] } : {},
   head: () =>
     pageHead({
       path: "/saunas",
@@ -94,9 +99,11 @@ const tabBtn = (active: boolean) =>
   }`;
 
 function SaunasPage() {
-  const [tab, setTab] = useState<RoomType["id"]>("standard");
-  const [step, setStep] = useState(1);
-  const [room, setRoom] = useState<string | null>(null);
+  const { cabin } = Route.useSearch();
+  const preset = cabin && saunaModels.some((m) => m.code === cabin) ? cabin : null;
+  const [tab, setTab] = useState<RoomType["id"]>((preset && seriesOfModel(preset)?.id) || "standard");
+  const [step, setStep] = useState(preset ? 2 : 1);
+  const [room, setRoom] = useState<string | null>(preset);
   const [wood, setWood] = useState<string>(standardWood);
   const [heater, setHeater] = useState<string | null>(null);
   const [panel, setPanel] = useState<string | null>(null);
@@ -194,6 +201,13 @@ function SaunasPage() {
                 <p className="eyebrow text-bronze-strong">VYRO {activeType.series}</p>
                 <h2 className="mt-3 font-display text-4xl font-medium">{activeType.name}</h2>
                 <p className="mt-4 leading-relaxed text-muted-foreground">{activeType.about}</p>
+                <Link
+                  to="/saunas/$series"
+                  params={{ series: seriesSlug(activeType) }}
+                  className="mt-5 inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em] underline decoration-bronze underline-offset-8 hover:text-bronze-strong"
+                >
+                  Explore {activeType.name} <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
               </div>
             </div>
             {typeModels.length > 0 ? (

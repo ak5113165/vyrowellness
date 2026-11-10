@@ -10,6 +10,7 @@
 - [x] Glacier launch line-up: Barrel, Portable, Acrylic launch 1 January 2027 (hero products, comparison, chiller requirements); Pro, Steel, Signature, Integrated = coming soon for custom & premium projects
 - [x] Complete Wellness Spaces page (/wellness-spaces); Saunas FAQ + process; shared consultation steps
 - [x] Buyer tools: before-you-buy FAQs, call-back block, which-cabin-fits helper, PDF spec sheets (rebuild: scripts/spec-sheets)
+- [x] Product pages: /cold-plunge/glacier-{barrel,portable,acrylic}, /saunas/haven-{classic,glass,infrared,compact}; /saunas?cabin=CODE preselects the builder
 - [x] Enquiry form asks the qualifying questions: home stage (existing / under construction / under renovation) for homes, facility type (gym, spa, wellness centre…) for businesses, space stage on the business form
 
 ## In progress

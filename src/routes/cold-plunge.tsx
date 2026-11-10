@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Zap } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Reveal } from "@/components/reveal";
@@ -248,6 +248,13 @@ function ColdPlungePage() {
                         Ask on WhatsApp
                       </a>
                     )}
+                    <Link
+                      to="/cold-plunge/$model"
+                      params={{ model: m.slug }}
+                      className="mt-3 text-center text-[12px] uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground"
+                    >
+                      Full Details &amp; Specs →
+                    </Link>
                   </article>
                 </Reveal>
               );

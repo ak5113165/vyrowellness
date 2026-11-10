@@ -175,3 +175,23 @@ export function modelSize(model: SaunaModel): { width: string; widthShort: strin
   };
 }
 
+// ------------------------------------------------------------- series ----
+// Each Haven series has its own page at /saunas/<slug> (e.g. haven-classic).
+
+export function seriesSlug(type: RoomType): string {
+  return type.name.toLowerCase().replace(/\s+/g, "-");
+}
+
+export function seriesBySlug(slug: string): RoomType | undefined {
+  return roomTypes.find((t) => seriesSlug(t) === slug);
+}
+
+export function modelsInSeries(type: RoomType): SaunaModel[] {
+  return saunaModels.filter((m) => m.name === type.name);
+}
+
+export function seriesOfModel(code: string): RoomType | undefined {
+  const model = saunaModels.find((m) => m.code === code);
+  return model ? roomTypes.find((t) => t.name === model.name) : undefined;
+}
+
