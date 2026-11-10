@@ -4,10 +4,30 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 import { whatsappLink, winterSale, winterSaleLive } from "@/content/site";
 import { responsive } from "@/lib/responsive-image";
-// Haven Glass G-02, with its studio background extended to fit the pop-up:
-// a wide crop for phones and a tall one beside the text on larger screens.
+// Haven Classic S-02 and Haven Glass G-02: the product renders with their
+// studio backgrounds extended sideways, so cropping never cuts the cabin.
+// Phones show the original square renders; larger screens show the widened ones.
+import havenClassicSquare from "@/assets/products/haven-s02.jpg";
+import havenClassicWide from "@/assets/products/haven-s02-popup-wide.jpg";
+import havenGlassSquare from "@/assets/products/haven-g02.jpg";
 import havenGlassWide from "@/assets/products/haven-g02-popup-wide.jpg";
-import havenGlassTall from "@/assets/products/haven-g02-popup-tall.jpg";
+
+const popupCabins = [
+  {
+    name: "Haven Classic S-02",
+    square: havenClassicSquare,
+    wide: havenClassicWide,
+    alt: "VYRO Haven Classic S-02 sauna cabin in spruce with a timber door, glass panel and VYRO plaque",
+    bg: "bg-[#f9eddf]",
+  },
+  {
+    name: "Haven Glass G-02",
+    square: havenGlassSquare,
+    wide: havenGlassWide,
+    alt: "VYRO Haven Glass G-02 sauna cabin in spruce with a full black-framed glass front and warm bench lighting",
+    bg: "bg-[#e6d7c4]",
+  },
+] as const;
 
 // Sauna offer pop-up for The Winter Sale (facts in site.ts → winterSale).
 // Shows on the homepage and the sauna pages only, a few seconds after the
@@ -70,25 +90,32 @@ export function WinterSalePopup() {
             <X className="h-5 w-5" aria-hidden />
           </DialogPrimitive.Close>
 
-          {/* Haven Glass G-02 on its own warm studio background */}
-          <div className="bg-[#e6d7c4]">
-            <img
-              src={havenGlassWide}
-              {...responsive(havenGlassWide, "100vw")}
-              alt="VYRO Haven Glass sauna cabin in spruce with a full black-framed glass front and warm bench lighting"
-              width={1760}
-              height={1024}
-              className="h-48 w-full object-cover sm:hidden"
-            />
-            <img
-              src={havenGlassTall}
-              {...responsive(havenGlassTall, "400px")}
-              alt="VYRO Haven Glass sauna cabin in spruce with a full black-framed glass front and warm bench lighting"
-              width={1024}
-              height={1680}
-              loading="lazy"
-              className="hidden h-full w-full object-cover sm:block"
-            />
+          {/* The two cabins: side by side on phones, stacked beside the offer on larger screens */}
+          <div className="grid grid-cols-2 gap-px bg-ink sm:grid-cols-1 sm:grid-rows-2">
+            {popupCabins.map((c) => (
+              <figure key={c.name} className={`relative ${c.bg}`}>
+                <img
+                  src={c.square}
+                  {...responsive(c.square, "50vw")}
+                  alt={c.alt}
+                  width={1024}
+                  height={1024}
+                  className="aspect-square w-full object-cover sm:hidden"
+                />
+                <img
+                  src={c.wide}
+                  {...responsive(c.wide, "400px")}
+                  alt={c.alt}
+                  width={1760}
+                  height={1024}
+                  loading="lazy"
+                  className="hidden h-full w-full object-cover sm:absolute sm:inset-0 sm:block"
+                />
+                <figcaption className="absolute left-3 top-3 hidden bg-ink/80 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-ink-foreground sm:block">
+                  {c.name}
+                </figcaption>
+              </figure>
+            ))}
           </div>
 
           <div className="p-7 sm:p-9">
