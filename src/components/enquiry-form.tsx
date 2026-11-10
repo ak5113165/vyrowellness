@@ -220,14 +220,11 @@ export function EnquiryForm({
     handleSubmit,
     formState: { errors },
   } = consumerForm;
-  const shoppingFor = useWatch({ control: consumerForm.control, name: "homeOrBusiness" });
 
   return (
     <form
-      onSubmit={handleSubmit(
-        (values) =>
-          submit(values, values.fullName.trim().split(" ")[0] ?? "", values.productInterest),
-        (errs) => console.log("RHF INVALID", JSON.stringify(errs)),
+      onSubmit={handleSubmit((values) =>
+        submit(values, values.fullName.trim().split(" ")[0] ?? "", values.productInterest),
       )}
       className={cn("scroll-mt-28 space-y-5", className)}
       noValidate
