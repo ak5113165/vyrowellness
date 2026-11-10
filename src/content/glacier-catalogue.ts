@@ -43,6 +43,8 @@ export function formatInr(amount: number): string {
 
 export type LaunchModel = {
   name: GlacierLaunchModel;
+  /** URL segment of the model page: /cold-plunge/<slug> */
+  slug: string;
   size: string;
   tag: string;
   positioning: string;
@@ -57,6 +59,7 @@ export type LaunchModel = {
 export const launchModels: LaunchModel[] = [
   {
     name: "Glacier Barrel",
+    slug: "glacier-barrel",
     size: glacierDimensions["Glacier Barrel"],
     tag: "Upright · Compact",
     positioning: "The most compact way into a daily cold plunge — upright immersion in the smallest footprint of the range.",
@@ -75,6 +78,7 @@ export const launchModels: LaunchModel[] = [
   },
   {
     name: "Glacier Portable",
+    slug: "glacier-portable",
     size: glacierDimensions["Glacier Portable"],
     tag: "Full-length · Packs away",
     positioning: "Full-body, lie-back immersion that packs away when you need the space back.",
@@ -93,6 +97,7 @@ export const launchModels: LaunchModel[] = [
   },
   {
     name: "Glacier Acrylic",
+    slug: "glacier-acrylic",
     size: glacierDimensions["Glacier Acrylic"],
     tag: "Rigid acrylic · Gloss white",
     positioning: "A rigid, gloss-white acrylic tub — a dedicated cold plunge for your home.",
@@ -110,6 +115,10 @@ export const launchModels: LaunchModel[] = [
     ],
   },
 ];
+
+export function launchModelBySlug(slug: string): LaunchModel | undefined {
+  return launchModels.find((m) => m.slug === slug);
+}
 
 export function launchPrice(name: GlacierLaunchModel): { display: string; note: string | null } {
   const { priceInr, note } = glacierLaunchPricing[name];

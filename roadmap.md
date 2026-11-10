@@ -10,6 +10,7 @@
 - [x] Glacier launch line-up: Barrel, Portable, Acrylic launch 1 January 2027 (hero products, comparison, chiller requirements); Pro, Steel, Signature, Integrated = coming soon for custom & premium projects
 - [x] Complete Wellness Spaces page (/wellness-spaces); Saunas FAQ + process; shared consultation steps
 - [x] Buyer tools: before-you-buy FAQs, call-back block, which-cabin-fits helper, PDF spec sheets (rebuild: scripts/spec-sheets)
+- [x] Product pages: /cold-plunge/glacier-{barrel,portable,acrylic}, /saunas/haven-{classic,glass,infrared,compact}; /saunas?cabin=CODE preselects the builder
 
 ## In progress
 - [ ] Cold Plunge: reference-inspired cold therapy section, India/Delhi manufacturing, 1 January launch and initial Tier 1 city coverage

@@ -16,6 +16,17 @@ const whatsappMessages: Record<string, string> = {
 };
 const defaultMessage = "Hello VYRO, I'd like to book a consultation.";
 
+/** Exact page first, then product pages under /cold-plunge/… and /saunas/…. */
+function messageFor(pathname: string): string {
+  const exact = whatsappMessages[pathname];
+  if (exact) return exact;
+  const [, section, slug] = pathname.split("/");
+  const product = slug ? slug.split("-").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ") : "";
+  if (section === "cold-plunge" && product) return `Hello VYRO, I'm interested in the ${product} cold plunge.`;
+  if (section === "saunas" && product) return `Hello VYRO, I'm interested in the ${product} sauna.`;
+  return defaultMessage;
+}
+
 /** Elements that hide the bar while on screen: enquiry forms and the sauna builder. */
 const HIDE_SELECTOR = "[data-hide-mobile-bar]";
 
@@ -55,7 +66,7 @@ export function MobileActionBar() {
     };
   }, [pathname]);
 
-  const wa = whatsappLink(whatsappMessages[pathname] ?? defaultMessage);
+  const wa = whatsappLink(messageFor(pathname));
 
   const scrollToForm = () =>
     document.querySelector("[data-enquiry-form]")?.scrollIntoView({ behavior: "smooth", block: "start" });
