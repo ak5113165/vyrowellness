@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
 import { navLinks, site, whatsappLink } from "@/content/site";
 import { MobileActionBar } from "@/components/mobile-action-bar";
+import { WinterSalePopup } from "@/components/winter-sale-popup";
 import logoLight from "@/assets/brand/vyro-logo-light.png.asset.json";
 
 export function SiteFooter() {
@@ -129,6 +130,7 @@ export function SiteFooter() {
         </div>
       </div>
       <MobileActionBar />
+      <WinterSalePopup />
     </footer>
   );
 }
