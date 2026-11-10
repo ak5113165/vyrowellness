@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import {
   businessEnquirySchema,
@@ -404,6 +405,13 @@ function FormFooter({ status, serverError }: { status: Status; serverError: stri
             </a>
           </>
         )}
+      </p>
+      <p className="text-xs text-muted-foreground">
+        By submitting, you agree that VYRO may contact you about this enquiry. See our{" "}
+        <Link to="/privacy" className="underline underline-offset-4 hover:text-foreground">
+          Privacy Policy
+        </Link>
+        .
       </p>
     </>
   );
