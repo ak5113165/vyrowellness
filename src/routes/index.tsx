@@ -2,7 +2,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { responsive, SIZES } from "@/lib/responsive-image";
 import { faqJsonLd, pageHead } from "@/lib/seo";
 import { cn } from "@/lib/utils";
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { specSheets } from "@/components/download-link";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
@@ -129,10 +129,11 @@ function Index() {
               </a>
               <a
                 href={specSheets.catalogue.href}
-                download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-2 py-3.5 text-[13px] uppercase tracking-[0.16em] text-ink-foreground underline decoration-bronze underline-offset-8 transition-colors hover:text-bronze"
               >
-                <Download className="h-4 w-4" aria-hidden /> Download Catalogue
+                <BookOpen className="h-4 w-4" aria-hidden /> View Catalogue
               </a>
             </div>
             <nav aria-label="Our products" className="mt-14 grid grid-cols-1 border-t border-ink-foreground/20 sm:grid-cols-3">
