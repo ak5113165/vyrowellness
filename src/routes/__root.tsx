@@ -14,6 +14,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { absoluteUrl, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import logoDark from "@/assets/brand/vyro-logo-dark.png.asset.json";
+import logoLight from "@/assets/brand/vyro-logo-light.png.asset.json";
 
 function NotFoundComponent() {
   return (
@@ -102,6 +103,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      // Home-screen icon on phones: the full-size light logo (iOS shows it on black,
+      // matching the favicon). Replace with a dedicated 512px icon when available.
+      { rel: "apple-touch-icon", href: logoLight.url },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {

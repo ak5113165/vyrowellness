@@ -10,10 +10,11 @@ import { pageHead, breadcrumbJsonLd } from "@/lib/seo";
 import { coldPlungeLaunch, saunaInstallation, site, whatsappLink } from "@/content/site";
 import { consultationSteps } from "@/content/process";
 import { fromPrice as glacierFromPrice, launchLabel } from "@/content/glacier-catalogue";
-import { saunaHero } from "@/content/sauna-catalogue";
-
-import spaceImage from "@/assets/home-wellness.jpg";
-import plungeImage from "@/assets/plunge/glacier-hero.jpg";
+// Only images of real VYRO products or neutral spaces: the hero is a spa corridor
+// with sauna doorways; the cards use the product renders from the product pages.
+import spaceImage from "@/assets/hospitality.jpg";
+import saunaImage from "@/assets/products/haven-s02.jpg";
+import plungeImage from "@/assets/plunge/glacier-inflatable.jpg";
 import lightImage from "@/assets/red-light.jpg";
 
 export const Route = createFileRoute("/wellness-spaces")({
@@ -44,8 +45,8 @@ const elements = [
     copy: `Traditional, glass-front, infrared and compact cabins in spruce, with six wood upgrades — installed ${saunaInstallation.label}.`,
     to: "/saunas" as const,
     cta: "Explore Saunas",
-    image: saunaHero,
-    alt: "A VYRO spruce sauna interior with glowing benches and a stone tower heater",
+    image: saunaImage,
+    alt: "VYRO Haven Classic S-02 sauna cabin in spruce",
   },
   {
     name: "Cold Plunge",
@@ -56,7 +57,7 @@ const elements = [
     to: "/cold-plunge" as const,
     cta: "View the Launch Range",
     image: plungeImage,
-    alt: "A VYRO Glacier cold plunge tub beside a chilling system in a dark wellness space",
+    alt: "VYRO Glacier Barrel cold plunge with its 1HP chiller and step",
   },
   {
     name: "Red Light Therapy",
@@ -90,13 +91,13 @@ function WellnessSpacesPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main>
+      <main id="main">
         {/* Hero */}
         <section className="relative flex min-h-[70svh] items-end overflow-hidden bg-ink">
           <img
             src={spaceImage}
             {...responsive(spaceImage, SIZES.fullBleed)}
-            alt="A home wellness room with a glass-fronted sauna, a stone plunge bath and a red light therapy panel"
+            alt="A calm spa corridor with arched stone doorways, a timber sauna and warm cove lighting"
             width={1920}
             height={1280}
             className="absolute inset-0 h-full w-full object-cover"
@@ -148,10 +149,10 @@ function WellnessSpacesPage() {
                       src={e.image}
                       {...responsive(e.image, SIZES.third)}
                       alt={e.alt}
-                      width={1920}
-                      height={1280}
+                      width={1024}
+                      height={1024}
                       loading="lazy"
-                      className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     />
                   </div>
                   <p className="eyebrow mt-6 text-bronze-strong">{e.series}</p>

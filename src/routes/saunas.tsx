@@ -133,7 +133,7 @@ function SaunasPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main>
+      <main id="main">
         {/* Hero */}
         <section className="relative flex min-h-[60svh] items-end overflow-hidden bg-ink">
           <img src={saunaInteriorImage} {...responsive(saunaInteriorImage, SIZES.fullBleed)} alt="A warm timber sauna interior with tiered benches, a wooden bucket and a stone heater under soft amber light" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover" fetchPriority="high" />
@@ -321,22 +321,22 @@ function SaunasPage() {
             {/* Phones: step controls stay within reach while scrolling through the options. */}
             <div className="sticky bottom-0 z-30 -mx-5 mt-8 flex items-center gap-3 border-t border-border bg-card/95 px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur lg:hidden">
               <div className="min-w-0 flex-1">
-                <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
                   Step {step} of {STEPS.length} · {STEPS[step - 1]}
                 </p>
                 <p className="truncate text-sm">{roomModel ? `${roomModel.name} ${roomModel.code}` : "Choose a cabin"}</p>
               </div>
               {step > 1 && (
-                <button type="button" onClick={() => goStep(step - 1)} aria-label="Previous step" className="rounded-sm border border-border px-3 py-2.5 text-[11px] uppercase tracking-[0.16em]">
+                <button type="button" onClick={() => goStep(step - 1)} aria-label="Previous step" className="rounded-sm border border-border px-3 py-2.5 text-xs uppercase tracking-[0.16em]">
                   ←
                 </button>
               )}
               {step < STEPS.length ? (
-                <button type="button" onClick={() => goStep(step + 1)} className="rounded-sm bg-primary px-4 py-2.5 text-[11px] uppercase tracking-[0.16em] text-primary-foreground">
+                <button type="button" onClick={() => goStep(step + 1)} className="rounded-sm bg-primary px-4 py-2.5 text-xs uppercase tracking-[0.16em] text-primary-foreground">
                   Next
                 </button>
               ) : (
-                <button type="button" disabled={!room} onClick={enquire} className="rounded-sm bg-primary px-4 py-2.5 text-[11px] uppercase tracking-[0.16em] text-primary-foreground disabled:opacity-40">
+                <button type="button" disabled={!room} onClick={enquire} className="rounded-sm bg-primary px-4 py-2.5 text-xs uppercase tracking-[0.16em] text-primary-foreground disabled:opacity-40">
                   Enquire
                 </button>
               )}

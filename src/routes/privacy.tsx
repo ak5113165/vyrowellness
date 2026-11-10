@@ -22,7 +22,7 @@ function PrivacyPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="mx-auto max-w-3xl px-5 py-20 lg:py-28">
+      <main id="main" className="mx-auto max-w-3xl px-5 py-20 lg:py-28">
         <Reveal>
           <p className="eyebrow text-bronze-strong">Legal</p>
           <h1 className="mt-3 font-display text-5xl font-medium">Privacy Policy</h1>

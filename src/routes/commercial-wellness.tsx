@@ -24,7 +24,8 @@ import { launchLabel } from "@/content/glacier-catalogue";
 import { metresToFeet, roomSizes } from "@/content/sauna-catalogue";
 
 import hospitalityImage from "@/assets/hospitality.jpg";
-import fitnessImage from "@/assets/fitness.jpg";
+// The VYRO spruce sauna (replaces a gym photo showing a concrete plunge VYRO does not sell).
+import saunaImage from "@/assets/products/sauna-hero-spruce.jpg";
 import studioImage from "@/assets/wellness-studio.jpg";
 
 export const Route = createFileRoute("/commercial-wellness")({
@@ -142,7 +143,7 @@ function CommercialPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main>
+      <main id="main">
         <PageHero
           image={hospitalityImage}
           imageAlt="A luxury hotel spa corridor with arched stone doorways and warm cove lighting"
@@ -261,11 +262,11 @@ function CommercialPage() {
             </Reveal>
             <Reveal delayMs={120} className="lg:order-1">
               <img
-                src={fitnessImage}
-                {...responsive(fitnessImage, SIZES.half)}
-                alt="A premium gym recovery zone with a cold plunge tub and sauna cabin under warm lighting"
+                src={saunaImage}
+                {...responsive(saunaImage, SIZES.half)}
+                alt="A VYRO spruce sauna with glowing tiered benches, a stone tower heater and the VYRO Wellness plaque"
                 width={1920}
-                height={1280}
+                height={1088}
                 loading="lazy"
                 className="aspect-[4/3] w-full object-cover"
               />

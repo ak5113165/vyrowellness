@@ -23,7 +23,8 @@ import heroImage from "@/assets/products/sauna-hero-spruce.jpg";
 import saunaImage from "@/assets/products/haven-s02.jpg";
 import coldImage from "@/assets/plunge/glacier-inflatable.jpg";
 import lightImage from "@/assets/red-light.jpg";
-import homeWellnessImage from "@/assets/home-wellness.jpg";
+// Private Residences card: warm sauna interior (replaces a photo with a stone plunge VYRO does not sell).
+import homeWellnessImage from "@/assets/sauna.jpg";
 import hospitalityImage from "@/assets/hospitality.jpg";
 
 export const Route = createFileRoute("/")({
@@ -87,7 +88,7 @@ function Index() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
 
-      <main>
+      <main id="main">
         {/* 1. Hero */}
         <section className="relative flex min-h-[92svh] items-end overflow-hidden bg-ink">
           <img
@@ -135,7 +136,7 @@ function Index() {
                     <span className="text-xs text-bronze">{p.n}</span>
                     <span className="font-display text-xl sm:text-2xl">{p.name}</span>
                     {p.soon && (
-                      <span className="hidden text-[10px] uppercase tracking-[0.2em] text-bronze lg:inline">
+                      <span className="hidden text-xs uppercase tracking-[0.2em] text-bronze lg:inline">
                         {p.navLabel ?? "Coming Soon"}
                       </span>
                     )}
@@ -198,7 +199,7 @@ function Index() {
                         )}
                       />
                       {p.soon && (
-                        <span className="absolute left-4 top-4 bg-ink px-3 py-1.5 text-[10px] uppercase tracking-[0.2em] text-ink-foreground">
+                        <span className="absolute left-4 top-4 bg-ink px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-ink-foreground">
                           {p.soonLabel ?? "Coming Soon"}
                         </span>
                       )}
@@ -230,7 +231,7 @@ function Index() {
             {[
               {
                 image: homeWellnessImage,
-                alt: "A private home wellness suite with a glass-fronted sauna and stone plunge bath",
+                alt: "A warm timber home sauna with tiered benches, a wooden bucket and a stone heater",
                 title: "Private Residences",
                 copy: "Villas, apartments and penthouses — from a single sauna to a complete home wellness space.",
                 to: "/wellness-spaces" as const,

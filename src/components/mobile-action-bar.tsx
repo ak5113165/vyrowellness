@@ -61,7 +61,7 @@ export function MobileActionBar() {
     document.querySelector("[data-enquiry-form]")?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const item =
-    "flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-[10px] uppercase tracking-[0.16em]";
+    "flex flex-1 flex-col items-center justify-center gap-1 py-2.5 text-xs uppercase tracking-[0.16em]";
 
   return (
     <nav

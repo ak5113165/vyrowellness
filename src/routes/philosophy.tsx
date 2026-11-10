@@ -28,7 +28,7 @@ function PhilosophyPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main>
+      <main id="main">
         {/* Opening statement */}
         <section className="mx-auto max-w-4xl px-5 pb-4 pt-20 text-center lg:pt-28">
           <Reveal>

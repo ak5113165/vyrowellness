@@ -26,7 +26,7 @@ function ContactPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main>
+      <main id="main">
         <section className="mx-auto max-w-7xl px-5 pb-20 pt-16 lg:px-8 lg:pt-24">
           <div className="grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             {/* Contact options */}

@@ -1,28 +1,29 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { responsive, SIZES } from "@/lib/responsive-image";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
 import { pageHead, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
-import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
+import { FaqSection } from "@/components/faq-section";
+import { site, whatsappLink } from "@/content/site";
 
 import lightImage from "@/assets/red-light.jpg";
-import homeWellnessImage from "@/assets/home-wellness.jpg";
-import fitnessImage from "@/assets/fitness.jpg";
+
+// Red light therapy is not launched yet, so this is a short register-interest
+// page. No product specs, prices or health claims until the range is confirmed.
 
 export const Route = createFileRoute("/red-light-therapy")({
   head: () =>
     pageHead({
       path: "/red-light-therapy",
-      title: "Red Light Therapy Panels for Home & Studio | VYRO Wellness",
+      title: "Red Light Therapy — Coming Soon to VYRO | VYRO Wellness",
       description:
-        "Modern red light therapy panels and larger-format systems for homes, gyms, studios and professional wellness spaces in India. Explore red light therapy equipment with VYRO.",
-      ogTitle: "Red Light Therapy — Light, Reconsidered | VYRO",
+        "VYRO red light therapy panels and larger-format systems for homes, gyms, studios and wellness rooms in India are coming soon. Register your interest to hear first.",
+      ogTitle: "Red Light Therapy — Coming Soon | VYRO",
       ogDescription:
-        "Modern red light therapy equipment designed to integrate into personal routines and professional spaces.",
+        "Panels for personal routines and larger-format systems for dedicated rooms. Register your interest to hear first.",
       image: "/og/red-light-therapy.jpg",
       jsonLd: [
         breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Red Light Therapy", path: "/red-light-therapy" }]),
@@ -32,11 +33,24 @@ export const Route = createFileRoute("/red-light-therapy")({
   component: RedLightPage,
 });
 
+const formats = [
+  {
+    name: "Panels",
+    for: "Homes and personal routines",
+    copy: "Designed to stand, lean or mount in a bedroom, home gym or wellness corner.",
+  },
+  {
+    name: "Larger-format systems",
+    for: "Dedicated rooms and professional settings",
+    copy: "For wellness suites, gyms, studios and spas, where light sits alongside sauna and cold plunge.",
+  },
+];
+
 // Shown on the page and published as FAQ structured data — keep them in one place.
 const faqs = [
   {
     q: "When will VYRO red light therapy be available?",
-    a: "Our red light therapy range is coming soon. Send an enquiry below and we'll notify you as soon as it launches.",
+    a: "The range is coming soon. Register your interest on this page and we'll let you know as soon as it launches.",
   },
   {
     q: "What is red light therapy used for?",
@@ -47,178 +61,93 @@ const faqs = [
     a: "Panels suit personal routines and smaller spaces; larger-format systems are designed for dedicated rooms, studios and professional settings. The right choice depends on your space and how you plan to use it.",
   },
   {
-    q: "Where can a panel be placed?",
-    a: "Most panels are designed to integrate into bedrooms, home gyms and wellness rooms. We can help you think through placement and surroundings during a consultation.",
-  },
-  {
-    q: "Will you help us understand how to use it?",
-    a: "Yes — we're happy to walk you through setup and everyday use. Ask us during your consultation.",
+    q: "Can I plan for red light in a wellness room now?",
+    a: "Yes. If you're planning a sauna or cold plunge, we can allow wall space and power for red light in the same room, so it's ready when the range launches.",
   },
 ];
 
 function RedLightPage() {
+  const wa = whatsappLink("Hello VYRO, please keep me updated on your red light therapy launch.");
+
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main>
+      <main id="main">
         <PageHero
           image={lightImage}
-          imageAlt="A sleek black red light therapy panel glowing deep red in a minimalist interior"
-          overline="Red Light Therapy"
-          title="Light, Reconsidered."
-          copy="Modern red light therapy equipment designed to integrate quietly into your personal wellness routine."
-        />
+          imageAlt="A tall black red light therapy panel glowing deep red against an ivory wall"
+          overline="Red Light Therapy · Coming Soon"
+          title="Red Light Therapy, Coming to VYRO"
+          copy="Panels for personal routines and larger-format systems for dedicated rooms. Register your interest and we'll tell you first."
+        >
+          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <a
+              href="#register"
+              className="inline-flex items-center gap-2 rounded-sm bg-ink-foreground px-6 py-3 text-[12px] uppercase tracking-[0.16em] text-ink transition-colors hover:bg-ink-foreground/90"
+            >
+              Register Interest <ArrowRight className="h-4 w-4" aria-hidden />
+            </a>
+            {wa && (
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[12px] uppercase tracking-[0.16em] text-ink-foreground/85 underline decoration-bronze underline-offset-8 hover:text-ink-foreground"
+              >
+                Ask on WhatsApp
+              </a>
+            )}
+          </div>
+        </PageHero>
 
-        {/* Coming soon notice */}
-        <section className="border-b border-bronze/40 bg-secondary/60">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 lg:px-8">
-            <p className="eyebrow shrink-0 text-bronze-strong">Coming Soon</p>
-            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              VYRO red light therapy systems will launch soon.
-              Enquire below and we'll let you know the moment they're available.
+        {/* What's coming */}
+        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
+          <p className="eyebrow text-bronze-strong">What's Coming</p>
+          <h2 className="mt-3 max-w-2xl font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
+            Two Formats, for Homes and for Professional Spaces
+          </h2>
+          <div className="mt-12 grid gap-px border border-border bg-border md:grid-cols-2">
+            {formats.map((f) => (
+              <Reveal key={f.name} className="bg-card p-8 lg:p-10">
+                <p className="eyebrow text-bronze-strong">{f.for}</p>
+                <h3 className="mt-3 font-display text-3xl font-medium">{f.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.copy}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="mt-12 flex flex-col gap-4 border-t border-foreground pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
+              Planning a sauna or cold plunge now? We can allow space and power for red light in the same room.
             </p>
+            <Link
+              to="/wellness-spaces"
+              className="inline-flex shrink-0 items-center gap-2 text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong"
+            >
+              Plan a Wellness Space <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
           </div>
         </section>
 
-        {/* Panels */}
-        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <Reveal>
-              <p className="eyebrow text-bronze-strong">Panels</p>
-              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
-                Everyday Light, Beautifully Made.
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
-                Red light therapy panels bring light-based wellness into daily life. Designed to
-                stand, lean or mount in bedrooms, home gyms and wellness corners, they turn a few
-                quiet minutes into a ritual you'll keep.
-              </p>
-              <ul className="mt-7 space-y-3 text-sm text-muted-foreground">
-                <li className="border-b border-border pb-3">Designed to complement modern interiors</li>
-                <li className="border-b border-border pb-3">Simple, unobtrusive controls</li>
-                <li className="border-b border-border pb-3">Suited to personal routines at home</li>
-              </ul>
-            </Reveal>
-            <Reveal delayMs={120}>
-              <img
-                src={lightImage}
-                {...responsive(lightImage, SIZES.half)}
-                alt="A tall black red light therapy panel leaning against an ivory wall, glowing deep red"
-                width={1920}
-                height={1280}
-                loading="lazy"
-                className="aspect-[4/3] w-full object-cover"
-              />
-            </Reveal>
-          </div>
-        </section>
+        <FaqSection title="Red Light Questions" faqs={faqs} />
 
-        {/* Larger-format systems */}
-        <section className="bg-ink">
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 text-ink-foreground lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
-            <Reveal className="lg:order-2">
-              <p className="eyebrow text-bronze">Larger-Format Systems</p>
-              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
-                For Dedicated Spaces.
-              </h2>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted">
-                Larger-format light systems are designed for dedicated wellness rooms, home suites,
-                gyms and professional settings — where light therapy is part of a wider recovery and
-                wellness environment.
-              </p>
-            </Reveal>
-            <Reveal delayMs={120} className="lg:order-1">
-              <img
-                src={homeWellnessImage}
-                {...responsive(homeWellnessImage, SIZES.half)}
-                alt="A red light panel mounted within a private wellness suite alongside a sauna and plunge bath"
-                width={1920}
-                height={1280}
-                loading="lazy"
-                className="aspect-[4/3] w-full object-cover"
-              />
-            </Reveal>
-          </div>
-        </section>
-
-        {/* Residential & professional applications */}
-        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
-          <SectionHeading
-            overline="Applications"
-            title="At Home, and in Practice."
-            copy="From a quiet corner at home to a professional recovery room, light therapy adapts to the setting."
-          />
-          <div className="mt-14 grid gap-6 lg:grid-cols-2">
-            <Reveal>
-              <div className="h-full border-t-2 border-foreground pt-6">
-                <p className="eyebrow text-bronze-strong">At Home</p>
-                <h3 className="mt-3 font-display text-3xl font-medium">Residential</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Panels and compact systems that integrate into bedrooms, home gyms and personal
-                  wellness spaces — used on your schedule, in your space.
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delayMs={100}>
-              <div className="h-full border-t-2 border-foreground pt-6">
-                <p className="eyebrow text-bronze-strong">In Practice</p>
-                <h3 className="mt-3 font-display text-3xl font-medium">Professional</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Larger systems for gyms, studios, spas and recovery centres — planned around your
-                  members and the wider wellness experience you offer.
-                </p>
-              </div>
-            </Reveal>
-          </div>
-          <Reveal className="mt-10">
-            <img
-              src={fitnessImage}
-              {...responsive(fitnessImage, SIZES.contained)}
-              alt="A premium gym recovery zone with dark walls, warm lighting and a sauna cabin"
-              width={1920}
-              height={1280}
-              loading="lazy"
-              className="aspect-[16/10] w-full rounded-sm object-cover"
-            />
-          </Reveal>
-        </section>
-
-        {/* FAQs */}
-        <section className="border-y border-border bg-secondary/60">
-          <div className="mx-auto max-w-3xl px-5 py-20 lg:py-24">
-            <SectionHeading align="center" overline="FAQs" title="Good Questions, Straight Answers." />
-            <Reveal className="mt-10">
-              <Accordion type="single" collapsible className="border-t border-border">
-                {faqs.map((f) => (
-                  <AccordionItem key={f.q} value={f.q} className="border-b border-border">
-                    <AccordionTrigger className="text-left font-display text-xl font-medium text-foreground hover:no-underline">
-                      {f.q}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
-                      {f.a}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </Reveal>
-          </div>
-        </section>
-
-        {/* Enquiry */}
-        <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
+        {/* Register interest */}
+        <section id="register" className="scroll-mt-24 mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-20">
             <Reveal>
-              <p className="eyebrow text-bronze-strong">Enquire</p>
-              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">
-                Find Your Light.
-              </h2>
+              <p className="eyebrow text-bronze-strong">Register Interest</p>
+              <h2 className="mt-3 font-display text-4xl font-medium leading-[1.15] sm:text-5xl">Be the First to Know</h2>
               <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground">
-                Tell us about your space and routine. We'll keep you updated as our red light therapy
-                range launches and help you plan your space in advance.
+                Leave your details and we'll let you know when VYRO red light therapy launches. Our team replies{" "}
+                {site.enquiryResponseTime} if you'd like to talk sooner.
               </p>
             </Reveal>
             <Reveal delayMs={120}>
-              <EnquiryForm variant="consumer" defaultProductInterest="Red Light Therapy" />
+              <EnquiryForm
+                variant="consumer"
+                defaultProductInterest="Red Light Therapy"
+                defaultMessage="Please keep me updated on the VYRO red light therapy launch."
+              />
             </Reveal>
           </div>
         </section>
