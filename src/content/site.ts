@@ -23,6 +23,7 @@ export const site = {
   whatsappNumber: "919540149445",
 
   domain: "vyrowellness.in",
+  infoEmail: "info@vyrowellness.in",
   salesEmail: "sales@vyrowellness.in",
   supportEmail: "support@vyrowellness.in",
   // Primary public email (sales enquiries).

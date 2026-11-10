@@ -68,6 +68,12 @@ export function SiteFooter() {
             <h3 className="eyebrow text-bronze">Contact</h3>
             <ul className="mt-4 space-y-2.5 text-sm text-ink-foreground/80">
               <li>
+                <span className="text-ink-muted">General: </span>
+                <a href={`mailto:${site.infoEmail}`} className="transition-colors hover:text-ink-foreground">
+                  {site.infoEmail}
+                </a>
+              </li>
+              <li>
                 <span className="text-ink-muted">Sales: </span>
                 <a href={`mailto:${site.salesEmail}`} className="transition-colors hover:text-ink-foreground">
                   {site.salesEmail}
