@@ -9,7 +9,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { saunaInstallation, site, whatsappLink } from "@/content/site";
+import { saunaAvailability, saunaInstallation, site, whatsappLink } from "@/content/site";
 import { consultationSteps } from "@/content/process";
 import { SpecialistCallout } from "@/components/specialist-callout";
 import { CabinFitFinder } from "@/components/cabin-fit-finder";
@@ -146,7 +146,7 @@ function SaunasPage() {
           <img src={saunaInteriorImage} {...responsive(saunaInteriorImage, SIZES.fullBleed)} alt="A warm timber sauna interior with tiered benches, a wooden bucket and a stone heater under soft amber light" width={1920} height={1280} className="absolute inset-0 h-full w-full object-cover" fetchPriority="high" />
           <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/10" />
           <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-32 lg:px-8">
-            <p className="eyebrow text-bronze">VYRO Haven Series</p>
+            <p className="eyebrow text-bronze">VYRO Haven Series{saunaAvailability.availableNow ? ` · ${saunaAvailability.label}` : ""}</p>
             <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Sauna Cabins</h1>
             <p className="mt-4 max-w-xl text-ink-foreground/80">Every Haven cabin is crafted in spruce as standard, with six premium wood upgrades — and installed by our team {saunaInstallation.label}.</p>
             <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">

@@ -77,6 +77,8 @@ export const coldPlungeLaunch = {
 // Installation coverage confirmed by the founder (8 Nov 2026): saunas are
 // installed anywhere in India; cold plunges only in coldPlungeLaunch.serviceLocations.
 export const saunaInstallation = { panIndia: true, label: "across India" } as const;
+// Confirmed by the founder (11 Nov 2026): Haven saunas are on sale now (cold plunges launch 1 Jan 2027).
+export const saunaAvailability = { availableNow: true, label: "Available now" } as const;
 
 // Glacier line-up confirmed by the founder (8 Nov 2026): only these three
 // hero models launch on the coldPlungeLaunch date. Every other Glacier design
