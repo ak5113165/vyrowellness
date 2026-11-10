@@ -163,24 +163,13 @@ def render(c, path, x, y, w, h) -> None:
 
 
 # ----------------------------------------------------------------- chrome ----
+LOGO_DIR = Path(__file__).resolve().parent
+
+
 def logo(c, cx, cy, r, color=INK) -> None:
-    """VYRO roundel: thin circle, spaced VYRO, WELLNESS beneath."""
-    c.setStrokeColor(color)
-    c.setLineWidth(max(0.6, r * 0.035))
-    c.circle(cx, cy, r, stroke=1, fill=0)
-    c.setFillColor(color)
-    size = r * 0.42
-    c.setFont("Body", size)
-    t = "VYRO"
-    cs = size * 0.28
-    tw = pdfmetrics.stringWidth(t, "Body", size) + cs * (len(t) - 1)
-    c.drawString(cx - tw / 2, cy - size * 0.18, t, charSpace=cs)
-    s2 = r * 0.11
-    c.setFont("BodyMed", s2)
-    t2 = "WELLNESS"
-    cs2 = s2 * 0.45
-    tw2 = pdfmetrics.stringWidth(t2, "BodyMed", s2) + cs2 * (len(t2) - 1)
-    c.drawString(cx - tw2 / 2, cy - size * 0.18 - s2 * 2.1, t2, charSpace=cs2)
+    """The VYRO roundel (from the brand logo file), centred on cx, cy with radius r."""
+    name = "logo-light.png" if color in (IVORY, WHITE) else "logo-dark.png"
+    c.drawImage(ImageReader(str(LOGO_DIR / name)), cx - r, cy - r, 2 * r, 2 * r, mask="auto")
 
 
 class Book:
