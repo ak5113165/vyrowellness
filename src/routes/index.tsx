@@ -8,7 +8,7 @@ import { SectionHeading } from "@/components/section";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
-import { coldPlungeLaunch, saunaInstallation, site, whatsappLink } from "@/content/site";
+import { coldPlungeLaunch, saunaAvailability, saunaInstallation, site, whatsappLink } from "@/content/site";
 import { fromPrice as glacierFromPrice } from "@/content/glacier-catalogue";
 import { consultationSteps } from "@/content/process";
 import { beforeYouBuyFaqs } from "@/content/buyer-faqs";
@@ -53,6 +53,7 @@ const pillars = [
     copy: `Custom timber cabins for villas, penthouses and wellness suites — installed ${saunaInstallation.label}.`,
     to: "/saunas" as const,
     soon: false,
+    badge: saunaAvailability.availableNow ? saunaAvailability.label : undefined,
   },
   {
     n: "02",
@@ -107,7 +108,7 @@ function Index() {
               Saunas and Cold Plunges for Indian Homes and Businesses
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-foreground/85 sm:text-lg">
-              Haven sauna cabins, installed by our team {saunaInstallation.label}. Glacier cold plunges,
+              Haven sauna cabins, available now and installed by our team {saunaInstallation.label}. Glacier cold plunges,
               made in {coldPlungeLaunch.madeIn} and launching {coldPlungeLaunch.label}. Red
               light therapy to follow.
             </p>
@@ -135,9 +136,9 @@ function Index() {
                   <span className="flex items-baseline gap-3">
                     <span className="text-xs text-bronze">{p.n}</span>
                     <span className="font-display text-xl sm:text-2xl">{p.name}</span>
-                    {p.soon && (
+                    {(p.soon || p.badge) && (
                       <span className="hidden text-xs uppercase tracking-[0.2em] text-bronze lg:inline">
-                        {p.navLabel ?? "Coming Soon"}
+                        {p.soon ? (p.navLabel ?? "Coming Soon") : p.badge}
                       </span>
                     )}
                   </span>
@@ -198,9 +199,9 @@ function Index() {
                           !p.product && "object-[center_60%]",
                         )}
                       />
-                      {p.soon && (
+                      {(p.soon || p.badge) && (
                         <span className="absolute left-4 top-4 bg-ink px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-ink-foreground">
-                          {p.soonLabel ?? "Coming Soon"}
+                          {p.soon ? (p.soonLabel ?? "Coming Soon") : p.badge}
                         </span>
                       )}
                     </div>

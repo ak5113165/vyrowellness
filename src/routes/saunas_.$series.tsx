@@ -8,7 +8,7 @@ import { DownloadLink } from "@/components/download-link";
 import { Reveal } from "@/components/reveal";
 import { responsive, SIZES } from "@/lib/responsive-image";
 import { absoluteUrl, breadcrumbJsonLd, pageHead } from "@/lib/seo";
-import { saunaInstallation, site, whatsappLink } from "@/content/site";
+import { saunaAvailability, saunaInstallation, site, whatsappLink } from "@/content/site";
 import { consultationSteps } from "@/content/process";
 import {
   accessorySets,
@@ -104,7 +104,7 @@ function HavenSeriesPage() {
             className="aspect-square w-full"
           />
           <div className="flex flex-col justify-center">
-            <p className="eyebrow text-bronze-strong">{t.series} · Installed {saunaInstallation.label}</p>
+            <p className="eyebrow text-bronze-strong">{t.series}{saunaAvailability.availableNow ? ` · ${saunaAvailability.label}` : ""} · Installed {saunaInstallation.label}</p>
             <h1 className="mt-3 font-display text-5xl font-medium sm:text-6xl">{t.name}</h1>
             <p className="mt-4 text-lg leading-relaxed text-foreground/85">{t.short}</p>
             <p className="mt-4 max-w-lg text-base leading-relaxed text-muted-foreground">{t.about}</p>
