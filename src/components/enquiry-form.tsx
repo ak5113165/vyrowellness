@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check } from "lucide-react";
@@ -78,6 +78,12 @@ export function EnquiryForm({
 
   // Read before any early return so the hook order stays stable.
   const shoppingFor = useWatch({ control: consumerForm.control, name: "homeOrBusiness" });
+
+  // Switching between Home and Business clears the answer to the old question.
+  useEffect(() => {
+    consumerForm.setValue("homeStage", undefined);
+    consumerForm.setValue("facilityType", undefined);
+  }, [shoppingFor, consumerForm]);
 
   const businessForm = useForm({
     resolver: zodResolver(businessEnquirySchema),
@@ -276,16 +282,7 @@ export function EnquiryForm({
         </div>
         <div>
           <Label htmlFor="c-hob">Home or Business</Label>
-          <select
-            id="c-hob"
-            className={selectClass}
-            {...register("homeOrBusiness")}
-            // Switching the question also clears the answer to the old one.
-            onChange={() => {
-              consumerForm.setValue("homeStage", undefined);
-              consumerForm.setValue("facilityType", undefined);
-            }}
-          >
+          <select id="c-hob" className={selectClass} {...register("homeOrBusiness")}>
             <option value="Home">Home</option>
             <option value="Business">Business</option>
           </select>
