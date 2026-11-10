@@ -32,7 +32,7 @@ import {
 } from "@/content/glacier-catalogue";
 
 // Header banner: the three launch renders side by side (built from the product images).
-import heroImg from "@/assets/plunge/glacier-acrylic-1hp.jpg";
+import heroImg from "@/assets/plunge/glacier-acrylic-hero-ice.jpg";
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const launchIso = `${coldPlungeLaunch.year}-${String(coldPlungeLaunch.month).padStart(2, "0")}-${String(coldPlungeLaunch.day).padStart(2, "0")}`;
@@ -139,9 +139,9 @@ function ColdPlungePage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main id="main">
-        {/* Collection header: copy beside the Glacier Acrylic, on its matching cream background.
+        {/* Collection header: copy beside the Glacier Acrylic, on a matching glacier-ice background.
             Swap heroImg for a lifestyle photo (someone in the plunge) once one is shot. */}
-        <section className="bg-[#f8ecde]">
+        <section className="bg-[#e4ebef]">
           <div className="mx-auto grid max-w-7xl items-center gap-4 px-5 pt-14 pb-10 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:px-8 lg:py-16">
             <div>
               <p className="eyebrow text-bronze-strong">
