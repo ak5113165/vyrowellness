@@ -31,6 +31,7 @@ export type Database = {
           product_interest: string | null
           products_of_interest: string | null
           project_description: string | null
+          project_stage: string | null
         }
         Insert: {
           budget?: string | null
@@ -48,6 +49,7 @@ export type Database = {
           product_interest?: string | null
           products_of_interest?: string | null
           project_description?: string | null
+          project_stage?: string | null
         }
         Update: {
           budget?: string | null
@@ -65,6 +67,7 @@ export type Database = {
           product_interest?: string | null
           products_of_interest?: string | null
           project_description?: string | null
+          project_stage?: string | null
         }
         Relationships: []
       }

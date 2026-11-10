@@ -94,8 +94,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image", content: absoluteUrl("/og/default.jpg") },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: absoluteUrl("/og/default.jpg") },
-      { "script:ld+json": organizationJsonLd(logoDark.url) },
-      { "script:ld+json": websiteJsonLd() },
     ],
     links: [
       {
@@ -112,6 +110,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap",
       },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(organizationJsonLd(logoDark.url)),
+      },
+      { type: "application/ld+json", children: JSON.stringify(websiteJsonLd()) },
     ],
   }),
   shellComponent: RootShell,
