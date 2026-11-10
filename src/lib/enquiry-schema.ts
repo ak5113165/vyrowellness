@@ -43,6 +43,23 @@ export const productInterestValues = [
   "Other",
 ] as const;
 
+// Lead-qualification questions confirmed by the founder (10 Nov 2026): what
+// stage the home/space is at, and what kind of facility a business is setting
+// up. Both stay optional so the form never blocks a serious enquiry.
+export const homeStageValues = [
+  "Existing Home",
+  "Under Construction",
+  "Under Renovation",
+  "Not sure yet",
+] as const;
+
+export const spaceStageValues = [
+  "Existing Space",
+  "Under Construction",
+  "Under Renovation",
+  "Not sure yet",
+] as const;
+
 export const businessTypeValues = [
   "Gym / Fitness Centre",
   "Hotel / Hospitality",
@@ -62,6 +79,16 @@ export const consumerEnquirySchema = z.object({
   city: optionalText(80),
   productInterest: z.enum(productInterestValues),
   homeOrBusiness: z.enum(["Home", "Business"]),
+  // Shown only when homeOrBusiness is "Home"; blank = not given.
+  homeStage: z.preprocess(
+    (v) => (typeof v === "string" && v.trim().length ? v.trim() : undefined),
+    z.enum(homeStageValues).optional(),
+  ),
+  // Shown only when homeOrBusiness is "Business" (gym, spa, wellness centre…).
+  facilityType: z.preprocess(
+    (v) => (typeof v === "string" && v.trim().length ? v.trim() : undefined),
+    z.enum(businessTypeValues).optional(),
+  ),
   budget: optionalText(80),
   message: optionalText(2000),
 });
@@ -74,6 +101,10 @@ export const businessEnquirySchema = z.object({
   email: z.string().trim().toLowerCase().email("Enter a valid email address").max(255),
   city: optionalText(80),
   businessType: z.enum(businessTypeValues),
+  projectStage: z.preprocess(
+    (v) => (typeof v === "string" && v.trim().length ? v.trim() : undefined),
+    z.enum(spaceStageValues).optional(),
+  ),
   productsOfInterest: z.enum(productInterestValues),
   projectDescription: optionalText(2000),
 });
