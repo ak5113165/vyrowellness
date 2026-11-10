@@ -74,6 +74,13 @@ function ContactPage() {
                   <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-center gap-2">
                       <Mail className="h-4 w-4 text-bronze-strong" aria-hidden />
+                      General:{" "}
+                      <a href={`mailto:${site.infoEmail}`} className="text-foreground underline underline-offset-4">
+                        {site.infoEmail}
+                      </a>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-bronze-strong" aria-hidden />
                       Sales:{" "}
                       <a href={`mailto:${site.salesEmail}`} className="text-foreground underline underline-offset-4">
                         {site.salesEmail}
