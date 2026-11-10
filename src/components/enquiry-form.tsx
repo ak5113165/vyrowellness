@@ -76,6 +76,9 @@ export function EnquiryForm({
     },
   });
 
+  // Read before any early return so the hook order stays stable.
+  const shoppingFor = useWatch({ control: consumerForm.control, name: "homeOrBusiness" });
+
   const businessForm = useForm({
     resolver: zodResolver(businessEnquirySchema),
     defaultValues: {
