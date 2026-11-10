@@ -44,10 +44,13 @@ export const Route = createFileRoute("/api/public/enquiries")({
             city: d.city ?? null,
             product_interest: isConsumer ? d.productInterest : null,
             home_or_business: isConsumer ? d.homeOrBusiness : null,
+            // Consumer "Home" leads carry a home stage; consumer "Business"
+            // leads carry the facility type into business_type instead.
+            project_stage: isConsumer ? (d.homeStage ?? null) : (d.projectStage ?? null),
             budget: isConsumer ? (d.budget ?? null) : null,
             message: isConsumer ? (d.message ?? null) : null,
             business_name: isConsumer ? null : d.businessName,
-            business_type: isConsumer ? null : d.businessType,
+            business_type: isConsumer ? (d.facilityType ?? null) : d.businessType,
             products_of_interest: isConsumer ? null : d.productsOfInterest,
             project_description: isConsumer ? null : (d.projectDescription ?? null),
           })
@@ -79,6 +82,8 @@ export const Route = createFileRoute("/api/public/enquiries")({
                   city: d.city,
                   productInterest: d.productInterest,
                   homeOrBusiness: d.homeOrBusiness,
+                  projectStage: d.homeStage,
+                  facilityType: d.facilityType,
                   budget: d.budget,
                   message: d.message,
                 }
@@ -92,6 +97,7 @@ export const Route = createFileRoute("/api/public/enquiries")({
                   productInterest: d.productsOfInterest,
                   businessName: d.businessName,
                   businessType: d.businessType,
+                  projectStage: d.projectStage,
                   projectDescription: d.projectDescription,
                 },
           );

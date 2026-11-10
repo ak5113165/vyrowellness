@@ -12,8 +12,7 @@ export const SITE_URL = `https://${site.domain}`;
 type MetaTag =
   | { title: string }
   | { name: string; content: string }
-  | { property: string; content: string }
-  | { "script:ld+json": Record<string, unknown> };
+  | { property: string; content: string };
 
 export function absoluteUrl(path: string): string {
   return path.startsWith("http") ? path : `${SITE_URL}${path}`;
@@ -59,11 +58,17 @@ export function pageHead({
     { name: "twitter:image", content: img },
   ];
   if (noindex) meta.push({ name: "robots", content: "noindex, follow" });
-  for (const data of jsonLd) meta.push({ "script:ld+json": data });
+
+  // Structured data goes in its own script tag, not in the meta list.
+  const scripts = jsonLd.map((data) => ({
+    type: "application/ld+json",
+    children: JSON.stringify(data),
+  }));
 
   return {
     meta,
     links: [{ rel: "canonical", href: url }],
+    scripts,
   };
 }
 

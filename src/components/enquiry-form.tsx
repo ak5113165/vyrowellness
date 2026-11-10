@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check } from "lucide-react";
 import {
   businessEnquirySchema,
   consumerEnquirySchema,
+  homeStageValues,
+  spaceStageValues,
 } from "@/lib/enquiry-schema";
 import { budgetOptions, businessTypes, productInterests, site, whatsappLink } from "@/content/site";
 import { cn } from "@/lib/utils";
@@ -73,6 +75,15 @@ export function EnquiryForm({
       message: defaultMessage ?? "",
     },
   });
+
+  // Read before any early return so the hook order stays stable.
+  const shoppingFor = useWatch({ control: consumerForm.control, name: "homeOrBusiness" });
+
+  // Switching between Home and Business clears the answer to the old question.
+  useEffect(() => {
+    consumerForm.setValue("homeStage", undefined);
+    consumerForm.setValue("facilityType", undefined);
+  }, [shoppingFor, consumerForm]);
 
   const businessForm = useForm({
     resolver: zodResolver(businessEnquirySchema),
@@ -161,7 +172,7 @@ export function EnquiryForm({
             <FieldError message={errors.city?.message} />
           </div>
           <div>
-            <Label htmlFor="b-type">Business Type</Label>
+            <Label htmlFor="b-type">Facility Type</Label>
             <select id="b-type" className={selectClass} {...register("businessType")}>
               {businessTypes.map((t) => (
                 <option key={t} value={t}>
@@ -171,6 +182,18 @@ export function EnquiryForm({
             </select>
             <FieldError message={errors.businessType?.message} />
           </div>
+        </div>
+        <div>
+          <Label htmlFor="b-stage">Which best describes your space?</Label>
+          <select id="b-stage" className={selectClass} {...register("projectStage")}>
+            <option value="">Select one</option>
+            {spaceStageValues.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+          <FieldError message={errors.projectStage?.message} />
         </div>
         <div>
           <Label htmlFor="b-products">Products of Interest</Label>
@@ -266,6 +289,34 @@ export function EnquiryForm({
           <FieldError message={errors.homeOrBusiness?.message} />
         </div>
       </div>
+      {/* One qualifying question, matched to what they told us above. */}
+      {shoppingFor === "Business" ? (
+        <div>
+          <Label htmlFor="c-facility">What kind of facility are you setting up?</Label>
+          <select id="c-facility" className={selectClass} {...register("facilityType")}>
+            <option value="">Select one</option>
+            {businessTypes.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+          <FieldError message={errors.facilityType?.message} />
+        </div>
+      ) : (
+        <div>
+          <Label htmlFor="c-stage">Which best describes your home?</Label>
+          <select id="c-stage" className={selectClass} {...register("homeStage")}>
+            <option value="">Select one</option>
+            {homeStageValues.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
+            ))}
+          </select>
+          <FieldError message={errors.homeStage?.message} />
+        </div>
+      )}
       {/* Optional details: collapsed to keep the form short, open when a CTA pre-filled the message. */}
       <details open={Boolean(defaultMessage)} className="group border-t border-border pt-4">
         <summary className="cursor-pointer list-none text-xs uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">

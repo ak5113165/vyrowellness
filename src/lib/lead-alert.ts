@@ -21,6 +21,10 @@ export type Lead = {
   city?: string | undefined;
   productInterest?: string | undefined;
   homeOrBusiness?: string | undefined;
+  /** Home/space stage: existing, under construction or under renovation. */
+  projectStage?: string | undefined;
+  /** Facility type on a consumer lead that is for a business space. */
+  facilityType?: string | undefined;
   budget?: string | undefined;
   message?: string | undefined;
   businessName?: string | undefined;
@@ -54,6 +58,8 @@ export function buildLeadAlert(lead: Lead): { subject: string; text: string; htm
     ["City", lead.city],
     ["Interested in", lead.productInterest],
     ["Home or business", lead.homeOrBusiness],
+    ["Project stage", lead.projectStage],
+    ["Facility", lead.facilityType],
     ["Budget", lead.budget],
     ["Message", lead.message],
     ["Project", lead.projectDescription],
