@@ -2,7 +2,8 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import { responsive, SIZES } from "@/lib/responsive-image";
 import { faqJsonLd, pageHead } from "@/lib/seo";
 import { cn } from "@/lib/utils";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
+import { specSheets } from "@/components/download-link";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
 import { VyroDifference } from "@/components/vyro-difference";
@@ -125,6 +126,13 @@ function Index() {
                 className="inline-flex items-center justify-center rounded-sm border border-ink-foreground/50 px-7 py-3.5 text-[13px] uppercase tracking-[0.16em] text-ink-foreground transition-colors hover:bg-ink-foreground hover:text-ink"
               >
                 View Products
+              </a>
+              <a
+                href={specSheets.catalogue.href}
+                download
+                className="inline-flex items-center justify-center gap-2 px-2 py-3.5 text-[13px] uppercase tracking-[0.16em] text-ink-foreground underline decoration-bronze underline-offset-8 transition-colors hover:text-bronze"
+              >
+                <Download className="h-4 w-4" aria-hidden /> Download Catalogue
               </a>
             </div>
             <nav aria-label="Our products" className="mt-14 grid grid-cols-1 border-t border-ink-foreground/20 sm:grid-cols-3">
