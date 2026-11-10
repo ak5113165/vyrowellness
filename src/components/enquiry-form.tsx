@@ -61,11 +61,8 @@ export function EnquiryForm({
   const [successName, setSuccessName] = useState("");
   const [successInterest, setSuccessInterest] = useState("");
 
-  // Unmounted qualification fields (home stage vs facility type) drop out of the
-  // payload when the shopper switches between Home and Business.
   const consumerForm = useForm({
     resolver: zodResolver(consumerEnquirySchema),
-    shouldUnregister: true,
     defaultValues: {
       kind: "consumer" as const,
       fullName: "",
@@ -279,7 +276,16 @@ export function EnquiryForm({
         </div>
         <div>
           <Label htmlFor="c-hob">Home or Business</Label>
-          <select id="c-hob" className={selectClass} {...register("homeOrBusiness")}>
+          <select
+            id="c-hob"
+            className={selectClass}
+            {...register("homeOrBusiness")}
+            // Switching the question also clears the answer to the old one.
+            onChange={() => {
+              consumerForm.setValue("homeStage", undefined);
+              consumerForm.setValue("facilityType", undefined);
+            }}
+          >
             <option value="Home">Home</option>
             <option value="Business">Business</option>
           </select>
