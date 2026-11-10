@@ -29,7 +29,7 @@ export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void 
 
   const toggle = (u: "m" | "ft") =>
     cn(
-      "px-3 py-2 text-[11px] uppercase tracking-[0.16em] transition-colors",
+      "px-3 py-2 text-xs uppercase tracking-[0.16em] transition-colors",
       unit === u ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground",
     );
 

@@ -31,7 +31,8 @@ import {
   projectModels,
 } from "@/content/glacier-catalogue";
 
-import heroImg from "@/assets/plunge/glacier-hero.jpg";
+// Header banner: the three launch renders side by side (built from the product images).
+import heroImg from "@/assets/plunge/glacier-launch-range.jpg";
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const launchIso = `${coldPlungeLaunch.year}-${String(coldPlungeLaunch.month).padStart(2, "0")}-${String(coldPlungeLaunch.day).padStart(2, "0")}`;
@@ -115,7 +116,7 @@ const faqs = [
 function StatusBadge({ children, tone = "dark" }: { children: string; tone?: "dark" | "light" }) {
   return (
     <span
-      className={`absolute left-3 top-3 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] ${
+      className={`absolute left-3 top-3 px-2.5 py-1 text-xs uppercase tracking-[0.18em] ${
         tone === "dark" ? "bg-ink text-ink-foreground" : "border border-border bg-background text-muted-foreground"
       }`}
     >
@@ -137,35 +138,36 @@ function ColdPlungePage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main>
-        {/* Collection header */}
-        <section className="relative flex min-h-[60svh] items-end overflow-hidden bg-ink">
-          <img
-            src={heroImg}
-            {...responsive(heroImg, SIZES.fullBleed)}
-            alt="A VYRO Glacier cold plunge tub beside a chilling system in a dark, moody wellness space"
-            width={1920}
-            height={1088}
-            className="absolute inset-0 h-full w-full object-cover"
-            fetchPriority="high"
-          />
-          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink via-ink/55 to-ink/25" />
-          <div className="relative mx-auto w-full max-w-7xl px-5 pb-14 pt-40 lg:px-8">
-            <p className="eyebrow text-bronze">
+      <main id="main">
+        {/* Collection header: the three launch models themselves, on their own cream background */}
+        <section className="bg-[#f8ecde]">
+          <div className="mx-auto max-w-7xl px-5 pt-14 lg:px-8 lg:pt-20">
+            <p className="eyebrow text-bronze-strong">
               VYRO Glacier · Made in {coldPlungeLaunch.madeIn}
             </p>
-            <h1 className="mt-3 font-display text-5xl font-medium text-ink-foreground sm:text-7xl">Cold Plunges</h1>
-            <p className="mt-4 max-w-xl text-ink-foreground/80">
+            <h1 className="mt-3 font-display text-5xl font-medium sm:text-7xl">Cold Plunges</h1>
+            <p className="mt-4 max-w-2xl text-foreground/80">
               Three Glacier plunges launch on {launchLabel}: Barrel, Portable and Acrylic
               {fromPrice ? `, from ${fromPrice} MRP including the 1HP chiller and installation` : ""}. Available first in {cities}.
             </p>
-            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
-              <a href="#launch" className="text-ink-foreground/85 hover:text-ink-foreground">Launch Range</a>
-              <a href="#compare" className="text-ink-foreground/85 hover:text-ink-foreground">Compare</a>
-              <a href="#chillers" className="text-ink-foreground/85 hover:text-ink-foreground">Chillers</a>
-              <a href="#projects" className="text-ink-foreground/85 hover:text-ink-foreground">Project Collection</a>
-              <a href="#enquire" className="text-ink-foreground/85 hover:text-ink-foreground">Register</a>
+            <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
+              <a href="#launch" className="text-foreground/80 hover:text-foreground">Launch Range</a>
+              <a href="#compare" className="text-foreground/80 hover:text-foreground">Compare</a>
+              <a href="#chillers" className="text-foreground/80 hover:text-foreground">Chillers</a>
+              <a href="#projects" className="text-foreground/80 hover:text-foreground">Project Collection</a>
+              <a href="#enquire" className="text-foreground/80 hover:text-foreground">Register</a>
             </div>
+          </div>
+          <div className="mx-auto max-w-7xl px-0 lg:px-8">
+            <img
+              src={heroImg}
+              {...responsive(heroImg, SIZES.contained)}
+              alt="The VYRO Glacier launch range: Glacier Barrel, Glacier Portable and Glacier Acrylic, each with a VYRO chiller"
+              width={2400}
+              height={680}
+              className="mt-6 w-full"
+              fetchPriority="high"
+            />
           </div>
         </section>
 

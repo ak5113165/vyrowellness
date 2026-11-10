@@ -16,17 +16,24 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50">
+      {/* Keyboard users can jump past the navigation straight to the page content. */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-sm focus:bg-ink-foreground focus:px-4 focus:py-2 focus:text-sm focus:text-ink focus:outline focus:outline-2 focus:outline-bronze"
+      >
+        Skip to content
+      </a>
       {/* Announcement bar */}
       <div className="bg-ink px-4 py-2 text-center">
         {site.announcementLink ? (
           <Link
             to={site.announcementLink}
-            className="text-[11px] uppercase tracking-[0.22em] text-ink-foreground/90 transition-colors hover:text-ink-foreground"
+            className="text-xs uppercase tracking-[0.22em] text-ink-foreground/90 transition-colors hover:text-ink-foreground"
           >
             {site.announcement} <span aria-hidden>→</span>
           </Link>
         ) : (
-          <p className="text-[11px] uppercase tracking-[0.22em] text-ink-foreground/90">{site.announcement}</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-ink-foreground/90">{site.announcement}</p>
         )}
       </div>
 
