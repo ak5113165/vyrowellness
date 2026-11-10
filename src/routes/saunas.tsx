@@ -5,6 +5,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
+import { VyroDifference } from "@/components/vyro-difference";
+import { saunaWarrantyFaq } from "@/content/buyer-faqs";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
@@ -83,6 +85,7 @@ const faqs = [
     q: "What do you need from me to plan a sauna?",
     a: "Your floor plan, plus details of the room's electrical layout and ventilation. We review these in a space assessment, then specify dimensions, timber and finishes for your architecture.",
   },
+  saunaWarrantyFaq,
   {
     q: "Do you install saunas everywhere in India?",
     a: `Yes. We install VYRO saunas ${saunaInstallation.label} — our team handles delivery, installation and commissioning, with ongoing support afterwards.`,
@@ -371,6 +374,8 @@ function SaunasPage() {
             ))}
           </ol>
         </section>
+
+        <VyroDifference />
 
         <SpecialistCallout
           interest="Sauna"

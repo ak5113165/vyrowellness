@@ -3,9 +3,11 @@
 // site.ts / the catalogues, so a change there flows through here.
 //
 // Not answered yet (awaiting confirmed terms — do not add until provided):
-// warranty period, cancellation/refund terms, EMI/financing.
+// cold plunge / red light warranty, cancellation/refund terms, EMI/financing.
+// Sauna heater and woodwork warranty + AMC are confirmed (afterSales in site.ts).
 
 import {
+  afterSales,
   coldPlungeLaunch,
   externalChillerLaunch,
   externalChillerSpecs,
@@ -22,6 +24,12 @@ const saunaMaxM = Math.max(...roomSizes.map((r) => r.maxWidthM));
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const wiring = `${externalChillerSpecs.wiringOptionsMm2.join(" mm² or ")} mm²`;
+
+/** Shared by the homepage and Saunas page FAQs. */
+export const saunaWarrantyFaq = {
+  q: "What warranty and after-sales support do you offer?",
+  a: `Every VYRO sauna heater comes with ${afterSales.heaterServiceYears} years of after-sales service: a ${afterSales.heaterComprehensiveWarrantyYears}-year comprehensive warranty, then ${afterSales.heaterSupportYears} years of service support and spare parts (${afterSales.heaterSupportCharges}). Sauna woodwork has a ${afterSales.woodworkWorkmanshipMonths}-month warranty against workmanship defects, subject to warranty conditions. Annual maintenance contracts (AMC) are available for every VYRO product.`,
+};
 
 export const beforeYouBuyFaqs = [
   {
@@ -48,9 +56,10 @@ export const beforeYouBuyFaqs = [
     q: "Can I upgrade the chiller?",
     a: `Yes. Every Glacier launch model comes with the 1HP chiller; you can upgrade to the 2HP for faster cooling for ${formatInr(externalChillerLaunch.upgradePriceInr)} more.`,
   },
+  saunaWarrantyFaq,
   {
     q: "What about care and upkeep?",
-    a: "Our team walks you through everyday use and care at installation, and supports you afterwards.",
+    a: "Our team walks you through everyday use and care at installation, and supports you afterwards. Annual maintenance contracts (AMC) are available for every VYRO product.",
   },
   {
     q: "How quickly will you reply?",

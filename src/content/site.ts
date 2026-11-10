@@ -80,6 +80,38 @@ export const saunaInstallation = { panIndia: true, label: "across India" } as co
 // Confirmed by the founder (11 Nov 2026): Haven saunas are on sale now (cold plunges launch 1 Jan 2027).
 export const saunaAvailability = { availableNow: true, label: "Available now" } as const;
 
+// After-sales commitments — confirmed by the founder (11 Nov 2026).
+// Sauna heaters: 10 years of after-sales service = 1-year comprehensive
+// warranty, then 9 years of service support with spare parts available
+// (parts and labour charged). Sauna woodwork: 6-month warranty against
+// workmanship defects, subject to warranty conditions. AMC on every product.
+// Cold plunge and red light warranty terms are NOT confirmed — don't add them.
+export const afterSales = {
+  heaterServiceYears: 10,
+  heaterComprehensiveWarrantyYears: 1,
+  heaterSupportYears: 9,
+  heaterSupportCharges: "parts and labour charged",
+  woodworkWorkmanshipMonths: 6,
+  amcOnEveryProduct: true,
+} as const;
+
+// The Winter Sale — confirmed by the founder (11 Nov 2026): 40% off MRP on
+// Haven saunas, heaters and accessories, until 31 December 2026. The pop-up
+// hides itself after `endsAt`; set `active: false` to switch it off early.
+export const winterSale = {
+  active: true,
+  name: "The Winter Sale",
+  discountPercent: 40,
+  appliesTo: "Haven sauna cabins, heaters and accessories",
+  endsLabel: "31 December 2026",
+  // End of 31 Dec 2026, India time.
+  endsAt: "2027-01-01T00:00:00+05:30",
+} as const;
+
+export function winterSaleLive(now: number = Date.now()): boolean {
+  return winterSale.active && now < Date.parse(winterSale.endsAt);
+}
+
 // Glacier line-up confirmed by the founder (8 Nov 2026): only these three
 // hero models launch on the coldPlungeLaunch date. Every other Glacier design
 // stays "coming soon" and is offered for custom and premium projects.

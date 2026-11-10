@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section";
+import { VyroDifference } from "@/components/vyro-difference";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
@@ -292,6 +293,9 @@ function Index() {
             </ol>
           </div>
         </section>
+
+        {/* The VYRO Difference: consultants and after-sales */}
+        <VyroDifference />
 
         {/* Before you buy */}
         <FaqSection
