@@ -13,7 +13,7 @@ export const site = {
   // Registered company name (from Zoho Books, 11 Nov 2026).
   legalName: "Vyro Wellness Technologies Private Limited",
   name: "VYRO",
-  tagline: "Wellness, Reimagined.",
+  tagline: "Heat. Cold. Calm.",
   // Used sparingly (e.g. footer / brand story).
   secondaryLine: "Sehat bhi. Shakti bhi. Sukoon bhi.",
   announcement: "VYRO Glacier cold plunges launch 1 January 2027",
