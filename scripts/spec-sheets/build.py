@@ -245,8 +245,8 @@ def glacier(data, out: Path) -> None:
 def haven(data, out: Path) -> None:
     hv = data["haven"]
     note = (
-        f"Standard sizes shown as length × breadth × height; layout confirmed per project. Pricing on request. "
-        f"As of {data['asOf']} — confirm current details on {data['contact']['domain']}."
+        f"Sizes L × B × H. Prices MRP, GST extra; wood upgrades, glass frame finish and installation quoted. "
+        f"As of {data['asOf']} — confirm on {data['contact']['domain']}."
     )
     c = canvas.Canvas(str(out), pagesize=A4)
     c.setTitle("VYRO Haven — Sauna Range Spec Sheet")
@@ -263,7 +263,7 @@ def haven(data, out: Path) -> None:
         c,
         f"Every Haven cabin is crafted in {hv['standardWood'].lower()} as standard, with {len(upgrades)} wood upgrades, "
         f"{len(hv['heaters'])} Ember heaters, {len(hv['controlPanels'])} Pulse control panels and "
-        f"{len(hv['accessorySets'])} Ritual accessory sets.",
+        f"{len(hv['accessorySets'])} Ritual accessory sets. Haven Infrared and Haven Compact are heated by infrared panels.",
         M, y - 6, 420, style(size=9.5, color=MUTED),
     )
 
@@ -281,18 +281,20 @@ def haven(data, out: Path) -> None:
         lows.append(yy)
     y = min(lows) - 20
 
-    eyebrow(c, "Sizes", M, y)
-    rows = [["Size", "Haven Classic & Glass (L × B × H)", "Capacity"]] + [
-        [s["name"], s["dims"].replace(" (L × B × H)", ""), s["people"]] for s in hv["roomSizes"]
-    ]
-    y = table(c, rows, M, y - 8, [90, 220, W - 2 * M - 310]) - 20
-
     eyebrow(c, "Models", M, y)
-    rows = [["Model", "Size (L × B × H)", "Seats", "Description"]] + [
-        [f"{m['name']} {m['code']}", f"{m['dimsShort']}<br/><font color='#5F5A54'>({m['dimsMetric']})</font>", m["people"], m["copy"]]
+    rows = [["Model", "Size (L × B × H)", "Seats", "Description", "MRP (GST extra)"]] + [
+        [
+            f"{m['name']} {m['code']}",
+            f"{m['dimsShort']}<br/><font color='#5F5A54'>({m['dimsMetric']})</font>",
+            m["people"],
+            m["copy"],
+            m["priceLabel"] + (f"<br/><font color='#5F5A54'>+ IR panels {m['panelsLabel']}</font>" if m.get("panelsLabel") else ""),
+        ]
         for m in hv["models"]
     ]
-    table(c, rows, M, y - 8, [92, 128, 58, W - 2 * M - 278], size=7.5)
+    y = table(c, rows, M, y - 8, [86, 112, 54, W - 2 * M - 352, 100], size=7.5)
+    para(c, "Haven Glass prices include the glass work; frame in matte black, glossy black or stainless steel (price may vary by finish).",
+         M, y - 6, W - 2 * M, style(size=7, color=MUTED))
     footer(c, data, 1, 2, note)
     c.showPage()
 
@@ -308,16 +310,19 @@ def haven(data, out: Path) -> None:
     yl = table(c, rows, M, y - 8, [62, 46, half - 108], size=7.5)
 
     eyebrow(c, "Ember heaters", M + half + 20, y)
-    rows = [["Heater", "Type", "Description"]] + [[h["name"], h["kind"], h["copy"]] for h in hv["heaters"]]
-    yr = table(c, rows, M + half + 20, y - 8, [50, 76, half - 126], size=7.5)
+    rows = [["Heater", "Type", "Price (MRP)"]] + [
+        [h["name"], h["kind"], h["priceLabel"] + (f"<br/><font color='#5F5A54' size='6.5'>{h['optionsLabel']}</font>" if h.get("optionsLabel") else "")]
+        for h in hv["heaters"]
+    ]
+    yr = table(c, rows, M + half + 20, y - 8, [50, 70, half - 120], size=7.5)
     y = min(yl, yr) - 22
 
     eyebrow(c, "Pulse control panels", M, y)
-    rows = [["Panel", "Type", "Description"]] + [[p["name"], p["kind"], p["copy"]] for p in hv["controlPanels"]]
-    yl = table(c, rows, M, y - 8, [60, 60, half - 120], size=7.5)
+    rows = [["Panel", "Type", "Description", "MRP"]] + [[p["name"], p["kind"], p["copy"], p["priceLabel"]] for p in hv["controlPanels"]]
+    yl = table(c, rows, M, y - 8, [52, 54, half - 166, 60], size=7.5)
     eyebrow(c, "Ritual accessory sets", M + half + 20, y)
-    rows = [["Set", "Finish", "Includes"]] + [[a["name"], a["finish"], a["copy"]] for a in hv["accessorySets"]]
-    yr = table(c, rows, M + half + 20, y - 8, [62, 56, half - 118], size=7.5)
+    rows = [["Set", "Finish", "Includes", "MRP"]] + [[a["name"], a["finish"], a["copy"], a["priceLabel"]] for a in hv["accessorySets"]]
+    yr = table(c, rows, M + half + 20, y - 8, [58, 50, half - 158, 50], size=7.5)
     y = min(yl, yr) - 24
 
     eyebrow(c, "How it comes together", M, y)

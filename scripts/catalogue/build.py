@@ -410,7 +410,8 @@ def haven_glance(b: Book):
         render(c, t["image"], x, top - cw, cw, cw)
         eyebrow(c, t["series"], x, top - cw - 16)
         yy = para(c, t["name"], x, top - cw - 20, cw, style("Display", 14, 17))
-        para(c, t["short"], x, yy - 3, cw, style("Body", 7.6, 11, MUTED))
+        yy = para(c, t["short"], x, yy - 3, cw, style("Body", 7.6, 11, MUTED))
+        para(c, series_price(d, t), x, yy - 5, cw, style("BodyMed", 7.8, 11, INK))
     # Size guide on the right of the title
     rows = [["Cabin", "Size (L × B × H)", "Seats"]] + [
         [f"Classic & Glass — {s['name']}", s["dims"].replace(" (L × B × H)", ""), s["people"]] for s in d["roomSizes"]
@@ -418,6 +419,15 @@ def haven_glance(b: Book):
     eyebrow(c, "Size Guide", W / 2 + 20, H - 80)
     y_t = table(c, rows, W / 2 + 20, H - 88, [150, 120, 90])
     para(c, "Standard sizes. Every cabin is 7 ft tall; your consultant confirms the layout for your space.", W / 2 + 20, y_t - 8, 350, style("Body", 7, 10, MUTED))
+
+
+def series_price(d, t) -> str:
+    """'From ₹1,86,999 + GST' for a series with several sizes; the full label for a single cabin."""
+    models = [m for m in d["models"] if m["type"] == t["id"]]
+    if len(models) == 1:
+        return models[0]["cabinPriceLabel"]
+    low = min(models, key=lambda m: m["priceInr"])
+    return f"From {low['priceLabel']} + GST"
 
 
 def series_page(b: Book, type_id: str, name_key: str, bullets_list):
@@ -447,10 +457,12 @@ def series_page(b: Book, type_id: str, name_key: str, bullets_list):
         c.setFillColor(INK)
         c.drawString(mx, y - mw - 12, f"{m['code']}  ·  {m['size']}")
     y = y - mw - 26
-    rows = [["Model", "Size", "L × B × H", "Seats"]] + [
-        [m["code"], m["size"], f"{m['dimsShort']} ({m['dimsMetric']})", m["people"]] for m in models
+    rows = [["Model", "Size", "L × B × H", "Seats", "MRP"]] + [
+        [m["code"], m["size"], f"{m['dimsShort']} ({m['dimsMetric']})", m["people"], m["priceLabel"]] for m in models
     ]
-    table(c, rows, x, y, [52, 52, tw - 52 - 52 - 72, 72])
+    y = table(c, rows, x, y, [44, 46, tw - 44 - 46 - 66 - 64, 66, 64])
+    extra = " Price includes the glass work; frame in matte black, glossy black or stainless steel (price may vary by finish)." if type_id == "glass-front" else ""
+    para(c, f"Cabin MRP in {d['standardWood'].lower()}, GST extra.{extra} Heater, control panel and accessories are chosen separately.", x, y - 6, tw, style("Body", 7, 10, MUTED))
 
 
 def series_pair(b: Book):
@@ -475,11 +487,14 @@ def series_pair(b: Book):
         y = para(c, m["copy"], x, y, half, style("Display", 12, 16))
         extra = {
             "infrared": ["Infrared panels instead of a heater and stones", "Black-framed glass door", "Gentle warmth at lower air temperatures"],
-            "compact": ["Space-saving footprint for apartments", "Glass door with a clean timber front", "Heater tucked neatly out of sight"],
+            "compact": ["Space-saving footprint for apartments", "Glass door with a clean timber front", "Infrared panels — no heater or stones to fit"],
         }[tid]
         y = bullets(c, extra, x, y - 8, half, size=8.6)
         rows = [["Model", "Size", "L × B × H", "Seats"], [m["code"], m["size"], f"{m['dimsShort']} ({m['dimsMetric']})", m["people"]]]
-        table(c, rows, x, y - 10, [48, 48, half - 48 - 48 - 70, 70], size=8)
+        y = table(c, rows, x, y - 10, [48, 48, half - 48 - 48 - 70, 70], size=8)
+        rows = [["Price (MRP)", ""], ["Cabin (spruce)", m["priceLabel"]], [f"Infrared panels", m["panelsLabel"] or ""]]
+        y = table(c, rows, x, y - 8, [half - 120, 120], size=8)
+        para(c, "GST extra. Add a Pulse control panel; no heater or accessory set needed.", x, y - 6, half, style("Body", 7, 10, MUTED))
 
 
 def woods_page(b: Book):
@@ -519,7 +534,7 @@ def heaters_page(b: Book):
     PAGES["Ember Sauna Heaters"] = b.page
     b.chrome("Saunas", "Ember Heaters")
     title(c, M, H - 82, "Ember", "Sauna Heaters", 260, 34)
-    para(c, "Floor-standing, tower and wall-mounted heaters in stainless steel or matte black. Your consultant matches the heater to your cabin and room.",
+    para(c, "Floor-standing, tower and wall-mounted heaters in stainless steel or matte black. Your consultant matches the heater and its power rating to your cabin and room. Prices are MRP, GST extra.",
          M, H - 165, 240, style("Body", 9, 14, MUTED))
     a = b.d["afterSales"]
     c.setFillColor(CREAM)
@@ -538,7 +553,10 @@ def heaters_page(b: Book):
         render(c, h["image"], x, top - img, cw, img)
         eyebrow(c, h["kind"], x, top - img - 13)
         yy = para(c, f"{h['name']}  <font name='Body' size='8' color='#8C6A3F'>{h['finish'].capitalize()}</font>", x, top - img - 17, cw, style("Display", 12.5, 15))
-        para(c, h["copy"], x, yy - 2, cw, style("Body", 7.8, 11, MUTED))
+        yy = para(c, h["copy"], x, yy - 2, cw, style("Body", 7.8, 11, MUTED))
+        yy = para(c, h["priceLabel"], x, yy - 3, cw, style("BodyMed", 7.8, 11, INK if h["inStock"] else MUTED))
+        if h.get("optionsLabel"):
+            para(c, h["optionsLabel"], x, yy - 1, cw, style("Body", 6.6, 9, MUTED))
 
 
 def controls_accessories(b: Book):
@@ -561,7 +579,8 @@ def controls_accessories(b: Book):
         tx = x + img + 14
         eyebrow(c, p["kind"], tx, top - 30)
         yy = para(c, p["name"], tx, top - 36, cw - img - 14, style("Display", 14, 17))
-        para(c, p["copy"], tx, yy - 4, cw - img - 14, style("Body", 8, 11.6, MUTED))
+        yy = para(c, p["copy"], tx, yy - 4, cw - img - 14, style("Body", 8, 11.6, MUTED))
+        para(c, f"{p['priceLabel']} + GST", tx, yy - 4, cw - img - 14, style("BodyMed", 8.4, 12, INK if p["inStock"] else MUTED))
     # Row 2: Ritual accessory sets
     top2 = top - img - 34
     c.setStrokeColor(RULE)
@@ -577,7 +596,8 @@ def controls_accessories(b: Book):
         render(c, a["image"], x, top2 - img, cw, img)
         eyebrow(c, a["finish"], x, top2 - img - 13)
         yy = para(c, a["name"], x, top2 - img - 17, cw, style("Display", 12, 15))
-        para(c, a["copy"], x, yy - 2, cw, style("Body", 7.4, 10.4, MUTED))
+        yy = para(c, a["copy"], x, yy - 2, cw, style("Body", 7.4, 10.4, MUTED))
+        para(c, f"{a['priceLabel']} + GST", x, yy - 3, cw, style("BodyMed", 7.8, 11, INK))
 
 
 def glacier_opener(b: Book):
