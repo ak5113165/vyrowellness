@@ -199,8 +199,8 @@ export function Sauna3DDialog({
               ))}
             </dl>
             <DialogPrimitive.Description className="mt-6 text-xs leading-relaxed text-muted-foreground">
-              An illustrative preview, not to scale. Your consultant confirms exact dimensions, layout and finishes
-              for your space in your quote.
+              Shown at the cabin's standard size; benches, heater placement and other details are illustrative. Your
+              consultant confirms the layout and finishes for your space in your quote.
             </DialogPrimitive.Description>
             <div className="mt-6 space-y-3 lg:mt-auto">
               <button

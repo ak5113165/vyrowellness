@@ -15,7 +15,7 @@ import {
   site,
 } from "@/content/site";
 import { formatInr, launchLabel, launchModels, launchPrice, upgradePrice } from "@/content/glacier-catalogue";
-import { heaters, roomSizes, roomTypes, standardWood, widthLabel, woods } from "@/content/sauna-catalogue";
+import { heaters, modelSize, roomTypes, saunaModels, standardWood, woods } from "@/content/sauna-catalogue";
 import saunaInterior from "@/assets/sauna.jpg";
 import stillLife from "@/assets/still-life.jpg";
 import plungeHero from "@/assets/plunge/glacier-hero.jpg";
@@ -76,12 +76,12 @@ const chooseSauna: Guide = {
     { type: "h2", text: "2. Choose the size" },
     {
       type: "p",
-      text: "Think about how many people will usually use it together, and how much floor space the room can give up. These are indicative sizes; your consultant confirms the exact dimensions for your space.",
+      text: "Think about how many people will usually use it together, and how much floor space the room can give up. These are our standard sizes, as width × depth × height; every cabin is 7 ft tall, so check your ceiling height too.",
     },
     {
       type: "table",
-      head: ["Size", "Width (approx.)", "Seats"],
-      rows: roomSizes.map((s) => [s.name, widthLabel(s).replace("Approx. ", ""), s.people]),
+      head: ["Cabin", "Size (W × D × H)", "Seats"],
+      rows: saunaModels.map((m) => [`${m.name} ${m.code}`, modelSize(m).dimsShort, modelSize(m).people]),
     },
     {
       type: "p",

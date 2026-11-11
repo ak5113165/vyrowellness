@@ -21,7 +21,7 @@ import {
 } from "@/content/site";
 import { consultationSteps } from "@/content/process";
 import { launchLabel } from "@/content/glacier-catalogue";
-import { metresToFeet, roomSizes } from "@/content/sauna-catalogue";
+import { dimsFtLabel, roomSizes } from "@/content/sauna-catalogue";
 
 import hospitalityImage from "@/assets/hospitality.jpg";
 // The VYRO spruce sauna (replaces a gym photo showing a concrete plunge VYRO does not sell).
@@ -49,8 +49,6 @@ export const Route = createFileRoute("/commercial-wellness")({
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const wiring = `${externalChillerSpecs.wiringOptionsMm2.join(" or ")} mm²`;
-const saunaMinM = Math.min(...roomSizes.map((r) => r.minWidthM));
-const saunaMaxM = Math.max(...roomSizes.map((r) => r.maxWidthM));
 
 // What VYRO can specify for a commercial project — only products and facts
 // already confirmed elsewhere on the site.
@@ -89,7 +87,7 @@ const offer = [
 const planningFacts = [
   {
     label: "Haven sauna cabins",
-    value: `Indicative widths from approx. ${metresToFeet(saunaMinM)} to ${metresToFeet(saunaMaxM)} ft (${saunaMinM}–${saunaMaxM} m); final dimensions confirmed per project.`,
+    value: `Standard sizes (W × D × H): ${roomSizes.map((r) => `${r.name} ${dimsFtLabel(r.dimsFt)}`).join(", ")}; layout confirmed per project.`,
   },
   {
     label: "Glacier cold plunge tubs",

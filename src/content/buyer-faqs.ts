@@ -17,10 +17,10 @@ import {
   site,
 } from "@/content/site";
 import { formatInr, fromPrice, launchLabel } from "@/content/glacier-catalogue";
-import { metresToFeet, roomSizes } from "@/content/sauna-catalogue";
+import { dimsFtLabel, roomSizes, saunaModels } from "@/content/sauna-catalogue";
 
-const saunaMinM = Math.min(...roomSizes.map((r) => r.minWidthM));
-const saunaMaxM = Math.max(...roomSizes.map((r) => r.maxWidthM));
+const byCode = (code: string) => dimsFtLabel(saunaModels.find((m) => m.code === code)!.dimsFt);
+const saunaSizes = `${roomSizes.map((r) => `${r.name} ${dimsFtLabel(r.dimsFt)}`).join(", ")} for Haven Classic and Haven Glass; ${byCode("IR-01")} for Haven Infrared and ${byCode("C-01")} for Haven Compact`;
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const wiring = `${externalChillerSpecs.wiringOptionsMm2.join(" mm² or ")} mm²`;
@@ -50,7 +50,7 @@ export const beforeYouBuyFaqs = [
   },
   {
     q: "How much space does each product take?",
-    a: `Haven sauna cabins are approx. ${metresToFeet(saunaMinM)} to ${metresToFeet(saunaMaxM)} ft wide (${saunaMinM}–${saunaMaxM} m) depending on size. Glacier Barrel is ${glacierDimensions["Glacier Barrel"].replace(" · ", ", ")}; Glacier Portable and Acrylic are ${glacierDimensions["Glacier Acrylic"].replace(" · ", ", ")}, holding ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres across the range.`,
+    a: `Haven sauna cabins come in standard sizes (width × depth × height): ${saunaSizes}. Glacier Barrel is ${glacierDimensions["Glacier Barrel"].replace(" · ", ", ")}; Glacier Portable and Acrylic are ${glacierDimensions["Glacier Acrylic"].replace(" · ", ", ")}, holding ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres across the range.`,
   },
   {
     q: "Can I upgrade the chiller?",

@@ -128,12 +128,6 @@ def table(c, rows, x, y_top, col_widths, header=True, size=8) -> float:
     return y_top - h
 
 
-def two_line_width(label: str) -> str:
-    """'Approx. 3.9–4.9 ft wide (1.2–1.5 m)' -> feet on one line, metres below."""
-    feet, _, metric = label.replace("Approx. ", "approx. ").partition(" (")
-    return f"{feet}<br/><font color='#5F5A54'>({metric}</font>" if metric else feet
-
-
 # -------------------------------------------------------------- glacier ----
 def glacier(data, out: Path) -> None:
     g = data["glacier"]
@@ -251,7 +245,7 @@ def glacier(data, out: Path) -> None:
 def haven(data, out: Path) -> None:
     hv = data["haven"]
     note = (
-        f"Sizes are indicative; final dimensions are confirmed per project. Pricing on request. "
+        f"Standard sizes shown as width × depth × height; layout confirmed per project. Pricing on request. "
         f"As of {data['asOf']} — confirm current details on {data['contact']['domain']}."
     )
     c = canvas.Canvas(str(out), pagesize=A4)
@@ -288,14 +282,14 @@ def haven(data, out: Path) -> None:
     y = min(lows) - 20
 
     eyebrow(c, "Sizes", M, y)
-    rows = [["Size", "Indicative width", "Capacity"]] + [
-        [s["name"], s["width"].replace("Approx. ", "approx. "), s["people"]] for s in hv["roomSizes"]
+    rows = [["Size", "Haven Classic & Glass (W × D × H)", "Capacity"]] + [
+        [s["name"], s["dims"].replace(" (W × D × H)", ""), s["people"]] for s in hv["roomSizes"]
     ]
     y = table(c, rows, M, y - 8, [90, 220, W - 2 * M - 310]) - 20
 
     eyebrow(c, "Models", M, y)
-    rows = [["Model", "Indicative width", "Seats", "Description"]] + [
-        [f"{m['name']} {m['code']}", two_line_width(m["width"]), m["people"], m["copy"]]
+    rows = [["Model", "Size (W × D × H)", "Seats", "Description"]] + [
+        [f"{m['name']} {m['code']}", f"{m['dimsShort']}<br/><font color='#5F5A54'>({m['dimsMetric']})</font>", m["people"], m["copy"]]
         for m in hv["models"]
     ]
     table(c, rows, M, y - 8, [92, 128, 58, W - 2 * M - 278], size=7.5)

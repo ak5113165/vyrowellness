@@ -2,9 +2,9 @@
 // (no WebGL library needed). Pure data in, boxes and face styles out, so the
 // geometry can be tested without a browser.
 //
-// IMPORTANT: proportions are illustrative only. Per-cabin dimensions aren't
-// confirmed yet; widths follow the midpoint of each size group in
-// sauna-catalogue.ts. Never show these numbers to visitors as dimensions.
+// The cabin's outer size comes from its confirmed standard dimensions
+// (sauna-catalogue.ts, feet). Interior details — benches, heater placement,
+// door position — are illustrative.
 //
 // Coordinates are in centimetres: x across the front (0 = centre), y up from
 // the floor, z front-to-back (0 = centre, +z = the front).
@@ -21,6 +21,8 @@ export type SaunaConfig = {
   heater: { kind: HeaterKind; finish: Finish } | null;
   panel: "Button Control" | "Touch Control" | null;
   accessories: { name: string; finish: string }[];
+  /** The cabin's standard size in feet (W × D × H). */
+  dimsFt: { w: number; d: number; h: number };
 };
 
 /** Parts a cut-away view removes so you can see inside. */
@@ -70,15 +72,11 @@ const STAINLESS = "#b9bdc1";
 const BRONZE = "#b08a55";
 const T = 6; // wall thickness
 
-// Width = midpoint of each size group's range (1.2–1.5 m, 1.4–1.9 m, 1.9–2.2 m).
-const widthBySize: Record<SaunaSize, number> = { Small: 135, Medium: 165, Large: 205 };
+const FT_CM = 30.48;
 
-export function cabinDims(cfg: Pick<SaunaConfig, "series" | "size">): { w: number; d: number; h: number } {
-  if (cfg.series === "compact") return { w: 120, d: 105, h: 200 };
-  if (cfg.series === "infrared") return { w: 130, d: 105, h: 195 };
-  const w = widthBySize[cfg.size];
-  if (cfg.series === "glass-front") return { w, d: Math.round(w * 0.78), h: 210 };
-  return { w, d: Math.round(w * 0.92), h: 210 };
+/** Outer size of the cabin in centimetres, from its standard size in feet. */
+export function cabinDims(cfg: Pick<SaunaConfig, "dimsFt">): { w: number; d: number; h: number } {
+  return { w: cfg.dimsFt.w * FT_CM, d: cfg.dimsFt.d * FT_CM, h: cfg.dimsFt.h * FT_CM };
 }
 
 /** Darken (f < 1) or lighten (f > 1) a #rrggbb colour. */
