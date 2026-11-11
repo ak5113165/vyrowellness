@@ -31,8 +31,8 @@ import {
   projectModels,
 } from "@/content/glacier-catalogue";
 
-// Header banner: the three launch renders side by side (built from the product images).
-import heroImg from "@/assets/plunge/glacier-acrylic-1hp.jpg";
+// Cinematic Glacier Acrylic installation; replace with real lifestyle photography when available.
+import heroImg from "@/assets/plunge/glacier-hero.jpg";
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const launchIso = `${coldPlungeLaunch.year}-${String(coldPlungeLaunch.month).padStart(2, "0")}-${String(coldPlungeLaunch.day).padStart(2, "0")}`;
