@@ -1,6 +1,6 @@
 // Turns a Build Your Sauna selection into a 3D preview configuration.
 
-import { accessorySets, controlPanels, heaters, saunaModels } from "@/content/sauna-catalogue";
+import { accessorySets, controlPanels, heaters, saunaModels, type GlassFrameFinish } from "@/content/sauna-catalogue";
 import type { HeaterKind, SaunaConfig } from "@/lib/sauna-3d";
 
 const heaterKinds: HeaterKind[] = ["Floor Heater", "Tower Heater", "Wall-Mounted Heater"];
@@ -11,6 +11,7 @@ export type BuilderSelection = {
   heater: string | null;
   panel: string | null;
   accessories: string[];
+  glassFrame?: GlassFrameFinish | null;
 };
 
 export function saunaConfigFromSelection(sel: BuilderSelection): SaunaConfig | null {
@@ -29,5 +30,6 @@ export function saunaConfigFromSelection(sel: BuilderSelection): SaunaConfig | n
     accessories: accessorySets
       .filter((a) => sel.accessories.includes(a.name))
       .map((a) => ({ name: a.name, finish: a.finish })),
+    ...(model.type === "glass-front" && sel.glassFrame ? { glassFrame: sel.glassFrame } : {}),
   };
 }

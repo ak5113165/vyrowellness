@@ -22,10 +22,14 @@ import {
   projectModels,
   upgradePrice,
 } from "@/content/glacier-catalogue";
+import { formatInr } from "@/lib/format-inr";
 import {
   accessorySets,
+  cabinPriceLabel,
   controlPanels,
+  heaterPriceLabel,
   heaters,
+  isInfraredCabin,
   modelSize,
   roomSizes,
   roomTypes,
@@ -46,7 +50,8 @@ import redLight from "@/assets/red-light.jpg";
 import stillLife from "@/assets/still-life.jpg";
 
 const data = {
-  asOf: new Date().toISOString().slice(0, 10),
+  // India date (UTC + 5:30), so a late-evening build is dated correctly.
+  asOf: new Date(Date.now() + 5.5 * 3600_000).toISOString().slice(0, 10),
   photos: { saunaHero, saunaInterior, hospitality, studio, redLight, stillLife, launchRange },
   contact: {
     domain: site.domain,
@@ -77,11 +82,23 @@ const data = {
     standardWood,
     roomTypes,
     roomSizes: roomSizes.map((s) => ({ ...s, dims: sizeLabel(s) })),
-    models: saunaModels.map((m) => ({ ...m, ...modelSize(m) })),
+    models: saunaModels.map((m) => ({
+      ...m,
+      ...modelSize(m),
+      infrared: isInfraredCabin(m),
+      priceLabel: formatInr(m.priceInr),
+      cabinPriceLabel: cabinPriceLabel(m),
+      panelsLabel: m.infraredPanels ? `${m.infraredPanels.kw} kW · ${formatInr(m.infraredPanels.priceInr)}` : null,
+    })),
     woods: woods.map((w) => ({ ...w, colour: woodColours[w.name] })),
-    heaters,
-    controlPanels,
-    accessorySets,
+    heaters: heaters.map((h) => ({
+      ...h,
+      priceLabel: heaterPriceLabel(h),
+      optionsLabel: (h.options ?? []).map((o) => `${o.kw} kW ${formatInr(o.priceInr)}`).join("  ·  "),
+    })),
+    controlPanels: controlPanels.map((p) => ({ ...p, priceLabel: `${p.inStock ? "" : "Out of stock · "}${formatInr(p.priceInr)}` })),
+    accessorySets: accessorySets.map((a) => ({ ...a, priceLabel: formatInr(a.priceInr) })),
+    pricesNote: "Prices are MRP in INR, GST extra. Wood upgrades, the Haven Glass frame finish and installation & commissioning are quoted for your space.",
     steps: consultationSteps,
   },
 };

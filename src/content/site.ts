@@ -137,9 +137,9 @@ export const gstNote = "GST extra";
 // externalChillerLaunch.upgradePriceInr). A null priceInr shows "Price on request".
 // After changing prices or specs, rebuild the PDF spec sheets (scripts/spec-sheets).
 export const glacierLaunchPricing: Record<GlacierLaunchModel, { priceInr: number | null; note: string | null }> = {
-  "Glacier Barrel": { priceInr: 218000, note: "Includes 1HP chiller and installation · GST extra" },
-  "Glacier Portable": { priceInr: 325000, note: "Includes 1HP chiller and installation · GST extra" },
-  "Glacier Acrylic": { priceInr: 378000, note: "Includes 1HP chiller and installation · GST extra" },
+  "Glacier Barrel": { priceInr: 217999, note: "Includes 1HP chiller and installation · GST extra" },
+  "Glacier Portable": { priceInr: 324999, note: "Includes 1HP chiller and installation · GST extra" },
+  "Glacier Acrylic": { priceInr: 377999, note: "Includes 1HP chiller and installation · GST extra" },
 };
 
 // Glacier sizes confirmed by the founder (8 Nov 2026).
@@ -159,8 +159,8 @@ export const externalChillerLaunch = {
   includedWithLaunchModels: 1,
   upgradeOption: 2,
   // Price to upgrade a launch model from the included 1HP to the 2HP chiller.
-  upgradePriceInr: 120000,
-  standaloneMrpInr: { 1: 178000, 2: 298000 },
+  upgradePriceInr: 119999,
+  standaloneMrpInr: { 1: 177999, 2: 297999 },
 } as const;
 
 // External chilling systems only; do not extend these ratings to built-in cooling.

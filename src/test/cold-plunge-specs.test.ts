@@ -82,9 +82,9 @@ describe("Glacier launch line-up", () => {
 
 describe("Confirmed Glacier pricing and sizes", () => {
   it("uses the confirmed MRPs, each with the 1HP chiller", () => {
-    expect(glacierLaunchPricing["Glacier Barrel"].priceInr).toBe(218000);
-    expect(glacierLaunchPricing["Glacier Portable"].priceInr).toBe(325000);
-    expect(glacierLaunchPricing["Glacier Acrylic"].priceInr).toBe(378000);
+    expect(glacierLaunchPricing["Glacier Barrel"].priceInr).toBe(217999);
+    expect(glacierLaunchPricing["Glacier Portable"].priceInr).toBe(324999);
+    expect(glacierLaunchPricing["Glacier Acrylic"].priceInr).toBe(377999);
     expect(externalChillerLaunch.includedWithLaunchModels).toBe(1);
     expect(externalChillerLaunch.upgradeOption).toBe(2);
   });
@@ -93,21 +93,21 @@ describe("Confirmed Glacier pricing and sizes", () => {
       expect(glacierLaunchPricing[name].note).toBe("Includes 1HP chiller and installation · GST extra");
     }
   });
-  it("prices the 2HP upgrade at ₹1,20,000", () => {
-    expect(externalChillerLaunch.upgradePriceInr).toBe(120000);
-    expect(upgradePrice).toBe("+₹1,20,000");
+  it("prices the 2HP upgrade at ₹1,19,999", () => {
+    expect(externalChillerLaunch.upgradePriceInr).toBe(119999);
+    expect(upgradePrice).toBe("+₹1,19,999");
   });
   it("states water capacity as a 250–350 L range", () => {
     expect(glacierWaterCapacityLitres).toEqual({ min: 250, max: 350 });
     expect(waterCapacity).toBe("250–350 L");
   });
   it("formats prices in Indian notation", () => {
-    expect(launchPrice("Glacier Barrel").display).toBe("₹2,18,000");
-    expect(fromPrice).toBe("₹2,18,000");
+    expect(launchPrice("Glacier Barrel").display).toBe("₹2,17,999");
+    expect(fromPrice).toBe("₹2,17,999");
   });
   it("uses the confirmed chiller-only MRPs and launches chillers with the tubs", () => {
-    expect(externalChillerLaunch.standaloneMrpInr).toEqual({ 1: 178000, 2: 298000 });
-    expect(chillers.map((c) => c.mrpInr)).toEqual([178000, 298000]);
+    expect(externalChillerLaunch.standaloneMrpInr).toEqual({ 1: 177999, 2: 297999 });
+    expect(chillers.map((c) => c.mrpInr)).toEqual([177999, 297999]);
     expect(externalChillerLaunch.launchesWithTubs).toBe(true);
   });
   it("uses the confirmed sizes", () => {

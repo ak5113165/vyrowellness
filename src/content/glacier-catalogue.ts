@@ -9,6 +9,7 @@
 // display reads 3°C, matching the confirmed minimum. Replace with real
 // photography before launch (see the photography brief).
 
+import { formatInr } from "@/lib/format-inr";
 import barrelImg from "@/assets/plunge/glacier-inflatable.jpg";
 import portableImg from "@/assets/plunge/glacier-portable.jpg";
 import acrylicImg from "@/assets/plunge/glacier-acrylic-1hp.jpg";
@@ -33,13 +34,7 @@ const minTemp = `Down to ${externalChillerSpecs.minimumTemperatureC}°C`;
 const power = `${externalChillerSpecs.electricalPhase} supply`;
 const cooling = `${externalChillerLaunch.includedWithLaunchModels}HP chiller included · ${externalChillerLaunch.upgradeOption}HP upgrade`;
 
-export function formatInr(amount: number): string {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  }).format(amount);
-}
+export { formatInr };
 
 export type LaunchModel = {
   name: GlacierLaunchModel;
@@ -128,13 +123,13 @@ export function launchPrice(name: GlacierLaunchModel): { display: string; note: 
 
 export const launchLabel = coldPlungeLaunch.label;
 
-/** "+₹1,20,000" — price to upgrade from the included 1HP to the 2HP chiller. */
+/** "+₹1,19,999" — price to upgrade from the included 1HP to the 2HP chiller. */
 export const upgradePrice = `+${formatInr(externalChillerLaunch.upgradePriceInr)}`;
 
 /** "250–350 L" — water capacity across the launch range. */
 export const waterCapacity = `${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} L`;
 
-/** Lowest confirmed launch MRP, formatted ("₹2,18,000"), or null if none is set. */
+/** Lowest confirmed launch MRP, formatted ("₹2,17,999"), or null if none is set. */
 export const fromPrice: string | null = (() => {
   const prices = Object.values(glacierLaunchPricing).flatMap((p) => (p.priceInr === null ? [] : [p.priceInr]));
   return prices.length ? formatInr(Math.min(...prices)) : null;

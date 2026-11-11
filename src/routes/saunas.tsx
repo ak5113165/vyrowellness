@@ -11,7 +11,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { saunaAvailability, saunaInstallation, site, whatsappLink } from "@/content/site";
+import { saunaAvailability, saunaInstallation, site, whatsappLink, winterSale, winterSaleLive } from "@/content/site";
+import { formatInr } from "@/lib/format-inr";
 import { consultationSteps } from "@/content/process";
 import { SpecialistCallout } from "@/components/specialist-callout";
 import { CabinFitFinder } from "@/components/cabin-fit-finder";
@@ -22,9 +23,16 @@ import { DownloadLink } from "@/components/download-link";
 import saunaInteriorImage from "@/assets/sauna.jpg";
 import {
   accessorySets,
+  cabinPriceLabel,
   controlPanels,
+  glassFrameFinishes,
+  heaterFromPrice,
+  heaterPriceLabel,
   heaters,
+  isInfraredCabin,
   modelSize,
+  saunaEstimate,
+  seriesFromPrice,
   roomSizes,
   roomTypes,
   dimsFtLabel,
@@ -34,6 +42,7 @@ import {
   seriesSlug,
   standardWood,
   woods,
+  type GlassFrameFinish,
   type RoomType,
 } from "@/content/sauna-catalogue";
 
@@ -66,6 +75,14 @@ export const Route = createFileRoute("/saunas")({
 const sizeItems = roomSizes.map((r) => `${r.name} ${dimsFtLabel(r.dimsFt)} (${r.people})`);
 const sizeSummary = `${sizeItems.slice(0, -1).join(", ")} and ${sizeItems.at(-1)}`;
 const upgradeWoods = woods.filter((w) => !w.standard).map((w) => w.name);
+const byCode = (code: string) => saunaModels.find((m) => m.code === code)!;
+const seriesFrom = (id: RoomType["id"]) => formatInr(seriesFromPrice(roomTypes.find((t) => t.id === id)!) ?? 0);
+const stockedHeaters = heaters.filter((h) => h.inStock);
+const heaterFrom = formatInr(Math.min(...stockedHeaters.map((h) => heaterFromPrice(h) ?? Infinity)));
+const kwRange = [...new Set(stockedHeaters.flatMap((h) => (h.options ?? []).map((o) => o.kw)))].sort((a, b) => a - b);
+const kwText = `${kwRange.slice(0, -1).join(", ")} and ${kwRange.at(-1)} kW`;
+const stockedPanel = controlPanels.find((c) => c.inStock)!;
+const accessoryFrom = formatInr(Math.min(...accessorySets.map((a) => a.priceInr)));
 
 const faqs = [
   {
@@ -74,7 +91,7 @@ const faqs = [
   },
   {
     q: "What's the difference between a traditional and an infrared sauna?",
-    a: "Haven Infrared uses infrared panels that warm the body with gentle radiant heat at lower air temperatures — a calm, simple option for everyday sessions. Our other Haven cabins are heated by an Ember sauna heater and stones, in floor-standing, tower or wall-mounted designs.",
+    a: "Haven Infrared and Haven Compact use infrared panels that warm the body with gentle radiant heat at lower air temperatures — a calm, simple option for everyday sessions, with no heater, stones or accessory set needed. Haven Classic and Haven Glass are traditional saunas, heated by an Ember sauna heater and stones.",
   },
   {
     q: "Which wood should I choose?",
@@ -82,7 +99,7 @@ const faqs = [
   },
   {
     q: "Which heater and control panel do I need?",
-    a: `There are ${heaters.length} Ember heaters in floor-standing, tower and wall-mounted designs, and ${controlPanels.length} Pulse control panels: a simple button panel or a black-glass touch panel. The right pairing depends on your cabin and room — we'll recommend one during your consultation.`,
+    a: `Haven Classic and Haven Glass need an Ember heater and a Pulse control panel; the infrared cabins need only the control panel. ${stockedHeaters.map((h) => h.name).join(" and ")} are available now in ${kwText} ratings — the right rating depends on your cabin and room, and we'll confirm it during your consultation. The ${stockedPanel.name} ${stockedPanel.kind.toLowerCase()} panel is available now; the other heaters and the touch panel are currently out of stock.`,
   },
   {
     q: "What do you need from me to plan a sauna?",
@@ -95,7 +112,7 @@ const faqs = [
   },
   {
     q: "How much does a VYRO sauna cost?",
-    a: `It depends on the cabin, wood, heater, control panel and accessories you choose. Build your setup on this page and send it to us — our team replies ${site.enquiryResponseTime}.`,
+    a: `Haven Classic cabins start at ${seriesFrom("standard")} and Haven Glass at ${seriesFrom("glass-front")}. Haven Infrared IR-01 is ${cabinPriceLabel(byCode("IR-01")).replace(" · GST extra", "")}, and Haven Compact C-01 is ${cabinPriceLabel(byCode("C-01")).replace(" · GST extra", "")}. Ember heaters start at ${heaterFrom}, the ${stockedPanel.name} control panel is ${formatInr(stockedPanel.priceInr)} and Ritual accessory sets start at ${accessoryFrom}. All prices are MRP, GST extra. Wood upgrades and installation & commissioning are quoted for your space — build your setup on this page for a running estimate and send it to us. Our team replies ${site.enquiryResponseTime}.`,
   },
 ];
 
@@ -112,6 +129,8 @@ function SaunasPage() {
   const [room, setRoom] = useState<string | null>(preset);
   const [wood, setWood] = useState<string>(standardWood);
   const [heater, setHeater] = useState<string | null>(null);
+  const [heaterKw, setHeaterKw] = useState<number | null>(null);
+  const [glassFrame, setGlassFrame] = useState<GlassFrameFinish | null>(null);
   const [panel, setPanel] = useState<string | null>(null);
   const [acc, setAcc] = useState<string[]>([]);
   const [message, setMessage] = useState<string | undefined>(undefined);
@@ -120,13 +139,53 @@ function SaunasPage() {
   const activeType = roomTypes.find((t) => t.id === tab)!;
   const typeModels = saunaModels.filter((m) => m.type === tab);
   const roomModel = saunaModels.find((m) => m.code === room);
+  // Infrared cabins have no heater or accessory set: just cabin, wood and control.
+  const infrared = roomModel ? isInfraredCabin(roomModel) : false;
+  const isGlass = roomModel?.type === "glass-front";
+  const steps = infrared ? INFRARED_STEPS : STEPS;
+  const current = steps[Math.min(step, steps.length) - 1]!;
+  const stepNo = steps.indexOf(current) + 1;
+  const heaterItem = heaters.find((h) => h.name === heater);
+  const frameName = glassFrameFinishes.find((f) => f.id === glassFrame)?.name;
+  const estimate = saunaEstimate({ room, heater, heaterKw, panel, accessories: acc });
+  const saleLive = winterSaleLive();
 
+  const chooseRoom = (code: string) => {
+    setRoom(code);
+    const m = saunaModels.find((x) => x.code === code);
+    if (m && isInfraredCabin(m)) {
+      setStep((n) => Math.min(n, INFRARED_STEPS.length));
+      setHeater(null);
+      setHeaterKw(null);
+      setAcc([]);
+    }
+    if (m?.type !== "glass-front") setGlassFrame(null);
+  };
+  const chooseHeater = (name: string) => {
+    if (heater === name) {
+      setHeater(null);
+      setHeaterKw(null);
+      return;
+    }
+    const h = heaters.find((x) => x.name === name);
+    setHeater(name);
+    // Start at the smallest rating; the customer can change it and we confirm the right one.
+    setHeaterKw(h?.options?.[0]?.kw ?? null);
+  };
+
+  const heaterText = infrared
+    ? `${roomModel?.infraredPanels?.name ?? "Infrared panels"} (infrared cabin)`
+    : heater
+      ? `${heater}${heaterKw ? `, ${heaterKw} kW` : ""}`
+      : "Not selected";
   const summary = [
     `Sauna cabin: ${roomModel ? `VYRO ${roomModel.name} ${roomModel.code}` : "Not selected"}`,
     `Wood: ${wood}${wood === standardWood ? " (standard)" : " (upgrade)"}`,
-    `Heater: ${heater ?? "Not selected"}`,
+    ...(isGlass ? [`Glass frame: ${frameName ?? "Not selected"}`] : []),
+    `${infrared ? "Heating" : "Heater"}: ${heaterText}`,
     `Control panel: ${panel ?? "Not selected"}`,
-    `Accessories: ${acc.length ? acc.join(", ") : "Not selected"}`,
+    ...(infrared ? [] : [`Accessories: ${acc.length ? acc.join(", ") : "Not selected"}`]),
+    ...(estimate.totalInr ? [`Estimated MRP: ${formatInr(estimate.totalInr)} + GST (wood upgrade and installation to be quoted)`] : []),
   ].join("\n");
   const wa = whatsappLink(`Hello VYRO, I'd like to enquire about this sauna setup:\n${summary}`);
   const heroWa = whatsappLink("Hello VYRO, I'm interested in a VYRO sauna.");
@@ -137,13 +196,15 @@ function SaunasPage() {
     requestAnimationFrame(() => document.getElementById("builder")?.scrollIntoView({ behavior: "smooth" }));
   };
 
-  const config3d = saunaConfigFromSelection({ room, wood, heater, panel, accessories: acc });
+  const config3d = saunaConfigFromSelection({ room, wood, heater, panel, accessories: acc, glassFrame });
   const selectionRows = [
     ...(roomModel ? [{ label: "Size (L × B × H)", value: `${modelSize(roomModel).dimsShort} · ${modelSize(roomModel).people}` }] : []),
     { label: "Wood", value: `${wood}${wood === standardWood ? " (standard)" : " (upgrade)"}` },
-    { label: "Heater", value: heater ?? "Not selected" },
+    ...(isGlass ? [{ label: "Glass Frame", value: frameName ?? "Not selected" }] : []),
+    { label: infrared ? "Heating" : "Heater", value: heaterText },
     { label: "Control Panel", value: panel ?? "Not selected" },
-    { label: "Accessories", value: acc.length ? acc.join(", ") : "Not selected" },
+    ...(infrared ? [] : [{ label: "Accessories", value: acc.length ? acc.join(", ") : "Not selected" }]),
+    ...(estimate.totalInr ? [{ label: "Estimated MRP", value: `${formatInr(estimate.totalInr)} + GST` }] : []),
   ];
 
   const enquire = () => {
@@ -194,6 +255,7 @@ function SaunasPage() {
                 <span className="text-xs tracking-[0.2em] text-bronze-strong">0{i + 1} · {t.series}</span>
                 <h3 className="mt-3 font-display text-2xl font-medium">{t.name}</h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{t.short}</p>
+                <p className="mt-4 text-sm font-medium">{seriesPriceLabel(t)}</p>
                 <span className="mt-5 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] group-hover:text-bronze-strong">View <ArrowRight className="h-4 w-4" aria-hidden /></span>
               </button>
             ))}
@@ -238,7 +300,8 @@ function SaunasPage() {
                         {modelSize(m).dims} · {modelSize(m).people}
                       </p>
                       <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{m.copy}</p>
-                      <button type="button" onClick={() => { setRoom(m.code); setStep(2); document.getElementById("builder")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-5 inline-flex items-center gap-2 self-start text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong">
+                      <p className="mt-4 text-sm font-medium">{cabinPriceLabel(m)}</p>
+                      <button type="button" onClick={() => { chooseRoom(m.code); setStep(2); document.getElementById("builder")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-5 inline-flex items-center gap-2 self-start text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong">
                         Customise this room <ArrowRight className="h-4 w-4" aria-hidden />
                       </button>
                     </div>
@@ -266,7 +329,7 @@ function SaunasPage() {
               </div>
             ))}
           </div>
-          <CabinFitFinder onChoose={(code) => { setRoom(code); goStep(2); }} />
+          <CabinFitFinder onChoose={(code) => { chooseRoom(code); goStep(2); }} />
           <DownloadLink sheet="haven" className="mt-8" />
           <Link
             to="/guides/$slug"
@@ -280,7 +343,7 @@ function SaunasPage() {
         {/* Woods */}
         <section id="woods" className="scroll-mt-24 border-t border-border bg-card">
           <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <SectionHeading overline="Wood Options" title="Spruce as Standard. Six Upgrades." copy="Every Haven cabin is crafted in spruce. Choose an upgrade to change the colour, grain and character of your sauna." />
+            <SectionHeading overline="Wood Options" title="Spruce as Standard. Six Upgrades." copy="Every Haven cabin is crafted in spruce, included in the cabin price. Choose an upgrade to change the colour, grain and character of your sauna — upgrades are quoted for your cabin by our consultant." />
             <div className="mt-12 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
               {woods.map((w, i) => (
                 <div key={w.name} className="flex flex-col bg-card p-6">
@@ -301,35 +364,61 @@ function SaunasPage() {
         {/* Builder */}
         <section id="builder" className="scroll-mt-24 bg-secondary/60" data-hide-mobile-bar>
           <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <SectionHeading overline="Build Your Sauna" title="Cabin, Wood, Heater, Control, Accessories." />
+            <SectionHeading overline="Build Your Sauna" title="Cabin, Wood, Heater, Control, Accessories." copy="Prices are MRP, GST extra. Infrared cabins come with their infrared panels — no heater or accessory set needed." />
             <ol className="mt-10 flex gap-8 overflow-x-auto border-b border-border">
-              {STEPS.map((l, i) => (
+              {steps.map((l, i) => (
                 <li key={l}>
-                  <button type="button" onClick={() => setStep(i + 1)} className={tabBtn(step === i + 1)}>{i + 1} · {l}</button>
+                  <button type="button" onClick={() => setStep(i + 1)} className={tabBtn(stepNo === i + 1)}>{i + 1} · {l}</button>
                 </li>
               ))}
             </ol>
             <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_320px]">
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {step === 1 && saunaModels.map((m) => (
-                  <Choice key={m.code} selected={room === m.code} onClick={() => setRoom(m.code)} image={m.image} label={`${m.size} · ${modelSize(m).dimsShort}`} title={`${m.name} ${m.code}`} copy={m.copy} />
+                {current === "Cabin" && saunaModels.map((m) => (
+                  <Choice key={m.code} selected={room === m.code} onClick={() => chooseRoom(m.code)} image={m.image} label={`${m.size} · ${modelSize(m).dimsShort}`} title={`${m.name} ${m.code}`} copy={m.copy} price={cabinPriceLabel(m)} />
                 ))}
-                {step === 2 && woods.map((w) => (
+                {current === "Wood" && isGlass && (
+                  <fieldset className="border border-border bg-card p-5 sm:col-span-2 xl:col-span-3">
+                    <legend className="eyebrow px-1 text-bronze-strong">Glass frame finish</legend>
+                    <div className="mt-1 flex flex-wrap gap-2">
+                      {glassFrameFinishes.map((f) => (
+                        <button key={f.id} type="button" aria-pressed={glassFrame === f.id} onClick={() => setGlassFrame(glassFrame === f.id ? null : f.id)} className={`rounded-sm border px-4 py-2 text-sm transition-colors ${glassFrame === f.id ? "border-bronze bg-background" : "border-border hover:border-foreground/40"}`}>
+                          {f.name}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground">The cabin price includes the glass work. The price may vary with the frame finish — your consultant confirms it on your quote.</p>
+                  </fieldset>
+                )}
+                {current === "Wood" && woods.map((w) => (
                   <button key={w.name} type="button" aria-pressed={wood === w.name} onClick={() => setWood(w.name)} className={`relative flex flex-col border bg-card p-5 text-left transition-colors ${wood === w.name ? "border-bronze" : "border-border hover:border-foreground/40"}`}>
                     {wood === w.name && <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" aria-hidden /></span>}
-                    <p className="eyebrow text-bronze-strong">{w.standard ? "Standard" : "Upgrade"}</p>
+                    <p className="eyebrow text-bronze-strong">{w.standard ? "Standard · Included" : "Upgrade · Quoted"}</p>
                     <h4 className="mt-1 font-display text-xl font-medium">{w.name}</h4>
                     <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{w.note}</p>
                   </button>
                 ))}
-                {step === 3 && heaters.map((h) => (
-                  <Choice key={h.name} selected={heater === h.name} onClick={() => setHeater(heater === h.name ? null : h.name)} image={h.image} label={h.kind} title={h.name} copy={h.copy} />
+                {current === "Heater" && heaterItem?.options && (
+                  <fieldset className="border border-border bg-card p-5 sm:col-span-2 xl:col-span-3">
+                    <legend className="eyebrow px-1 text-bronze-strong">{heaterItem.name} · power rating</legend>
+                    <div className="mt-1 flex flex-wrap gap-2">
+                      {heaterItem.options.map((o) => (
+                        <button key={o.kw} type="button" aria-pressed={heaterKw === o.kw} onClick={() => setHeaterKw(o.kw)} className={`rounded-sm border px-4 py-2 text-sm transition-colors ${heaterKw === o.kw ? "border-bronze bg-background" : "border-border hover:border-foreground/40"}`}>
+                          {o.kw} kW · {formatInr(o.priceInr)}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground">The right rating depends on your cabin and room — our consultant confirms it before you order.</p>
+                  </fieldset>
+                )}
+                {current === "Heater" && heaters.map((h) => (
+                  <Choice key={h.name} selected={heater === h.name} disabled={!h.inStock} onClick={() => chooseHeater(h.name)} image={h.image} label={h.kind} title={h.name} copy={h.copy} price={heaterPriceLabel(h)} />
                 ))}
-                {step === 4 && controlPanels.map((c) => (
-                  <Choice key={c.name} selected={panel === c.name} onClick={() => setPanel(panel === c.name ? null : c.name)} image={c.image} label={c.kind} title={c.name} copy={c.copy} />
+                {current === "Control" && controlPanels.map((c) => (
+                  <Choice key={c.name} selected={panel === c.name} disabled={!c.inStock} onClick={() => setPanel(panel === c.name ? null : c.name)} image={c.image} label={c.kind} title={c.name} copy={c.copy} price={c.inStock ? formatInr(c.priceInr) : `Out of stock · ${formatInr(c.priceInr)}`} />
                 ))}
-                {step === 5 && accessorySets.map((a) => (
-                  <Choice key={a.name} selected={acc.includes(a.name)} onClick={() => setAcc(acc.includes(a.name) ? acc.filter((x) => x !== a.name) : [...acc, a.name])} image={a.image} label={`Available in: ${a.finish}`} title={a.name} copy={a.copy} />
+                {current === "Accessories" && accessorySets.map((a) => (
+                  <Choice key={a.name} selected={acc.includes(a.name)} onClick={() => setAcc(acc.includes(a.name) ? acc.filter((x) => x !== a.name) : [...acc, a.name])} image={a.image} label={`Available in: ${a.finish}`} title={a.name} copy={a.copy} price={formatInr(a.priceInr)} />
                 ))}
               </div>
               <aside className="h-fit border border-border bg-card p-6 lg:sticky lg:top-24">
@@ -337,13 +426,34 @@ function SaunasPage() {
                 <dl className="mt-5 space-y-4 text-sm">
                   <div><dt className="eyebrow text-bronze-strong">Cabin</dt><dd className="mt-1">{roomModel ? `${roomModel.name} ${roomModel.code}` : "Not selected"}</dd></div>
                   <div><dt className="eyebrow text-bronze-strong">Wood</dt><dd className="mt-1">{wood}{wood === standardWood ? " (standard)" : " (upgrade)"}</dd></div>
-                  <div><dt className="eyebrow text-bronze-strong">Heater</dt><dd className="mt-1">{heater ?? "Not selected"}</dd></div>
+                  {isGlass && <div><dt className="eyebrow text-bronze-strong">Glass Frame</dt><dd className="mt-1">{frameName ?? "Not selected"}</dd></div>}
+                  <div><dt className="eyebrow text-bronze-strong">{infrared ? "Heating" : "Heater"}</dt><dd className="mt-1">{heaterText}</dd></div>
                   <div><dt className="eyebrow text-bronze-strong">Control Panel</dt><dd className="mt-1">{panel ?? "Not selected"}</dd></div>
-                  <div><dt className="eyebrow text-bronze-strong">Accessories</dt><dd className="mt-1">{acc.length ? acc.join(", ") : "Not selected"}</dd></div>
+                  {!infrared && <div><dt className="eyebrow text-bronze-strong">Accessories</dt><dd className="mt-1">{acc.length ? acc.join(", ") : "Not selected"}</dd></div>}
                 </dl>
+                {estimate.lines.length > 0 && (
+                  <div className="mt-6 border-t border-border pt-5">
+                    <p className="eyebrow text-bronze-strong">Estimate (MRP)</p>
+                    <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
+                      {estimate.lines.map((l) => (
+                        <li key={l.label} className="flex justify-between gap-3"><span>{l.label}</span><span className="whitespace-nowrap tabular-nums">{formatInr(l.priceInr)}</span></li>
+                      ))}
+                    </ul>
+                    <p className="mt-3 flex justify-between gap-3 font-display text-xl font-medium"><span>Total</span><span className="tabular-nums">{formatInr(estimate.totalInr)}</span></p>
+                    <p className="text-xs text-muted-foreground">+ GST</p>
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                      {wood !== standardWood ? `The ${wood} upgrade` : "Wood upgrades"}{isGlass ? ", the glass frame finish" : ""} and installation & commissioning are quoted by your consultant.
+                    </p>
+                    {saleLive && (
+                      <p className="mt-2 text-xs leading-relaxed text-bronze-strong">
+                        {winterSale.name}: {winterSale.discountPercent}% off MRP on {winterSale.appliesTo} till {winterSale.endsLabel} — confirmed on your quote.
+                      </p>
+                    )}
+                  </div>
+                )}
                 <div className="mt-6 flex gap-3">
-                  {step > 1 && <button type="button" onClick={() => setStep(step - 1)} className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground">← Back</button>}
-                  {step < STEPS.length && <button type="button" onClick={() => setStep(step + 1)} className="ml-auto text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong">Next →</button>}
+                  {stepNo > 1 && <button type="button" onClick={() => setStep(stepNo - 1)} className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground">← Back</button>}
+                  {stepNo < steps.length && <button type="button" onClick={() => setStep(stepNo + 1)} className="ml-auto text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong">Next →</button>}
                 </div>
                 <button
                   type="button"
@@ -367,22 +477,25 @@ function SaunasPage() {
             <div className="sticky bottom-0 z-30 -mx-5 mt-8 flex items-center gap-3 border-t border-border bg-card/95 px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur lg:hidden">
               <div className="min-w-0 flex-1">
                 <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
-                  Step {step} of {STEPS.length} · {STEPS[step - 1]}
+                  Step {stepNo} of {steps.length} · {current}
                 </p>
-                <p className="truncate text-sm">{roomModel ? `${roomModel.name} ${roomModel.code}` : "Choose a cabin"}</p>
+                <p className="truncate text-sm">
+                  {roomModel ? `${roomModel.name} ${roomModel.code}` : "Choose a cabin"}
+                  {estimate.totalInr ? ` · ${formatInr(estimate.totalInr)} + GST` : ""}
+                </p>
               </div>
               {room && (
                 <button type="button" onClick={() => setShow3d(true)} aria-label="View in 3D" className="inline-flex items-center gap-1 rounded-sm border border-border px-3 py-2.5 text-xs uppercase tracking-[0.16em]">
                   <Box className="h-4 w-4" aria-hidden /> 3D
                 </button>
               )}
-              {step > 1 && (
-                <button type="button" onClick={() => goStep(step - 1)} aria-label="Previous step" className="rounded-sm border border-border px-3 py-2.5 text-xs uppercase tracking-[0.16em]">
+              {stepNo > 1 && (
+                <button type="button" onClick={() => goStep(stepNo - 1)} aria-label="Previous step" className="rounded-sm border border-border px-3 py-2.5 text-xs uppercase tracking-[0.16em]">
                   ←
                 </button>
               )}
-              {step < STEPS.length ? (
-                <button type="button" onClick={() => goStep(step + 1)} className="rounded-sm bg-primary px-4 py-2.5 text-xs uppercase tracking-[0.16em] text-primary-foreground">
+              {stepNo < steps.length ? (
+                <button type="button" onClick={() => goStep(stepNo + 1)} className="rounded-sm bg-primary px-4 py-2.5 text-xs uppercase tracking-[0.16em] text-primary-foreground">
                   Next
                 </button>
               ) : (
@@ -459,17 +572,26 @@ function SaunasPage() {
   );
 }
 
-const STEPS = ["Cabin", "Wood", "Heater", "Control", "Accessories"];
+/** "From ₹1,86,999 + GST" for a series with several sizes; the full label for a single cabin. */
+function seriesPriceLabel(t: RoomType): string {
+  const models = saunaModels.filter((m) => m.type === t.id);
+  if (models.length === 1) return cabinPriceLabel(models[0]!);
+  return `From ${formatInr(seriesFromPrice(t) ?? 0)} + GST`;
+}
 
-function Choice({ selected, onClick, image, label, title, copy }: { selected: boolean; onClick: () => void; image: string; label: string; title: string; copy: string }) {
+const STEPS = ["Cabin", "Wood", "Heater", "Control", "Accessories"];
+const INFRARED_STEPS = ["Cabin", "Wood", "Control"];
+
+function Choice({ selected, onClick, image, label, title, copy, price, disabled = false }: { selected: boolean; onClick: () => void; image: string; label: string; title: string; copy: string; price?: string; disabled?: boolean }) {
   return (
-    <button type="button" aria-pressed={selected} onClick={onClick} className={`relative flex flex-col border bg-card text-left transition-colors ${selected ? "border-bronze" : "border-border hover:border-foreground/40"}`}>
+    <button type="button" aria-pressed={selected} disabled={disabled} onClick={onClick} className={`relative flex flex-col border bg-card text-left transition-colors disabled:cursor-not-allowed disabled:opacity-55 ${selected ? "border-bronze" : "border-border hover:border-foreground/40"}`}>
       {selected && <span className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground"><Check className="h-3.5 w-3.5" aria-hidden /></span>}
       <img src={image} {...responsive(image, SIZES.third)} alt={title} width={600} height={600} loading="lazy" className="aspect-square w-full object-contain p-4" />
       <div className="border-t border-border p-5">
         <p className="eyebrow text-bronze-strong">{label}</p>
         <h4 className="mt-1 font-display text-xl font-medium">{title}</h4>
         <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{copy}</p>
+        {price && <p className="mt-3 text-sm font-medium">{price}</p>}
       </div>
     </button>
   );

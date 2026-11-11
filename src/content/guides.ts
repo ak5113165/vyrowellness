@@ -80,8 +80,15 @@ const chooseSauna: Guide = {
     },
     {
       type: "table",
-      head: ["Cabin", "Size (L × B × H)", "Seats"],
-      rows: saunaModels.map((m) => [`${m.name} ${m.code}`, modelSize(m).dimsShort, modelSize(m).people]),
+      head: ["Cabin", "Size (L × B × H)", "Seats", "Cabin MRP"],
+      rows: saunaModels.map((m) => [`${m.name} ${m.code}`, modelSize(m).dimsShort, modelSize(m).people, formatInr(m.priceInr)]),
+    },
+    {
+      type: "p",
+      text: `Cabin MRPs are for the cabin in ${standardWood.toLowerCase()}, GST extra; Haven Glass prices include the glass work. Haven Infrared and Haven Compact add their infrared panels (${saunaModels
+        .filter((m) => m.infraredPanels)
+        .map((m) => `${m.infraredPanels!.kw} kW, ${formatInr(m.infraredPanels!.priceInr)} for ${m.code}`)
+        .join("; ")}). Wood upgrades and installation & commissioning are quoted for your space.`,
     },
     {
       type: "p",
@@ -95,7 +102,7 @@ const chooseSauna: Guide = {
     { type: "h2", text: "4. Choose the heater and controls" },
     {
       type: "p",
-      text: `Our Ember heaters come in ${kinds.length} styles — ${kinds.map((k) => k.toLowerCase()).join(", ")} — in stainless steel or matte black. Your consultant matches the heater to your cabin and room. Pulse control panels come with simple buttons or a black-glass touch dial.`,
+      text: `Our Ember heaters come in ${kinds.length} styles — ${kinds.map((k) => k.toLowerCase()).join(", ")} — in stainless steel or matte black. Your consultant matches the heater and its power rating to your cabin and room. Haven Infrared and Haven Compact are heated by infrared panels, so they don't need a heater. Pulse control panels come with simple buttons or a black-glass touch dial.`,
     },
     {
       type: "p",
@@ -179,7 +186,7 @@ const saunaVsSteam: Guide = {
     { type: "h2", text: "What about infrared?" },
     {
       type: "p",
-      text: "An infrared sauna is a third option. It uses infrared panels instead of a heater and stones, and warms you at lower air temperatures — a gentler experience that some people prefer for everyday use. Our Haven Infrared IR-01 is a compact infrared cabin for 1–2 people.",
+      text: "An infrared sauna is a third option. It uses infrared panels instead of a heater and stones, and warms you at lower air temperatures — a gentler experience that some people prefer for everyday use. Our Haven Infrared IR-01 is an infrared cabin for 1–2 people, and Haven Compact C-01 is a slim infrared cabin for apartments.",
     },
     { type: "h2", text: "Which should you choose?" },
     {

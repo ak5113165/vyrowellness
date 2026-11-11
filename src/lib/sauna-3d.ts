@@ -23,7 +23,12 @@ export type SaunaConfig = {
   accessories: { name: string; finish: string }[];
   /** The cabin's standard size in feet (L × B × H). */
   dimsFt: { w: number; d: number; h: number };
+  /** Haven Glass only: the glass frame finish (matte black when not chosen). */
+  glassFrame?: "matte-black" | "glossy-black" | "stainless";
 };
+
+/** Haven Infrared and Haven Compact are both heated by infrared panels. */
+const infraredSeries = (s: SaunaSeries) => s === "infrared" || s === "compact";
 
 /** Parts a cut-away view removes so you can see inside. */
 type Part = "shell" | "front" | "roof" | "inside";
@@ -124,23 +129,24 @@ export function buildSauna(cfg: SaunaConfig): Box3D[] {
   // ------------------------------------------------------------ front ----
   const doorH = Math.min(185, wallH - 15);
   if (cfg.series === "glass-front") {
-    // Full glass façade in a black frame, with mullions every ~60 cm.
+    // Full glass façade in the chosen frame finish, with mullions every ~60 cm.
+    const FRAME = cfg.glassFrame === "stainless" ? STAINLESS : cfg.glassFrame === "glossy-black" ? "#111111" : BLACK;
     add({ id: "glass", part: "front", x: 0, y: base, z: front - 2, w: W - 4, h: wallH, d: 1, color: "rgba(205, 222, 228, 0.18)", glass: true });
     const rail = 4;
-    add({ id: "frame-top", part: "front", x: 0, y: H - rail, z: front - 2, w: W, h: rail, d: 4, color: BLACK });
-    add({ id: "frame-bottom", part: "front", x: 0, y: base, z: front - 2, w: W, h: rail, d: 4, color: BLACK });
+    add({ id: "frame-top", part: "front", x: 0, y: H - rail, z: front - 2, w: W, h: rail, d: 4, color: FRAME });
+    add({ id: "frame-bottom", part: "front", x: 0, y: base, z: front - 2, w: W, h: rail, d: 4, color: FRAME });
     const panes = Math.max(2, Math.round(W / 60));
     for (let i = 0; i <= panes; i++) {
       const x = left + (W * i) / panes;
       const px = i === 0 ? x + rail / 2 : i === panes ? x - rail / 2 : x;
-      add({ id: `frame-v${i}`, part: "front", x: px, y: base, z: front - 2, w: rail, h: wallH, d: 4, color: BLACK });
+      add({ id: `frame-v${i}`, part: "front", x: px, y: base, z: front - 2, w: rail, h: wallH, d: 4, color: FRAME });
     }
     // Door is the centre pane; its handle sits on the left stile.
     const doorX = left + (W * Math.floor(panes / 2)) / panes + 8;
-    add({ id: "handle", part: "front", x: doorX, y: base + 80, z: front + 2, w: 2.5, h: 45, d: 3, color: BLACK });
+    add({ id: "handle", part: "front", x: doorX, y: base + 80, z: front + 2, w: 2.5, h: 45, d: 3, color: FRAME });
     // Black frame around the side edges too
-    add({ id: "frame-corner-l", part: "shell", x: left + 2, y: base, z: back + 2, w: 4, h: wallH, d: 4, color: BLACK });
-    add({ id: "frame-corner-r", part: "shell", x: right - 2, y: base, z: back + 2, w: 4, h: wallH, d: 4, color: BLACK });
+    add({ id: "frame-corner-l", part: "shell", x: left + 2, y: base, z: back + 2, w: 4, h: wallH, d: 4, color: FRAME });
+    add({ id: "frame-corner-r", part: "shell", x: right - 2, y: base, z: back + 2, w: 4, h: wallH, d: 4, color: FRAME });
   } else {
     // Timber front with a door; glass door on Infrared and Compact.
     const glassDoor = cfg.series !== "standard";
@@ -182,7 +188,7 @@ export function buildSauna(cfg: SaunaConfig): Box3D[] {
   const benchWood = shade(wood, 1.06);
   const inW = inR - inL;
   const inD = inF - inB;
-  if (cfg.series === "infrared") {
+  if (infraredSeries(cfg.series)) {
     // One bench along the back, infrared panels on the back and side walls.
     add({ id: "bench", part: "inside", x: 0, y: base + 42, z: inB + 24, w: inW, h: 5, d: 46, color: benchWood });
     add({ id: "bench-front", part: "inside", x: 0, y: base, z: inB + 46, w: inW, h: 42, d: 2, color: shade(wood, 0.95), boards: true });
@@ -212,7 +218,7 @@ export function buildSauna(cfg: SaunaConfig): Box3D[] {
   }
 
   // ----------------------------------------------------------- heater ----
-  if (cfg.heater && cfg.series !== "infrared") {
+  if (cfg.heater && !infraredSeries(cfg.series)) {
     const metal = cfg.heater.finish === "black" ? "#2a2a2a" : STAINLESS;
     const hz = inF - 34;
     if (cfg.heater.kind === "Floor Heater") {
@@ -246,7 +252,7 @@ export function buildSauna(cfg: SaunaConfig): Box3D[] {
   }
 
   // ------------------------------------------------------- accessories ----
-  if (cfg.accessories.length && cfg.series !== "infrared") {
+  if (cfg.accessories.length && !infraredSeries(cfg.series)) {
     const first = cfg.accessories[0]!;
     const black = first.finish.startsWith("Black");
     const bucketColour = black ? "#1d1d1d" : woodColours["Spruce"]!;
