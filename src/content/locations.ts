@@ -83,7 +83,7 @@ export const cityPages: CityPage[] = [
     homes:
       "In a city where space is precious, the right cabin size matters. Haven Compact is made for apartments and smaller rooms, the Glacier Barrel has the smallest footprint in the range, and the Glacier Portable packs away when you need the space.",
     picks: [
-      { kind: "sauna", code: "C-01", why: "A slim, space-saving infrared cabin made for apartments and smaller rooms." },
+      { kind: "sauna", code: "C-01", why: "A slim, space-saving one-person infrared cabin for apartments and smaller rooms." },
       { kind: "sauna", code: "IR-01", why: "An infrared cabin for 1–2 people with a small footprint." },
       { kind: "plunge", slug: "glacier-barrel", why: "Upright immersion in the smallest footprint of the Glacier range." },
     ],

@@ -115,7 +115,7 @@ export const saunaModels: SaunaModel[] = [
   { code: "G-02", name: "Haven Glass", size: "Medium", type: "glass-front", dimsFt: { w: 6, d: 5, h: 7 }, image: g02, priceInr: 256999, copy: "For 4–6 people — spacious comfort behind a clean glass façade." },
   { code: "G-03", name: "Haven Glass", size: "Large", type: "glass-front", dimsFt: { w: 8, d: 6, h: 7 }, image: g03, priceInr: 341999, copy: "A 6+ person statement sauna with a wide, striking glass front." },
   { code: "IR-01", name: "Haven Infrared", size: "Small", type: "infrared", dimsFt: { w: 4, d: 4, h: 7 }, image: ir01, people: "1–2 people", priceInr: 169999, infraredPanels: { name: "Infrared panels, 3 kW", kw: 3, priceInr: 89999 }, copy: "A compact infrared cabin for 1–2 people with gentle radiant warmth." },
-  { code: "C-01", name: "Haven Compact", size: "Small", type: "compact", dimsFt: { w: 3, d: 3, h: 7 }, image: c01, priceInr: 149999, infraredPanels: { name: "Infrared panels, 2 kW", kw: 2, priceInr: 69999 }, copy: "A slim, space-saving infrared cabin made for apartments and smaller rooms." },
+  { code: "C-01", name: "Haven Compact", size: "Small", type: "compact", dimsFt: { w: 3, d: 3, h: 7 }, image: c01, people: "1 person", priceInr: 149999, infraredPanels: { name: "Infrared panels, 2 kW", kw: 2, priceInr: 69999 }, copy: "A slim, space-saving infrared cabin for one person, made for apartments and smaller rooms." },
 ];
 
 export type Wood = { name: string; note: string; standard?: boolean };

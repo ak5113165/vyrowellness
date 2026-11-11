@@ -92,7 +92,7 @@ const chooseSauna: Guide = {
     },
     {
       type: "p",
-      text: "For apartments and smaller rooms, Haven Compact C-01 is made to save space, and Haven Infrared IR-01 seats 1–2 people. For families and shared sessions, the Medium cabins seat 4–6. The Large cabins seat 6 or more, for bigger homes, clubs and wellness spaces.",
+      text: "For apartments and smaller rooms, Haven Compact C-01 is a one-person cabin made to save space, and Haven Infrared IR-01 seats 1–2 people. For families and shared sessions, the Medium cabins seat 4–6. The Large cabins seat 6 or more, for bigger homes, clubs and wellness spaces.",
     },
     { type: "h2", text: "3. Choose the wood" },
     {
@@ -186,7 +186,7 @@ const saunaVsSteam: Guide = {
     { type: "h2", text: "What about infrared?" },
     {
       type: "p",
-      text: "An infrared sauna is a third option. It uses infrared panels instead of a heater and stones, and warms you at lower air temperatures — a gentler experience that some people prefer for everyday use. Our Haven Infrared IR-01 is an infrared cabin for 1–2 people, and Haven Compact C-01 is a slim infrared cabin for apartments.",
+      text: "An infrared sauna is a third option. It uses infrared panels instead of a heater and stones, and warms you at lower air temperatures — a gentler experience that some people prefer for everyday use. Our Haven Infrared IR-01 is an infrared cabin for 1–2 people, and Haven Compact C-01 is a slim one-person infrared cabin for apartments.",
     },
     { type: "h2", text: "Which should you choose?" },
     {
