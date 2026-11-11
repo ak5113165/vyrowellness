@@ -4,6 +4,7 @@
 // API — this handler is the only write path.
 import { createFileRoute } from "@tanstack/react-router";
 import { enquirySchema } from "@/lib/enquiry-schema";
+import type { Lead } from "@/lib/lead-alert";
 
 export const Route = createFileRoute("/api/public/enquiries")({
   server: {
@@ -68,41 +69,44 @@ export const Route = createFileRoute("/api/public/enquiries")({
           );
         }
 
-        // Email the sales team. Never fails the request: the lead is already saved.
+        // Email the sales team, and thank the customer if they left an email.
+        // Never fails the request: the lead is already saved.
         try {
-          const { sendLeadAlert } = await import("@/lib/lead-alert");
-          await sendLeadAlert(
-            isConsumer
-              ? {
-                  id: data.id,
-                  kind: "consumer",
-                  name: d.fullName,
-                  phone: d.phone,
-                  email: d.email,
-                  city: d.city,
-                  productInterest: d.productInterest,
-                  homeOrBusiness: d.homeOrBusiness,
-                  projectStage: d.homeStage,
-                  facilityType: d.facilityType,
-                  budget: d.budget,
-                  message: d.message,
-                }
-              : {
-                  id: data.id,
-                  kind: "business",
-                  name: d.contactPerson,
-                  phone: d.phone,
-                  email: d.email,
-                  city: d.city,
-                  productInterest: d.productsOfInterest,
-                  businessName: d.businessName,
-                  businessType: d.businessType,
-                  projectStage: d.projectStage,
-                  projectDescription: d.projectDescription,
-                },
-          );
+          const [{ sendLeadAlert }, { sendCustomerReply }] = await Promise.all([
+            import("@/lib/lead-alert"),
+            import("@/lib/customer-reply"),
+          ]);
+          const lead: Lead = isConsumer
+            ? {
+                id: data.id,
+                kind: "consumer",
+                name: d.fullName,
+                phone: d.phone,
+                email: d.email,
+                city: d.city,
+                productInterest: d.productInterest,
+                homeOrBusiness: d.homeOrBusiness,
+                projectStage: d.homeStage,
+                facilityType: d.facilityType,
+                budget: d.budget,
+                message: d.message,
+              }
+            : {
+                id: data.id,
+                kind: "business",
+                name: d.contactPerson,
+                phone: d.phone,
+                email: d.email,
+                city: d.city,
+                productInterest: d.productsOfInterest,
+                businessName: d.businessName,
+                businessType: d.businessType,
+                projectStage: d.projectStage,
+                projectDescription: d.projectDescription,
+              };
+          await Promise.all([sendLeadAlert(lead), sendCustomerReply(lead)]);
         } catch (err) {
-          console.error("Lead alert error:", err instanceof Error ? err.message : err);
+          console.error("Enquiry email error:", err instanceof Error ? err.message : err);
         }
 
         // Never return PII — only the record id for confirmation.
