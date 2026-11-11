@@ -7,6 +7,7 @@ import {
   heaterPriceLabel,
   heaters,
   isInfraredCabin,
+  modelSize,
   roomTypes,
   saunaEstimate,
   saunaModels,
@@ -38,6 +39,7 @@ describe("sauna prices (founder, 12 Nov 2026)", () => {
     expect(model("IR-01").infraredPanels).toMatchObject({ kw: 3, priceInr: 89999 });
     expect(model("C-01").infraredPanels).toMatchObject({ kw: 2, priceInr: 69999 });
     expect(saunaModels.filter(isInfraredCabin).map((m) => m.code)).toEqual(["IR-01", "C-01"]);
+    expect(modelSize(model("C-01")).people).toBe("1 person");
   });
 
   it("offers E-01 and E-03 in five ratings and marks the rest out of stock", () => {
