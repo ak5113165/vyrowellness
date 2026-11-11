@@ -11,7 +11,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { EnquiryForm } from "@/components/enquiry-form";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { saunaAvailability, saunaInstallation, site, whatsappLink, winterSale, winterSaleLive } from "@/content/site";
+import { gstRatePercent, saunaAvailability, saunaInstallation, site, whatsappLink, winterSale, winterSaleLive } from "@/content/site";
 import { formatInr } from "@/lib/format-inr";
 import { consultationSteps } from "@/content/process";
 import { SpecialistCallout } from "@/components/specialist-callout";
@@ -112,7 +112,7 @@ const faqs = [
   },
   {
     q: "How much does a VYRO sauna cost?",
-    a: `Haven Classic cabins start at ${seriesFrom("standard")} and Haven Glass at ${seriesFrom("glass-front")}. Haven Infrared IR-01 is ${cabinPriceLabel(byCode("IR-01")).replace(" · GST extra", "")}, and Haven Compact C-01 is ${cabinPriceLabel(byCode("C-01")).replace(" · GST extra", "")}. Ember heaters start at ${heaterFrom}, the ${stockedPanel.name} control panel is ${formatInr(stockedPanel.priceInr)} and Ritual accessory sets start at ${accessoryFrom}. All prices are MRP, GST extra. Wood upgrades and installation & commissioning are quoted for your space — build your setup on this page for a running estimate and send it to us. Our team replies ${site.enquiryResponseTime}.`,
+    a: `Haven Classic cabins start at ${seriesFrom("standard")} and Haven Glass at ${seriesFrom("glass-front")}. Haven Infrared IR-01 is ${cabinPriceLabel(byCode("IR-01")).replace(" · 18% GST extra", "")}, and Haven Compact C-01 is ${cabinPriceLabel(byCode("C-01")).replace(" · 18% GST extra", "")}. Ember heaters start at ${heaterFrom}, the ${stockedPanel.name} control panel is ${formatInr(stockedPanel.priceInr)} and Ritual accessory sets start at ${accessoryFrom}. All prices are MRP, 18% GST extra. Wood upgrades and installation & commissioning are quoted for your space — build your setup on this page for a running estimate and send it to us. Our team replies ${site.enquiryResponseTime}.`,
   },
 ];
 
@@ -149,6 +149,8 @@ function SaunasPage() {
   const frameName = glassFrameFinishes.find((f) => f.id === glassFrame)?.name;
   const estimate = saunaEstimate({ room, heater, heaterKw, panel, accessories: acc });
   const saleLive = winterSaleLive();
+  const gstInr = Math.round((estimate.totalInr * gstRatePercent) / 100);
+  const totalWithGst = estimate.totalInr + gstInr;
 
   const chooseRoom = (code: string) => {
     setRoom(code);
@@ -185,7 +187,9 @@ function SaunasPage() {
     `${infrared ? "Heating" : "Heater"}: ${heaterText}`,
     `Control panel: ${panel ?? "Not selected"}`,
     ...(infrared ? [] : [`Accessories: ${acc.length ? acc.join(", ") : "Not selected"}`]),
-    ...(estimate.totalInr ? [`Estimated MRP: ${formatInr(estimate.totalInr)} + GST (wood upgrade and installation to be quoted)`] : []),
+    ...(estimate.totalInr
+      ? [`Estimated MRP: ${formatInr(estimate.totalInr)} + 18% GST ${formatInr(gstInr)} = ${formatInr(totalWithGst)} (wood upgrade and installation to be quoted)`]
+      : []),
   ].join("\n");
   const wa = whatsappLink(`Hello VYRO, I'd like to enquire about this sauna setup:\n${summary}`);
   const heroWa = whatsappLink("Hello VYRO, I'm interested in a VYRO sauna.");
@@ -204,7 +208,12 @@ function SaunasPage() {
     { label: infrared ? "Heating" : "Heater", value: heaterText },
     { label: "Control Panel", value: panel ?? "Not selected" },
     ...(infrared ? [] : [{ label: "Accessories", value: acc.length ? acc.join(", ") : "Not selected" }]),
-    ...(estimate.totalInr ? [{ label: "Estimated MRP", value: `${formatInr(estimate.totalInr)} + GST` }] : []),
+    ...(estimate.totalInr
+      ? [
+          { label: "Estimated MRP", value: `${formatInr(estimate.totalInr)} + 18% GST` },
+          { label: "Total incl. 18% GST", value: formatInr(totalWithGst) },
+        ]
+      : []),
   ];
 
   const enquire = () => {
@@ -364,7 +373,7 @@ function SaunasPage() {
         {/* Builder */}
         <section id="builder" className="scroll-mt-24 bg-secondary/60" data-hide-mobile-bar>
           <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
-            <SectionHeading overline="Build Your Sauna" title="Cabin, Wood, Heater, Control, Accessories." copy="Prices are MRP, GST extra. Infrared cabins come with their infrared panels — no heater or accessory set needed." />
+            <SectionHeading overline="Build Your Sauna" title="Cabin, Wood, Heater, Control, Accessories." copy="Prices are MRP, 18% GST extra. Infrared cabins come with their infrared panels — no heater or accessory set needed." />
             <ol className="mt-10 flex gap-8 overflow-x-auto border-b border-border">
               {steps.map((l, i) => (
                 <li key={l}>
@@ -439,8 +448,9 @@ function SaunasPage() {
                         <li key={l.label} className="flex justify-between gap-3"><span>{l.label}</span><span className="whitespace-nowrap tabular-nums">{formatInr(l.priceInr)}</span></li>
                       ))}
                     </ul>
-                    <p className="mt-3 flex justify-between gap-3 font-display text-xl font-medium"><span>Total</span><span className="tabular-nums">{formatInr(estimate.totalInr)}</span></p>
-                    <p className="text-xs text-muted-foreground">+ GST</p>
+                    <p className="mt-3 flex justify-between gap-3 border-t border-border pt-3 text-sm"><span>MRP</span><span className="tabular-nums">{formatInr(estimate.totalInr)}</span></p>
+                    <p className="mt-1 flex justify-between gap-3 text-sm text-muted-foreground"><span>{gstRatePercent}% GST</span><span className="tabular-nums">{formatInr(gstInr)}</span></p>
+                    <p className="mt-2 flex justify-between gap-3 font-display text-xl font-medium"><span>Total incl. GST</span><span className="tabular-nums">{formatInr(totalWithGst)}</span></p>
                     <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
                       {wood !== standardWood ? `The ${wood} upgrade` : "Wood upgrades"}{isGlass ? ", the glass frame finish" : ""} and installation & commissioning are quoted by your consultant.
                     </p>
@@ -481,7 +491,7 @@ function SaunasPage() {
                 </p>
                 <p className="truncate text-sm">
                   {roomModel ? `${roomModel.name} ${roomModel.code}` : "Choose a cabin"}
-                  {estimate.totalInr ? ` · ${formatInr(estimate.totalInr)} + GST` : ""}
+                  {estimate.totalInr ? ` · ${formatInr(estimate.totalInr)} + 18% GST` : ""}
                 </p>
               </div>
               {room && (
@@ -572,11 +582,11 @@ function SaunasPage() {
   );
 }
 
-/** "From ₹1,86,999 + GST" for a series with several sizes; the full label for a single cabin. */
+/** "From ₹1,86,999 + 18% GST" for a series with several sizes; the full label for a single cabin. */
 function seriesPriceLabel(t: RoomType): string {
   const models = saunaModels.filter((m) => m.type === t.id);
   if (models.length === 1) return cabinPriceLabel(models[0]!);
-  return `From ${formatInr(seriesFromPrice(t) ?? 0)} + GST`;
+  return `From ${formatInr(seriesFromPrice(t) ?? 0)} + 18% GST`;
 }
 
 const STEPS = ["Cabin", "Wood", "Heater", "Control", "Accessories"];

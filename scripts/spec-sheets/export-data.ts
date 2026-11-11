@@ -85,7 +85,7 @@ const data = {
     })),
     controlPanels: controlPanels.map((p) => ({ ...p, priceLabel: `${p.inStock ? "" : "Out of stock · "}${formatInr(p.priceInr)}` })),
     accessorySets: accessorySets.map((a) => ({ ...a, priceLabel: formatInr(a.priceInr) })),
-    pricesNote: "Prices are MRP in INR, GST extra. Wood upgrades, the Haven Glass frame finish and installation & commissioning are quoted for your space.",
+    pricesNote: "Prices are MRP in INR, 18% GST extra. Wood upgrades, the Haven Glass frame finish and installation & commissioning are quoted for your space.",
     steps: consultationSteps,
   },
 };

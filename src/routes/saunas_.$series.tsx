@@ -38,7 +38,7 @@ function seriesJsonLd(t: RoomType) {
     name: `VYRO ${m.name} ${m.code}`,
     description: `${m.copy} Standard size ${modelSize(m).dims}, ${modelSize(m).people}. Cabin MRP in ${standardWood.toLowerCase()}${
       m.infraredPanels ? `; ${m.infraredPanels.kw} kW infrared panels ${formatInr(m.infraredPanels.priceInr)} extra` : "; heater, control panel and accessories extra"
-    }. GST extra. Installed ${saunaInstallation.label}.`,
+    }. 18% GST extra. Installed ${saunaInstallation.label}.`,
     image: absoluteUrl(m.image),
     brand: { "@type": "Brand", name: "VYRO" },
     sku: m.code,
@@ -124,7 +124,7 @@ function HavenSeriesPage() {
             <p className="mt-4 text-lg leading-relaxed text-foreground/85">{t.short}</p>
             <p className="mt-4 max-w-lg text-base leading-relaxed text-muted-foreground">{t.about}</p>
             <p className="mt-5 font-display text-2xl font-medium">
-              {models.length === 1 && models[0] ? cabinPriceLabel(models[0]) : `From ${formatInr(seriesFromPrice(t) ?? 0)} + GST`}
+              {models.length === 1 && models[0] ? cabinPriceLabel(models[0]) : `From ${formatInr(seriesFromPrice(t) ?? 0)} + 18% GST`}
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
               {isInfraredCabin({ type: t.id })
@@ -196,7 +196,7 @@ function HavenSeriesPage() {
               ))}
             </div>
             <p className="mt-8 text-sm text-muted-foreground">
-              Standard sizes shown as length × breadth × height. We confirm the layout for your space. Prices are MRP, GST
+              Standard sizes shown as length × breadth × height. We confirm the layout for your space. Prices are MRP, 18% GST
               extra, for the cabin in {standardWood.toLowerCase()}
               {t.id === "glass-front" ? " including the glass work (frame in matte black, glossy black or stainless steel — the price may vary by finish)" : ""}
               {isInfraredCabin({ type: t.id }) ? "; infrared panels and the control panel are added in the builder" : "; the heater, control panel and accessories are added in the builder"}.

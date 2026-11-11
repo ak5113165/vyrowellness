@@ -168,7 +168,7 @@ function CityPageView() {
               <ul className="mt-5 space-y-2.5 text-sm">
                 {[
                   "Glacier Barrel, Portable and Acrylic",
-                  "1HP chiller and installation included in the MRP (GST extra)",
+                  "1HP chiller and installation included in the MRP (18% GST extra)",
                   plunge ? `${c.city} is one of the first cities we install in` : `Installation starts in ${coldPlungeLaunch.serviceLocations.join(", ")}`,
                 ].map((t) => (
                   <li key={t} className="flex gap-2.5"><Check className="mt-0.5 h-4 w-4 shrink-0 text-bronze-strong" aria-hidden />{t}</li>
