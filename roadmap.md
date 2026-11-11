@@ -12,9 +12,9 @@
 - [x] Buyer tools: before-you-buy FAQs, call-back block, which-cabin-fits helper, PDF spec sheets (rebuild: scripts/spec-sheets)
 - [x] Product pages: /cold-plunge/glacier-{barrel,portable,acrylic}, /saunas/haven-{classic,glass,infrared,compact}; /saunas?cabin=CODE preselects the builder
 - [x] Enquiry form asks the qualifying questions: home stage (existing / under construction / under renovation) for homes, facility type (gym, spa, wellness centre…) for businesses, space stage on the business form
+- [x] Cold Plunge: cinematic dusk hero with a person taking the plunge, VYRO Acrylic tub and 1HP chiller
 
 ## In progress
-- [ ] Cold Plunge: upgrade the hero to a cinematic lifestyle scene with a person taking the plunge
 - [ ] Cold Plunge: reference-inspired cold therapy section, India/Delhi manufacturing, 1 January launch and initial Tier 1 city coverage
 - [ ] Founder story based on confirmed personal journey
 - [ ] Per-product technical specifications based on supplied manufacturer details
