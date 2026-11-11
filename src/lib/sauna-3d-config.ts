@@ -22,6 +22,7 @@ export function saunaConfigFromSelection(sel: BuilderSelection): SaunaConfig | n
   return {
     series: model.type,
     size: model.size,
+    dimsFt: model.dimsFt,
     wood: sel.wood,
     heater: h && kind ? { kind, finish: h.finish } : null,
     panel: p ? (p.kind === "Touch Control" ? "Touch Control" : "Button Control") : null,

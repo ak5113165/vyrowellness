@@ -27,7 +27,8 @@ import {
   modelSize,
   roomSizes,
   roomTypes,
-  widthLabel,
+  dimsFtLabel,
+  sizeLabel,
   saunaModels,
   seriesOfModel,
   seriesSlug,
@@ -62,14 +63,14 @@ export const Route = createFileRoute("/saunas")({
 // Built only from facts already on this page (catalogue sizes, woods, heaters,
 // panels and the consultation process). Shown on the page and published as
 // FAQ structured data — keep them in one place.
-const sizeItems = roomSizes.map((r) => `${r.name} (${widthLabel(r).replace("Approx. ", "approx. ")}, ${r.people})`);
+const sizeItems = roomSizes.map((r) => `${r.name} ${dimsFtLabel(r.dimsFt)} (${r.people})`);
 const sizeSummary = `${sizeItems.slice(0, -1).join(", ")} and ${sizeItems.at(-1)}`;
 const upgradeWoods = woods.filter((w) => !w.standard).map((w) => w.name);
 
 const faqs = [
   {
     q: "Which Haven cabin suits my space?",
-    a: `Haven cabins come in three sizes: ${sizeSummary}. Haven Compact is made for apartments and smaller rooms. Sizes are indicative — we confirm final dimensions for your project.`,
+    a: `Haven Classic comes in three standard sizes, length × breadth × height: ${sizeSummary}. Haven Glass comes in the same three sizes. Haven Infrared IR-01 is ${modelSize(saunaModels.find((m) => m.code === "IR-01")!).dimsShort} and Haven Compact C-01 is ${modelSize(saunaModels.find((m) => m.code === "C-01")!).dimsShort}, made for apartments and smaller rooms. Every cabin is 7 ft tall.`,
   },
   {
     q: "What's the difference between a traditional and an infrared sauna?",
@@ -138,6 +139,7 @@ function SaunasPage() {
 
   const config3d = saunaConfigFromSelection({ room, wood, heater, panel, accessories: acc });
   const selectionRows = [
+    ...(roomModel ? [{ label: "Size (L × B × H)", value: `${modelSize(roomModel).dimsShort} · ${modelSize(roomModel).people}` }] : []),
     { label: "Wood", value: `${wood}${wood === standardWood ? " (standard)" : " (upgrade)"}` },
     { label: "Heater", value: heater ?? "Not selected" },
     { label: "Control Panel", value: panel ?? "Not selected" },
@@ -233,7 +235,7 @@ function SaunasPage() {
                       <p className="eyebrow text-bronze-strong">{m.size} · Spruce</p>
                       <h3 className="mt-2 font-display text-2xl font-medium">{m.name} {m.code}</h3>
                       <p className="mt-1 text-sm text-foreground/80">
-                        {modelSize(m).width} · {modelSize(m).people}
+                        {modelSize(m).dims} · {modelSize(m).people}
                       </p>
                       <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{m.copy}</p>
                       <button type="button" onClick={() => { setRoom(m.code); setStep(2); document.getElementById("builder")?.scrollIntoView({ behavior: "smooth" }); }} className="mt-5 inline-flex items-center gap-2 self-start text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong">
@@ -259,7 +261,7 @@ function SaunasPage() {
             {roomSizes.map((s) => (
               <div key={s.name} className="border-b border-bronze/40 py-8 md:border-b-0 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0">
                 <h3 className="font-display text-3xl font-medium">{s.name}</h3>
-                <p className="mt-3 text-sm text-muted-foreground">{widthLabel(s)}</p>
+                <p className="mt-3 text-sm text-muted-foreground">{sizeLabel(s)}</p>
                 <p className="text-sm text-muted-foreground">{s.people}</p>
               </div>
             ))}
@@ -310,7 +312,7 @@ function SaunasPage() {
             <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_320px]">
               <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {step === 1 && saunaModels.map((m) => (
-                  <Choice key={m.code} selected={room === m.code} onClick={() => setRoom(m.code)} image={m.image} label={`${m.size} · ${modelSize(m).widthShort}`} title={`${m.name} ${m.code}`} copy={m.copy} />
+                  <Choice key={m.code} selected={room === m.code} onClick={() => setRoom(m.code)} image={m.image} label={`${m.size} · ${modelSize(m).dimsShort}`} title={`${m.name} ${m.code}`} copy={m.copy} />
                 ))}
                 {step === 2 && woods.map((w) => (
                   <button key={w.name} type="button" aria-pressed={wood === w.name} onClick={() => setWood(w.name)} className={`relative flex flex-col border bg-card p-5 text-left transition-colors ${wood === w.name ? "border-bronze" : "border-border hover:border-foreground/40"}`}>

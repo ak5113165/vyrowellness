@@ -1,7 +1,7 @@
 // VYRO sauna catalogue — VYRO's own series names and imagery.
 // Product photos are AI-generated VYRO-branded renders (all cabins shown in
 // spruce, the standard wood). Replace with real product photography when ready.
-// Sizes are indicative ranges; confirm final dimensions per project.
+// Standard sizes (L × B × H, feet) confirmed by the founder on 11 Nov 2026.
 
 import s01 from "@/assets/products/haven-s01.jpg";
 import s02 from "@/assets/products/haven-s02.jpg";
@@ -77,13 +77,16 @@ export const roomTypes: RoomType[] = [
   },
 ];
 
-// minWidthM / maxWidthM are the same indicative ranges as `spec`, as numbers
-// for the "which cabin fits" helper (a test keeps them in step).
+// Standard cabin sizes, confirmed by the founder (11 Nov 2026), in feet:
+// length (front) × breadth (depth) × height. Every cabin is 7 ft tall, and each Haven
+// Glass size matches the Haven Classic of the same size.
+export type DimsFt = { w: number; d: number; h: number };
+
 export const roomSizes = [
-  { name: "Small", spec: "Approx. 1.2m–1.5m wide", people: "1–3 people", minWidthM: 1.2, maxWidthM: 1.5 },
-  { name: "Medium", spec: "Approx. 1.4m–1.9m wide", people: "4–6 people", minWidthM: 1.4, maxWidthM: 1.9 },
-  { name: "Large", spec: "Approx. 1.9m–2.2m wide", people: "6+ people", minWidthM: 1.9, maxWidthM: 2.2 },
-] as const;
+  { name: "Small", people: "1–3 people", dimsFt: { w: 5, d: 4, h: 7 } },
+  { name: "Medium", people: "4–6 people", dimsFt: { w: 6, d: 5, h: 7 } },
+  { name: "Large", people: "6+ people", dimsFt: { w: 8, d: 6, h: 7 } },
+] as const satisfies readonly { name: string; people: string; dimsFt: DimsFt }[];
 
 export type SaunaModel = {
   code: string;
@@ -92,19 +95,21 @@ export type SaunaModel = {
   /** Only when a model's capacity differs from its size group (taken from its own description). */
   people?: string;
   type: RoomType["id"];
+  /** Standard size in feet (L × B × H). */
+  dimsFt: DimsFt;
   copy: string;
   image: string;
 };
 
 export const saunaModels: SaunaModel[] = [
-  { code: "S-01", name: "Haven Classic", size: "Small", type: "standard", image: s01, copy: "A compact traditional cabin for 1–3 people — perfect for private sessions and smaller spaces." },
-  { code: "S-02", name: "Haven Classic", size: "Medium", type: "standard", image: s02, copy: "A versatile cabin for 4–6 people, ideal for families and shared sessions." },
-  { code: "S-03", name: "Haven Classic", size: "Large", type: "standard", image: s03, copy: "A generous room for 6 or more — for larger homes, clubs and wellness spaces." },
-  { code: "G-01", name: "Haven Glass", size: "Small", type: "glass-front", image: g01, copy: "A 1–3 person cabin with a full glass front that brings in light." },
-  { code: "G-02", name: "Haven Glass", size: "Medium", type: "glass-front", image: g02, copy: "For 4–6 people — spacious comfort behind a clean glass façade." },
-  { code: "G-03", name: "Haven Glass", size: "Large", type: "glass-front", image: g03, copy: "A 6+ person statement sauna with a wide, striking glass front." },
-  { code: "IR-01", name: "Haven Infrared", size: "Small", type: "infrared", image: ir01, people: "1–2 people", copy: "A compact infrared cabin for 1–2 people with gentle radiant warmth." },
-  { code: "C-01", name: "Haven Compact", size: "Small", type: "compact", image: c01, copy: "A slim, space-saving cabin made for apartments and smaller rooms." },
+  { code: "S-01", name: "Haven Classic", size: "Small", type: "standard", dimsFt: { w: 5, d: 4, h: 7 }, image: s01, copy: "A compact traditional cabin for 1–3 people — perfect for private sessions and smaller spaces." },
+  { code: "S-02", name: "Haven Classic", size: "Medium", type: "standard", dimsFt: { w: 6, d: 5, h: 7 }, image: s02, copy: "A versatile cabin for 4–6 people, ideal for families and shared sessions." },
+  { code: "S-03", name: "Haven Classic", size: "Large", type: "standard", dimsFt: { w: 8, d: 6, h: 7 }, image: s03, copy: "A generous room for 6 or more — for larger homes, clubs and wellness spaces." },
+  { code: "G-01", name: "Haven Glass", size: "Small", type: "glass-front", dimsFt: { w: 5, d: 4, h: 7 }, image: g01, copy: "A 1–3 person cabin with a full glass front that brings in light." },
+  { code: "G-02", name: "Haven Glass", size: "Medium", type: "glass-front", dimsFt: { w: 6, d: 5, h: 7 }, image: g02, copy: "For 4–6 people — spacious comfort behind a clean glass façade." },
+  { code: "G-03", name: "Haven Glass", size: "Large", type: "glass-front", dimsFt: { w: 8, d: 6, h: 7 }, image: g03, copy: "A 6+ person statement sauna with a wide, striking glass front." },
+  { code: "IR-01", name: "Haven Infrared", size: "Small", type: "infrared", dimsFt: { w: 4, d: 4, h: 7 }, image: ir01, people: "1–2 people", copy: "A compact infrared cabin for 1–2 people with gentle radiant warmth." },
+  { code: "C-01", name: "Haven Compact", size: "Small", type: "compact", dimsFt: { w: 3, d: 3, h: 7 }, image: c01, copy: "A slim, space-saving cabin made for apartments and smaller rooms." },
 ];
 
 export type Wood = { name: string; note: string; standard?: boolean };
@@ -143,37 +148,47 @@ export const accessorySets = [
 
 // ---------------------------------------------------------------- sizes ----
 // Sizes are shown in feet first (how most Indian buyers measure rooms), with
-// metres in brackets. Per-cabin dimensions aren't confirmed yet, so each cabin
-// shows its size group's indicative width range.
-
-const M_TO_FT = 3.28084;
+// metres where helpful.
 
 export type RoomSize = (typeof roomSizes)[number];
 
-/** Metres to feet, one decimal place (1.2 → 3.9). */
-export function metresToFeet(m: number): number {
-  return Math.round(m * M_TO_FT * 10) / 10;
+const FT_TO_M = 0.3048;
+
+/** Feet to metres, two decimals without trailing zeros (5 → 1.52, 7 → 2.13). */
+export function feetToMetres(ft: number): number {
+  return Math.round(ft * FT_TO_M * 100) / 100;
 }
 
-/** "approx. 3.9–4.9 ft wide" */
-export function widthFeet(size: RoomSize): string {
-  return `approx. ${metresToFeet(size.minWidthM)}–${metresToFeet(size.maxWidthM)} ft wide`;
+/** "5 × 4 × 7 ft" */
+export function dimsFtLabel(d: DimsFt): string {
+  return `${d.w} × ${d.d} × ${d.h} ft`;
 }
 
-/** "Approx. 3.9–4.9 ft wide (1.2–1.5 m)" */
-export function widthLabel(size: RoomSize): string {
-  const ft = widthFeet(size);
-  return `${ft.charAt(0).toUpperCase()}${ft.slice(1)} (${size.minWidthM}–${size.maxWidthM} m)`;
+/** "1.52 × 1.22 × 2.13 m" */
+export function dimsMetricLabel(d: DimsFt): string {
+  return `${feetToMetres(d.w)} × ${feetToMetres(d.d)} × ${feetToMetres(d.h)} m`;
 }
 
-/** Size line for one cabin: width range of its group + its capacity. */
-export function modelSize(model: SaunaModel): { width: string; widthShort: string; people: string } {
+/** "5 × 4 × 7 ft (L × B × H)" for a size group (Classic and Glass). */
+export function sizeLabel(size: RoomSize): string {
+  return `${dimsFtLabel(size.dimsFt)} (L × B × H)`;
+}
+
+/** Size line for one cabin: its standard dimensions and capacity. */
+export function modelSize(model: SaunaModel): { dims: string; dimsShort: string; dimsMetric: string; people: string } {
   const group = roomSizes.find((r) => r.name === model.size) ?? roomSizes[0];
   return {
-    width: widthLabel(group),
-    widthShort: widthFeet(group),
+    dims: `${dimsFtLabel(model.dimsFt)} (L × B × H)`,
+    dimsShort: dimsFtLabel(model.dimsFt),
+    dimsMetric: dimsMetricLabel(model.dimsFt),
     people: model.people ?? group.people,
   };
+}
+
+/** Does a cabin's footprint fit a floor area (either way round)? Feet. */
+export function fitsFloor(model: SaunaModel, roomWidthFt: number, roomLengthFt: number): boolean {
+  const { w, d } = model.dimsFt;
+  return (w <= roomWidthFt && d <= roomLengthFt) || (w <= roomLengthFt && d <= roomWidthFt);
 }
 
 // ------------------------------------------------------------- series ----

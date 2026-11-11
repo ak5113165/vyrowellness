@@ -25,14 +25,14 @@ import {
 } from "@/content/sauna-catalogue";
 
 // One page per Haven series: /saunas/haven-classic etc. Content comes from
-// sauna-catalogue.ts. Sizes are the confirmed indicative ranges; no prices.
+// sauna-catalogue.ts. Sizes are the confirmed standard sizes (L × B × H).
 
 function seriesJsonLd(t: RoomType) {
   return modelsInSeries(t).map((m) => ({
     "@context": "https://schema.org",
     "@type": "Product",
     name: `VYRO ${m.name} ${m.code}`,
-    description: `${m.copy} ${modelSize(m).width}, ${modelSize(m).people}. Installed ${saunaInstallation.label}.`,
+    description: `${m.copy} Standard size ${modelSize(m).dims}, ${modelSize(m).people}. Installed ${saunaInstallation.label}.`,
     image: absoluteUrl(m.image),
     brand: { "@type": "Brand", name: "VYRO" },
   }));
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/saunas_/$series")({
       path: `/saunas/${seriesSlug(t)}`,
       title: `${t.name} Sauna (${t.series}) — ${codes} | VYRO Wellness`,
       description: `${t.about} ${models.length > 1 ? `${models.length} sizes` : "One size"}: ${models
-        .map((m) => `${m.code} ${modelSize(m).widthShort}`)
+        .map((m) => `${m.code} ${modelSize(m).dimsShort}`)
         .join("; ")}. Installed by our team ${saunaInstallation.label}.`,
       ogTitle: `VYRO ${t.name} Sauna`,
       ogDescription: t.short,
@@ -159,7 +159,7 @@ function HavenSeriesPage() {
                         {m.name} {m.code}
                       </h3>
                       <p className="mt-1 text-sm text-foreground/80">
-                        {modelSize(m).width} · {modelSize(m).people}
+                        {modelSize(m).dims} · {modelSize(m).people}
                       </p>
                       <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{m.copy}</p>
                       <Link
@@ -176,8 +176,8 @@ function HavenSeriesPage() {
               ))}
             </div>
             <p className="mt-8 text-sm text-muted-foreground">
-              Sizes are indicative — we confirm final dimensions for your space. Pricing depends on the wood, heater,
-              control panel and accessories you choose.
+              Standard sizes shown as length × breadth × height. We confirm the layout for your space. Pricing depends on
+              the wood, heater, control panel and accessories you choose.
             </p>
             <DownloadLink sheet="haven" className="mt-6" />
           </div>

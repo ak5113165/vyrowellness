@@ -32,7 +32,7 @@ import {
   saunaHero,
   saunaModels,
   standardWood,
-  widthLabel,
+  sizeLabel,
   woods,
 } from "@/content/sauna-catalogue";
 import { woodColours } from "@/lib/sauna-3d";
@@ -76,7 +76,7 @@ const data = {
     installation: saunaInstallation.label,
     standardWood,
     roomTypes,
-    roomSizes: roomSizes.map((s) => ({ ...s, width: widthLabel(s) })),
+    roomSizes: roomSizes.map((s) => ({ ...s, dims: sizeLabel(s) })),
     models: saunaModels.map((m) => ({ ...m, ...modelSize(m) })),
     woods: woods.map((w) => ({ ...w, colour: woodColours[w.name] })),
     heaters,

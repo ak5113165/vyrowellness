@@ -1,58 +1,63 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { metresToFeet, modelSize, roomSizes, saunaModels, widthLabel } from "@/content/sauna-catalogue";
+import { fitsFloor, modelSize, saunaModels } from "@/content/sauna-catalogue";
 import { cn } from "@/lib/utils";
 
-const FT_TO_M = 0.3048;
-
-type Fit = "fits" | "maybe";
+const M_TO_FT = 3.28084;
 
 /**
- * "Which cabin fits?" — enter the width of the wall the sauna will stand
- * against and see which Haven sizes fit, using the catalogue's indicative
- * widths. Final dimensions are always confirmed in the space assessment.
+ * "Which cabin fits?" — enter the room's length and breadth and see which Haven
+ * cabins fit the floor, using each cabin's confirmed standard size. Door
+ * swing, clearances, power and ventilation are confirmed in the space
+ * assessment.
  */
 export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void }) {
   // Feet first: most buyers in India measure rooms in feet.
   const [unit, setUnit] = useState<"m" | "ft">("ft");
-  const [value, setValue] = useState("");
+  const [widthIn, setWidthIn] = useState("");
+  const [lengthIn, setLengthIn] = useState("");
 
-  const width = Number.parseFloat(value.replace(",", "."));
-  const widthM = Number.isFinite(width) && width > 0 ? (unit === "ft" ? width * FT_TO_M : width) : null;
-
-  const results = widthM
-    ? roomSizes.flatMap((size) => {
-        const fit: Fit | null = widthM >= size.maxWidthM ? "fits" : widthM >= size.minWidthM ? "maybe" : null;
-        return fit ? [{ size, fit, models: saunaModels.filter((m) => m.size === size.name) }] : [];
-      })
-    : [];
+  const toFt = (v: string) => {
+    const n = Number.parseFloat(v.replace(",", "."));
+    return Number.isFinite(n) && n > 0 ? (unit === "m" ? n * M_TO_FT : n) : null;
+  };
+  const w = toFt(widthIn);
+  const l = toFt(lengthIn);
+  const ready = w !== null && l !== null;
+  const fits = ready ? saunaModels.filter((m) => fitsFloor(m, w, l)) : [];
 
   const toggle = (u: "m" | "ft") =>
     cn(
       "px-3 py-2 text-xs uppercase tracking-[0.16em] transition-colors",
       unit === u ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground",
     );
+  const input =
+    "h-11 w-32 rounded-sm border border-input bg-transparent px-3.5 text-sm focus-visible:border-bronze focus-visible:outline-none";
 
   return (
     <div className="mt-12 border border-border bg-card p-6 sm:p-8">
       <p className="eyebrow text-bronze-strong">Which Cabin Fits?</p>
-      <h3 className="mt-2 font-display text-3xl font-medium">Check your wall width</h3>
+      <h3 className="mt-2 font-display text-3xl font-medium">Check your room</h3>
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-        Measure the wall the sauna will stand against and enter its width.
+        Enter the length and breadth of the floor space where the sauna will go.
       </p>
 
-      <div className="mt-6 flex flex-wrap items-center gap-3">
-        <label htmlFor="fit-width" className="sr-only">
-          Wall width
-        </label>
-        <input
-          id="fit-width"
-          inputMode="decimal"
-          placeholder={unit === "m" ? "e.g. 1.8" : "e.g. 6"}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          className="h-11 w-36 rounded-sm border border-input bg-transparent px-3.5 text-sm focus-visible:border-bronze focus-visible:outline-none"
-        />
+      <div className="mt-6 flex flex-wrap items-end gap-3">
+        <div>
+          <label htmlFor="fit-width" className="eyebrow block text-muted-foreground">
+            Length
+          </label>
+          <input id="fit-width" inputMode="decimal" placeholder={unit === "m" ? "e.g. 2" : "e.g. 6"} value={widthIn} onChange={(e) => setWidthIn(e.target.value)} className={cn("mt-1.5", input)} />
+        </div>
+        <span className="pb-3 text-muted-foreground" aria-hidden>
+          ×
+        </span>
+        <div>
+          <label htmlFor="fit-length" className="eyebrow block text-muted-foreground">
+            Breadth
+          </label>
+          <input id="fit-length" inputMode="decimal" placeholder={unit === "m" ? "e.g. 1.6" : "e.g. 5"} value={lengthIn} onChange={(e) => setLengthIn(e.target.value)} className={cn("mt-1.5", input)} />
+        </div>
         <div role="group" aria-label="Unit" className="flex border border-border">
           <button type="button" aria-pressed={unit === "ft"} onClick={() => setUnit("ft")} className={toggle("ft")}>
             Feet
@@ -64,48 +69,44 @@ export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void 
       </div>
 
       <div aria-live="polite" className="mt-6">
-        {widthM === null ? null : results.length === 0 ? (
+        {!ready ? null : fits.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            That's narrower than our smallest indicative cabin (approx. {metresToFeet(roomSizes[0].minWidthM)} ft /{" "}
-            {roomSizes[0].minWidthM} m). Ask us in the
-            enquiry form — we'll look at what's possible for your space.
+            That's smaller than our most compact cabin ({modelSize(saunaModels.find((m) => m.code === "C-01") ?? saunaModels[0]!).dims}).
+            Ask us in the enquiry form — we'll look at what's possible for your space.
           </p>
         ) : (
-          <ul className="grid gap-4 md:grid-cols-3">
-            {results.map(({ size, fit, models }) => (
-              <li key={size.name} className="flex flex-col border border-border bg-background p-5">
-                <p className={cn("eyebrow", fit === "fits" ? "text-bronze-strong" : "text-muted-foreground")}>
-                  {fit === "fits" ? "Fits" : "May fit — depends on model"}
-                </p>
-                <p className="mt-1 font-display text-2xl font-medium">{size.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  {widthLabel(size)} · {size.people}
-                </p>
-                <div className="mt-4 flex flex-1 flex-col gap-2">
-                  {models.map((m) => (
-                    <button
-                      key={m.code}
-                      type="button"
-                      onClick={() => onChoose(m.code)}
-                      className="inline-flex items-center justify-between gap-2 border-t border-border pt-2 text-left text-sm hover:text-bronze-strong"
-                    >
-                      <span>
+          <>
+            <p className="text-sm">
+              {fits.length} {fits.length === 1 ? "cabin fits" : "cabins fit"} that floor space:
+            </p>
+            <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {fits.map((m) => (
+                <li key={m.code}>
+                  <button
+                    type="button"
+                    onClick={() => onChoose(m.code)}
+                    className="flex h-full w-full items-start justify-between gap-2 border border-border bg-background p-4 text-left transition-colors hover:border-foreground/50"
+                  >
+                    <span>
+                      <span className="block font-display text-xl font-medium">
                         {m.name} {m.code}
-                        <span className="block text-xs text-muted-foreground">{modelSize(m).people}</span>
                       </span>
-                      <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
-                    </button>
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
+                      <span className="mt-1 block text-xs text-muted-foreground">
+                        {modelSize(m).dims} · {modelSize(m).people}
+                      </span>
+                    </span>
+                    <ArrowRight className="mt-1 h-4 w-4 shrink-0" aria-hidden />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </div>
 
       <p className="mt-6 text-xs text-muted-foreground">
-        Widths are indicative. Leave room for the door and ventilation — we confirm final dimensions in your space
-        assessment.
+        Every cabin is 7 ft tall, so check your ceiling height too. Leave room for the door, power and ventilation — we
+        confirm everything in your space assessment.
       </p>
     </div>
   );
