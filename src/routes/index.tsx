@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
       title: "VYRO Wellness — Premium Saunas, Cold Plunge & Red Light Therapy in India",
       description:
         `VYRO designs and installs premium saunas ${saunaInstallation.label}, with Glacier cold plunges launching ${coldPlungeLaunch.label} and red light therapy coming soon. Book a consultation.`,
-      ogTitle: "VYRO — Wellness, Reimagined.",
+      ogTitle: "VYRO — Heat. Cold. Calm.",
       ogDescription:
         "Saunas, cold plunge and red light therapy — specified for your space and installed by our team in India.",
       jsonLd: [faqJsonLd(beforeYouBuyFaqs)],
