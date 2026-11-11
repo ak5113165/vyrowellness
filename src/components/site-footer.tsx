@@ -48,6 +48,16 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
+                <Link to="/guides" className="text-ink-foreground/80 transition-colors hover:text-ink-foreground">
+                  Buying Guides
+                </Link>
+              </li>
+              <li>
+                <Link to="/locations" className="text-ink-foreground/80 transition-colors hover:text-ink-foreground">
+                  Where We Install
+                </Link>
+              </li>
+              <li>
                 <Link to="/contact" className="text-ink-foreground/80 transition-colors hover:text-ink-foreground">
                   Contact
                 </Link>

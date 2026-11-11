@@ -266,6 +266,13 @@ function SaunasPage() {
           </div>
           <CabinFitFinder onChoose={(code) => { setRoom(code); goStep(2); }} />
           <DownloadLink sheet="haven" className="mt-8" />
+          <Link
+            to="/guides/$slug"
+            params={{ slug: "how-to-choose-a-home-sauna-in-india" }}
+            className="mt-4 block text-[12px] uppercase tracking-[0.16em] text-muted-foreground underline underline-offset-8 hover:text-foreground"
+          >
+            Guide: How to choose a home sauna in India →
+          </Link>
         </section>
 
         {/* Woods */}

@@ -17,10 +17,14 @@ import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RedLightTherapyRouteImport } from './routes/red-light-therapy'
 import { Route as SaunasRouteImport } from './routes/saunas'
+import { Route as LocationsRouteImport } from './routes/locations'
+import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WellnessSpacesRouteImport } from './routes/wellness-spaces'
 import { Route as ColdPlungeModelRouteImport } from './routes/cold-plunge_.$model'
 import { Route as SaunasSeriesRouteImport } from './routes/saunas_.$series'
+import { Route as LocationsCityRouteImport } from './routes/locations_.$city'
+import { Route as GuidesSlugRouteImport } from './routes/guides_.$slug'
 import { Route as ApiPublicEnquiriesRouteImport } from './routes/api/public/enquiries'
 
 const IndexRoute = IndexRouteImport.update({
@@ -63,6 +67,16 @@ const SaunasRoute = SaunasRouteImport.update({
   path: '/saunas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocationsRoute = LocationsRouteImport.update({
+  id: '/locations',
+  path: '/locations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesRoute = GuidesRouteImport.update({
+  id: '/guides',
+  path: '/guides',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -83,6 +97,16 @@ const SaunasSeriesRoute = SaunasSeriesRouteImport.update({
   path: '/saunas/$series',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocationsCityRoute = LocationsCityRouteImport.update({
+  id: '/locations_/$city',
+  path: '/locations/$city',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesSlugRoute = GuidesSlugRouteImport.update({
+  id: '/guides_/$slug',
+  path: '/guides/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicEnquiriesRoute = ApiPublicEnquiriesRouteImport.update({
   id: '/api/public/enquiries',
   path: '/api/public/enquiries',
@@ -98,10 +122,14 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
+  '/locations': typeof LocationsRoute
+  '/guides': typeof GuidesRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
   '/cold-plunge/$model': typeof ColdPlungeModelRoute
   '/saunas/$series': typeof SaunasSeriesRoute
+  '/locations/$city': typeof LocationsCityRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRoutesByTo {
@@ -113,10 +141,14 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
+  '/locations': typeof LocationsRoute
+  '/guides': typeof GuidesRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
   '/cold-plunge/$model': typeof ColdPlungeModelRoute
   '/saunas/$series': typeof SaunasSeriesRoute
+  '/locations/$city': typeof LocationsCityRoute
+  '/guides/$slug': typeof GuidesSlugRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRoutesById {
@@ -129,10 +161,14 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
+  '/locations': typeof LocationsRoute
+  '/guides': typeof GuidesRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
   '/cold-plunge_/$model': typeof ColdPlungeModelRoute
   '/saunas_/$series': typeof SaunasSeriesRoute
+  '/locations_/$city': typeof LocationsCityRoute
+  '/guides_/$slug': typeof GuidesSlugRoute
   '/api/public/enquiries': typeof ApiPublicEnquiriesRoute
 }
 export interface FileRouteTypes {
@@ -146,10 +182,14 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/red-light-therapy'
     | '/saunas'
+    | '/locations'
+    | '/guides'
     | '/terms'
     | '/wellness-spaces'
     | '/cold-plunge/$model'
     | '/saunas/$series'
+    | '/locations/$city'
+    | '/guides/$slug'
     | '/api/public/enquiries'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -161,10 +201,14 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/red-light-therapy'
     | '/saunas'
+    | '/locations'
+    | '/guides'
     | '/terms'
     | '/wellness-spaces'
     | '/cold-plunge/$model'
     | '/saunas/$series'
+    | '/locations/$city'
+    | '/guides/$slug'
     | '/api/public/enquiries'
   id:
     | '__root__'
@@ -176,10 +220,14 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/red-light-therapy'
     | '/saunas'
+    | '/locations'
+    | '/guides'
     | '/terms'
     | '/wellness-spaces'
     | '/cold-plunge_/$model'
     | '/saunas_/$series'
+    | '/locations_/$city'
+    | '/guides_/$slug'
     | '/api/public/enquiries'
   fileRoutesById: FileRoutesById
 }
@@ -192,10 +240,14 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   RedLightTherapyRoute: typeof RedLightTherapyRoute
   SaunasRoute: typeof SaunasRoute
+  LocationsRoute: typeof LocationsRoute
+  GuidesRoute: typeof GuidesRoute
   TermsRoute: typeof TermsRoute
   WellnessSpacesRoute: typeof WellnessSpacesRoute
   ColdPlungeModelRoute: typeof ColdPlungeModelRoute
   SaunasSeriesRoute: typeof SaunasSeriesRoute
+  LocationsCityRoute: typeof LocationsCityRoute
+  GuidesSlugRoute: typeof GuidesSlugRoute
   ApiPublicEnquiriesRoute: typeof ApiPublicEnquiriesRoute
 }
 
@@ -257,6 +309,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SaunasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/locations': {
+      id: '/locations'
+      path: '/locations'
+      fullPath: '/locations'
+      preLoaderRoute: typeof LocationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides': {
+      id: '/guides'
+      path: '/guides'
+      fullPath: '/guides'
+      preLoaderRoute: typeof GuidesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -285,6 +351,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SaunasSeriesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/locations_/$city': {
+      id: '/locations_/$city'
+      path: '/locations/$city'
+      fullPath: '/locations/$city'
+      preLoaderRoute: typeof LocationsCityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides_/$slug': {
+      id: '/guides_/$slug'
+      path: '/guides/$slug'
+      fullPath: '/guides/$slug'
+      preLoaderRoute: typeof GuidesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/enquiries': {
       id: '/api/public/enquiries'
       path: '/api/public/enquiries'
@@ -304,10 +384,14 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   RedLightTherapyRoute: RedLightTherapyRoute,
   SaunasRoute: SaunasRoute,
+  LocationsRoute: LocationsRoute,
+  GuidesRoute: GuidesRoute,
   TermsRoute: TermsRoute,
   WellnessSpacesRoute: WellnessSpacesRoute,
   ColdPlungeModelRoute: ColdPlungeModelRoute,
   SaunasSeriesRoute: SaunasSeriesRoute,
+  LocationsCityRoute: LocationsCityRoute,
+  GuidesSlugRoute: GuidesSlugRoute,
   ApiPublicEnquiriesRoute: ApiPublicEnquiriesRoute,
 }
 export const routeTree = rootRouteImport
