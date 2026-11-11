@@ -31,8 +31,8 @@ import {
   projectModels,
 } from "@/content/glacier-catalogue";
 
-// Header banner: the three launch renders side by side (built from the product images).
-import heroImg from "@/assets/plunge/glacier-acrylic-1hp.jpg";
+// Cinematic Glacier Acrylic installation; replace with real lifestyle photography when available.
+import heroImg from "@/assets/plunge/glacier-hero.jpg";
 
 const cities = coldPlungeLaunch.serviceLocations.join(", ").replace(/, ([^,]*)$/, " and $1");
 const launchIso = `${coldPlungeLaunch.year}-${String(coldPlungeLaunch.month).padStart(2, "0")}-${String(coldPlungeLaunch.day).padStart(2, "0")}`;
@@ -139,36 +139,37 @@ function ColdPlungePage() {
     <div className="min-h-screen bg-background">
       <SiteHeader />
       <main id="main">
-        {/* Collection header: copy beside the Glacier Acrylic, on its matching cream background.
-            Swap heroImg for a lifestyle photo (someone in the plunge) once one is shot. */}
-        <section className="bg-[#f8ecde]">
-          <div className="mx-auto grid max-w-7xl items-center gap-4 px-5 pt-14 pb-10 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:px-8 lg:py-16">
-            <div>
-              <p className="eyebrow text-bronze-strong">
+        {/* Cinematic collection hero: a real-feeling Glacier Acrylic installation at dusk. */}
+        <section className="bg-ink text-ink-foreground">
+          <div className="mx-auto grid max-w-[1600px] items-stretch lg:grid-cols-[0.85fr_1.15fr]">
+            <div className="flex flex-col justify-center px-5 py-14 sm:px-10 lg:px-16 lg:py-20">
+              <p className="eyebrow text-bronze">
                 VYRO Glacier · Made in {coldPlungeLaunch.madeIn}
               </p>
               <h1 className="mt-3 font-display text-5xl font-medium sm:text-7xl">Cold Plunges</h1>
-              <p className="mt-4 max-w-2xl text-foreground/80">
+              <p className="mt-4 max-w-xl text-ink-foreground/80">
                 Three Glacier plunges launch on {launchLabel}: Barrel, Portable and Acrylic
                 {fromPrice ? `, from ${fromPrice} MRP including the 1HP chiller and installation` : ""}. Available first in {cities}.
               </p>
-              <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3 text-[13px] uppercase tracking-[0.16em]">
-                <a href="#launch" className="text-foreground/80 hover:text-foreground">Launch Range</a>
-                <a href="#compare" className="text-foreground/80 hover:text-foreground">Compare</a>
-                <a href="#chillers" className="text-foreground/80 hover:text-foreground">Chillers</a>
-                <a href="#projects" className="text-foreground/80 hover:text-foreground">Project Collection</a>
-                <a href="#enquire" className="text-foreground/80 hover:text-foreground">Register</a>
+              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-ink-border pt-6 text-[13px] uppercase tracking-[0.16em]">
+                <a href="#launch" className="text-ink-foreground/75 hover:text-ink-foreground">Launch Range</a>
+                <a href="#compare" className="text-ink-foreground/75 hover:text-ink-foreground">Compare</a>
+                <a href="#chillers" className="text-ink-foreground/75 hover:text-ink-foreground">Chillers</a>
+                <a href="#projects" className="text-ink-foreground/75 hover:text-ink-foreground">Project Collection</a>
+                <a href="#enquire" className="text-ink-foreground/75 hover:text-ink-foreground">Register</a>
               </div>
             </div>
-            <img
-              src={heroImg}
-              {...responsive(heroImg, SIZES.half)}
-              alt="VYRO Glacier Acrylic: a gloss-white acrylic cold plunge tub filled with clear water, connected to a VYRO 1HP chiller"
-              width={1024}
-              height={1024}
-              className="mx-auto w-full max-w-md lg:max-w-none"
-              fetchPriority="high"
-            />
+            <div className="relative aspect-[6/5] lg:aspect-auto lg:min-h-[620px]">
+              <img
+                src={heroImg}
+                {...responsive(heroImg, SIZES.half)}
+                alt="A person taking a cold plunge in a VYRO Glacier Acrylic tub beside its 1HP chiller in a luxury wellness suite at dusk"
+                width={1440}
+                height={1200}
+                className="absolute inset-0 h-full w-full object-cover object-center"
+                fetchPriority="high"
+              />
+            </div>
           </div>
         </section>
 
