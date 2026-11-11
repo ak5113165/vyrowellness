@@ -3,7 +3,7 @@ import { dimsFtLabel, feetToMetres, fitsFloor, modelSize, roomSizes, saunaModels
 
 const byCode = (code: string) => saunaModels.find((m) => m.code === code)!;
 
-// Standard sizes confirmed by the founder on 11 Nov 2026 (W × D × H, feet).
+// Standard sizes confirmed by the founder on 11 Nov 2026 (L × B × H, feet).
 describe("Haven standard sizes", () => {
   it("matches the confirmed sizes for every cabin", () => {
     const expected: Record<string, string> = {
@@ -29,7 +29,7 @@ describe("Haven standard sizes", () => {
         expect(m.dimsFt).toEqual(s.dimsFt);
       }
     }
-    expect(sizeLabel(roomSizes[0])).toBe("5 × 4 × 7 ft (W × D × H)");
+    expect(sizeLabel(roomSizes[0])).toBe("5 × 4 × 7 ft (L × B × H)");
   });
 
   it("converts to metres for reference", () => {

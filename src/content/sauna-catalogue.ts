@@ -1,7 +1,7 @@
 // VYRO sauna catalogue — VYRO's own series names and imagery.
 // Product photos are AI-generated VYRO-branded renders (all cabins shown in
 // spruce, the standard wood). Replace with real product photography when ready.
-// Standard sizes (W × D × H, feet) confirmed by the founder on 11 Nov 2026.
+// Standard sizes (L × B × H, feet) confirmed by the founder on 11 Nov 2026.
 
 import s01 from "@/assets/products/haven-s01.jpg";
 import s02 from "@/assets/products/haven-s02.jpg";
@@ -78,7 +78,7 @@ export const roomTypes: RoomType[] = [
 ];
 
 // Standard cabin sizes, confirmed by the founder (11 Nov 2026), in feet:
-// width (front) × depth × height. Every cabin is 7 ft tall, and each Haven
+// length (front) × breadth (depth) × height. Every cabin is 7 ft tall, and each Haven
 // Glass size matches the Haven Classic of the same size.
 export type DimsFt = { w: number; d: number; h: number };
 
@@ -95,7 +95,7 @@ export type SaunaModel = {
   /** Only when a model's capacity differs from its size group (taken from its own description). */
   people?: string;
   type: RoomType["id"];
-  /** Standard size in feet (W × D × H). */
+  /** Standard size in feet (L × B × H). */
   dimsFt: DimsFt;
   copy: string;
   image: string;
@@ -169,16 +169,16 @@ export function dimsMetricLabel(d: DimsFt): string {
   return `${feetToMetres(d.w)} × ${feetToMetres(d.d)} × ${feetToMetres(d.h)} m`;
 }
 
-/** "5 × 4 × 7 ft (W × D × H)" for a size group (Classic and Glass). */
+/** "5 × 4 × 7 ft (L × B × H)" for a size group (Classic and Glass). */
 export function sizeLabel(size: RoomSize): string {
-  return `${dimsFtLabel(size.dimsFt)} (W × D × H)`;
+  return `${dimsFtLabel(size.dimsFt)} (L × B × H)`;
 }
 
 /** Size line for one cabin: its standard dimensions and capacity. */
 export function modelSize(model: SaunaModel): { dims: string; dimsShort: string; dimsMetric: string; people: string } {
   const group = roomSizes.find((r) => r.name === model.size) ?? roomSizes[0];
   return {
-    dims: `${dimsFtLabel(model.dimsFt)} (W × D × H)`,
+    dims: `${dimsFtLabel(model.dimsFt)} (L × B × H)`,
     dimsShort: dimsFtLabel(model.dimsFt),
     dimsMetric: dimsMetricLabel(model.dimsFt),
     people: model.people ?? group.people,

@@ -25,7 +25,7 @@ import {
 } from "@/content/sauna-catalogue";
 
 // One page per Haven series: /saunas/haven-classic etc. Content comes from
-// sauna-catalogue.ts. Sizes are the confirmed standard sizes (W × D × H).
+// sauna-catalogue.ts. Sizes are the confirmed standard sizes (L × B × H).
 
 function seriesJsonLd(t: RoomType) {
   return modelsInSeries(t).map((m) => ({
@@ -176,7 +176,7 @@ function HavenSeriesPage() {
               ))}
             </div>
             <p className="mt-8 text-sm text-muted-foreground">
-              Standard sizes shown as width × depth × height. We confirm the layout for your space. Pricing depends on
+              Standard sizes shown as length × breadth × height. We confirm the layout for your space. Pricing depends on
               the wood, heater, control panel and accessories you choose.
             </p>
             <DownloadLink sheet="haven" className="mt-6" />

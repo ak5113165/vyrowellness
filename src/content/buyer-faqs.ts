@@ -50,7 +50,7 @@ export const beforeYouBuyFaqs = [
   },
   {
     q: "How much space does each product take?",
-    a: `Haven sauna cabins come in standard sizes (width × depth × height): ${saunaSizes}. Glacier Barrel is ${glacierDimensions["Glacier Barrel"].replace(" · ", ", ")}; Glacier Portable and Acrylic are ${glacierDimensions["Glacier Acrylic"].replace(" · ", ", ")}, holding ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres across the range.`,
+    a: `Haven sauna cabins come in standard sizes (length × breadth × height): ${saunaSizes}. Glacier Barrel is ${glacierDimensions["Glacier Barrel"].replace(" · ", ", ")}; Glacier Portable and Acrylic are ${glacierDimensions["Glacier Acrylic"].replace(" · ", ", ")}, holding ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres across the range.`,
   },
   {
     q: "Can I upgrade the chiller?",

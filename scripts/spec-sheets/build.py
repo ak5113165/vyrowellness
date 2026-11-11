@@ -245,7 +245,7 @@ def glacier(data, out: Path) -> None:
 def haven(data, out: Path) -> None:
     hv = data["haven"]
     note = (
-        f"Standard sizes shown as width × depth × height; layout confirmed per project. Pricing on request. "
+        f"Standard sizes shown as length × breadth × height; layout confirmed per project. Pricing on request. "
         f"As of {data['asOf']} — confirm current details on {data['contact']['domain']}."
     )
     c = canvas.Canvas(str(out), pagesize=A4)
@@ -282,13 +282,13 @@ def haven(data, out: Path) -> None:
     y = min(lows) - 20
 
     eyebrow(c, "Sizes", M, y)
-    rows = [["Size", "Haven Classic & Glass (W × D × H)", "Capacity"]] + [
-        [s["name"], s["dims"].replace(" (W × D × H)", ""), s["people"]] for s in hv["roomSizes"]
+    rows = [["Size", "Haven Classic & Glass (L × B × H)", "Capacity"]] + [
+        [s["name"], s["dims"].replace(" (L × B × H)", ""), s["people"]] for s in hv["roomSizes"]
     ]
     y = table(c, rows, M, y - 8, [90, 220, W - 2 * M - 310]) - 20
 
     eyebrow(c, "Models", M, y)
-    rows = [["Model", "Size (W × D × H)", "Seats", "Description"]] + [
+    rows = [["Model", "Size (L × B × H)", "Seats", "Description"]] + [
         [f"{m['name']} {m['code']}", f"{m['dimsShort']}<br/><font color='#5F5A54'>({m['dimsMetric']})</font>", m["people"], m["copy"]]
         for m in hv["models"]
     ]

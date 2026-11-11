@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const M_TO_FT = 3.28084;
 
 /**
- * "Which cabin fits?" — enter the room's width and length and see which Haven
+ * "Which cabin fits?" — enter the room's length and breadth and see which Haven
  * cabins fit the floor, using each cabin's confirmed standard size. Door
  * swing, clearances, power and ventilation are confirmed in the space
  * assessment.
@@ -39,13 +39,13 @@ export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void 
       <p className="eyebrow text-bronze-strong">Which Cabin Fits?</p>
       <h3 className="mt-2 font-display text-3xl font-medium">Check your room</h3>
       <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-        Enter the width and length of the floor space where the sauna will go.
+        Enter the length and breadth of the floor space where the sauna will go.
       </p>
 
       <div className="mt-6 flex flex-wrap items-end gap-3">
         <div>
           <label htmlFor="fit-width" className="eyebrow block text-muted-foreground">
-            Width
+            Length
           </label>
           <input id="fit-width" inputMode="decimal" placeholder={unit === "m" ? "e.g. 2" : "e.g. 6"} value={widthIn} onChange={(e) => setWidthIn(e.target.value)} className={cn("mt-1.5", input)} />
         </div>
@@ -54,7 +54,7 @@ export function CabinFitFinder({ onChoose }: { onChoose: (code: string) => void 
         </span>
         <div>
           <label htmlFor="fit-length" className="eyebrow block text-muted-foreground">
-            Length
+            Breadth
           </label>
           <input id="fit-length" inputMode="decimal" placeholder={unit === "m" ? "e.g. 1.6" : "e.g. 5"} value={lengthIn} onChange={(e) => setLengthIn(e.target.value)} className={cn("mt-1.5", input)} />
         </div>

@@ -76,11 +76,11 @@ const chooseSauna: Guide = {
     { type: "h2", text: "2. Choose the size" },
     {
       type: "p",
-      text: "Think about how many people will usually use it together, and how much floor space the room can give up. These are our standard sizes, as width × depth × height; every cabin is 7 ft tall, so check your ceiling height too.",
+      text: "Think about how many people will usually use it together, and how much floor space the room can give up. These are our standard sizes, as length × breadth × height; every cabin is 7 ft tall, so check your ceiling height too.",
     },
     {
       type: "table",
-      head: ["Cabin", "Size (W × D × H)", "Seats"],
+      head: ["Cabin", "Size (L × B × H)", "Seats"],
       rows: saunaModels.map((m) => [`${m.name} ${m.code}`, modelSize(m).dimsShort, modelSize(m).people]),
     },
     {

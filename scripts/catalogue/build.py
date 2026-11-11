@@ -412,8 +412,8 @@ def haven_glance(b: Book):
         yy = para(c, t["name"], x, top - cw - 20, cw, style("Display", 14, 17))
         para(c, t["short"], x, yy - 3, cw, style("Body", 7.6, 11, MUTED))
     # Size guide on the right of the title
-    rows = [["Cabin", "Size (W × D × H)", "Seats"]] + [
-        [f"Classic & Glass — {s['name']}", s["dims"].replace(" (W × D × H)", ""), s["people"]] for s in d["roomSizes"]
+    rows = [["Cabin", "Size (L × B × H)", "Seats"]] + [
+        [f"Classic & Glass — {s['name']}", s["dims"].replace(" (L × B × H)", ""), s["people"]] for s in d["roomSizes"]
     ] + [[f"{m['name']} {m['code']}", m["dimsShort"], m["people"]] for m in d["models"] if m["type"] in ("infrared", "compact")]
     eyebrow(c, "Size Guide", W / 2 + 20, H - 80)
     y_t = table(c, rows, W / 2 + 20, H - 88, [150, 120, 90])
@@ -447,7 +447,7 @@ def series_page(b: Book, type_id: str, name_key: str, bullets_list):
         c.setFillColor(INK)
         c.drawString(mx, y - mw - 12, f"{m['code']}  ·  {m['size']}")
     y = y - mw - 26
-    rows = [["Model", "Size", "W × D × H", "Seats"]] + [
+    rows = [["Model", "Size", "L × B × H", "Seats"]] + [
         [m["code"], m["size"], f"{m['dimsShort']} ({m['dimsMetric']})", m["people"]] for m in models
     ]
     table(c, rows, x, y, [52, 52, tw - 52 - 52 - 72, 72])
@@ -478,7 +478,7 @@ def series_pair(b: Book):
             "compact": ["Space-saving footprint for apartments", "Glass door with a clean timber front", "Heater tucked neatly out of sight"],
         }[tid]
         y = bullets(c, extra, x, y - 8, half, size=8.6)
-        rows = [["Model", "Size", "W × D × H", "Seats"], [m["code"], m["size"], f"{m['dimsShort']} ({m['dimsMetric']})", m["people"]]]
+        rows = [["Model", "Size", "L × B × H", "Seats"], [m["code"], m["size"], f"{m['dimsShort']} ({m['dimsMetric']})", m["people"]]]
         table(c, rows, x, y - 10, [48, 48, half - 48 - 48 - 70, 70], size=8)
 
 

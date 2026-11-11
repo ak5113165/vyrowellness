@@ -70,7 +70,7 @@ const upgradeWoods = woods.filter((w) => !w.standard).map((w) => w.name);
 const faqs = [
   {
     q: "Which Haven cabin suits my space?",
-    a: `Haven Classic comes in three standard sizes, width × depth × height: ${sizeSummary}. Haven Glass comes in the same three sizes. Haven Infrared IR-01 is ${modelSize(saunaModels.find((m) => m.code === "IR-01")!).dimsShort} and Haven Compact C-01 is ${modelSize(saunaModels.find((m) => m.code === "C-01")!).dimsShort}, made for apartments and smaller rooms. Every cabin is 7 ft tall.`,
+    a: `Haven Classic comes in three standard sizes, length × breadth × height: ${sizeSummary}. Haven Glass comes in the same three sizes. Haven Infrared IR-01 is ${modelSize(saunaModels.find((m) => m.code === "IR-01")!).dimsShort} and Haven Compact C-01 is ${modelSize(saunaModels.find((m) => m.code === "C-01")!).dimsShort}, made for apartments and smaller rooms. Every cabin is 7 ft tall.`,
   },
   {
     q: "What's the difference between a traditional and an infrared sauna?",
@@ -139,7 +139,7 @@ function SaunasPage() {
 
   const config3d = saunaConfigFromSelection({ room, wood, heater, panel, accessories: acc });
   const selectionRows = [
-    ...(roomModel ? [{ label: "Size (W × D × H)", value: `${modelSize(roomModel).dimsShort} · ${modelSize(roomModel).people}` }] : []),
+    ...(roomModel ? [{ label: "Size (L × B × H)", value: `${modelSize(roomModel).dimsShort} · ${modelSize(roomModel).people}` }] : []),
     { label: "Wood", value: `${wood}${wood === standardWood ? " (standard)" : " (upgrade)"}` },
     { label: "Heater", value: heater ?? "Not selected" },
     { label: "Control Panel", value: panel ?? "Not selected" },

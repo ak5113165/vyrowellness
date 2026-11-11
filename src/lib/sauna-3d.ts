@@ -21,7 +21,7 @@ export type SaunaConfig = {
   heater: { kind: HeaterKind; finish: Finish } | null;
   panel: "Button Control" | "Touch Control" | null;
   accessories: { name: string; finish: string }[];
-  /** The cabin's standard size in feet (W × D × H). */
+  /** The cabin's standard size in feet (L × B × H). */
   dimsFt: { w: number; d: number; h: number };
 };
 

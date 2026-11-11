@@ -87,7 +87,7 @@ const offer = [
 const planningFacts = [
   {
     label: "Haven sauna cabins",
-    value: `Standard sizes (W × D × H): ${roomSizes.map((r) => `${r.name} ${dimsFtLabel(r.dimsFt)}`).join(", ")}; layout confirmed per project.`,
+    value: `Standard sizes (L × B × H): ${roomSizes.map((r) => `${r.name} ${dimsFtLabel(r.dimsFt)}`).join(", ")}; layout confirmed per project.`,
   },
   {
     label: "Glacier cold plunge tubs",
