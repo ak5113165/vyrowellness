@@ -20,7 +20,7 @@ export const site = {
 
   // WhatsApp business number, international format, digits only.
   // Leave "" to hide all WhatsApp buttons.
-  whatsappNumber: "919540149445",
+  whatsappNumber: "918700015649",
 
   domain: "vyrowellness.in",
   infoEmail: "info@vyrowellness.in",
@@ -28,8 +28,8 @@ export const site = {
   supportEmail: "support@vyrowellness.in",
   // Primary public email (sales enquiries).
   email: "sales@vyrowellness.in",
-  phoneDisplay: "+91 95401 49445",
-  phoneHref: "tel:+919540149445",
+  phoneDisplay: "+91 87000 15649",
+  phoneHref: "tel:+918700015649",
   // Confirmed by the founder (8 Nov 2026): the team replies to every enquiry within 24 hours.
   enquiryResponseTime: "within 24 hours",
 
