@@ -133,7 +133,7 @@ def glacier(data, out: Path) -> None:
     g = data["glacier"]
     cities = ", ".join(g["cities"][:-1]) + " and " + g["cities"][-1]
     note = (
-        f"Prices are MRP in Indian rupees and include the {g['included']}. "
+        f"Prices are MRP in Indian rupees, exclusive of GST, and include the {g['included']}. "
         f"Specifications as of {data['asOf']}; please confirm current details on {data['contact']['domain']}."
     )
     c = canvas.Canvas(str(out), pagesize=A4)
@@ -178,7 +178,7 @@ def glacier(data, out: Path) -> None:
     rows = [[""] + [m["name"] for m in g["models"]]]
     for lab in labels:
         rows.append([lab] + [next(s["value"] for s in m["specs"] if s["label"] == lab) for m in g["models"]])
-    rows.append(["MRP (incl. 1HP chiller and installation)"] + [m["price"]["display"] for m in g["models"]])
+    rows.append(["MRP + GST (incl. 1HP chiller and installation)"] + [m["price"]["display"] for m in g["models"]])
     rows.append(["2HP chiller upgrade"] + [g["upgradePrice"]] * 3)
     rows.append(["Launch"] + [g["launchLabel"]] * 3)
     first = 130
@@ -203,7 +203,7 @@ def glacier(data, out: Path) -> None:
         yy = para(c, ch["name"], tx, top, tw, style("Display", 13, 16))
         yy = para(c, ch["copy"], tx, yy - 3, tw, style(size=7.5, color=MUTED, leading=10.5))
         yy = para(c, f"Best for: {ch['best']}", tx, yy - 3, tw, style(size=7.5, leading=10.5))
-        yy = para(c, f"Chiller only, MRP  <font name='Price' size='11'>{ch['mrp']}</font>", tx, yy - 5, tw,
+        yy = para(c, f"Chiller only, MRP + GST  <font name='Price' size='11'>{ch['mrp']}</font>", tx, yy - 5, tw,
                   style(size=7.5, leading=13))
         lows.append(min(yy, top - img))
     y = min(lows) - 24

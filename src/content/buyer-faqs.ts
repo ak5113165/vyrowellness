@@ -38,7 +38,7 @@ export const beforeYouBuyFaqs = [
   },
   {
     q: "Is installation included in the price?",
-    a: `For the Glacier launch range, yes — the MRP${fromPrice ? ` (from ${fromPrice})` : ""} includes the 1HP chiller and installation. Sauna pricing depends on the cabin and options you choose; our team handles delivery, installation and commissioning, and your quote sets out exactly what's included.`,
+    a: `For the Glacier launch range, yes — the MRP${fromPrice ? ` (from ${fromPrice})` : ""} includes the 1HP chiller and installation; GST is extra. Sauna pricing depends on the cabin and options you choose; our team handles delivery, installation and commissioning, and your quote sets out exactly what's included.`,
   },
   {
     q: "What does a cold plunge need at my home?",

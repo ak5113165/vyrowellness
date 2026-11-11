@@ -213,7 +213,7 @@ const plungeChecklist: Guide = {
     { type: "h2", text: "1. Choose the plunge and the space" },
     {
       type: "table",
-      head: ["Model", "Size", "Set-up", "MRP"],
+      head: ["Model", "Size", "Set-up", "MRP (+ GST)"],
       rows: launchModels.map((m) => [
         m.name,
         m.size,
@@ -223,7 +223,7 @@ const plungeChecklist: Guide = {
     },
     {
       type: "p",
-      text: `Every MRP includes the ${externalChillerLaunch.includedWithLaunchModels}HP chiller and installation. Plunges hold ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres of water across the range. Leave room for the chiller unit beside the tub, and for getting in and out comfortably.`,
+      text: `Every MRP includes the ${externalChillerLaunch.includedWithLaunchModels}HP chiller and installation; GST is extra. Plunges hold ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres of water across the range. Leave room for the chiller unit beside the tub, and for getting in and out comfortably.`,
     },
     { type: "h2", text: "2. Power" },
     {

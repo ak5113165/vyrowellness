@@ -52,7 +52,7 @@ const elements = [
     name: "Cold Plunge",
     series: "VYRO Glacier",
     copy: `Glacier Barrel, Portable and Acrylic launch on ${launchLabel}${
-      glacierFromPrice ? `, from ${glacierFromPrice} MRP including the 1HP chiller and installation` : ""
+      glacierFromPrice ? `, from ${glacierFromPrice} MRP + GST, including the 1HP chiller and installation` : ""
     } — available first in ${coldPlungeLaunch.serviceLocations.join(", ")}.`,
     to: "/cold-plunge" as const,
     cta: "View the Launch Range",

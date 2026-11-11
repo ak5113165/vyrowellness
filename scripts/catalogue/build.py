@@ -608,7 +608,7 @@ def glacier_range(b: Book):
     PAGES["Glacier Launch Range"] = b.page
     b.chrome("Cold Plunge", "Glacier Launch Range")
     title(c, M, H - 82, "Glacier", "Launch Range", 300, 30)
-    para(c, f"MRP includes the {g['included']}. Upgrade to the 2HP chiller for faster cooling for {g['upgradePrice']} more.",
+    para(c, f"MRP includes the {g['included']}; GST extra. Upgrade to the 2HP chiller for faster cooling for {g['upgradePrice']} more.",
          W / 2, H - 84, W / 2 - M, style("Body", 9, 14, MUTED))
     cols = 3
     cw = (W - 2 * M - (cols - 1) * 18) / cols
@@ -622,7 +622,7 @@ def glacier_range(b: Book):
         c.setFont("BodyReg", 15)
         c.setFillColor(BRONZE_STRONG)
         price = m["price"]["display"] if m.get("price") else ""
-        c.drawString(x, yy - 18, f"{price}  MRP")
+        c.drawString(x, yy - 18, f"{price}  MRP + GST")
         c.setFont("Body", 6.8)
         c.setFillColor(MUTED)
         c.drawString(x, yy - 29, m["price"]["note"] if m.get("price") else "")
@@ -639,7 +639,7 @@ def glacier_data(b: Book):
     title(c, M, H - 82, "Technical", "Data", 300, 30)
     labels = [s["label"] for s in g["models"][0]["specs"]]
     rows = [["", *[m["name"] for m in g["models"]]]]
-    rows.append(["MRP", *[f"{m['price']['display']} (incl. {g['included']})" for m in g["models"]]])
+    rows.append(["MRP (+ GST)", *[f"{m['price']['display']} (incl. {g['included']})" for m in g["models"]]])
     for lab in labels:
         rows.append([lab, *[next((s["value"] for s in m["specs"] if s["label"] == lab), "—") for m in m_list(g)]])
     rows.append(["Water capacity (range)", *[g["waterCapacity"]] * 3])
@@ -676,7 +676,7 @@ def chillers_page(b: Book):
         yy = para(c, ch["name"], x, yy - 4, cw, style("Display", 15, 18))
         c.setFont("BodyReg", 13)
         c.setFillColor(BRONZE_STRONG)
-        c.drawString(x, yy - 16, f"{ch['mrp']}  MRP (chiller only)")
+        c.drawString(x, yy - 16, f"{ch['mrp']}  MRP + GST (chiller only)")
         para(c, ch["copy"], x, yy - 26, cw, style("Body", 8.4, 12.4, MUTED))
 
 
@@ -836,7 +836,7 @@ def back_cover(b: Book):
     c.setFont("Body", 6.5)
     c.setFillColor(colors.HexColor("#BDB3A3"))
     note = (f"Product images are renders for illustration. Sizes are standard sizes; your consultant confirms specifications, "
-            f"dimensions and finishes in your quote. Prices are MRP in INR as of {as_of(d['asOf'])} and may change.")
+            f"dimensions and finishes in your quote. Prices are MRP in INR, exclusive of GST, as of {as_of(d['asOf'])} and may change.")
     para(c, note, W / 2 - 260, 60, 520, style("Body", 6.5, 9.5, colors.HexColor("#BDB3A3"), alignment=1))
 
 

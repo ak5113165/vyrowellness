@@ -90,7 +90,7 @@ describe("Confirmed Glacier pricing and sizes", () => {
   });
   it("includes the 1HP chiller and installation in every MRP", () => {
     for (const name of glacierLaunchModels) {
-      expect(glacierLaunchPricing[name].note).toBe("Includes 1HP chiller and installation");
+      expect(glacierLaunchPricing[name].note).toBe("Includes 1HP chiller and installation · GST extra");
     }
   });
   it("prices the 2HP upgrade at ₹1,20,000", () => {
@@ -147,3 +147,11 @@ describe("Cold plunge installation requirements", () => {
   });
 });
 
+
+describe("GST", () => {
+  it("shows every MRP as exclusive of GST", async () => {
+    const { pricesExcludeGst, glacierLaunchPricing } = await import("@/content/site");
+    expect(pricesExcludeGst).toBe(true);
+    for (const p of Object.values(glacierLaunchPricing)) expect(p.note).toContain("GST extra");
+  });
+});
