@@ -127,9 +127,11 @@ export const glacierProjectModels = [
 
 export type GlacierLaunchModel = (typeof glacierLaunchModels)[number];
 
-// All VYRO MRPs are exclusive of GST — confirmed by the founder (11 Nov 2026).
+// All VYRO MRPs are exclusive of GST (founder, 11 Nov 2026); GST is shown as
+// 18% everywhere (founder, 12 Nov 2026).
 export const pricesExcludeGst = true;
-export const gstNote = "GST extra";
+export const gstRatePercent = 18;
+export const gstNote = "18% GST extra";
 
 // Glacier MRPs confirmed by the founder (8 Nov 2026), in INR. Every launch
 // model is sold with the 1HP chiller (mandatory) and installation is included
@@ -137,9 +139,9 @@ export const gstNote = "GST extra";
 // externalChillerLaunch.upgradePriceInr). A null priceInr shows "Price on request".
 // After changing prices or specs, rebuild the PDF spec sheets (scripts/spec-sheets).
 export const glacierLaunchPricing: Record<GlacierLaunchModel, { priceInr: number | null; note: string | null }> = {
-  "Glacier Barrel": { priceInr: 217999, note: "Includes 1HP chiller and installation · GST extra" },
-  "Glacier Portable": { priceInr: 324999, note: "Includes 1HP chiller and installation · GST extra" },
-  "Glacier Acrylic": { priceInr: 377999, note: "Includes 1HP chiller and installation · GST extra" },
+  "Glacier Barrel": { priceInr: 217999, note: "Includes 1HP chiller and installation · 18% GST extra" },
+  "Glacier Portable": { priceInr: 324999, note: "Includes 1HP chiller and installation · 18% GST extra" },
+  "Glacier Acrylic": { priceInr: 377999, note: "Includes 1HP chiller and installation · 18% GST extra" },
 };
 
 // Glacier sizes confirmed by the founder (8 Nov 2026).

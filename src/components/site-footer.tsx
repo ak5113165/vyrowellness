@@ -140,7 +140,7 @@ export function SiteFooter() {
 
         <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-ink-border pt-7 text-xs text-ink-muted sm:flex-row sm:items-center">
           <p>
-            © {year} {site.legalName}. All rights reserved. Prices are MRP, exclusive of GST.
+            © {year} {site.legalName}. All rights reserved. Prices are MRP, exclusive of 18% GST.
           </p>
           <p className="uppercase tracking-[0.18em]">Heat. Cold. Light. Recovery.</p>
         </div>

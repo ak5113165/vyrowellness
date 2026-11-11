@@ -101,7 +101,7 @@ export type SaunaModel = {
   dimsFt: DimsFt;
   copy: string;
   image: string;
-  /** Cabin MRP in INR (woodwork in spruce; Haven Glass includes the glass work), GST extra. */
+  /** Cabin MRP in INR (woodwork in spruce; Haven Glass includes the glass work), 18% GST extra. */
   priceInr: number;
   /** Infrared cabins only: the infrared panels that heat them (priced separately). */
   infraredPanels?: { name: string; kw: number; priceInr: number };
@@ -261,7 +261,7 @@ export function seriesOfModel(code: string): RoomType | undefined {
 
 
 // ------------------------------------------------------------- prices ----
-// MRPs confirmed by the founder (12 Nov 2026), GST extra, shown in the x99
+// MRPs confirmed by the founder (12 Nov 2026), 18% GST extra, shown in the x99
 // format (₹1,50,000 is shown as ₹1,49,999). Wood upgrades, the Haven Glass
 // frame finish and installation & commissioning are quoted by a consultant,
 // so they are not priced on the site.
@@ -293,7 +293,7 @@ export type SaunaSelection = {
 export type EstimateLine = { label: string; priceInr: number };
 
 /**
- * Running MRP (GST extra) for a Build Your Sauna selection. Out-of-stock items
+ * Running MRP (18% GST extra) for a Build Your Sauna selection. Out-of-stock items
  * and items that don't apply to the cabin (heaters and accessories in an
  * infrared cabin) are left out.
  */
@@ -316,11 +316,11 @@ export function saunaEstimate(sel: SaunaSelection): { lines: EstimateLine[]; tot
   return { lines, totalInr: lines.reduce((t, l) => t + l.priceInr, 0) };
 }
 
-/** "₹1,86,999 + GST", or for infrared cabins "₹1,69,999 + 3 kW infrared panels ₹89,999 · GST extra". */
+/** "₹1,86,999 + 18% GST", or for infrared cabins "₹1,69,999 + 3 kW infrared panels ₹89,999 · 18% GST extra". */
 export function cabinPriceLabel(model: SaunaModel): string {
   return model.infraredPanels
-    ? `${formatInr(model.priceInr)} + ${model.infraredPanels.kw} kW infrared panels ${formatInr(model.infraredPanels.priceInr)} · GST extra`
-    : `${formatInr(model.priceInr)} + GST`;
+    ? `${formatInr(model.priceInr)} + ${model.infraredPanels.kw} kW infrared panels ${formatInr(model.infraredPanels.priceInr)} · 18% GST extra`
+    : `${formatInr(model.priceInr)} + 18% GST`;
 }
 
 /** Price line for a heater card: "4–18 kW · from ₹1,04,999" or "Out of stock · from ₹79,999". */

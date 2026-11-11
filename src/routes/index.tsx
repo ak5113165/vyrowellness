@@ -64,7 +64,7 @@ const pillars = [
     product: true,
     name: "Cold Plunge",
     tag: "VYRO Glacier · Made in India",
-    copy: `Glacier Barrel, Portable and Acrylic — launching ${coldPlungeLaunch.label}${glacierFromPrice ? `, from ${glacierFromPrice} MRP + GST, including chiller and installation` : ""}.`,
+    copy: `Glacier Barrel, Portable and Acrylic — launching ${coldPlungeLaunch.label}${glacierFromPrice ? `, from ${glacierFromPrice} MRP + 18% GST, including chiller and installation` : ""}.`,
     to: "/cold-plunge" as const,
     soon: true,
     soonLabel: `Launching ${coldPlungeLaunch.shortLabel}`,

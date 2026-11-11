@@ -422,12 +422,12 @@ def haven_glance(b: Book):
 
 
 def series_price(d, t) -> str:
-    """'From ₹1,86,999 + GST' for a series with several sizes; the full label for a single cabin."""
+    """'From ₹1,86,999 + 18% GST' for a series with several sizes; the full label for a single cabin."""
     models = [m for m in d["models"] if m["type"] == t["id"]]
     if len(models) == 1:
         return models[0]["cabinPriceLabel"]
     low = min(models, key=lambda m: m["priceInr"])
-    return f"From {low['priceLabel']} + GST"
+    return f"From {low['priceLabel']} + 18% GST"
 
 
 def series_page(b: Book, type_id: str, name_key: str, bullets_list):
@@ -462,7 +462,7 @@ def series_page(b: Book, type_id: str, name_key: str, bullets_list):
     ]
     y = table(c, rows, x, y, [44, 46, tw - 44 - 46 - 66 - 64, 66, 64])
     extra = " Price includes the glass work; frame in matte black, glossy black or stainless steel (price may vary by finish)." if type_id == "glass-front" else ""
-    para(c, f"Cabin MRP in {d['standardWood'].lower()}, GST extra.{extra} Heater, control panel and accessories are chosen separately.", x, y - 6, tw, style("Body", 7, 10, MUTED))
+    para(c, f"Cabin MRP in {d['standardWood'].lower()}, 18% GST extra.{extra} Heater, control panel and accessories are chosen separately.", x, y - 6, tw, style("Body", 7, 10, MUTED))
 
 
 def series_pair(b: Book):
@@ -494,7 +494,7 @@ def series_pair(b: Book):
         y = table(c, rows, x, y - 10, [48, 48, half - 48 - 48 - 70, 70], size=8)
         rows = [["Price (MRP)", ""], ["Cabin (spruce)", m["priceLabel"]], [f"Infrared panels", m["panelsLabel"] or ""]]
         y = table(c, rows, x, y - 8, [half - 120, 120], size=8)
-        para(c, "GST extra. Add a Pulse control panel; no heater or accessory set needed.", x, y - 6, half, style("Body", 7, 10, MUTED))
+        para(c, "18% GST extra. Add a Pulse control panel; no heater or accessory set needed.", x, y - 6, half, style("Body", 7, 10, MUTED))
 
 
 def woods_page(b: Book):
@@ -534,7 +534,7 @@ def heaters_page(b: Book):
     PAGES["Ember Sauna Heaters"] = b.page
     b.chrome("Saunas", "Ember Heaters")
     title(c, M, H - 82, "Ember", "Sauna Heaters", 260, 34)
-    para(c, "Floor-standing, tower and wall-mounted heaters in stainless steel or matte black. Your consultant matches the heater and its power rating to your cabin and room. Prices are MRP, GST extra.",
+    para(c, "Floor-standing, tower and wall-mounted heaters in stainless steel or matte black. Your consultant matches the heater and its power rating to your cabin and room. Prices are MRP, 18% GST extra.",
          M, H - 165, 240, style("Body", 9, 14, MUTED))
     a = b.d["afterSales"]
     c.setFillColor(CREAM)
@@ -580,7 +580,7 @@ def controls_accessories(b: Book):
         eyebrow(c, p["kind"], tx, top - 30)
         yy = para(c, p["name"], tx, top - 36, cw - img - 14, style("Display", 14, 17))
         yy = para(c, p["copy"], tx, yy - 4, cw - img - 14, style("Body", 8, 11.6, MUTED))
-        para(c, f"{p['priceLabel']} + GST", tx, yy - 4, cw - img - 14, style("BodyMed", 8.4, 12, INK if p["inStock"] else MUTED))
+        para(c, f"{p['priceLabel']} + 18% GST", tx, yy - 4, cw - img - 14, style("BodyMed", 8.4, 12, INK if p["inStock"] else MUTED))
     # Row 2: Ritual accessory sets
     top2 = top - img - 34
     c.setStrokeColor(RULE)
@@ -597,7 +597,7 @@ def controls_accessories(b: Book):
         eyebrow(c, a["finish"], x, top2 - img - 13)
         yy = para(c, a["name"], x, top2 - img - 17, cw, style("Display", 12, 15))
         yy = para(c, a["copy"], x, yy - 2, cw, style("Body", 7.4, 10.4, MUTED))
-        para(c, f"{a['priceLabel']} + GST", x, yy - 3, cw, style("BodyMed", 7.8, 11, INK))
+        para(c, f"{a['priceLabel']} + 18% GST", x, yy - 3, cw, style("BodyMed", 7.8, 11, INK))
 
 
 def glacier_opener(b: Book):
@@ -628,7 +628,7 @@ def glacier_range(b: Book):
     PAGES["Glacier Launch Range"] = b.page
     b.chrome("Cold Plunge", "Glacier Launch Range")
     title(c, M, H - 82, "Glacier", "Launch Range", 300, 30)
-    para(c, f"MRP includes the {g['included']}; GST extra. Upgrade to the 2HP chiller for faster cooling for {g['upgradePrice']} more.",
+    para(c, f"MRP includes the {g['included']}; 18% GST extra. Upgrade to the 2HP chiller for faster cooling for {g['upgradePrice']} more.",
          W / 2, H - 84, W / 2 - M, style("Body", 9, 14, MUTED))
     cols = 3
     cw = (W - 2 * M - (cols - 1) * 18) / cols
@@ -642,7 +642,7 @@ def glacier_range(b: Book):
         c.setFont("BodyReg", 15)
         c.setFillColor(BRONZE_STRONG)
         price = m["price"]["display"] if m.get("price") else ""
-        c.drawString(x, yy - 18, f"{price}  MRP + GST")
+        c.drawString(x, yy - 18, f"{price}  MRP + 18% GST")
         c.setFont("Body", 6.8)
         c.setFillColor(MUTED)
         c.drawString(x, yy - 29, m["price"]["note"] if m.get("price") else "")
@@ -659,7 +659,7 @@ def glacier_data(b: Book):
     title(c, M, H - 82, "Technical", "Data", 300, 30)
     labels = [s["label"] for s in g["models"][0]["specs"]]
     rows = [["", *[m["name"] for m in g["models"]]]]
-    rows.append(["MRP (+ GST)", *[f"{m['price']['display']} (incl. {g['included']})" for m in g["models"]]])
+    rows.append(["MRP (+ 18% GST)", *[f"{m['price']['display']} (incl. {g['included']})" for m in g["models"]]])
     for lab in labels:
         rows.append([lab, *[next((s["value"] for s in m["specs"] if s["label"] == lab), "—") for m in m_list(g)]])
     rows.append(["Water capacity (range)", *[g["waterCapacity"]] * 3])
@@ -696,7 +696,7 @@ def chillers_page(b: Book):
         yy = para(c, ch["name"], x, yy - 4, cw, style("Display", 15, 18))
         c.setFont("BodyReg", 13)
         c.setFillColor(BRONZE_STRONG)
-        c.drawString(x, yy - 16, f"{ch['mrp']}  MRP + GST (chiller only)")
+        c.drawString(x, yy - 16, f"{ch['mrp']}  MRP + 18% GST (chiller only)")
         para(c, ch["copy"], x, yy - 26, cw, style("Body", 8.4, 12.4, MUTED))
 
 
@@ -856,7 +856,7 @@ def back_cover(b: Book):
     c.setFont("Body", 6.5)
     c.setFillColor(colors.HexColor("#BDB3A3"))
     note = (f"Product images are renders for illustration. Sizes are standard sizes; your consultant confirms specifications, "
-            f"dimensions and finishes in your quote. Prices are MRP in INR, exclusive of GST, as of {as_of(d['asOf'])} and may change.")
+            f"dimensions and finishes in your quote. Prices are MRP in INR, exclusive of 18% GST, as of {as_of(d['asOf'])} and may change.")
     para(c, note, W / 2 - 260, 60, 520, style("Body", 6.5, 9.5, colors.HexColor("#BDB3A3"), alignment=1))
 
 

@@ -85,7 +85,7 @@ const chooseSauna: Guide = {
     },
     {
       type: "p",
-      text: `Cabin MRPs are for the cabin in ${standardWood.toLowerCase()}, GST extra; Haven Glass prices include the glass work. Haven Infrared and Haven Compact add their infrared panels (${saunaModels
+      text: `Cabin MRPs are for the cabin in ${standardWood.toLowerCase()}, 18% GST extra; Haven Glass prices include the glass work. Haven Infrared and Haven Compact add their infrared panels (${saunaModels
         .filter((m) => m.infraredPanels)
         .map((m) => `${m.infraredPanels!.kw} kW, ${formatInr(m.infraredPanels!.priceInr)} for ${m.code}`)
         .join("; ")}). Wood upgrades and installation & commissioning are quoted for your space.`,
@@ -220,7 +220,7 @@ const plungeChecklist: Guide = {
     { type: "h2", text: "1. Choose the plunge and the space" },
     {
       type: "table",
-      head: ["Model", "Size", "Set-up", "MRP (+ GST)"],
+      head: ["Model", "Size", "Set-up", "MRP (+ 18% GST)"],
       rows: launchModels.map((m) => [
         m.name,
         m.size,
@@ -230,7 +230,7 @@ const plungeChecklist: Guide = {
     },
     {
       type: "p",
-      text: `Every MRP includes the ${externalChillerLaunch.includedWithLaunchModels}HP chiller and installation; GST is extra. Plunges hold ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres of water across the range. Leave room for the chiller unit beside the tub, and for getting in and out comfortably.`,
+      text: `Every MRP includes the ${externalChillerLaunch.includedWithLaunchModels}HP chiller and installation; 18% GST is extra. Plunges hold ${glacierWaterCapacityLitres.min}–${glacierWaterCapacityLitres.max} litres of water across the range. Leave room for the chiller unit beside the tub, and for getting in and out comfortably.`,
     },
     { type: "h2", text: "2. Power" },
     {

@@ -82,9 +82,9 @@ describe("sauna prices (founder, 12 Nov 2026)", () => {
     for (const p of all) expect(p % 100).toBe(99);
   });
 
-  it("labels cabin prices with GST extra", () => {
-    expect(cabinPriceLabel(model("S-01"))).toBe("₹1,86,999 + GST");
-    expect(cabinPriceLabel(model("C-01"))).toBe("₹1,49,999 + 2 kW infrared panels ₹69,999 · GST extra");
+  it("labels cabin prices with 18% GST extra", () => {
+    expect(cabinPriceLabel(model("S-01"))).toBe("₹1,86,999 + 18% GST");
+    expect(cabinPriceLabel(model("C-01"))).toBe("₹1,49,999 + 2 kW infrared panels ₹69,999 · 18% GST extra");
     expect(seriesFromPrice(roomTypes.find((t) => t.id === "glass-front")!)).toBe(217999);
   });
 
@@ -130,5 +130,14 @@ describe("3D preview pricing-related changes", () => {
       buildSauna(saunaConfigFromSelection({ room: "G-02", wood: "Spruce", heater: null, panel: null, accessories: [], glassFrame })!)
         .find((b) => b.id === "frame-top")!.color;
     expect(frame("stainless")).not.toBe(frame("matte-black"));
+  });
+});
+
+describe("GST at 18%", () => {
+  it("uses 18% and adds it on top of the MRP", async () => {
+    const { gstRatePercent } = await import("@/content/site");
+    expect(gstRatePercent).toBe(18);
+    const e = saunaEstimate({ room: "S-01", heater: null, heaterKw: null, panel: "Pulse CP-01", accessories: [] });
+    expect(Math.round((e.totalInr * gstRatePercent) / 100)).toBe(36540); // 18% of ₹2,02,998
   });
 });
