@@ -325,6 +325,13 @@ function ColdPlungePage() {
               Water capacity across the launch range: {waterCapacity}. All prices are MRP and include installation.
             </p>
             <DownloadLink sheet="glacier" className="mt-6" />
+            <Link
+              to="/guides/$slug"
+              params={{ slug: "cold-plunge-installation-checklist" }}
+              className="mt-4 block text-[12px] uppercase tracking-[0.16em] text-muted-foreground underline underline-offset-8 hover:text-foreground"
+            >
+              Guide: Before you install a cold plunge →
+            </Link>
           </div>
         </section>
 

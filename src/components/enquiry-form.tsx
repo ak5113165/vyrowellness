@@ -49,12 +49,15 @@ export function EnquiryForm({
   defaultProductInterest,
   defaultBusinessType,
   defaultMessage,
+  defaultCity,
   className,
 }: {
   variant: "consumer" | "business";
   defaultProductInterest?: string | undefined;
   defaultBusinessType?: string | undefined;
   defaultMessage?: string | undefined;
+  /** Pre-fills the city field (city landing pages). */
+  defaultCity?: string | undefined;
   className?: string | undefined;
 }) {
   const [status, setStatus] = useState<Status>("idle");
@@ -69,7 +72,7 @@ export function EnquiryForm({
       fullName: "",
       phone: "",
       email: "",
-      city: "",
+      city: defaultCity ?? "",
       productInterest: firstProductInterest(defaultProductInterest),
       homeOrBusiness: "Home" as const,
       budget: "",
@@ -94,7 +97,7 @@ export function EnquiryForm({
       contactPerson: "",
       phone: "",
       email: "",
-      city: "",
+      city: defaultCity ?? "",
       businessType: firstBusinessType(defaultBusinessType),
       productsOfInterest: firstProductInterest(defaultProductInterest),
       projectDescription: defaultMessage ?? "",
