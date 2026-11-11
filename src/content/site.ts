@@ -10,6 +10,8 @@
 // ==========================================================================
 
 export const site = {
+  // Registered company name (from Zoho Books, 11 Nov 2026).
+  legalName: "Vyro Wellness Technologies Private Limited",
   name: "VYRO",
   tagline: "Wellness, Reimagined.",
   // Used sparingly (e.g. footer / brand story).
@@ -125,15 +127,19 @@ export const glacierProjectModels = [
 
 export type GlacierLaunchModel = (typeof glacierLaunchModels)[number];
 
+// All VYRO MRPs are exclusive of GST — confirmed by the founder (11 Nov 2026).
+export const pricesExcludeGst = true;
+export const gstNote = "GST extra";
+
 // Glacier MRPs confirmed by the founder (8 Nov 2026), in INR. Every launch
 // model is sold with the 1HP chiller (mandatory) and installation is included
 // in the MRP. Customers can upgrade to the 2HP chiller for faster cooling (see
 // externalChillerLaunch.upgradePriceInr). A null priceInr shows "Price on request".
 // After changing prices or specs, rebuild the PDF spec sheets (scripts/spec-sheets).
 export const glacierLaunchPricing: Record<GlacierLaunchModel, { priceInr: number | null; note: string | null }> = {
-  "Glacier Barrel": { priceInr: 218000, note: "Includes 1HP chiller and installation" },
-  "Glacier Portable": { priceInr: 325000, note: "Includes 1HP chiller and installation" },
-  "Glacier Acrylic": { priceInr: 378000, note: "Includes 1HP chiller and installation" },
+  "Glacier Barrel": { priceInr: 218000, note: "Includes 1HP chiller and installation · GST extra" },
+  "Glacier Portable": { priceInr: 325000, note: "Includes 1HP chiller and installation · GST extra" },
+  "Glacier Acrylic": { priceInr: 378000, note: "Includes 1HP chiller and installation · GST extra" },
 };
 
 // Glacier sizes confirmed by the founder (8 Nov 2026).

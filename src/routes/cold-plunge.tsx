@@ -54,6 +54,7 @@ function productJsonLd() {
               "@type": "Offer",
               price: String(price),
               priceCurrency: "INR",
+              priceSpecification: { "@type": "PriceSpecification", price: String(price), priceCurrency: "INR", valueAddedTaxIncluded: false },
               availability: "https://schema.org/PreOrder",
               availabilityStarts: launchIso,
               url: absoluteUrl("/cold-plunge"),
@@ -97,7 +98,7 @@ const faqs = [
   },
   {
     q: "Is installation included in the price?",
-    a: "Yes. The MRP of every Glacier launch model includes the 1HP chiller and installation by our team.",
+    a: "Yes. The MRP of every Glacier launch model includes the 1HP chiller and installation by our team. GST is extra.",
   },
   {
     q: "What does installation need?",
@@ -149,7 +150,7 @@ function ColdPlungePage() {
               <h1 className="mt-3 font-display text-5xl font-medium sm:text-7xl">Cold Plunges</h1>
               <p className="mt-4 max-w-xl text-ink-foreground/80">
                 Three Glacier plunges launch on {launchLabel}: Barrel, Portable and Acrylic
-                {fromPrice ? `, from ${fromPrice} MRP including the 1HP chiller and installation` : ""}. Available first in {cities}.
+                {fromPrice ? `, from ${fromPrice} MRP + GST, including the 1HP chiller and installation` : ""}. Available first in {cities}.
               </p>
               <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-ink-border pt-6 text-[13px] uppercase tracking-[0.16em]">
                 <a href="#launch" className="text-ink-foreground/75 hover:text-ink-foreground">Launch Range</a>
@@ -304,7 +305,7 @@ function ColdPlungePage() {
                   </tr>
                   <tr className="border-b border-border">
                     <th scope="row" className="py-4 pr-4 text-xs font-normal uppercase tracking-[0.14em] text-muted-foreground">
-                      MRP · incl. 1HP chiller &amp; installation
+                      MRP · incl. 1HP chiller &amp; installation · GST extra
                     </th>
                     {launchModels.map((m) => (
                       <td key={m.name} className="py-4 pr-4 font-display text-lg font-medium">{launchPrice(m.name).display}</td>
@@ -322,7 +323,7 @@ function ColdPlungePage() {
               </table>
             </div>
             <p className="mt-5 text-sm text-muted-foreground">
-              Water capacity across the launch range: {waterCapacity}. All prices are MRP and include installation.
+              Water capacity across the launch range: {waterCapacity}. All prices are MRP, include installation, and are exclusive of GST.
             </p>
             <DownloadLink sheet="glacier" className="mt-6" />
             <Link
@@ -371,7 +372,7 @@ function ColdPlungePage() {
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
                   <p className="mt-3 text-sm">Best for: {c.best}</p>
                   <p className="mt-4 border-t border-border pt-3 text-sm">
-                    <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Chiller only · MRP</span>
+                    <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Chiller only · MRP + GST</span>
                     <span className="mt-0.5 block font-display text-xl font-medium">{formatInr(c.mrpInr)}</span>
                   </p>
                 </div>

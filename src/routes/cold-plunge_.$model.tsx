@@ -42,6 +42,7 @@ function productJsonLd(m: LaunchModel) {
             "@type": "Offer",
             price: priceDigits,
             priceCurrency: "INR",
+            priceSpecification: { "@type": "PriceSpecification", price: priceDigits, priceCurrency: "INR", valueAddedTaxIncluded: false },
             availability: "https://schema.org/PreOrder",
             availabilityStarts: launchIso,
             url: absoluteUrl(`/cold-plunge/${m.slug}`),
@@ -90,7 +91,7 @@ function GlacierModelPage() {
 
   const specRows = [
     ...m.specs,
-    { label: "MRP", value: `${price.display}${price.note ? ` — ${price.note.toLowerCase()}` : ""}` },
+    { label: "MRP", value: `${price.display}${price.note ? ` — ${price.note.charAt(0).toLowerCase()}${price.note.slice(1)}` : ""}` },
     { label: "2HP chiller upgrade", value: upgradePrice },
     { label: "Water capacity (launch range)", value: waterCapacity },
     { label: "Launch", value: `${launchLabel} · first in ${cities}` },
