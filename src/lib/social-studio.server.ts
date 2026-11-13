@@ -35,7 +35,7 @@ Write in Indian English. Hashtags: 5-10 relevant ones, no "#" duplicates.
 In "notes", list any brief facts you could not verify or details the manager should confirm before posting.`;
 
 export async function generateSocialPlan(brief: SocialBrief, signal?: AbortSignal): Promise<SocialPlan> {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env['LOVABLE_API_KEY'];
   if (!apiKey) throw new Error("AI is not configured.");
   const provider = createOpenAI({
     baseURL: "https://ai.gateway.lovable.dev/v1",
