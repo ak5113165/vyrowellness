@@ -19,6 +19,7 @@ import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RedLightTherapyRouteImport } from './routes/red-light-therapy'
 import { Route as SaunasRouteImport } from './routes/saunas'
+import { Route as StudioRouteImport } from './routes/studio'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WellnessSpacesRouteImport } from './routes/wellness-spaces'
 import { Route as ColdPlungeModelRouteImport } from './routes/cold-plunge_.$model'
@@ -77,6 +78,11 @@ const SaunasRoute = SaunasRouteImport.update({
   path: '/saunas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudioRoute = StudioRouteImport.update({
+  id: '/studio',
+  path: '/studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -124,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
+  '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
   '/cold-plunge/$model': typeof ColdPlungeModelRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
+  '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
   '/cold-plunge/$model': typeof ColdPlungeModelRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
+  '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
   '/cold-plunge_/$model': typeof ColdPlungeModelRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/red-light-therapy'
     | '/saunas'
+    | '/studio'
     | '/terms'
     | '/wellness-spaces'
     | '/cold-plunge/$model'
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/red-light-therapy'
     | '/saunas'
+    | '/studio'
     | '/terms'
     | '/wellness-spaces'
     | '/cold-plunge/$model'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/red-light-therapy'
     | '/saunas'
+    | '/studio'
     | '/terms'
     | '/wellness-spaces'
     | '/cold-plunge_/$model'
@@ -242,6 +254,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   RedLightTherapyRoute: typeof RedLightTherapyRoute
   SaunasRoute: typeof SaunasRoute
+  StudioRoute: typeof StudioRoute
   TermsRoute: typeof TermsRoute
   WellnessSpacesRoute: typeof WellnessSpacesRoute
   ColdPlungeModelRoute: typeof ColdPlungeModelRoute
@@ -323,6 +336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SaunasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/studio': {
+      id: '/studio'
+      path: '/studio'
+      fullPath: '/studio'
+      preLoaderRoute: typeof StudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -386,6 +406,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   RedLightTherapyRoute: RedLightTherapyRoute,
   SaunasRoute: SaunasRoute,
+  StudioRoute: StudioRoute,
   TermsRoute: TermsRoute,
   WellnessSpacesRoute: WellnessSpacesRoute,
   ColdPlungeModelRoute: ColdPlungeModelRoute,
