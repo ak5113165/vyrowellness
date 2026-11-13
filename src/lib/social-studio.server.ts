@@ -55,7 +55,7 @@ Vary formats across single image, carousel and reel.`;
     instructions: INSTRUCTIONS,
     prompt,
     output: Output.object({ schema: socialPlanSchema }),
-    abortSignal: signal,
+    ...(signal ? { abortSignal: signal } : {}),
     maxRetries: 0,
     providerOptions: {
       openai: {
