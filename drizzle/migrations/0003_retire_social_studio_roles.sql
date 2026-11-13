@@ -1,0 +1,1 @@
+COMMENT ON TABLE public.user_roles IS 'DEPRECATED: Social Studio removed; unused.';
