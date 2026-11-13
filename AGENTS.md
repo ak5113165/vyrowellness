@@ -13,3 +13,4 @@
 - Keep confirmed Cold Plunge launch facts and external-chiller ratings in src/content/site.ts; product specification views and tests consume those values to avoid conflicting claims across models.
 - Return JSON-LD structured data in the route head `scripts` array, never as a `meta` entry — TanStack's meta type rejects it and the build fails.
 - In src/components/enquiry-form.tsx keep every hook above the component's early returns, and never set `shouldUnregister: true` on the consumer form — it drops the hidden `kind` field, so submits fail validation with no visible error.
+- Social Studio (/studio) AI calls run only in src/lib/social-studio.server.ts, behind a server function that checks the caller's `admin`/`social_manager` row in `public.user_roles` — keeps AI credits and prompts off public access.
