@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Check, MessageCircle, Phone } from "lucide-react";
 import { phoneSchema } from "@/lib/enquiry-schema";
 import { site, whatsappLink, type productInterests } from "@/content/site";
+import { trackLead } from "@/lib/analytics";
 
 type Interest = (typeof productInterests)[number];
 
@@ -56,6 +57,7 @@ export function SpecialistCallout({
       const json = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
       if (res.ok && json?.ok) {
         setStatus("done");
+        trackLead("callback", interest);
       } else {
         setStatus("idle");
         setError(json?.error ?? "Something went wrong. Please call or WhatsApp us instead.");

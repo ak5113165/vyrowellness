@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { absoluteUrl, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { googleTagSnippet, installClickTracking } from "@/lib/analytics";
 import logoDark from "@/assets/brand/vyro-logo-dark.png.asset.json";
 import logoLight from "@/assets/brand/vyro-logo-light.png.asset.json";
 
@@ -112,6 +113,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
     scripts: [
+      // Google Analytics: loads only on vyrowellness.in (see src/lib/analytics.ts).
+      { children: googleTagSnippet },
       {
         type: "application/ld+json",
         children: JSON.stringify(organizationJsonLd(logoDark.url)),
@@ -141,6 +144,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Track WhatsApp, phone, email and PDF-download clicks site-wide.
+  useEffect(() => installClickTracking(), []);
 
   return (
     <QueryClientProvider client={queryClient}>
