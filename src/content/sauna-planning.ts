@@ -1,6 +1,6 @@
 // Saunas page: price/trust strip, traditional-vs-infrared comparison,
 // "ideal for" and installation requirements. Built from confirmed catalogue
-// values; founder confirmations (16 Nov 2026): access door width 2.5 ft,
+// values; founder confirmations (16 Nov 2026): the sauna's own door is 2.5 ft wide,
 // show "10-year after-sales service" without naming the heater, show the
 // lowest listed sauna price, NO free site survey and NO showroom — don't add
 // either. Founder (16 Nov 2026): no maximum size — any space can be built as a
@@ -22,7 +22,8 @@ const smallest = footprints.reduce((a, b) => (a.w * a.d <= b.w * b.d ? a : b));
 const largest = footprints.reduce((a, b) => (a.w * a.d >= b.w * b.d ? a : b));
 const cabinHeights = [...new Set(footprints.map((d) => d.h))];
 
-export const saunaAccessDoorFt = 2.5;
+/** Width of the cabin's own door (not the room's entrance). */
+export const saunaDoorWidthFt = 2.5;
 
 export const saunaTrustStrip: string[] = [
   `Cabins from ${formatInr(saunaFromPriceInr)} + ${gstRatePercent}% GST`,
@@ -93,8 +94,8 @@ export const saunaRequirements: { label: string; value: string }[] = [
     value: `Every cabin is ${cabinHeights.join(" / ")} ft tall, so the room's ceiling must be higher than that.`,
   },
   {
-    label: "Access door",
-    value: `At least ${saunaAccessDoorFt} ft (76 cm) wide, so the cabin can be carried into the room.`,
+    label: "Sauna door",
+    value: `Every cabin's door is ${saunaDoorWidthFt} ft (76 cm) wide.`,
   },
   {
     label: "Power",
