@@ -22,6 +22,11 @@ describe("saunas page planning content", () => {
     expect(saunaTrustStrip.join(" ")).not.toMatch(/heater/i);
   });
 
+  it("says any space can be custom-built (no maximum size)", () => {
+    expect(saunaTrustStrip).toContain("8 cabin models + custom sizes");
+    expect(saunaRequirements.find((r) => r.label === "Floor space")?.value).toMatch(/no upper limit/i);
+  });
+
   it("uses the confirmed 2.5 ft access door width", () => {
     expect(saunaAccessDoorFt).toBe(2.5);
     expect(saunaRequirements.find((r) => r.label === "Access door")?.value).toContain("2.5 ft");
