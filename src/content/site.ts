@@ -117,11 +117,11 @@ export const winterSale = {
   // Short version for the pop-up / Saunas page; full terms below.
   terms: [
     "Flat 40% off the MRP of your Haven sauna (cabin, heater and accessories), as shown on your quote. Saunas only.",
-    "Installation and commissioning are not discounted and are charged as per actual.",
+    "Installation and commissioning are not discounted and are charged as per your quote.",
     "Freight, packaging, shipping, lifting and related charges are extra, as per actuals, in the customer's scope.",
-    "Payment: 50% advance to confirm the order, 40% before dispatch, 10% after installation. 18% GST is extra.",
+    "Payment: 50% advance to confirm the order (non-refundable), 40% before dispatch, 10% after installation. 18% GST is extra.",
     "Valid on orders confirmed with the 50% advance by 31 December 2026; installation can be scheduled within 6 months of order confirmation.",
-    "Our team confirms the offer on your quote.",
+    "Cannot be combined with any other offer or discount. Our team confirms the offer on your quote.",
   ],
   termsHref: "/winter-sale",
 } as const;
@@ -131,16 +131,19 @@ export const winterSale = {
 // the founder's request, the project timeline set to 27 days, payment
 // 50/40/10, and the 40% limited to saunas. Order window (16 Nov 2026):
 // the 50% advance confirms the order (must be by 31 Dec 2026);
-// installation within 6 months of confirmation.
+// installation within 6 months of confirmation. Also confirmed 16 Nov:
+// advance non-refundable; warranty from final handover; dispatch 7–10
+// working days; installation 'as per your quote'; no combining offers.
 // Legal wording: have a lawyer/CA review before relying on it.
 export const winterSaleFullTerms: { title: string; points: string[] }[] = [
   {
     title: "The Offer",
     points: [
       "Flat 40% off the MRP of Haven saunas (cabin, heater and accessories), as shown on your quote. The offer applies to saunas only.",
-      "Installation and commissioning are not discounted and are charged as per actual.",
+      "Installation and commissioning are not discounted and are charged as per your quote.",
       "Valid on orders confirmed by 31 December 2026. An order is confirmed when the 50% advance is received.",
       "Installation for a confirmed order can be scheduled within 6 months of order confirmation.",
+      "The offer cannot be combined with any other offer or discount.",
       "Prices are MRP; 18% GST is extra.",
     ],
   },
@@ -150,12 +153,13 @@ export const winterSaleFullTerms: { title: string; points: string[] }[] = [
       "50% advance payment for order confirmation.",
       "40% before dispatch.",
       "10% after installation.",
+      "The 50% advance is non-refundable under any circumstances.",
     ],
   },
   {
     title: "Warranty",
     points: [
-      "1-year on-site warranty on the product, excluding consumables.",
+      "1-year on-site warranty on the product, excluding consumables, starting from the date of final handover.",
       "10-year customer support assurance for the availability of spares, stock and technical assistance, chargeable as per the applicable service schedule.",
     ],
   },
@@ -173,6 +177,7 @@ export const winterSaleFullTerms: { title: string; points: string[] }[] = [
   {
     title: "Project Timeline",
     points: [
+      "Dispatch within 7–10 working days of the 50% advance; the 40% payment is due before dispatch.",
       "On-site work starts within 27 days of receipt of the payment due before dispatch, subject to site readiness and the availability of utilities.",
     ],
   },
