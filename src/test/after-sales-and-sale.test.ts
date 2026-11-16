@@ -24,6 +24,15 @@ describe("The Winter Sale", () => {
     expect(winterSale.appliesTo).toContain("heaters and accessories");
   });
 
+  it("lists the confirmed terms: final MRP only, installation/shipping/lifting as per actual", () => {
+    const t = winterSale.terms.join(" ");
+    expect(t).toContain("final MRP");
+    expect(t).toMatch(/Installation and commissioning are not discounted/);
+    expect(t).toMatch(/Shipping and transportation are in the customer's scope/);
+    expect(t).toMatch(/upper floor is in the customer's scope/);
+    expect(winterSale.termsHref).toBe("/saunas#winter-sale-terms");
+  });
+
   it("runs until the end of 31 December 2026, India time", () => {
     expect(winterSaleLive(Date.parse("2026-12-31T23:59:00+05:30"))).toBe(true);
     expect(winterSaleLive(Date.parse("2027-01-01T00:00:00+05:30"))).toBe(false);

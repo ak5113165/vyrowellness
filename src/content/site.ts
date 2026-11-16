@@ -100,8 +100,12 @@ export const afterSales = {
 } as const;
 
 // The Winter Sale — confirmed by the founder (11 Nov 2026): 40% off MRP on
-// Haven saunas, heaters and accessories, until 31 December 2026. The pop-up
-// hides itself after `endsAt`; set `active: false` to switch it off early.
+// Haven saunas, heaters and accessories, until 31 December 2026. Terms
+// confirmed 16 Nov 2026: the 40% is on the sauna's final MRP only;
+// installation & commissioning, shipping/transport and lifting to upper
+// floors are not discounted (as per actual; the last two in the customer's
+// scope). The pop-up hides itself after `endsAt`; set `active: false` to
+// switch it off early.
 export const winterSale = {
   active: true,
   name: "The Winter Sale",
@@ -110,6 +114,15 @@ export const winterSale = {
   endsLabel: "31 December 2026",
   // End of 31 Dec 2026, India time.
   endsAt: "2027-01-01T00:00:00+05:30",
+  terms: [
+    "40% off the final MRP of your Haven sauna (cabin, heater and accessories), as shown on your quote.",
+    "Installation and commissioning are not discounted and are charged as per actual.",
+    "Shipping and transportation are in the customer's scope and charged as per actual.",
+    "Lifting the sauna to an upper floor is in the customer's scope and charged as per actual.",
+    "Prices are MRP; 18% GST is extra.",
+    "The offer ends on 31 December 2026. Our team confirms the offer on your quote.",
+  ],
+  termsHref: "/saunas#winter-sale-terms",
 } as const;
 
 export function winterSaleLive(now: number = Date.now()): boolean {
