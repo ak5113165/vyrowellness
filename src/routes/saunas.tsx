@@ -521,7 +521,7 @@ function SaunasPage() {
                     </p>
                     {saleLive && (
                       <p className="mt-2 text-xs leading-relaxed text-bronze-strong">
-                        {winterSale.name}: flat {winterSale.discountPercent}% off sauna MRP till {winterSale.endsLabel}; installation, shipping and lifting extra, as per actual.{" "}
+                        {winterSale.name}: flat {winterSale.discountPercent}% off sauna MRP till {winterSale.endsLabel}; installation as per your quote; shipping and lifting extra.{" "}
                         <a href="#winter-sale-terms" className="underline underline-offset-4">Sale terms</a>
                       </p>
                     )}
