@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { afterSales, winterSale, winterSaleLive } from "@/content/site";
+import { afterSales, winterSale, winterSaleFullTerms, winterSaleLive } from "@/content/site";
 import { beforeYouBuyFaqs, saunaWarrantyFaq } from "@/content/buyer-faqs";
 
 // Founder-confirmed 11 Nov 2026. Change these only with the founder's approval.
@@ -22,6 +22,20 @@ describe("The Winter Sale", () => {
   it("is 40% off MRP on saunas, heaters and accessories", () => {
     expect(winterSale.discountPercent).toBe(40);
     expect(winterSale.appliesTo).toContain("heaters and accessories");
+  });
+
+  it("lists the confirmed terms (16 Nov 2026)", () => {
+    const t = winterSale.terms.join(" ");
+    expect(t).toContain("Flat 40% off the MRP");
+    expect(t).toMatch(/Installation and commissioning are not discounted/);
+    expect(t).toMatch(/lifting and related charges are extra/);
+    expect(t).toMatch(/100% advance/);
+    expect(winterSale.termsHref).toBe("/winter-sale");
+    const full = JSON.stringify(winterSaleFullTerms);
+    expect(full).toContain("27 days");
+    expect(full).toContain("1-year on-site warranty");
+    // Removed at the founder's request — must not come back.
+    expect(full).not.toMatch(/money-back|money back|token advance|price protection|price shall remain locked/i);
   });
 
   it("runs until the end of 31 December 2026, India time", () => {

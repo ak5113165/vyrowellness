@@ -17,6 +17,7 @@ import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as LocationsRouteImport } from './routes/locations'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as WinterSaleRouteImport } from './routes/winter-sale'
 import { Route as RedLightTherapyRouteImport } from './routes/red-light-therapy'
 import { Route as SaunasRouteImport } from './routes/saunas'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -65,6 +66,11 @@ const PhilosophyRoute = PhilosophyRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WinterSaleRoute = WinterSaleRouteImport.update({
+  id: '/winter-sale',
+  path: '/winter-sale',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RedLightTherapyRoute = RedLightTherapyRouteImport.update({
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/locations': typeof LocationsRoute
   '/philosophy': typeof PhilosophyRoute
   '/privacy': typeof PrivacyRoute
+  '/winter-sale': typeof WinterSaleRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/locations': typeof LocationsRoute
   '/philosophy': typeof PhilosophyRoute
   '/privacy': typeof PrivacyRoute
+  '/winter-sale': typeof WinterSaleRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/locations': typeof LocationsRoute
   '/philosophy': typeof PhilosophyRoute
   '/privacy': typeof PrivacyRoute
+  '/winter-sale': typeof WinterSaleRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
     | '/locations'
     | '/philosophy'
     | '/privacy'
+    | '/winter-sale'
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/locations'
     | '/philosophy'
     | '/privacy'
+    | '/winter-sale'
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/locations'
     | '/philosophy'
     | '/privacy'
+    | '/winter-sale'
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   LocationsRoute: typeof LocationsRoute
   PhilosophyRoute: typeof PhilosophyRoute
   PrivacyRoute: typeof PrivacyRoute
+  WinterSaleRoute: typeof WinterSaleRoute
   RedLightTherapyRoute: typeof RedLightTherapyRoute
   SaunasRoute: typeof SaunasRoute
   TermsRoute: typeof TermsRoute
@@ -307,6 +320,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/winter-sale': {
+      id: '/winter-sale'
+      path: '/winter-sale'
+      fullPath: '/winter-sale'
+      preLoaderRoute: typeof WinterSaleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/red-light-therapy': {
@@ -384,6 +404,7 @@ const rootRouteChildren: RootRouteChildren = {
   LocationsRoute: LocationsRoute,
   PhilosophyRoute: PhilosophyRoute,
   PrivacyRoute: PrivacyRoute,
+  WinterSaleRoute: WinterSaleRoute,
   RedLightTherapyRoute: RedLightTherapyRoute,
   SaunasRoute: SaunasRoute,
   TermsRoute: TermsRoute,
