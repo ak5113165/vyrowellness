@@ -34,6 +34,8 @@ describe("The Winter Sale", () => {
     expect(winterSale.termsHref).toBe("/winter-sale");
     const full = JSON.stringify(winterSaleFullTerms);
     expect(full).toContain("27 days");
+    expect(full).toContain("confirmed when the 50% advance is received");
+    expect(full).toContain("within 6 months of order confirmation");
     expect(full).toContain("1-year on-site warranty");
     // Removed at the founder's request — must not come back.
     expect(full).not.toMatch(/money-back|money back|token advance|price protection|price shall remain locked/i);

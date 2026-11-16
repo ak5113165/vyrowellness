@@ -120,7 +120,8 @@ export const winterSale = {
     "Installation and commissioning are not discounted and are charged as per actual.",
     "Freight, packaging, shipping, lifting and related charges are extra, as per actuals, in the customer's scope.",
     "Payment: 50% advance to confirm the order, 40% before dispatch, 10% after installation. 18% GST is extra.",
-    "The offer ends on 31 December 2026. Our team confirms the offer on your quote.",
+    "Valid on orders confirmed with the 50% advance by 31 December 2026; installation can be scheduled within 6 months of order confirmation.",
+    "Our team confirms the offer on your quote.",
   ],
   termsHref: "/winter-sale",
 } as const;
@@ -128,7 +129,9 @@ export const winterSale = {
 // Full Winter Sale terms — supplied by the founder (16 Nov 2026), with the
 // money-back guarantee and token-advance/price-protection clauses removed at
 // the founder's request, the project timeline set to 27 days, payment
-// 50/40/10, and the 40% limited to saunas.
+// 50/40/10, and the 40% limited to saunas. Order window (16 Nov 2026):
+// the 50% advance confirms the order (must be by 31 Dec 2026);
+// installation within 6 months of confirmation.
 // Legal wording: have a lawyer/CA review before relying on it.
 export const winterSaleFullTerms: { title: string; points: string[] }[] = [
   {
@@ -136,7 +139,9 @@ export const winterSaleFullTerms: { title: string; points: string[] }[] = [
     points: [
       "Flat 40% off the MRP of Haven saunas (cabin, heater and accessories), as shown on your quote. The offer applies to saunas only.",
       "Installation and commissioning are not discounted and are charged as per actual.",
-      "The offer ends on 31 December 2026. Prices are MRP; 18% GST is extra.",
+      "Valid on orders confirmed by 31 December 2026. An order is confirmed when the 50% advance is received.",
+      "Installation for a confirmed order can be scheduled within 6 months of order confirmation.",
+      "Prices are MRP; 18% GST is extra.",
     ],
   },
   {
