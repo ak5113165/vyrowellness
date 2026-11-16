@@ -521,8 +521,7 @@ function SaunasPage() {
                     </p>
                     {saleLive && (
                       <p className="mt-2 text-xs leading-relaxed text-bronze-strong">
-                        {winterSale.name}: flat {winterSale.discountPercent}% off product MRP till {winterSale.endsLabel}; installation, shipping and lifting extra, as per actual.{" "}
-                        <a href="#winter-sale-terms" className="underline underline-offset-4">Sale terms</a>
+                        {winterSale.name}: {winterSale.discountPercent}% off MRP on {winterSale.appliesTo} till {winterSale.endsLabel} — confirmed on your quote.
                       </p>
                     )}
                   </div>
@@ -610,24 +609,6 @@ function SaunasPage() {
           </ol>
         </section>
 
-        {saleLive && (
-          <section id="winter-sale-terms" aria-labelledby="winter-sale-terms-title" className="scroll-mt-24 border-t border-border bg-card">
-            <div className="mx-auto max-w-3xl px-5 py-16 lg:px-8">
-              <p className="eyebrow text-bronze-strong">Limited period · till {winterSale.endsLabel}</p>
-              <h2 id="winter-sale-terms-title" className="mt-3 font-display text-3xl font-medium">{winterSale.name}: Terms</h2>
-              <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted-foreground">
-                {winterSale.terms.map((t) => (
-                  <li key={t} className="flex gap-3">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-bronze-strong" aria-hidden /> {t}
-                  </li>
-                ))}
-              </ul>
-              <a href={winterSale.termsHref} className="mt-6 inline-block text-[12px] uppercase tracking-[0.16em] underline decoration-bronze underline-offset-8 hover:text-bronze-strong">
-                Full sale terms: payment, warranty, installation →
-              </a>
-            </div>
-          </section>
-        )}
         <VyroDifference />
 
         <SpecialistCallout

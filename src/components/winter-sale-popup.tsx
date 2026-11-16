@@ -161,15 +161,7 @@ export function WinterSalePopup() {
               )}
             </div>
             <p className="mt-6 text-xs text-ink-muted">
-              Flat {winterSale.discountPercent}% off product MRP. Installation, shipping and lifting extra, as per actual. Valid till{" "}
-              {winterSale.endsLabel}.{" "}
-              <a
-                href={winterSale.termsHref}
-                onClick={() => setOpen(false)}
-                className="underline underline-offset-4 hover:text-ink-foreground"
-              >
-                See sale terms
-              </a>
+              Valid till {winterSale.endsLabel}. Terms apply — our team will confirm the offer on your quote.
             </p>
           </div>
         </DialogPrimitive.Content>

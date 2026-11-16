@@ -100,12 +100,8 @@ export const afterSales = {
 } as const;
 
 // The Winter Sale — confirmed by the founder (11 Nov 2026): 40% off MRP on
-// Haven saunas, heaters and accessories, until 31 December 2026. Terms
-// confirmed 16 Nov 2026: the 40% is on the sauna's final MRP only;
-// installation & commissioning, shipping/transport and lifting to upper
-// floors are not discounted (as per actual; the last two in the customer's
-// scope). The pop-up hides itself after `endsAt`; set `active: false` to
-// switch it off early.
+// Haven saunas, heaters and accessories, until 31 December 2026. The pop-up
+// hides itself after `endsAt`; set `active: false` to switch it off early.
 export const winterSale = {
   active: true,
   name: "The Winter Sale",
@@ -114,67 +110,7 @@ export const winterSale = {
   endsLabel: "31 December 2026",
   // End of 31 Dec 2026, India time.
   endsAt: "2027-01-01T00:00:00+05:30",
-  // Short version for the pop-up / Saunas page; full terms below.
-  terms: [
-    "Flat 40% off the MRP of our products, as shown on your quote.",
-    "Installation and commissioning are not discounted and are charged as per actual.",
-    "Freight, packaging, shipping, lifting and related charges are extra, as per actuals, in the customer's scope.",
-    "100% advance payment confirms the order and installation. 18% GST is extra.",
-    "The offer ends on 31 December 2026. Our team confirms the offer on your quote.",
-  ],
-  termsHref: "/winter-sale",
 } as const;
-
-// Full Winter Sale terms — supplied by the founder (16 Nov 2026), with the
-// money-back guarantee and token-advance/price-protection clauses removed at
-// the founder's request, and the project timeline set to 27 days.
-// Legal wording: have a lawyer/CA review before relying on it.
-export const winterSaleFullTerms: { title: string; points: string[] }[] = [
-  {
-    title: "The Offer",
-    points: [
-      "Flat 40% off the MRP of our products, as shown on your quote.",
-      "Installation and commissioning are not discounted and are charged as per actual.",
-      "The offer ends on 31 December 2026. Prices are MRP; 18% GST is extra.",
-    ],
-  },
-  {
-    title: "Payment Terms",
-    points: ["100% advance payment is required for order confirmation and installation."],
-  },
-  {
-    title: "Warranty",
-    points: [
-      "1-year on-site warranty on the product, excluding consumables.",
-      "10-year customer support assurance for the availability of spares, stock and technical assistance, chargeable as per the applicable service schedule.",
-    ],
-  },
-  {
-    title: "Warranty Exclusions",
-    points: [
-      "No warranty applies to leakage of pipes, fittings, electrical switches, wiring, plumbing accessories or any third-party consumables after installation handover.",
-      "Damage arising from improper usage, water quality, power fluctuations, site conditions or unauthorised modifications is excluded from warranty coverage.",
-    ],
-  },
-  {
-    title: "Transportation",
-    points: ["Freight, packaging, shipping, lifting and related charges are extra, as per actuals, in the customer's scope."],
-  },
-  {
-    title: "Project Timeline",
-    points: [
-      "On-site work starts within 27 days of receipt of the payment due before dispatch, subject to site readiness and the availability of utilities.",
-    ],
-  },
-  {
-    title: "Installation Disclaimer",
-    points: [
-      "Installation may require drilling, cutting, customisation or modification of existing infrastructure.",
-      "While utmost care is taken during installation, the company is not liable for any damage to existing tiles, marble, granite, glass, civil works, pipes, fittings, wiring, fixtures, waterproofing or other incidental elements.",
-      "Customers are advised to be present during installation to supervise and verify the completed work.",
-    ],
-  },
-];
 
 export function winterSaleLive(now: number = Date.now()): boolean {
   return winterSale.active && now < Date.parse(winterSale.endsAt);
