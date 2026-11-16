@@ -116,10 +116,10 @@ export const winterSale = {
   endsAt: "2027-01-01T00:00:00+05:30",
   // Short version for the pop-up / Saunas page; full terms below.
   terms: [
-    "Flat 40% off the MRP of our products, as shown on your quote.",
+    "Flat 40% off the MRP of your Haven sauna (cabin, heater and accessories), as shown on your quote. Saunas only.",
     "Installation and commissioning are not discounted and are charged as per actual.",
     "Freight, packaging, shipping, lifting and related charges are extra, as per actuals, in the customer's scope.",
-    "100% advance payment confirms the order and installation. 18% GST is extra.",
+    "Payment: 50% advance to confirm the order, 40% before dispatch, 10% after installation. 18% GST is extra.",
     "The offer ends on 31 December 2026. Our team confirms the offer on your quote.",
   ],
   termsHref: "/winter-sale",
@@ -127,20 +127,25 @@ export const winterSale = {
 
 // Full Winter Sale terms — supplied by the founder (16 Nov 2026), with the
 // money-back guarantee and token-advance/price-protection clauses removed at
-// the founder's request, and the project timeline set to 27 days.
+// the founder's request, the project timeline set to 27 days, payment
+// 50/40/10, and the 40% limited to saunas.
 // Legal wording: have a lawyer/CA review before relying on it.
 export const winterSaleFullTerms: { title: string; points: string[] }[] = [
   {
     title: "The Offer",
     points: [
-      "Flat 40% off the MRP of our products, as shown on your quote.",
+      "Flat 40% off the MRP of Haven saunas (cabin, heater and accessories), as shown on your quote. The offer applies to saunas only.",
       "Installation and commissioning are not discounted and are charged as per actual.",
       "The offer ends on 31 December 2026. Prices are MRP; 18% GST is extra.",
     ],
   },
   {
     title: "Payment Terms",
-    points: ["100% advance payment is required for order confirmation and installation."],
+    points: [
+      "50% advance payment for order confirmation.",
+      "40% before dispatch.",
+      "10% after installation.",
+    ],
   },
   {
     title: "Warranty",
