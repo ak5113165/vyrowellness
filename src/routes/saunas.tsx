@@ -521,7 +521,7 @@ function SaunasPage() {
                     </p>
                     {saleLive && (
                       <p className="mt-2 text-xs leading-relaxed text-bronze-strong">
-                        {winterSale.name}: {winterSale.discountPercent}% off the sauna's final MRP till {winterSale.endsLabel}; installation, shipping and lifting extra, as per actual.{" "}
+                        {winterSale.name}: flat {winterSale.discountPercent}% off product MRP till {winterSale.endsLabel}; installation, shipping and lifting extra, as per actual.{" "}
                         <a href="#winter-sale-terms" className="underline underline-offset-4">Sale terms</a>
                       </p>
                     )}
@@ -622,6 +622,9 @@ function SaunasPage() {
                   </li>
                 ))}
               </ul>
+              <a href={winterSale.termsHref} className="mt-6 inline-block text-[12px] uppercase tracking-[0.16em] underline decoration-bronze underline-offset-8 hover:text-bronze-strong">
+                Full sale terms: payment, warranty, installation →
+              </a>
             </div>
           </section>
         )}
