@@ -24,7 +24,7 @@ export const googleTagSnippet = `(function(){
   document.head.appendChild(s);
 })();`;
 
-type Params = Record<string, string | number | boolean | undefined>;
+type Params = Record<string, string | number | boolean | (() => void) | undefined>;
 
 declare global {
   interface Window {
@@ -61,7 +61,22 @@ export function installClickTracking(): () => void {
     if (href.startsWith("https://wa.me/") || href.includes("api.whatsapp.com")) {
       trackEvent("whatsapp_click", { link_url: href.split("?")[0] });
     } else if (href.startsWith("tel:")) {
-      trackEvent("phone_click");
+      // Opening the dialer can freeze the page (notably on iPhone) before
+      // Analytics has sent its batch, so the tap is lost. Hold the call for a
+      // moment until the event is sent (or 800 ms at most), then dial.
+      if (typeof window.gtag === "function" && !e.defaultPrevented && !e.metaKey && !e.ctrlKey) {
+        e.preventDefault();
+        let dialled = false;
+        const dial = () => {
+          if (dialled) return;
+          dialled = true;
+          window.location.href = href;
+        };
+        trackEvent("phone_click", { event_callback: dial, event_timeout: 800 });
+        window.setTimeout(dial, 900);
+      } else {
+        trackEvent("phone_click");
+      }
     } else if (href.startsWith("mailto:")) {
       trackEvent("email_click", { email: href.slice(7).split("?")[0] });
     } else if (/\.pdf($|\?)/i.test(href)) {
