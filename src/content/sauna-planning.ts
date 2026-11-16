@@ -3,7 +3,8 @@
 // values; founder confirmations (16 Nov 2026): access door width 2.5 ft,
 // show "10-year after-sales service" without naming the heater, show the
 // lowest listed sauna price, NO free site survey and NO showroom — don't add
-// either. Temperatures in the comparison are general typical ranges for each
+// either. Founder (16 Nov 2026): no maximum size — any space can be built as a
+// custom sauna. Temperatures in the comparison are general typical ranges for each
 // sauna type, not VYRO test figures.
 import { afterSales, gstRatePercent, saunaInstallation, site } from "@/content/site";
 import { formatInr } from "@/lib/format-inr";
@@ -25,7 +26,7 @@ export const saunaAccessDoorFt = 2.5;
 
 export const saunaTrustStrip: string[] = [
   `Cabins from ${formatInr(saunaFromPriceInr)} + ${gstRatePercent}% GST`,
-  `${saunaModels.length} cabin models`,
+  `${saunaModels.length} cabin models + custom sizes`,
   `Installed by our team ${saunaInstallation.label}`,
   `${afterSales.heaterServiceYears}-year after-sales service`,
   `Every enquiry answered ${site.enquiryResponseTime}`,
@@ -79,13 +80,13 @@ export const saunaIdealFor: { title: string; copy: string; to?: "/commercial-wel
   { title: "Homes & Villas", copy: "Classic or Glass cabins for a spare room, terrace or home gym." },
   { title: "Apartments", copy: "Haven Compact (3 × 3 ft) or Infrared (4 × 4 ft) for smaller rooms." },
   { title: "Hotels & Resorts", copy: "Large Classic and Glass cabins for guest wellness areas.", to: "/commercial-wellness" },
-  { title: "Spas & Gyms", copy: "Larger cabins for busy wellness spaces, planned with your team.", to: "/commercial-wellness" },
+  { title: "Spas & Gyms", copy: "Custom-sized saunas for busy wellness spaces, built to fit your floor plan.", to: "/commercial-wellness" },
 ];
 
 export const saunaRequirements: { label: string; value: string }[] = [
   {
     label: "Floor space",
-    value: `From ${smallest.w} × ${smallest.d} ft (Haven Compact) to ${largest.w} × ${largest.d} ft (Large cabins).`,
+    value: `From ${smallest.w} × ${smallest.d} ft (Haven Compact), with standard cabins up to ${largest.w} × ${largest.d} ft. There's no upper limit: we custom-build a sauna to fit any space.`,
   },
   {
     label: "Height",
