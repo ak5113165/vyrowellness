@@ -19,6 +19,7 @@ import { CabinFitFinder } from "@/components/cabin-fit-finder";
 import { Sauna3DDialog } from "@/components/sauna-3d-viewer";
 import { saunaConfigFromSelection } from "@/lib/sauna-3d-config";
 import { DownloadLink } from "@/components/download-link";
+import { saunaIdealFor, saunaRequirements, saunaTrustStrip, saunaTypeComparison } from "@/content/sauna-planning";
 // Page hero differs from the homepage hero (the VYRO spruce sauna) so the two pages don't open identically.
 import saunaInteriorImage from "@/assets/sauna.jpg";
 import {
@@ -255,6 +256,17 @@ function SaunasPage() {
           </div>
         </section>
 
+        {/* Price & trust strip */}
+        <section aria-label="Why VYRO saunas" className="border-b border-border bg-card">
+          <ul className="mx-auto flex max-w-7xl flex-wrap justify-center gap-x-8 gap-y-3 px-5 py-5 text-[12px] uppercase tracking-[0.16em] text-foreground/80 lg:justify-between lg:px-8">
+            {saunaTrustStrip.map((item) => (
+              <li key={item} className="flex items-center gap-2">
+                <Check className="h-3.5 w-3.5 text-bronze-strong" aria-hidden /> {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
         {/* Room types overview */}
         <section className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
           <SectionHeading overline="The Range" title="Four Ways to Sauna." />
@@ -268,6 +280,48 @@ function SaunasPage() {
                 <span className="mt-5 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] group-hover:text-bronze-strong">View <ArrowRight className="h-4 w-4" aria-hidden /></span>
               </button>
             ))}
+          </div>
+        </section>
+
+        {/* Traditional vs infrared */}
+        <section className="border-t border-border">
+          <div className="mx-auto max-w-7xl px-5 py-20 lg:px-8">
+            <SectionHeading overline="Traditional or Infrared?" title="Two Kinds of Heat." copy="Typical figures for each type of sauna; your consultant helps you choose for your space and how you'll use it." />
+            <div className="mt-12 overflow-x-auto">
+              <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+                <thead>
+                  <tr className="border-b border-bronze/40">
+                    <th scope="col" className="w-1/5 py-4 pr-6 font-normal text-muted-foreground"><span className="sr-only">Compare</span></th>
+                    <th scope="col" className="py-4 pr-6 font-display text-xl font-medium">{saunaTypeComparison.traditionalTitle}</th>
+                    <th scope="col" className="py-4 font-display text-xl font-medium">{saunaTypeComparison.infraredTitle}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {saunaTypeComparison.rows.map((r) => (
+                    <tr key={r.label} className="border-b border-border align-top">
+                      <th scope="row" className="py-4 pr-6 text-[12px] font-normal uppercase tracking-[0.16em] text-bronze-strong">{r.label}</th>
+                      <td className="py-4 pr-6 leading-relaxed text-foreground/85">{r.traditional}</td>
+                      <td className="py-4 leading-relaxed text-foreground/85">{r.infrared}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className="mt-16 eyebrow text-bronze-strong">Ideal For</h3>
+            <div className="mt-6 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+              {saunaIdealFor.map((item) => (
+                <div key={item.title} className="flex flex-col bg-background p-6">
+                  <p className="font-display text-2xl font-medium">{item.title}</p>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{item.copy}</p>
+                  {item.to && (
+                    <Link to={item.to} className="mt-4 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.16em] hover:text-bronze-strong">
+                      Commercial wellness <ArrowRight className="h-4 w-4" aria-hidden />
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -339,6 +393,17 @@ function SaunasPage() {
             ))}
           </div>
           <CabinFitFinder onChoose={(code) => { chooseRoom(code); goStep(2); }} />
+          <div className="mt-14">
+            <h3 className="eyebrow text-bronze-strong">Installation Requirements</h3>
+            <dl className="mt-6 grid border-t border-border sm:grid-cols-2 lg:grid-cols-3">
+              {saunaRequirements.map((r) => (
+                <div key={r.label} className="border-b border-border py-5 sm:pr-8">
+                  <dt className="text-[12px] uppercase tracking-[0.16em] text-foreground">{r.label}</dt>
+                  <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{r.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
           <DownloadLink sheet="haven" className="mt-8" />
           <Link
             to="/guides/$slug"

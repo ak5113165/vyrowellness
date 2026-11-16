@@ -1,8 +1,9 @@
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { Check, MessageCircle, Phone } from "lucide-react";
 import { phoneSchema } from "@/lib/enquiry-schema";
 import { site, whatsappLink, type productInterests } from "@/content/site";
 import { trackLead } from "@/lib/analytics";
+import { Honeypot } from "@/components/honeypot";
 
 type Interest = (typeof productInterests)[number];
 
@@ -28,6 +29,7 @@ export function SpecialistCallout({
 }) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const hpRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "sending" | "done">("idle");
   const wa = whatsappLink(whatsappMessage);
@@ -40,6 +42,8 @@ export function SpecialistCallout({
     const parsedPhone = phoneSchema.safeParse(phone);
     if (!parsedPhone.success) return setError("Enter a valid Indian mobile number, e.g. 98765 43210");
 
+    // Spam trap: a bot filled the hidden field, so pretend it worked and send nothing.
+    if (hpRef.current?.value) return setStatus("done");
     setStatus("sending");
     try {
       const res = await fetch("/api/public/enquiries", {
@@ -111,6 +115,7 @@ export function SpecialistCallout({
             </div>
           ) : (
             <form onSubmit={submit} noValidate className="space-y-4">
+              <Honeypot ref={hpRef} />
               <p className="font-display text-2xl font-medium">Request a Call-Back</p>
               <div>
                 <label htmlFor={`${idBase}-name`} className="sr-only">
