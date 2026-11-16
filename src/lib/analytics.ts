@@ -1,0 +1,72 @@
+// Google Analytics (GA4) via the Google tag, plus lead events.
+//
+// The tag only loads on the live domain, so Lovable previews and local
+// development never pollute the numbers. Page views (including in-app
+// navigation) come from GA4 Enhanced measurement; the events below are the
+// lead actions we care about. Mark `generate_lead` as a Key event in GA4
+// (Admin → Events) to see conversions per page and per traffic source.
+
+export const GOOGLE_TAG_ID = "GTM-MBXQFFS9";
+
+const LIVE_HOSTS = ["vyrowellness.in", "www.vyrowellness.in"];
+
+/** Inline <head> script: sets up dataLayer/gtag and loads the tag on the live site only. */
+export const googleTagSnippet = `(function(){
+  if (${JSON.stringify(LIVE_HOSTS)}.indexOf(location.hostname) === -1) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_ID}';
+  document.head.appendChild(s);
+})();`;
+
+type Params = Record<string, string | number | boolean | undefined>;
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+/** Send a GA4 event. A no-op off the live site or if the tag is blocked. */
+export function trackEvent(name: string, params: Params = {}) {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return;
+  try {
+    window.gtag("event", name, { page_path: window.location.pathname, ...params });
+  } catch {
+    /* analytics must never break the site */
+  }
+}
+
+/** A submitted enquiry or call-back request: the main conversion. */
+export function trackLead(formType: "enquiry" | "callback", interest?: string) {
+  trackEvent("generate_lead", { form_type: formType, product_interest: interest });
+}
+
+/**
+ * One delegated click listener for contact actions anywhere on the site:
+ * WhatsApp links, phone links, email links and PDF downloads (catalogue,
+ * spec sheets). Returns a cleanup function.
+ */
+export function installClickTracking(): () => void {
+  if (typeof document === "undefined") return () => {};
+  const onClick = (e: MouseEvent) => {
+    const link = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+    if (!link) return;
+    const href = link.getAttribute("href") ?? "";
+    if (href.startsWith("https://wa.me/") || href.includes("api.whatsapp.com")) {
+      trackEvent("whatsapp_click", { link_url: href.split("?")[0] });
+    } else if (href.startsWith("tel:")) {
+      trackEvent("phone_click");
+    } else if (href.startsWith("mailto:")) {
+      trackEvent("email_click", { email: href.slice(7).split("?")[0] });
+    } else if (/\.pdf($|\?)/i.test(href)) {
+      const file = href.split("?")[0].split("/").pop() ?? href;
+      trackEvent(/catalogue/i.test(file) ? "catalogue_download" : "spec_sheet_download", { file_name: file });
+    }
+  };
+  document.addEventListener("click", onClick, { capture: true });
+  return () => document.removeEventListener("click", onClick, { capture: true });
+}

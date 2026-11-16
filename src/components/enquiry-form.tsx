@@ -11,6 +11,7 @@ import {
 } from "@/lib/enquiry-schema";
 import { budgetOptions, businessTypes, productInterests, site, whatsappLink } from "@/content/site";
 import { cn } from "@/lib/utils";
+import { trackLead } from "@/lib/analytics";
 
 const inputClass =
   "h-11 w-full rounded-sm border border-input bg-transparent px-3.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:outline-none focus-visible:border-bronze";
@@ -118,6 +119,7 @@ export function EnquiryForm({
         setSuccessName(firstName);
         setSuccessInterest(interest);
         setStatus("success");
+        trackLead("enquiry", interest);
       } else {
         setStatus("error");
         setServerError(json?.error ?? "Something went wrong. Please try again.");

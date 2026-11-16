@@ -19,7 +19,8 @@ export const Route = createFileRoute("/privacy")({
 
 // Written from what the site actually does (Nov 2026): enquiry and call-back
 // forms -> Lovable Cloud database -> Resend email alerts / customer reply ->
-// Zoho Mail inbox. If any of that changes (analytics, payments, new forms),
+// Zoho Mail inbox, plus Google Analytics (src/lib/analytics.ts). If any of
+// that changes (new tracking, payments, new forms),
 // update this page in the same change. Once the company is incorporated, add
 // the registered name and address in "Who We Are".
 const LAST_UPDATED = "16 November 2026";
@@ -95,10 +96,18 @@ function PrivacyPage() {
               />
               <p>
                 We do not ask for payment details, ID numbers or passwords on this website, and we do
-                not use advertising or tracking cookies. The site remembers in your browser, for that
-                visit only, whether you have already closed our offer pop-up, so it does not show
-                again. Like any website, our hosting provider receives technical information such as
-                your IP address and browser type when you load a page.
+                not use advertising cookies. The site remembers in your browser, for that visit only,
+                whether you have already closed our offer pop-up, so it does not show again. Like any
+                website, our hosting provider receives technical information such as your IP address
+                and browser type when you load a page.
+              </p>
+              <p>
+                We use Google Analytics to understand how visitors use the site: which pages are
+                viewed, roughly where visits come from (city level), the type of device, and actions
+                such as sending a form, tapping WhatsApp or call, or downloading a brochure. Google
+                Analytics uses cookies and similar identifiers to do this. It does not receive the
+                details you type into our forms. You can block it with your browser's cookie
+                settings, or with Google's opt-out add-on at tools.google.com/dlpage/gaoptout.
               </p>
             </Section>
 
@@ -108,6 +117,7 @@ function PrivacyPage() {
                   "To reply to your enquiry by phone, WhatsApp or email, and send you an automatic confirmation email if you gave your email address.",
                   "To recommend products, plan your space and prepare quotations.",
                   "To follow up on the enquiry you made, and to arrange site visits, installation and after-sales service if you go ahead.",
+                  "To see which pages and channels bring enquiries, so we can improve the website.",
                   "To keep records we are required to keep by law.",
                 ]}
               />
@@ -134,6 +144,7 @@ function PrivacyPage() {
                   "Resend, which sends the email alert to our sales team and your confirmation email;",
                   "Zoho Mail, which hosts our company email inbox;",
                   "Google Fonts, which supplies the website's typefaces and receives your IP address when a page loads;",
+                  "Google Analytics, which measures visits and the actions described above;",
                   "WhatsApp, only if you choose to message us there.",
                 ]}
               />
