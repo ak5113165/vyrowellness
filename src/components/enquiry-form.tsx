@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
@@ -12,6 +12,7 @@ import {
 import { budgetOptions, businessTypes, productInterests, site, whatsappLink } from "@/content/site";
 import { cn } from "@/lib/utils";
 import { trackLead } from "@/lib/analytics";
+import { Honeypot } from "@/components/honeypot";
 
 const inputClass =
   "h-11 w-full rounded-sm border border-input bg-transparent px-3.5 text-sm text-foreground placeholder:text-muted-foreground/70 focus-visible:outline-none focus-visible:border-bronze";
@@ -65,6 +66,8 @@ export function EnquiryForm({
   const [serverError, setServerError] = useState<string | null>(null);
   const [successName, setSuccessName] = useState("");
   const [successInterest, setSuccessInterest] = useState("");
+  // Spam trap (see Honeypot). Declared with the other hooks, above the early returns.
+  const hpRef = useRef<HTMLInputElement>(null);
 
   const consumerForm = useForm({
     resolver: zodResolver(consumerEnquirySchema),
@@ -106,6 +109,13 @@ export function EnquiryForm({
   });
 
   const submit = async (payload: unknown, firstName: string, interest: string) => {
+    // A bot filled the hidden field: show the normal thank-you, send nothing.
+    if (hpRef.current?.value) {
+      setSuccessName(firstName);
+      setSuccessInterest(interest);
+      setStatus("success");
+      return;
+    }
     setStatus("submitting");
     setServerError(null);
     try {
@@ -224,6 +234,7 @@ export function EnquiryForm({
           <FieldError message={errors.projectDescription?.message} />
         </div>
 
+        <Honeypot ref={hpRef} />
         <SubmitButton status={status} label="Discuss Your Project" />
         <FormFooter status={status} serverError={serverError} />
       </form>
@@ -356,6 +367,7 @@ export function EnquiryForm({
         </div>
       </details>
 
+      <Honeypot ref={hpRef} />
       <SubmitButton status={status} label="Request a Consultation" />
       <FormFooter status={status} serverError={serverError} />
     </form>
