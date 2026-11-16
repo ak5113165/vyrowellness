@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { saunaModels } from "@/content/sauna-catalogue";
 import {
-  saunaAccessDoorFt,
+  saunaDoorWidthFt,
   saunaFromPriceInr,
   saunaIdealFor,
   saunaRequirements,
@@ -27,9 +27,10 @@ describe("saunas page planning content", () => {
     expect(saunaRequirements.find((r) => r.label === "Floor space")?.value).toMatch(/no upper limit/i);
   });
 
-  it("uses the confirmed 2.5 ft access door width", () => {
-    expect(saunaAccessDoorFt).toBe(2.5);
-    expect(saunaRequirements.find((r) => r.label === "Access door")?.value).toContain("2.5 ft");
+  it("uses the confirmed 2.5 ft sauna door width", () => {
+    expect(saunaDoorWidthFt).toBe(2.5);
+    expect(saunaRequirements.find((r) => r.label === "Sauna door")?.value).toContain("2.5 ft");
+    expect(allText).not.toMatch(/access door|carried into/i);
   });
 
   it("never offers a site survey or a showroom (not offered by VYRO)", () => {
