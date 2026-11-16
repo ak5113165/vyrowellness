@@ -11,7 +11,7 @@ export const Route = createFileRoute("/winter-sale")({
     pageHead({
       path: "/winter-sale",
       title: "Winter Sale Terms | VYRO Wellness",
-      description: `Terms of the VYRO Winter Sale: flat ${winterSale.discountPercent}% off product MRP till ${winterSale.endsLabel}.`,
+      description: `Terms of the VYRO Winter Sale: flat ${winterSale.discountPercent}% off Haven sauna MRP till ${winterSale.endsLabel}.`,
       // A time-limited offer page: keep it out of search results.
       noindex: true,
     }),
@@ -28,7 +28,7 @@ function WinterSalePage() {
         <Reveal>
           <p className="eyebrow text-bronze-strong">{live ? `Limited period · till ${winterSale.endsLabel}` : "Offer ended"}</p>
           <h1 className="mt-3 font-display text-5xl font-medium">
-            {winterSale.name}: Flat {winterSale.discountPercent}% Off
+            {winterSale.name}: Flat {winterSale.discountPercent}% Off Saunas
           </h1>
           {!live && (
             <p className="mt-4 rounded-sm border border-border bg-secondary/60 p-4 text-sm text-muted-foreground">

@@ -26,10 +26,11 @@ describe("The Winter Sale", () => {
 
   it("lists the confirmed terms (16 Nov 2026)", () => {
     const t = winterSale.terms.join(" ");
-    expect(t).toContain("Flat 40% off the MRP");
+    expect(t).toContain("Flat 40% off the MRP of your Haven sauna");
+    expect(t).toContain("Saunas only");
     expect(t).toMatch(/Installation and commissioning are not discounted/);
     expect(t).toMatch(/lifting and related charges are extra/);
-    expect(t).toMatch(/100% advance/);
+    expect(t).toMatch(/50% advance.*40% before dispatch.*10% after installation/);
     expect(winterSale.termsHref).toBe("/winter-sale");
     const full = JSON.stringify(winterSaleFullTerms);
     expect(full).toContain("27 days");

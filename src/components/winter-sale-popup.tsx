@@ -161,7 +161,7 @@ export function WinterSalePopup() {
               )}
             </div>
             <p className="mt-6 text-xs text-ink-muted">
-              Flat {winterSale.discountPercent}% off product MRP. Installation, shipping and lifting extra, as per actual. Valid till{" "}
+              Flat {winterSale.discountPercent}% off sauna MRP. Installation, shipping and lifting extra, as per actual. Valid till{" "}
               {winterSale.endsLabel}.{" "}
               <a
                 href={winterSale.termsHref}
