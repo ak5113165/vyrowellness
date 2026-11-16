@@ -10,8 +10,10 @@
 // ==========================================================================
 
 export const site = {
-  // Registered company name (from Zoho Books, 11 Nov 2026).
-  legalName: "Vyro Wellness Technologies Private Limited",
+  // Name shown in the footer copyright. Keep this as the brand name until
+  // the company is incorporated; then switch to the registered name,
+  // "Vyro Wellness Technologies Private Limited", and add the CIN/GSTIN.
+  legalName: "VYRO Wellness",
   name: "VYRO",
   tagline: "Heat. Cold. Calm.",
   // Used sparingly (e.g. footer / brand story).
