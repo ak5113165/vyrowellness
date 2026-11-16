@@ -161,7 +161,15 @@ export function WinterSalePopup() {
               )}
             </div>
             <p className="mt-6 text-xs text-ink-muted">
-              Valid till {winterSale.endsLabel}. Terms apply — our team will confirm the offer on your quote.
+              Flat {winterSale.discountPercent}% off sauna MRP. Installation, shipping and lifting extra, as per actual. Valid till{" "}
+              {winterSale.endsLabel}.{" "}
+              <a
+                href={winterSale.termsHref}
+                onClick={() => setOpen(false)}
+                className="underline underline-offset-4 hover:text-ink-foreground"
+              >
+                See sale terms
+              </a>
             </p>
           </div>
         </DialogPrimitive.Content>
