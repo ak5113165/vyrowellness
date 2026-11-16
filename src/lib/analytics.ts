@@ -1,4 +1,4 @@
-// Google Analytics (GA4) via the Google tag, plus lead events.
+// Google Analytics (GA4) via gtag.js, plus lead events.
 //
 // The tag only loads on the live domain, so Lovable previews and local
 // development never pollute the numbers. Page views (including in-app
@@ -6,7 +6,8 @@
 // lead actions we care about. Mark `generate_lead` as a Key event in GA4
 // (Admin → Events) to see conversions per page and per traffic source.
 
-export const GOOGLE_TAG_ID = "GTM-MBXQFFS9";
+// GA4 Measurement ID for the "Vyro Website" stream (property: VYRO Wellness).
+export const GA_MEASUREMENT_ID = "G-1SXYX17Y9L";
 
 const LIVE_HOSTS = ["vyrowellness.in", "www.vyrowellness.in"];
 
@@ -16,9 +17,10 @@ export const googleTagSnippet = `(function(){
   window.dataLayer = window.dataLayer || [];
   window.gtag = function(){ window.dataLayer.push(arguments); };
   window.gtag('js', new Date());
+  window.gtag('config', '${GA_MEASUREMENT_ID}');
   var s = document.createElement('script');
   s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtm.js?id=${GOOGLE_TAG_ID}';
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}';
   document.head.appendChild(s);
 })();`;
 
