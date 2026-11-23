@@ -17,11 +17,11 @@ import { Route as GuidesRouteImport } from './routes/guides'
 import { Route as LocationsRouteImport } from './routes/locations'
 import { Route as PhilosophyRouteImport } from './routes/philosophy'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as WinterSaleRouteImport } from './routes/winter-sale'
 import { Route as RedLightTherapyRouteImport } from './routes/red-light-therapy'
 import { Route as SaunasRouteImport } from './routes/saunas'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as WellnessSpacesRouteImport } from './routes/wellness-spaces'
+import { Route as WinterSaleRouteImport } from './routes/winter-sale'
 import { Route as ColdPlungeModelRouteImport } from './routes/cold-plunge_.$model'
 import { Route as GuidesSlugRouteImport } from './routes/guides_.$slug'
 import { Route as LocationsCityRouteImport } from './routes/locations_.$city'
@@ -68,11 +68,6 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WinterSaleRoute = WinterSaleRouteImport.update({
-  id: '/winter-sale',
-  path: '/winter-sale',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RedLightTherapyRoute = RedLightTherapyRouteImport.update({
   id: '/red-light-therapy',
   path: '/red-light-therapy',
@@ -91,6 +86,11 @@ const TermsRoute = TermsRouteImport.update({
 const WellnessSpacesRoute = WellnessSpacesRouteImport.update({
   id: '/wellness-spaces',
   path: '/wellness-spaces',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WinterSaleRoute = WinterSaleRouteImport.update({
+  id: '/winter-sale',
+  path: '/winter-sale',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ColdPlungeModelRoute = ColdPlungeModelRouteImport.update({
@@ -128,11 +128,11 @@ export interface FileRoutesByFullPath {
   '/locations': typeof LocationsRoute
   '/philosophy': typeof PhilosophyRoute
   '/privacy': typeof PrivacyRoute
-  '/winter-sale': typeof WinterSaleRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
+  '/winter-sale': typeof WinterSaleRoute
   '/cold-plunge/$model': typeof ColdPlungeModelRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/locations/$city': typeof LocationsCityRoute
@@ -148,11 +148,11 @@ export interface FileRoutesByTo {
   '/locations': typeof LocationsRoute
   '/philosophy': typeof PhilosophyRoute
   '/privacy': typeof PrivacyRoute
-  '/winter-sale': typeof WinterSaleRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
+  '/winter-sale': typeof WinterSaleRoute
   '/cold-plunge/$model': typeof ColdPlungeModelRoute
   '/guides/$slug': typeof GuidesSlugRoute
   '/locations/$city': typeof LocationsCityRoute
@@ -169,11 +169,11 @@ export interface FileRoutesById {
   '/locations': typeof LocationsRoute
   '/philosophy': typeof PhilosophyRoute
   '/privacy': typeof PrivacyRoute
-  '/winter-sale': typeof WinterSaleRoute
   '/red-light-therapy': typeof RedLightTherapyRoute
   '/saunas': typeof SaunasRoute
   '/terms': typeof TermsRoute
   '/wellness-spaces': typeof WellnessSpacesRoute
+  '/winter-sale': typeof WinterSaleRoute
   '/cold-plunge_/$model': typeof ColdPlungeModelRoute
   '/guides_/$slug': typeof GuidesSlugRoute
   '/locations_/$city': typeof LocationsCityRoute
@@ -191,11 +191,11 @@ export interface FileRouteTypes {
     | '/locations'
     | '/philosophy'
     | '/privacy'
-    | '/winter-sale'
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
     | '/wellness-spaces'
+    | '/winter-sale'
     | '/cold-plunge/$model'
     | '/guides/$slug'
     | '/locations/$city'
@@ -211,11 +211,11 @@ export interface FileRouteTypes {
     | '/locations'
     | '/philosophy'
     | '/privacy'
-    | '/winter-sale'
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
     | '/wellness-spaces'
+    | '/winter-sale'
     | '/cold-plunge/$model'
     | '/guides/$slug'
     | '/locations/$city'
@@ -231,11 +231,11 @@ export interface FileRouteTypes {
     | '/locations'
     | '/philosophy'
     | '/privacy'
-    | '/winter-sale'
     | '/red-light-therapy'
     | '/saunas'
     | '/terms'
     | '/wellness-spaces'
+    | '/winter-sale'
     | '/cold-plunge_/$model'
     | '/guides_/$slug'
     | '/locations_/$city'
@@ -252,11 +252,11 @@ export interface RootRouteChildren {
   LocationsRoute: typeof LocationsRoute
   PhilosophyRoute: typeof PhilosophyRoute
   PrivacyRoute: typeof PrivacyRoute
-  WinterSaleRoute: typeof WinterSaleRoute
   RedLightTherapyRoute: typeof RedLightTherapyRoute
   SaunasRoute: typeof SaunasRoute
   TermsRoute: typeof TermsRoute
   WellnessSpacesRoute: typeof WellnessSpacesRoute
+  WinterSaleRoute: typeof WinterSaleRoute
   ColdPlungeModelRoute: typeof ColdPlungeModelRoute
   GuidesSlugRoute: typeof GuidesSlugRoute
   LocationsCityRoute: typeof LocationsCityRoute
@@ -322,13 +322,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/winter-sale': {
-      id: '/winter-sale'
-      path: '/winter-sale'
-      fullPath: '/winter-sale'
-      preLoaderRoute: typeof WinterSaleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/red-light-therapy': {
       id: '/red-light-therapy'
       path: '/red-light-therapy'
@@ -355,6 +348,13 @@ declare module '@tanstack/react-router' {
       path: '/wellness-spaces'
       fullPath: '/wellness-spaces'
       preLoaderRoute: typeof WellnessSpacesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/winter-sale': {
+      id: '/winter-sale'
+      path: '/winter-sale'
+      fullPath: '/winter-sale'
+      preLoaderRoute: typeof WinterSaleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cold-plunge_/$model': {
@@ -404,11 +404,11 @@ const rootRouteChildren: RootRouteChildren = {
   LocationsRoute: LocationsRoute,
   PhilosophyRoute: PhilosophyRoute,
   PrivacyRoute: PrivacyRoute,
-  WinterSaleRoute: WinterSaleRoute,
   RedLightTherapyRoute: RedLightTherapyRoute,
   SaunasRoute: SaunasRoute,
   TermsRoute: TermsRoute,
   WellnessSpacesRoute: WellnessSpacesRoute,
+  WinterSaleRoute: WinterSaleRoute,
   ColdPlungeModelRoute: ColdPlungeModelRoute,
   GuidesSlugRoute: GuidesSlugRoute,
   LocationsCityRoute: LocationsCityRoute,
