@@ -80,7 +80,7 @@ export function installClickTracking(): () => void {
     } else if (href.startsWith("mailto:")) {
       trackEvent("email_click", { email: href.slice(7).split("?")[0] });
     } else if (/\.pdf($|\?)/i.test(href)) {
-      const file = href.split("?")[0].split("/").pop() ?? href;
+      const file = (href.split("?")[0] ?? href).split("/").pop() ?? href;
       trackEvent(/catalogue/i.test(file) ? "catalogue_download" : "spec_sheet_download", { file_name: file });
     }
   };
