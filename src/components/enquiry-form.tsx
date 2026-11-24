@@ -9,7 +9,8 @@ import {
   homeStageValues,
   spaceStageValues,
 } from "@/lib/enquiry-schema";
-import { budgetOptions, businessTypes, productInterests, site, whatsappLink } from "@/content/site";
+import { businessTypes, gstRatePercent, productInterests, site, whatsappLink } from "@/content/site";
+import { saunaFromPriceInr } from "@/content/sauna-planning";
 import { cn } from "@/lib/utils";
 import { trackLead } from "@/lib/analytics";
 import { Honeypot } from "@/components/honeypot";
@@ -334,6 +335,10 @@ export function EnquiryForm({
           <FieldError message={errors.homeStage?.message} />
         </div>
       )}
+      {/* No budget question: we state the starting price instead (founder, 24 Nov 2026). */}
+      <p className="text-xs text-muted-foreground">
+        VYRO saunas start from ₹{(saunaFromPriceInr / 100000).toFixed(1)} lakh (MRP, {gstRatePercent}% GST extra).
+      </p>
       {/* Optional details: collapsed to keep the form short, open when a CTA pre-filled the message. */}
       <details open={Boolean(defaultMessage)} className="group border-t border-border pt-4">
         <summary className="cursor-pointer list-none text-xs uppercase tracking-[0.14em] text-muted-foreground hover:text-foreground [&::-webkit-details-marker]:hidden">
@@ -341,18 +346,6 @@ export function EnquiryForm({
           <span className="hidden group-open:inline">− Details (optional)</span>
         </summary>
         <div className="mt-5 space-y-5">
-          <div>
-            <Label htmlFor="c-budget">Approximate Budget (optional)</Label>
-            <select id="c-budget" className={selectClass} {...register("budget")}>
-              <option value="">Prefer not to say</option>
-              {budgetOptions.map((b) => (
-                <option key={b} value={b}>
-                  {b}
-                </option>
-              ))}
-            </select>
-            <FieldError message={errors.budget?.message} />
-          </div>
           <div>
             <Label htmlFor="c-message">Message (optional)</Label>
             <textarea

@@ -123,7 +123,12 @@
   </url>
   <url>
     <loc>https://vyrowellness.in/privacy</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-24</lastmod>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://vyrowellness.in/terms</loc>
+    <lastmod>2026-11-24</lastmod>
     <priority>0.2</priority>
   </url>
 </urlset>

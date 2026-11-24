@@ -51,3 +51,29 @@ describe("The Winter Sale", () => {
     expect(winterSaleLive(Date.parse("2027-01-01T00:00:00+05:30"))).toBe(false);
   });
 });
+
+describe("Terms page and enquiry form (24 Nov 2026)", () => {
+  it("has real terms, not the placeholder, and is indexable", async () => {
+    const fs = await import("node:fs");
+    const terms = fs.readFileSync("src/routes/terms.tsx", "utf8");
+    expect(terms).not.toContain("Placeholder content");
+    expect(terms).not.toContain("noindex: true");
+    expect(terms).toContain("The 50% advance is non-refundable under any circumstances.");
+  });
+
+  it("does not ask for a budget and states the starting price instead", async () => {
+    const fs = await import("node:fs");
+    const form = fs.readFileSync("src/components/enquiry-form.tsx", "utf8");
+    expect(form).not.toContain("c-budget");
+    expect(form).toContain("VYRO saunas start from");
+    const { saunaFromPriceInr } = await import("@/content/sauna-planning");
+    expect((saunaFromPriceInr / 100000).toFixed(1)).toBe("1.5");
+  });
+
+  it("privacy policy mentions no WhatsApp or budget", async () => {
+    const fs = await import("node:fs");
+    const privacy = fs.readFileSync("src/routes/privacy.tsx", "utf8");
+    expect(privacy).not.toMatch(/whatsapp/i);
+    expect(privacy).not.toMatch(/budget/i);
+  });
+});
