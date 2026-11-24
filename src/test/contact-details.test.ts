@@ -1,15 +1,18 @@
 import { describe, expect, it } from "vitest";
 import { site, whatsappLink } from "../content/site";
 
-describe("VYRO contact number", () => {
-  it("uses the confirmed Indian number for calls", () => {
-    expect(site.phoneHref).toBe("tel:+918700015649");
-    expect(site.phoneDisplay.replace(/\D/g, "")).toBe("918700015649");
+// Until the new company number is ready (24 Nov 2026), the site shows email only.
+describe("VYRO contact details", () => {
+  it("shows no phone number", () => {
+    expect(site.phoneHref).toBe("");
+    expect(site.phoneDisplay).toBe("");
   });
 
-  it("sends WhatsApp enquiries to the confirmed number", () => {
-    expect(whatsappLink("Hello VYRO")).toBe(
-      "https://wa.me/918700015649?text=Hello%20VYRO",
-    );
+  it("shows no WhatsApp buttons", () => {
+    expect(whatsappLink("Hello VYRO")).toBeNull();
+  });
+
+  it("keeps the sales email as the main contact", () => {
+    expect(site.email).toBe("sales@vyrowellness.in");
   });
 });

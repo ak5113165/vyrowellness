@@ -99,12 +99,14 @@ function ContactPage() {
                         @{site.instagramHandle}
                       </a>
                     </li>
-                    <li>
-                      Phone:{" "}
-                      <a href={site.phoneHref} className="text-foreground underline underline-offset-4">
-                        {site.phoneDisplay}
-                      </a>
-                    </li>
+                    {site.phoneHref && (
+                      <li>
+                        Phone:{" "}
+                        <a href={site.phoneHref} className="text-foreground underline underline-offset-4">
+                          {site.phoneDisplay}
+                        </a>
+                      </li>
+                    )}
                   </ul>
                   {wa && (
                     <a

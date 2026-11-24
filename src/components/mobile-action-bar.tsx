@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { MessageCircle, Phone } from "lucide-react";
+import { Mail, MessageCircle, Phone } from "lucide-react";
 import { coldPlungeLaunch, site, whatsappLink } from "@/content/site";
 import { cn } from "@/lib/utils";
 
@@ -89,10 +89,17 @@ export function MobileActionBar() {
             WhatsApp
           </a>
         )}
-        <a href={site.phoneHref} className={item}>
-          <Phone className="h-4 w-4" aria-hidden />
-          Call
-        </a>
+        {site.phoneHref ? (
+          <a href={site.phoneHref} className={item}>
+            <Phone className="h-4 w-4" aria-hidden />
+            Call
+          </a>
+        ) : (
+          <a href={`mailto:${site.email}`} className={item}>
+            <Mail className="h-4 w-4" aria-hidden />
+            Email
+          </a>
+        )}
         {hasForm ? (
           <button type="button" onClick={scrollToForm} className={cn(item, "bg-bronze text-ink")}>
             <span className="text-[13px] leading-none" aria-hidden>→</span>

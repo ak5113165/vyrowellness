@@ -63,6 +63,8 @@ export const beforeYouBuyFaqs = [
   },
   {
     q: "How quickly will you reply?",
-    a: `Our team replies to every enquiry ${site.enquiryResponseTime}. You can also reach us on WhatsApp or by phone on ${site.phoneDisplay}.`,
+    a: site.phoneDisplay
+      ? `Our team replies to every enquiry ${site.enquiryResponseTime}. You can also reach us on WhatsApp or by phone on ${site.phoneDisplay}.`
+      : `Our team replies to every enquiry ${site.enquiryResponseTime}. You can also email us at ${site.email}.`,
   },
 ];

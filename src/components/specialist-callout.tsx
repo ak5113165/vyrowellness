@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from "react";
-import { Check, MessageCircle, Phone } from "lucide-react";
+import { Check, Mail, MessageCircle, Phone } from "lucide-react";
 import { phoneSchema } from "@/lib/enquiry-schema";
 import { site, whatsappLink, type productInterests } from "@/content/site";
 import { trackLead } from "@/lib/analytics";
@@ -64,11 +64,11 @@ export function SpecialistCallout({
         trackLead("callback", interest);
       } else {
         setStatus("idle");
-        setError(json?.error ?? "Something went wrong. Please call or WhatsApp us instead.");
+        setError(json?.error ?? `Something went wrong. Please email us at ${site.email} instead.`);
       }
     } catch {
       setStatus("idle");
-      setError("We couldn't send that. Please call or WhatsApp us instead.");
+      setError(`We couldn't send that. Please email us at ${site.email} instead.`);
     }
   };
 
@@ -81,16 +81,26 @@ export function SpecialistCallout({
             Prefer to Talk It Through?
           </h2>
           <p className="mt-4 max-w-lg text-base leading-relaxed text-ink-muted">
-            Our team helps you choose the right setup for your space. Call or WhatsApp us now, or leave your number
-            and we'll call you back {site.enquiryResponseTime}.
+            Our team helps you choose the right setup for your space.{" "}
+            {site.phoneHref || wa ? "Call or WhatsApp us now" : "Email us"}, or leave your number and we'll call you
+            back {site.enquiryResponseTime}.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href={site.phoneHref}
-              className="inline-flex items-center gap-2 rounded-sm border border-ink-foreground/40 px-5 py-3 text-[12px] uppercase tracking-[0.16em] transition-colors hover:bg-ink-foreground hover:text-ink"
-            >
-              <Phone className="h-4 w-4" aria-hidden /> {site.phoneDisplay}
-            </a>
+            {site.phoneHref ? (
+              <a
+                href={site.phoneHref}
+                className="inline-flex items-center gap-2 rounded-sm border border-ink-foreground/40 px-5 py-3 text-[12px] uppercase tracking-[0.16em] transition-colors hover:bg-ink-foreground hover:text-ink"
+              >
+                <Phone className="h-4 w-4" aria-hidden /> {site.phoneDisplay}
+              </a>
+            ) : (
+              <a
+                href={`mailto:${site.email}`}
+                className="inline-flex items-center gap-2 rounded-sm border border-ink-foreground/40 px-5 py-3 text-[12px] tracking-[0.08em] transition-colors hover:bg-ink-foreground hover:text-ink"
+              >
+                <Mail className="h-4 w-4" aria-hidden /> {site.email}
+              </a>
+            )}
             {wa && (
               <a
                 href={wa}

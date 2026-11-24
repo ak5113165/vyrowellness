@@ -105,13 +105,13 @@ export function organizationJsonLd(logoPath: string) {
     url: SITE_URL,
     logo: absoluteUrl(logoPath),
     email: site.salesEmail,
-    telephone: site.phoneHref.replace("tel:", ""),
+    ...(site.phoneHref ? { telephone: site.phoneHref.replace("tel:", "") } : {}),
     sameAs: site.instagramUrl ? [site.instagramUrl] : [],
     contactPoint: [
       {
         "@type": "ContactPoint",
         contactType: "sales",
-        telephone: site.phoneHref.replace("tel:", ""),
+        ...(site.phoneHref ? { telephone: site.phoneHref.replace("tel:", "") } : {}),
         email: site.salesEmail,
         areaServed: "IN",
       },

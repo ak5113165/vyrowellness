@@ -87,7 +87,7 @@ def footer(c, data, page: int, total: int, note: str) -> None:
     c.line(M, 52, W - M, 52)
     c.setFont("Body", 7)
     c.setFillColor(MUTED)
-    c.drawString(M, 40, f"{ct['domain']}   ·   {ct['phone']}   ·   {ct['salesEmail']}")
+    c.drawString(M, 40, "   ·   ".join(x for x in (ct["domain"], ct["phone"], ct["salesEmail"]) if x))
     c.drawRightString(W - M, 40, f"{page} / {total}")
     c.setFont("Body", 6.5)
     c.drawString(M, 29, note)
@@ -232,7 +232,7 @@ def glacier(data, out: Path) -> None:
     para(c, "Register for launch or talk to a specialist", M + 16, y - 14, 300, style("Display", 13, 16, color=IVORY))
     para(
         c,
-        f"Phone / WhatsApp {ct['phone']}<br/>{ct['salesEmail']}  ·  {ct['domain']}/cold-plunge<br/>"
+        (f"Phone / WhatsApp {ct['phone']}<br/>" if ct["phone"] else "") + f"{ct['salesEmail']}  ·  {ct['domain']}/cold-plunge<br/>"
         f"Our team replies {ct['responseTime']}.",
         M + 16, y - 36, 330, style(size=8, color=IVORY, leading=12),
     )
@@ -343,7 +343,7 @@ def haven(data, out: Path) -> None:
     para(c, "Plan your sauna with us", M + 16, y - 14, 300, style("Display", 13, 16, color=IVORY))
     para(
         c,
-        f"Phone / WhatsApp {ct['phone']}<br/>{ct['salesEmail']}  ·  {ct['domain']}/saunas<br/>"
+        (f"Phone / WhatsApp {ct['phone']}<br/>" if ct["phone"] else "") + f"{ct['salesEmail']}  ·  {ct['domain']}/saunas<br/>"
         f"Our team replies {ct['responseTime']}.",
         M + 16, y - 36, 330, style(size=8, color=IVORY, leading=12),
     )

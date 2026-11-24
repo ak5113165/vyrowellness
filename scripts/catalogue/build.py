@@ -836,7 +836,7 @@ def back_cover(b: Book):
     c.setFont("Body", 10)
     c.drawCentredString(W / 2, H - 228, f"Talk to a VYRO wellness consultant. We reply {k['responseTime']}.")
     lines = [
-        ("Phone / WhatsApp", k["phone"]),
+        *([("Phone / WhatsApp", k["phone"])] if k["phone"] else []),
         ("General", k["infoEmail"]),
         ("Sales", k["salesEmail"]),
         ("Support", k["supportEmail"]),

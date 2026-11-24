@@ -12,7 +12,13 @@ describe("customer auto-reply", () => {
     expect(r.text).toContain("about a sauna");
     expect(r.text).toContain(site.enquiryResponseTime);
     expect(r.html).toContain(catalogueUrl);
-    expect(r.text).toContain(site.phoneDisplay);
+    if (site.phoneDisplay) {
+      expect(r.text).toContain(site.phoneDisplay);
+    } else {
+      expect(r.text).toContain("Simply reply to this email.");
+      expect(r.text).not.toContain("Call ");
+      expect(r.html).not.toContain("tel:");
+    }
   });
 
   it("words call-back requests as a call", () => {

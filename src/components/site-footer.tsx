@@ -97,12 +97,14 @@ export function SiteFooter() {
                   {site.supportEmail}
                 </a>
               </li>
-              <li>
-                <span className="text-ink-muted">Phone: </span>
-                <a href={site.phoneHref} className="transition-colors hover:text-ink-foreground">
-                  {site.phoneDisplay}
-                </a>
-              </li>
+              {site.phoneHref && (
+                <li>
+                  <span className="text-ink-muted">Phone: </span>
+                  <a href={site.phoneHref} className="transition-colors hover:text-ink-foreground">
+                    {site.phoneDisplay}
+                  </a>
+                </li>
+              )}
               {wa && (
                 <li>
                   <a
