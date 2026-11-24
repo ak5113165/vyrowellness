@@ -59,7 +59,9 @@ export function buildCustomerReply(lead: Lead): { subject: string; text: string;
     meanwhile,
     `Product catalogue: ${catalogueUrl}`,
     "",
-    `Questions before then? Call ${site.phoneDisplay}${wa ? ` or WhatsApp ${wa}` : ""}, or simply reply to this email.`,
+    site.phoneDisplay
+      ? `Questions before then? Call ${site.phoneDisplay}${wa ? ` or WhatsApp ${wa}` : ""}, or simply reply to this email.`
+      : "Questions before then? Simply reply to this email.",
     "",
     "Warm regards,",
     "Team VYRO Wellness",
@@ -79,7 +81,7 @@ export function buildCustomerReply(lead: Lead): { subject: string; text: string;
 <p style="margin:0 0 16px">${escapeHtml(opening)}</p>
 <p style="margin:0 0 20px;color:#5f5a54">${escapeHtml(meanwhile)}</p>
 <p style="margin:0 0 12px">${button(catalogueUrl, "VIEW CATALOGUE", true)}${wa ? button(wa, "WHATSAPP US", false) : ""}</p>
-<p style="margin:12px 0 0;font-size:13px;color:#5f5a54">Questions before then? Call <a href="${site.phoneHref}" style="color:#8c6a3f">${escapeHtml(site.phoneDisplay)}</a> or simply reply to this email.</p>
+<p style="margin:12px 0 0;font-size:13px;color:#5f5a54">${site.phoneHref ? `Questions before then? Call <a href="${site.phoneHref}" style="color:#8c6a3f">${escapeHtml(site.phoneDisplay)}</a> or simply reply to this email.` : "Questions before then? Simply reply to this email."}</p>
 <p style="margin:24px 0 0">Warm regards,<br>Team VYRO Wellness</p>
 </td></tr>
 <tr><td style="padding:16px 28px;border-top:1px solid #eee6da;font-size:12px;color:#5f5a54"><a href="${siteUrl}" style="color:#5f5a54">www.${escapeHtml(site.domain)}</a> &nbsp;·&nbsp; ${escapeHtml(site.infoEmail)}</td></tr>

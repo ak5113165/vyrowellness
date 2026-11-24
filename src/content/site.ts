@@ -23,8 +23,8 @@ export const site = {
   announcementLink: "/cold-plunge" as const,
 
   // WhatsApp business number, international format, digits only.
-  // Leave "" to hide all WhatsApp buttons.
-  whatsappNumber: "918700015649",
+  // Leave "" to hide all WhatsApp buttons. Hidden for now (24 Nov 2026): email only.
+  whatsappNumber: "",
 
   domain: "vyrowellness.in",
   infoEmail: "info@vyrowellness.in",
@@ -32,8 +32,10 @@ export const site = {
   supportEmail: "support@vyrowellness.in",
   // Primary public email (sales enquiries).
   email: "sales@vyrowellness.in",
-  phoneDisplay: "+91 87000 15649",
-  phoneHref: "tel:+918700015649",
+  // Public phone number. Leave both "" to hide every phone link and Call button.
+  // Hidden for now (24 Nov 2026): the site shows email only.
+  phoneDisplay: "",
+  phoneHref: "",
   // Confirmed by the founder (8 Nov 2026): the team replies to every enquiry within 24 hours.
   enquiryResponseTime: "within 24 hours",
 

@@ -33,7 +33,7 @@ function cityFaqs(c: CityPage) {
     },
     {
       q: "How do I get started?",
-      a: `Send an enquiry or message us on WhatsApp. A VYRO wellness consultant will reply ${site.enquiryResponseTime} to understand your space and recommend the right set-up.`,
+      a: `Send an enquiry${site.whatsappNumber ? " or message us on WhatsApp" : ` or email ${site.email}`}. A VYRO wellness consultant will reply ${site.enquiryResponseTime} to understand your space and recommend the right set-up.`,
     },
     {
       q: "What do I need for a cold plunge at home?",
@@ -68,7 +68,7 @@ export const Route = createFileRoute("/locations_/$city")({
           "@type": "Service",
           name: `Sauna and cold plunge installation in ${c.city}`,
           serviceType: "Sauna and cold plunge supply and installation",
-          provider: { "@type": "Organization", name: "VYRO Wellness", url: absoluteUrl("/"), telephone: site.phoneHref.replace("tel:", "") },
+          provider: { "@type": "Organization", name: "VYRO Wellness", url: absoluteUrl("/"), ...(site.phoneHref ? { telephone: site.phoneHref.replace("tel:", "") } : {}) },
           areaServed: [{ "@type": "City", name: c.city }, ...c.areas.map((a) => ({ "@type": "Place", name: a }))],
           url: absoluteUrl(path),
         },
