@@ -41,7 +41,9 @@ describe("The Winter Sale", () => {
     expect(full).toContain("7–10 working days");
     expect(full).toContain("cannot be combined with any other offer");
     expect(full).toContain("charged as per your quote");
-    expect(full).toContain("1-year on-site warranty");
+    expect(full).toContain("1-year comprehensive warranty on the sauna heater");
+    expect(full).toContain("6-month warranty against workmanship defects on the sauna woodwork");
+    expect(full).not.toContain("1-year on-site warranty");
     // Removed at the founder's request — must not come back.
     expect(full).not.toMatch(/money-back|money back|token advance|price protection|price shall remain locked/i);
   });

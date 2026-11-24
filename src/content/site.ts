@@ -161,7 +161,7 @@ export const winterSaleFullTerms: { title: string; points: string[] }[] = [
   {
     title: "Warranty",
     points: [
-      "1-year on-site warranty on the product, excluding consumables, starting from the date of final handover.",
+      `${afterSales.heaterComprehensiveWarrantyYears}-year comprehensive warranty on the sauna heater and a ${afterSales.woodworkWorkmanshipMonths}-month warranty against workmanship defects on the sauna woodwork, excluding consumables, both starting from the date of final handover.`,
       "10-year customer support assurance for the availability of spares, stock and technical assistance, chargeable as per the applicable service schedule.",
     ],
   },
