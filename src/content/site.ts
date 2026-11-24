@@ -274,16 +274,6 @@ export const businessTypes = [
   "Other",
 ] as const;
 
-// PLACEHOLDER — indicative budget buckets for the optional budget field.
-// Adjust or remove to match how your team qualifies enquiries.
-export const budgetOptions = [
-  "Under ₹1 lakh",
-  "₹1–3 lakh",
-  "₹3–10 lakh",
-  "Above ₹10 lakh",
-  "Not sure yet",
-] as const;
-
 export function whatsappLink(message: string): string | null {
   if (!site.whatsappNumber) return null;
   return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;

@@ -23,7 +23,7 @@ export const Route = createFileRoute("/privacy")({
 // that changes (new tracking, payments, new forms),
 // update this page in the same change. Once the company is incorporated, add
 // the registered name and address in "Who We Are".
-const LAST_UPDATED = "16 November 2026";
+const LAST_UPDATED = "24 November 2026";
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -84,11 +84,11 @@ function PrivacyPage() {
               <p>When you send an enquiry or ask for a call back, we collect:</p>
               <List
                 items={[
-                  "your name and mobile (WhatsApp) number;",
+                  "your name and mobile number;",
                   "your email address, if you give one;",
                   "your city;",
                   "what you are interested in, such as a sauna, cold plunge or complete wellness space, and whether it is for a home or a business;",
-                  "your project stage and budget range, if you choose them;",
+                  "your project stage, if you choose it;",
                   "any message or project description you write;",
                   "for business enquiries, your business name and type;",
                   "which page of the website you sent the form from.",
@@ -104,7 +104,7 @@ function PrivacyPage() {
               <p>
                 We use Google Analytics to understand how visitors use the site: which pages are
                 viewed, roughly where visits come from (city level), the type of device, and actions
-                such as sending a form, tapping WhatsApp or call, or downloading a brochure. Google
+                such as sending a form, tapping an email link, or downloading a brochure. Google
                 Analytics uses cookies and similar identifiers to do this. It does not receive the
                 details you type into our forms. You can block it with your browser's cookie
                 settings, or with Google's opt-out add-on at tools.google.com/dlpage/gaoptout.
@@ -114,7 +114,7 @@ function PrivacyPage() {
             <Section title="Why We Use It">
               <List
                 items={[
-                  "To reply to your enquiry by phone, WhatsApp or email, and send you an automatic confirmation email if you gave your email address.",
+                  "To reply to your enquiry by email (or call you back if you asked us to), and send you an automatic confirmation email if you gave your email address.",
                   "To recommend products, plan your space and prepare quotations.",
                   "To follow up on the enquiry you made, and to arrange site visits, installation and after-sales service if you go ahead.",
                   "To see which pages and channels bring enquiries, so we can improve the website.",
@@ -144,8 +144,7 @@ function PrivacyPage() {
                   "Resend, which sends the email alert to our sales team and your confirmation email;",
                   "Zoho Mail, which hosts our company email inbox;",
                   "Google Fonts, which supplies the website's typefaces and receives your IP address when a page loads;",
-                  "Google Analytics, which measures visits and the actions described above;",
-                  "WhatsApp, only if you choose to message us there.",
+                  "Google Analytics, which measures visits and the actions described above.",
                 ]}
               />
               <p>
