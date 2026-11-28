@@ -15,6 +15,7 @@
 - [x] Cold Plunge: cinematic dusk hero with a person taking the plunge, VYRO Acrylic tub and 1HP chiller
 
 ## In progress
+- [ ] Create two additional informational sauna reels, each at least 15 seconds, using confirmed website facts and sourced sauna safety advice
 - [ ] Cold Plunge: reference-inspired cold therapy section, India/Delhi manufacturing, 1 January launch and initial Tier 1 city coverage
 - [ ] Founder story based on confirmed personal journey
 - [ ] Per-product technical specifications based on supplied manufacturer details
